@@ -33,8 +33,9 @@
 #include <QWidget>
 
 #include "basemodel.h"
+#include "uci.h"
 
-static BaseModel basemodel;
+extern BaseModel basemodel;
 
 class MainWindow : public QMainWindow
 {
@@ -43,6 +44,10 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    // The engine, as exe and its thread
+    UCI uci;
+    QThread uciThread;
 
 private:
     BoardView *boardview;
@@ -69,6 +74,9 @@ private:
     QLineEdit *opp1, *opp2, *loca, *round, *date;
     QHBoxLayout *location;
 
+    int row = 0, column = 0;
+    void addMoveToList();
+
 public slots:
     void open();
     void save();
@@ -80,5 +88,7 @@ public slots:
     void leftPressed();
     void rightPressed();
     void rrightPressed();
+public slots:
+    void game(int fromX, int fromY, int toX, int toY, int sender);
 };
 #endif // MAINWINDOW_H

@@ -146,6 +146,16 @@ MainWindow::MainWindow(QWidget *parent)
     addDockWidget(Qt::RightDockWidgetArea, dockWidget);
 
     statusBar()->showMessage(tr("Ready"));
+
+    uci.moveToThread(&uciThread);
+    qDebug() << "Starting uci engine in extra thread";
+    uci.start();
+    uciThread.start();
+
+    connect(&uci, SIGNAL(updateView(int, int, int, int, int)), SLOT(game(int, int, int, int, int)));
+    connect(boardview,
+            SIGNAL(updateView(int, int, int, int, int)),
+            SLOT(game(int, int, int, int, int)));
 }
 
 void MainWindow::open()
@@ -316,7 +326,7 @@ void MainWindow::settings()
 
 void MainWindow::enginestarts()
 {
-    //uci.engineGo();
+    uci.engineGo();
 }
 
 void MainWindow::newgame()
@@ -346,4 +356,66 @@ void MainWindow::rrightPressed()
     QMessageBox::information(this, "Information", "Noch nicht implementiert");
 }
 
-MainWindow::~MainWindow() {}
+// sender = -1 -> model
+// sender = 0 -> human
+// sender = 1 -> uci
+void MainWindow::game(int fromX, int fromY, int toX, int toY, int sender)
+{
+    int l_fx = fromX;
+    int l_fy = fromY;
+    int l_tx = toX;
+    int l_ty = toY;
+    qDebug() << l_fx << l_fy << l_tx << l_ty;
+    qDebug() << "sender:" << sender;
+    switch (sender) {
+    case -1:
+        break;
+    case 0:
+
+        //basemodel.currentMove++;
+
+        //basemodel.board.movePiece(fromX, fromY, toX, toY);
+        uci.move(l_fy, l_fx, l_ty, l_tx);
+        addMoveToList();
+        uci.engineGo();
+
+        break;
+    case 1:
+        //basemodel.currentMove++;
+        basemodel.board.movePiece(fromY, fromX, toY, toX);
+        repaint();
+        qDebug() << "from: " << fromX << fromY << "to: " << toX << toY;
+        addMoveToList();
+
+        break;
+    default:
+        qDebug() << "Error in game";
+        break;
+    }
+
+    //row++;
+
+    repaint();
+}
+
+void MainWindow::addMoveToList()
+{
+    QString mv = QString(uci.moves.split(' ').last());
+
+    QStandardItem *item = new QStandardItem(mv);
+
+    if (column % 2 == 0) {
+        model->setItem(column / 2, 0, item);
+    }
+    if (column % 2 == 1) {
+        model->setItem(column / 2, 1, item);
+    }
+    column++;
+    //delete item;
+}
+
+MainWindow::~MainWindow()
+{
+    uciThread.quit();
+    uciThread.wait();
+}

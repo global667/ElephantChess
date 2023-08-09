@@ -3,6 +3,8 @@
 
 #include <QPainter>
 
+extern BaseModel basemodel;
+
 BoardView::BoardView(QWidget *parent)
     : QWidget{parent}
 {
@@ -108,20 +110,30 @@ void BoardView::paintBoard(QPainter *p)
 
 void BoardView::paintPieces(QPainter *p)
 {
-    auto j = 0;
     auto w = p->viewport().width();
     auto h = p->viewport().height();
-    QImage i = QImage(":/res/rookRed.png");
-    for (int j = 0; j < 90; j++) {
-        p->drawImage(QRect((50 + ((j % 9) * (w - 2 * 50) / cutp_width)) - w / cutp_width / 2 / 1.5,
-                           (50 + (j / 9) * (h - 50 - 100) / cutp_height) - h / cutp_width / 2 / 1.5,
-                           w / (cutp_width) / 1.5,
-                           h / cutp_width / 1.5),
-                     basemodel.board.pieces[j / 9][j % 9].img);
-        //qDebug() << j << j / 9 << j % 9;
-        //qDebug() << basemodel.board.pieces[0][0].img;
-        //qDebug() << basemodel.board.pieces[j % 9][j / 9].pos.col;
+    for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < 9; i++) {
+            p->drawImage(QRect((50 + ((8 - i) * (w - 2 * 50) / cutp_width))
+                                   - w / cutp_width / 2 / 1.5,
+                               (50 + (9 - j) * (h - 50 - 100) / cutp_height)
+                                   - h / cutp_width / 2 / 1.5,
+                               w / (cutp_width) / 1.5,
+                               h / cutp_width / 1.5),
+                         basemodel.board.pieces[j][8 - i].img);
+            //qDebug() << j << j / 9 << j % 9;
+            //qDebug() << basemodel.board.pieces[0][0].img;
+            //qDebug() << basemodel.board.pieces[j % 9][j / 9].pos.col;
+        }
     }
+    /*
+    p->drawImage(QRect((50 + ((fromCol - 1) * (w - 2 * 50) / cutp_width)) - w / cutp_width / 2 / 1.5,
+                       (50 + (fromRow - 1) * (h - 50 - 100) / cutp_height)
+                           - h / cutp_width / 2 / 1.5,
+                       w / (cutp_width) / 1.5,
+                       h / cutp_width / 1.5),
+                 QImage(":res/rookRed.png"));
+*/
     //paint Dots
     /*    qDebug() << "count of moves to dot:" << piece_moves.size();
     for (auto move : piece_moves) {
@@ -141,14 +153,15 @@ void BoardView::paintPieces(QPainter *p)
 void BoardView::mousePressEvent(QMouseEvent *event)
 {
     qDebug() << "mousePressEvent";
-    auto squareCol = round((width() - 2 * 50) / BaseModel::BoardColPoints);
-    auto squareRow = round((height() - 50 - 100) / BaseModel::BoardRowPoints);
+    auto squareCol = (width() - 2 * 50) / BaseModel::BoardColPoints;
+    auto squareRow = (height() - 50 - 100) / BaseModel::BoardRowPoints;
     auto boardCursorCol = event->pos().x();
     auto boardCursorRow = event->pos().y();
 
     if (!pressed) {
-        fromCol = static_cast<int>((50 + boardCursorCol) / squareCol) - 1;
-        fromRow = static_cast<int>((50 + boardCursorRow) / squareRow) - 1;
+        fromCol = static_cast<int>((50 + boardCursorCol) / squareCol);
+        fromRow = static_cast<int>((((50 + boardCursorRow) / squareRow)));
+        qDebug() << "from: " << fromCol << fromRow;
         /*
         auto curr_color = ((Widget *) parentWidget())
                               ->boardmodel.movGen.getColor(
@@ -171,16 +184,18 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         pressed = true;
 
     } else if (pressed) {
-        toCol = static_cast<int>(((50 + boardCursorCol) / squareCol)) - 1;
-        toRow = static_cast<int>(((50 + boardCursorRow) / squareRow)) - 1;
+        toCol = static_cast<int>((((50 + boardCursorCol) / squareCol)));
+        toRow = static_cast<int>((((50 + boardCursorRow) / squareRow)));
+        qDebug() << "to: " << toCol << toRow;
         pressed = false;
-        qDebug() << "mousePressEvent: " << fromRow << fromCol << toRow << toCol;
-        if (basemodel.board.isLegalMove(fromRow, fromCol, toRow, toCol)) {
-            basemodel.board.movePiece(fromRow, fromCol, toRow, toCol);
+        //qDebug() << "mousePressEvent: " << fromRow - 2 << 10 - fromCol << toRow - 2 << 10 - toCol;
+        if (basemodel.board.isLegalMove(fromRow - 1, fromCol - 1, toRow - 1, toCol - 1)) {
+            basemodel.board.movePiece(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1);
+            emit updateView(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1, 0);
         } else {
             qDebug() << "Illegal move";
         }
-        //basemodel.board.movePiece(fromRow, fromCol, toRow, toCol);
+        // coordinates needed?
     }
     repaint();
 }

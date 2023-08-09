@@ -38,6 +38,7 @@ private:
     const int cutp_height = BaseModel::BoardRowPoints; //9;
 
 signals:
+    void updateView(int, int, int, int, int);
 };
 
 #endif // BOARDVIEW_H

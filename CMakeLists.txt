@@ -28,6 +28,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         boardview.h boardview.cpp
         basemodel.h basemodel.cpp
         res.qrc
+        uci.cpp uci.h
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET XiangQi APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

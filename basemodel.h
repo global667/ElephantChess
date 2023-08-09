@@ -1,10 +1,12 @@
 #ifndef BASEMODEL_H
 #define BASEMODEL_H
 
+#include <QDebug>
 #include <QImage>
 #include <QList>
 #include <QObject>
 #include <QPair>
+
 // A chinese chess board in ascii
 //    a b c d e f g h i
 //    -------------------
@@ -146,13 +148,14 @@ public:
     void movePiece(int fromRow, int fromCol, int toRow, int toCol)
     {
         Piece piece = pieces[fromRow][fromCol];
-        pieces[fromRow][fromCol] = Piece(Color::Red,
-                                         PieceType::Empty,
-                                         {fromRow, fromCol},
-                                         QImage(nullptr));
+        pieces[fromRow][fromCol] = Piece(Color::Red, PieceType::Empty, {fromRow, fromCol}, QImage());
         piece.pos.row = toRow;
         piece.pos.col = toCol;
+
         pieces[toRow][toCol] = piece;
+        qDebug() << "Moved piece from " << fromRow << "," << fromCol << " to " << toRow << ","
+                 << toCol << Qt::endl;
+        qDebug() << "From image: " << piece.img << Qt::endl;
     };
 
     Piece pieces[ROWS][COLS];
@@ -194,6 +197,8 @@ public:
     // a class that holds all board data
     Board board;
     Board board_copy;
+
+    int currentMove = 0;
 
 signals:
 };

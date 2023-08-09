@@ -318,3 +318,5 @@ bool Board::isValidMove(Position from, Position to, Color currentPlayerColor)
 
     //return false;
 }
+//Q_GLOBAL_STATIC(BaseModel, basemodel)
+BaseModel basemodel;
