@@ -324,7 +324,11 @@ void MainWindow::settings()
 
 void MainWindow::enginestarts()
 {
-    uci.engineGo();
+    if (uciThread.isRunning()) {
+        uciThread.quit();
+    } else {
+        uciThread.start();
+    }
 }
 
 void MainWindow::newgame()
@@ -373,23 +377,21 @@ void MainWindow::game(int fromX, int fromY, int toX, int toY, int sender)
     case -1:
         break;
     case 0:
-
-        //basemodel.currentMove++;
-
+        basemodel.currentMove++;
         //basemodel.board.movePiece(fromX, fromY, toX, toY);
         uci.move(l_fy, l_fx, l_ty, l_tx);
         addMoveToList();
         addMoveToHistory();
+        basemodel.board.toggleOnMove();
         uci.engineGo();
-
         break;
     case 1:
-        //basemodel.currentMove++;
+        basemodel.currentMove++;
         basemodel.board.movePiece(fromY, fromX, toY, toX);
         repaint();
         qDebug() << "from: " << fromX << fromY << "to: " << toX << toY;
         addMoveToList();
-
+        basemodel.board.toggleOnMove();
         break;
     default:
         qDebug() << "Error in game";

@@ -4,6 +4,8 @@
 #include <QPainter>
 
 extern BaseModel basemodel;
+extern Position glfrom;
+extern Position glto;
 
 BoardView::BoardView(QWidget *parent)
     : QWidget{parent}
@@ -108,6 +110,7 @@ void BoardView::paintBoard(QPainter *p)
     }
 }
 
+// Paint from upper left!
 void BoardView::paintPieces(QPainter *p)
 {
     auto w = p->viewport().width();
@@ -125,6 +128,34 @@ void BoardView::paintPieces(QPainter *p)
             //qDebug() << basemodel.board.pieces[0][0].img;
             //qDebug() << basemodel.board.pieces[j % 9][j / 9].pos.col;
         }
+    }
+
+    //if (pressed) {
+    // Paint the selected piece specials
+
+    qDebug() << "glfrom, glto" << glfrom.col << glfrom.row << glto.col << glto.row;
+
+    if (pressed) {
+        QPen pen;
+        pen.setColor(Qt::red);
+        pen.setWidth(5);
+        p->setPen(pen);
+        p->drawEllipse(
+            QRect((50 + (((glfrom.col)) * (w - 2 * 50) / cutp_width)) - w / cutp_width / 2 / 1.5,
+                  (50 + (9 - (glfrom.row)) * (h - 50 - 100) / cutp_height)
+                      - h / cutp_width / 2 / 1.5,
+                  w / (cutp_width) / 1.5,
+                  h / cutp_width / 1.5));
+    } else {
+        QPen pen;
+        pen.setColor(Qt::blue);
+        pen.setWidth(5);
+        p->setPen(pen);
+        p->drawEllipse(
+            QRect((50 + (((glto.col)) * (w - 2 * 50) / cutp_width)) - w / cutp_width / 2 / 1.5,
+                  (50 + (9 - (glto.row)) * (h - 50 - 100) / cutp_height) - h / cutp_width / 2 / 1.5,
+                  w / (cutp_width) / 1.5,
+                  h / cutp_width / 1.5));
     }
     /*
     p->drawImage(QRect((50 + ((fromCol - 1) * (w - 2 * 50) / cutp_width)) - w / cutp_width / 2 / 1.5,
@@ -161,14 +192,20 @@ void BoardView::mousePressEvent(QMouseEvent *event)
     if (!pressed) {
         fromCol = static_cast<int>((50 + boardCursorCol) / squareCol);
         fromRow = static_cast<int>((((50 + boardCursorRow) / squareRow)));
-        qDebug() << "from: " << fromCol << fromRow;
         pressed = true;
+        if (basemodel.board.pieces[10 - fromRow][fromCol - 1].type == PieceType::Empty)
+            return;
+        if (basemodel.board.pieces[10 - fromRow][fromCol - 1].color != basemodel.board.onMove)
+            return;
+        qDebug() << "from: " << fromCol << fromRow;
+        glfrom.col = fromCol - 1;
+        glfrom.row = 10 - fromRow;
+
     } else if (pressed) {
         toCol = static_cast<int>((((50 + boardCursorCol) / squareCol)));
         toRow = static_cast<int>((((50 + boardCursorRow) / squareRow)));
         qDebug() << "to: " << toCol << toRow;
         pressed = false;
-        //qDebug() << "mousePressEvent: " << fromRow - 2 << 10 - fromCol << toRow - 2 << 10 - toCol;
 
         basemodel.board_copy = basemodel.board;
         if (basemodel.board_copy.isLegalMove(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1)) {
@@ -176,30 +213,19 @@ void BoardView::mousePressEvent(QMouseEvent *event)
             if (basemodel.board_copy.isCheck(
                     basemodel.board_copy.getColor({10 - toRow, toCol - 1}))) {
                 qDebug() << "check";
-                //basemodel.board_copy = basemodel.board;
                 return;
             }
             if (basemodel.board_copy.isCheckmate(
                     basemodel.board_copy.getColor({10 - toRow, toCol - 1}))) {
                 qDebug() << "checkmate";
-                //basemodel.board_copy = basemodel.board;
                 return;
             }
             basemodel.board = basemodel.board_copy;
             emit updateView(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1, 0);
         } else {
             qDebug() << "illegal move";
-            //basemodel.board_copy = basemodel.board;
             return;
         }
-        /*       if (basemodel.board.isLegalMove(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1)
-            && !basemodel.board.isCheck(basemodel.board.getColor({10 - fromRow, fromCol - 1}))
-            && !basemodel.board.isCheckmate(basemodel.board.getColor({10 - fromRow, fromCol - 1}))) {
-            basemodel.board.movePiece(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1);
-            emit updateView(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1, 0);
-        } else {
-            qDebug() << "Illegal move";
-        }*/
     }
 
     repaint();

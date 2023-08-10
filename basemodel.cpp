@@ -170,6 +170,7 @@ bool Board::isValidCannonMove(Position from, Position to, Color color)
     return false;
 }
 
+// TODO: Walk before the river is buggy, can do a sidewalk shouldn't so.
 // Check if the Soldier can move to the target position
 bool Board::isValidSoldierMove(Position from, Position to, Color color)
 {
@@ -343,3 +344,4 @@ bool Board::isValidMove(Position from, Position to, Color currentPlayerColor)
 }
 //Q_GLOBAL_STATIC(BaseModel, basemodel)
 BaseModel basemodel;
+Position glfrom, glto;

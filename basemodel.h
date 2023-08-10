@@ -35,6 +35,8 @@ struct Position
     int col;
 };
 
+extern Position glfrom, glto;
+
 // class Piece
 class Piece
 {
@@ -152,11 +154,25 @@ public:
         piece.pos.row = toRow;
         piece.pos.col = toCol;
 
+        glfrom = {fromRow, fromCol};
+        glto = {toRow, toCol};
+
         pieces[toRow][toCol] = piece;
+
         qDebug() << "Moved piece from " << fromRow << "," << fromCol << " to " << toRow << ","
                  << toCol << Qt::endl;
         qDebug() << "From image: " << piece.img << Qt::endl;
     };
+
+    void toggleOnMove()
+    {
+        if (onMove == Color::Red) {
+            onMove = Color::Black;
+        } else {
+            onMove = Color::Red;
+        }
+    };
+    Color onMove = Color::Red;
 
     Piece pieces[ROWS][COLS];
 
