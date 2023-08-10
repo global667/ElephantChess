@@ -18,7 +18,7 @@ bool Board::isVacantOrOpponent(int row, int col, Color color)
         return false;
     return (pieces[row][col].type == PieceType::Empty || pieces[row][col].color != color);
 }
-
+// TODO: Boeser BLick
 // Check if the General can move to the target position
 bool Board::isValidGeneralMove(Position from, Position to, Color color)
 {
@@ -74,6 +74,7 @@ bool Board::isValidHorseMove(Position from, Position to, Color color)
 {
     int dx = to.row - from.row;
     int dy = to.col - from.col;
+    qDebug() << "(dx * dx + dy * dy) = " << (dx * dx + dy * dy);
 
     if ((dx * dx + dy * dy) == 5) {
         // Check if the position between from and to is vacant
@@ -86,18 +87,37 @@ bool Board::isValidHorseMove(Position from, Position to, Color color)
     }
     return false;
 }
+//(to.row == 0 && to.col == 2) || (to.row == 2 && to.col == 4)
+//    || (to.row == 2 && to.col == 0) || (to.row == 4 && to.col == 2);
 
 // Check if the Elephant can move to the target position
+/*
 bool Board::isValidElephantMove(Position from, Position to, Color color)
 {
     int dx = to.row - from.row;
     int dy = to.col - from.col;
 
     if (color == Color::Red) {
-        return (to.row >= 0 && to.row <= 4 && to.col >= 0 && to.col <= 8 && (dx * dx + dy * dy) == 8
+        return (to.row >= 5 && to.row <= 9 && to.col >= 0 && to.col <= 8 && (dx * dx + dy * dy) == 8
                 && isVacantOrOpponent(from.row + dx / 2, from.col + dy / 2, color));
+
     } else {
         return (to.row >= 5 && to.row <= 9 && to.col >= 0 && to.col <= 8 && (dx * dx + dy * dy) == 8
+                && isVacantOrOpponent(from.row + dx / 2, from.col + dy / 2, color));
+    }
+}
+*/
+bool Board::isValidElephantMove(Position from, Position to, Color color)
+{
+    qDebug() << "Elephant: from to: " << from.row << from.col << to.row << to.col;
+    int dx = to.row - from.row;
+    int dy = to.col - from.col;
+    qDebug() << "(dx * dx + dy * dy) = " << (dx * dx + dy * dy);
+    if (color == Color::Black) {
+        return (to.row >= 5 && to.row <= 9 && to.col >= 0 && to.col <= 8 && (dx * dx + dy * dy) == 8
+                && isVacantOrOpponent(from.row + dx / 2, from.col + dy / 2, color));
+    } else {
+        return (to.row >= 0 && to.row <= 4 && to.col >= 0 && to.col <= 8 && (dx * dx + dy * dy) == 8
                 && isVacantOrOpponent(from.row + dx / 2, from.col + dy / 2, color));
     }
 }
@@ -174,6 +194,7 @@ bool Board::isValidSoldierMove(Position from, Position to, Color color)
     }
     return false;
 };
+// TODO: Boeser Blick
 // Generate all legal moves for the current player from the given board position
 std::vector<std::pair<Position, Position>> Board::generateLegalMoves(Color currentPlayerColor)
 {

@@ -14,7 +14,7 @@ UCI::UCI(QObject *parent)
     engine.setProgram("/eleeye.old.exe");
     engine.setReadChannel(QProcess::StandardOutput);
 
-    engine.start(QIODevice::Text | QIODevice::ReadWrite);
+    //engine.start(QIODevice::Text | QIODevice::ReadWrite);
     engine.waitForStarted();
 
     // Wait for the engine to be ready

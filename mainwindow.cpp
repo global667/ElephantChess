@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 
+//#include "Config.h"
+#include <PGNGame.h>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -147,10 +150,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     statusBar()->showMessage(tr("Ready"));
 
-    uci.moveToThread(&uciThread);
-    qDebug() << "Starting uci engine in extra thread";
-    uci.start();
-    uciThread.start();
+    //uci.moveToThread(&uciThread);
+    //qDebug() << "Starting uci engine in extra thread";
+    //uci.start();
+    //uciThread.start();
 
     connect(&uci, SIGNAL(updateView(int, int, int, int, int)), SLOT(game(int, int, int, int, int)));
     connect(boardview,
@@ -160,7 +163,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::open()
 {
-    /*   auto openFile = QFileDialog::getOpenFileName(this, tr("Datei öffnen"));
+    auto openFile = QFileDialog::getOpenFileName(this, tr("Datei öffnen"));
     statusBar()->showMessage(tr("Öffne Datei: ") + openFile);
     //QMessageBox::information(this, "Information", "Noch nicht implementiert");
 
@@ -168,7 +171,7 @@ void MainWindow::open()
         statusBar()->showMessage(tr("Lade Datei: fehlgeschlagen"));
         return;
     }
-    QFile opfile(openFile);
+    /* QFile opfile(openFile);
     if (!opfile.open(QIODeviceBase::ReadOnly | QIODeviceBase::Text)) {
         statusBar()->showMessage(tr("Lade Datei: Öffnen fehlgeschlagen"));
         return;
@@ -187,15 +190,20 @@ void MainWindow::open()
    */
 
     // TODO: Remove pgnLib dependence
-    /*
+
     std::ifstream pgnfile(openFile.toLatin1());
+    qDebug() << "Open pgn" << &pgnfile;
     pgn::Game game;
+    qDebug() << "game" << game.moves().size();
+
     //QString str;
     //QTextStream textstream(&opfile);
     //str = textstream.readAll();
     //uci.moves = str.simplified();
     // collecting games from file
     pgnfile >> game;
+
+    qDebug() << "Game: " << game.moves().size();
 
     // TODO: Read tags too
     //for (auto i = game.tags().begin(); i != game.tags().end(); i++) {
@@ -227,19 +235,15 @@ void MainWindow::open()
     uci.moves.removeLast();
 
     qDebug() << uci.moves;
-    opfile.close();
+    //opfile.close();
 
     statusBar()->showMessage(tr("Lade Datei: ") + openFile);
     int c = 0;
-    boardmodel.initPieces();
+    basemodel.board.initBoard();
     update();
     int i = 0;
-    /*    while (i < 30000) {
-        i++;
-        qDebug() << i;
-    }
-*/
-    /*    QStandardItem *item;
+
+    QStandardItem *item;
     for (QString &item1 : uci.moves.split(' ', Qt::SkipEmptyParts)) {
         item = new QStandardItem(item1);
         if (c % 2 == 0)
@@ -247,11 +251,6 @@ void MainWindow::open()
         if (c % 2 == 1)
             model->setItem(c / 2, 1, item);
         c++;
-        int i = 0;
-        while (i < 30000) {
-            i++;
-            //qDebug() << i;
-        }
 
         qDebug() << item1.at(0).toLatin1();
         auto fx = ((char) item1.at(0).toLatin1()) - 'a';
@@ -259,16 +258,15 @@ void MainWindow::open()
         auto fy = 9 - (item1.at(1).digitValue());
         auto tx = ((char) item1.at(2).toLatin1()) - 'a';
         auto ty = 9 - (item1.at(3).digitValue());
-        boardmodel.updatePieces(fx, fy, tx, ty);
+        basemodel.board.movePiece(9 - fy, 8 - fx, 9 - ty, 8 - tx);
     }
     column = c;
     update();
-*/
 }
 
 void MainWindow::save()
 {
-    /*    auto saveFile = QFileDialog::getSaveFileName(this, tr("Datei speichern"));
+    auto saveFile = QFileDialog::getSaveFileName(this, tr("Datei speichern"));
 
     if (saveFile.isNull()) {
         statusBar()->showMessage(tr("Speichere Datei: fehlgeschlagen"));
@@ -279,6 +277,7 @@ void MainWindow::save()
         statusBar()->showMessage(tr("Speichere Datei: Öffnen fehlgeschlagen"));
         return;
     }
+
     QTextStream textstream(&svfile);
 
     textstream << "[Event \"" << loca->text() << "\"]\n";
@@ -292,8 +291,8 @@ void MainWindow::save()
 
     int i = 0;
     for (const auto &m : uci.moves.split(' ')) {
-        if (++i % 2 == 0)
-            textstream << QString("%1.").arg(i / 2);
+        if (++i % 2 == 1)
+            textstream << QString("%1.").arg((i / 2) + 1);
         textstream << m << " ";
     }
 
@@ -302,7 +301,6 @@ void MainWindow::save()
     svfile.close();
 
     statusBar()->showMessage(tr("Speichere Datei: ") + saveFile);
-*/
 }
 
 void MainWindow::settings()

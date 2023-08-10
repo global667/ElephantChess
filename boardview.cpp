@@ -189,12 +189,14 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         qDebug() << "to: " << toCol << toRow;
         pressed = false;
         //qDebug() << "mousePressEvent: " << fromRow - 2 << 10 - fromCol << toRow - 2 << 10 - toCol;
-        if (basemodel.board.isLegalMove(fromRow - 1, fromCol - 1, toRow - 1, toCol - 1)) {
+        if (basemodel.board.isLegalMove(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1)
+            || !basemodel.board.isCheck(basemodel.board.getColor({10 - fromRow, fromCol - 1}))) {
             basemodel.board.movePiece(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1);
             emit updateView(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1, 0);
         } else {
             qDebug() << "Illegal move";
         }
+
         // coordinates needed?
     }
     repaint();
