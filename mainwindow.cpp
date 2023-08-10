@@ -22,10 +22,10 @@ MainWindow::MainWindow(QWidget *parent)
     navigationview = new QWidget(navigationwidget);
 
     // navigation buttons
-    lleft = new QPushButton("<<-");
+    lleft = new QPushButton("|<-");
     left = new QPushButton("<-");
     right = new QPushButton("->");
-    rright = new QPushButton("-->");
+    rright = new QPushButton("->|");
     connect(lleft, SIGNAL(pressed()), SLOT(lleftPressed()));
     connect(left, SIGNAL(pressed()), SLOT(leftPressed()));
     connect(right, SIGNAL(pressed()), SLOT(rightPressed()));
@@ -342,24 +342,59 @@ void MainWindow::newgame()
 
 void MainWindow::lleftPressed()
 {
-    QMessageBox::information(this, "Information", "Noch nicht implementiert");
+    basemodel.currentMove = 0;
+    basemodel.board = basemodel.moveHistory[basemodel.currentMove];
+
+    glfrom = {-1, -1};
+
+    glto = {-1, -1};
+    repaint();
 }
 
 void MainWindow::leftPressed()
 {
-    QMessageBox::information(this, "Information", "Noch nicht implementiert");
+    qDebug() << "currentMove, size" << basemodel.currentMove << basemodel.moveHistory.size();
     basemodel.currentMove--;
+    if (basemodel.currentMove < 0) {
+        basemodel.currentMove = 0;
+    }
+    /*   for (int var = 0; var < 10; ++var) {
+        for (int var1 = 0; var1 < 9; ++var1) {
+            basemodel.board.pieces[var][var1] = basemodel.moveHistory[basemodel.currentMove]
+                                                    .pieces[var][var1];
+        }
+    }*/
+    basemodel.board = basemodel.moveHistory[basemodel.currentMove];
+
+    glfrom = {-1, -1};
+
+    glto = {-1, -1};
+    repaint();
 }
 
 void MainWindow::rightPressed()
 {
-    QMessageBox::information(this, "Information", "Noch nicht implementiert");
     basemodel.currentMove++;
+    if (basemodel.currentMove > basemodel.moveHistory.size() - 1) {
+        basemodel.currentMove = basemodel.moveHistory.size() - 1;
+    }
+    basemodel.board = basemodel.moveHistory[basemodel.currentMove];
+
+    glfrom = {-1, -1};
+
+    glto = {-1, -1};
+    repaint();
 }
 
 void MainWindow::rrightPressed()
 {
-    QMessageBox::information(this, "Information", "Noch nicht implementiert");
+    basemodel.currentMove = basemodel.moveHistory.size() - 1;
+    basemodel.board = basemodel.moveHistory[basemodel.currentMove];
+
+    glfrom = {-1, -1};
+
+    glto = {-1, -1};
+    repaint();
 }
 
 // sender = -1 -> model
@@ -377,7 +412,6 @@ void MainWindow::game(int fromX, int fromY, int toX, int toY, int sender)
     case -1:
         break;
     case 0:
-        basemodel.currentMove++;
         //basemodel.board.movePiece(fromX, fromY, toX, toY);
         uci.move(l_fy, l_fx, l_ty, l_tx);
         addMoveToList();
@@ -386,11 +420,11 @@ void MainWindow::game(int fromX, int fromY, int toX, int toY, int sender)
         uci.engineGo();
         break;
     case 1:
-        basemodel.currentMove++;
         basemodel.board.movePiece(fromY, fromX, toY, toX);
         repaint();
         qDebug() << "from: " << fromX << fromY << "to: " << toX << toY;
         addMoveToList();
+        addMoveToHistory();
         basemodel.board.toggleOnMove();
         break;
     default:
@@ -407,6 +441,7 @@ void MainWindow::game(int fromX, int fromY, int toX, int toY, int sender)
 void MainWindow::addMoveToHistory()
 {
     basemodel.moveHistory.append(basemodel.board);
+    basemodel.currentMove++;
 }
 
 void MainWindow::addMoveToList()

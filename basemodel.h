@@ -47,7 +47,7 @@ public:
         , type(type)
         , pos(pos)
     {
-        this->img = img; //new QImage(":/res/rookRed.png");
+        this->img = img;
     }
     virtual ~Piece() {}
 

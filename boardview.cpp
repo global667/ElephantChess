@@ -25,7 +25,7 @@ void BoardView::paintBoard(QPainter *p)
 {
     const QColor background(252, 175, 62);
     const QColor sides(206, 92, 0);
-    //const QColor river("#b0d7db");
+    const QColor river("#3A438F");
 
     p->fillRect(p->viewport(), background);
 
@@ -78,7 +78,7 @@ void BoardView::paintBoard(QPainter *p)
                 50 + 4 * (height() - 50 - 100) / cutp_height,
                 width(),
                 (height() - 50 - 100) / cutp_height,
-                background);
+                river); //background);
 
     // Seitenraender
     // Linker Rand
@@ -110,7 +110,7 @@ void BoardView::paintBoard(QPainter *p)
     }
 }
 
-// Paint from upper left!
+// Painted from upper left!
 void BoardView::paintPieces(QPainter *p)
 {
     auto w = p->viewport().width();
