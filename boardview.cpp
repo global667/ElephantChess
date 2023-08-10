@@ -146,7 +146,7 @@ void BoardView::paintPieces(QPainter *p)
                       - h / cutp_width / 2 / 1.5,
                   w / (cutp_width) / 1.5,
                   h / cutp_width / 1.5));
-    } else {
+    } else if (glfrom.col != -1 && glfrom.row != -1) {
         QPen pen;
         pen.setColor(Qt::blue);
         pen.setWidth(5);
@@ -213,20 +213,29 @@ void BoardView::mousePressEvent(QMouseEvent *event)
             if (basemodel.board_copy.isCheck(
                     basemodel.board_copy.getColor({10 - toRow, toCol - 1}))) {
                 qDebug() << "check";
+                ((MainWindow *) parentWidget())->statusBar()->showMessage("Check");
+
+                repaint();
                 return;
             }
             if (basemodel.board_copy.isCheckmate(
                     basemodel.board_copy.getColor({10 - toRow, toCol - 1}))) {
                 qDebug() << "checkmate";
+                ((MainWindow *) parentWidget())->statusBar()->showMessage("Checkmate");
+
+                repaint();
                 return;
             }
+            ((MainWindow *) parentWidget())->statusBar()->showMessage("Play move");
             basemodel.board = basemodel.board_copy;
             emit updateView(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1, 0);
         } else {
             qDebug() << "illegal move";
+            ((MainWindow *) parentWidget())->statusBar()->showMessage("Illegal move");
+
+            repaint();
             return;
         }
     }
-
     repaint();
 }

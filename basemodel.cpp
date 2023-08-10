@@ -344,4 +344,4 @@ bool Board::isValidMove(Position from, Position to, Color currentPlayerColor)
 }
 //Q_GLOBAL_STATIC(BaseModel, basemodel)
 BaseModel basemodel;
-Position glfrom, glto;
+Position glfrom = {-1, -1}, glto = {-1, -1};

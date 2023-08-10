@@ -395,6 +395,7 @@ void MainWindow::game(int fromX, int fromY, int toX, int toY, int sender)
         break;
     default:
         qDebug() << "Error in game";
+        statusBar()->showMessage("Error in game");
         break;
     }
 
