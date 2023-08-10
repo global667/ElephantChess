@@ -199,6 +199,12 @@ public:
     Board board_copy;
 
     int currentMove = 0;
+    QList<Board> moveHistory;
+
+    Position fromHuman = {-1, -1};
+    Position toHuman = {-1, -1};
+    Position fromUCI = {-1, -1};
+    Position toUCI = {-1, -1};
 
 signals:
 };

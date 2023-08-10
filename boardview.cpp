@@ -162,42 +162,45 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         fromCol = static_cast<int>((50 + boardCursorCol) / squareCol);
         fromRow = static_cast<int>((((50 + boardCursorRow) / squareRow)));
         qDebug() << "from: " << fromCol << fromRow;
-        /*
-        auto curr_color = ((Widget *) parentWidget())
-                              ->boardmodel.movGen.getColor(
-                                  {static_cast<int>(m_fromX), static_cast<int>(m_fromY)});
-        qDebug() << "color" << &curr_color;
-
-        auto moves = ((Widget *) parentWidget())->boardmodel.movGen.generateLegalMoves(curr_color);
-
-        for (const auto &move : moves) {
-            if (move.first.col == (int) m_fromX && move.first.row == (int) m_fromY) {
-                piece_moves.push_back(move);
-            }
-            qDebug() << move.first.col << move.first.row << m_fromX << m_fromY;
-        }
-*/
-        // basemodel.board.placePiece(
-        //    Piece(Color::Red, PieceType::Chariot, {fromRow, fromCol}, QImage(":/res/rookRed.png")));
-        // qDebug() << fromCol << fromRow;
-
         pressed = true;
-
     } else if (pressed) {
         toCol = static_cast<int>((((50 + boardCursorCol) / squareCol)));
         toRow = static_cast<int>((((50 + boardCursorRow) / squareRow)));
         qDebug() << "to: " << toCol << toRow;
         pressed = false;
         //qDebug() << "mousePressEvent: " << fromRow - 2 << 10 - fromCol << toRow - 2 << 10 - toCol;
-        if (basemodel.board.isLegalMove(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1)
-            || !basemodel.board.isCheck(basemodel.board.getColor({10 - fromRow, fromCol - 1}))) {
+
+        basemodel.board_copy = basemodel.board;
+        if (basemodel.board_copy.isLegalMove(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1)) {
+            basemodel.board_copy.movePiece(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1);
+            if (basemodel.board_copy.isCheck(
+                    basemodel.board_copy.getColor({10 - toRow, toCol - 1}))) {
+                qDebug() << "check";
+                //basemodel.board_copy = basemodel.board;
+                return;
+            }
+            if (basemodel.board_copy.isCheckmate(
+                    basemodel.board_copy.getColor({10 - toRow, toCol - 1}))) {
+                qDebug() << "checkmate";
+                //basemodel.board_copy = basemodel.board;
+                return;
+            }
+            basemodel.board = basemodel.board_copy;
+            emit updateView(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1, 0);
+        } else {
+            qDebug() << "illegal move";
+            //basemodel.board_copy = basemodel.board;
+            return;
+        }
+        /*       if (basemodel.board.isLegalMove(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1)
+            && !basemodel.board.isCheck(basemodel.board.getColor({10 - fromRow, fromCol - 1}))
+            && !basemodel.board.isCheckmate(basemodel.board.getColor({10 - fromRow, fromCol - 1}))) {
             basemodel.board.movePiece(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1);
             emit updateView(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1, 0);
         } else {
             qDebug() << "Illegal move";
-        }
-
-        // coordinates needed?
+        }*/
     }
+
     repaint();
 }

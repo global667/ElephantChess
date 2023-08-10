@@ -109,10 +109,10 @@ bool Board::isValidElephantMove(Position from, Position to, Color color)
 */
 bool Board::isValidElephantMove(Position from, Position to, Color color)
 {
-    qDebug() << "Elephant: from to: " << from.row << from.col << to.row << to.col;
+    //qDebug() << "Elephant: from to: " << from.row << from.col << to.row << to.col;
     int dx = to.row - from.row;
     int dy = to.col - from.col;
-    qDebug() << "(dx * dx + dy * dy) = " << (dx * dx + dy * dy);
+    //qDebug() << "(dx * dx + dy * dy) = " << (dx * dx + dy * dy);
     if (color == Color::Black) {
         return (to.row >= 5 && to.row <= 9 && to.col >= 0 && to.col <= 8 && (dx * dx + dy * dy) == 8
                 && isVacantOrOpponent(from.row + dx / 2, from.col + dy / 2, color));
@@ -176,6 +176,8 @@ bool Board::isValidSoldierMove(Position from, Position to, Color color)
     // Implement the move validation logic for the Soldier here...
     int dx = to.row - from.row;
     int dy = to.col - from.col;
+    //    qDebug() << "Soldier:";
+    //    qDebug() << "dx:" << dx << "dy:" << dy;
 
     if (color == Color::Red) {
         if (from.row >= 5 && dx == 1 && dy == 0) {

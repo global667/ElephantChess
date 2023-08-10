@@ -1,15 +1,15 @@
 #include "mainwindow.h"
 
-//#include "Config.h"
+#include "Config.h"
 #include <PGNGame.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     resize(1200, 900);
-    setWindowIcon(QIcon(":/res/kingRed.png"));
-    //    setWindowTitle("XiangQi v"
-    //                   + QString("%1.%2").arg(XiangQi_VERSION_MAJOR).arg(XiangQI_VERSION_MINOR));
+    setWindowIcon(QIcon(":/res/generalRed.png"));
+    setWindowTitle("XiangQi v"
+                   + QString("%1.%2").arg(XiangQi_VERSION_MAJOR).arg(XiangQI_VERSION_MINOR));
     // widgets
     boardview = new BoardView(this);
     tabview = new QTabWidget(this);
@@ -150,10 +150,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     statusBar()->showMessage(tr("Ready"));
 
-    //uci.moveToThread(&uciThread);
-    //qDebug() << "Starting uci engine in extra thread";
-    //uci.start();
-    //uciThread.start();
+    uci.moveToThread(&uciThread);
+    qDebug() << "Starting uci engine in extra thread";
+    uci.start();
+    uciThread.start();
 
     connect(&uci, SIGNAL(updateView(int, int, int, int, int)), SLOT(game(int, int, int, int, int)));
     connect(boardview,
@@ -329,7 +329,11 @@ void MainWindow::enginestarts()
 
 void MainWindow::newgame()
 {
-    QMessageBox::information(this, "Information", "Noch nicht implementiert");
+    basemodel.board.initBoard();
+    basemodel.moveHistory.clear();
+    model->clear();
+    row = 0, column = 0;
+    repaint();
 }
 
 void MainWindow::lleftPressed()
@@ -340,13 +344,13 @@ void MainWindow::lleftPressed()
 void MainWindow::leftPressed()
 {
     QMessageBox::information(this, "Information", "Noch nicht implementiert");
-    //boardmodel.currentMove--;
+    basemodel.currentMove--;
 }
 
 void MainWindow::rightPressed()
 {
     QMessageBox::information(this, "Information", "Noch nicht implementiert");
-    //boardmodel.currentMove++;
+    basemodel.currentMove++;
 }
 
 void MainWindow::rrightPressed()
@@ -375,6 +379,7 @@ void MainWindow::game(int fromX, int fromY, int toX, int toY, int sender)
         //basemodel.board.movePiece(fromX, fromY, toX, toY);
         uci.move(l_fy, l_fx, l_ty, l_tx);
         addMoveToList();
+        addMoveToHistory();
         uci.engineGo();
 
         break;
@@ -394,6 +399,11 @@ void MainWindow::game(int fromX, int fromY, int toX, int toY, int sender)
     //row++;
 
     repaint();
+}
+
+void MainWindow::addMoveToHistory()
+{
+    basemodel.moveHistory.append(basemodel.board);
 }
 
 void MainWindow::addMoveToList()

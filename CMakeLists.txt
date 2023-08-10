@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(XiangQi VERSION 0.1 LANGUAGES CXX)
+configure_file(Config.h.in Config.h)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)

@@ -19,6 +19,7 @@
 #include <QInputDialog>
 #include <QLabel>
 #include <QLineEdit>
+#include <QList>
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
@@ -76,6 +77,7 @@ private:
 
     int row = 0, column = 0;
     void addMoveToList();
+    void addMoveToHistory();
 
 public slots:
     void open();
