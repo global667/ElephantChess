@@ -30,6 +30,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         basemodel.h basemodel.cpp
         res.qrc
         uci.cpp uci.h
+        genmove.h genmove.cpp
+        types.h
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET XiangQi APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

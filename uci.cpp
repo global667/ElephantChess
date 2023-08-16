@@ -1,8 +1,7 @@
 #include "uci.h"
 
-UCI::UCI(QObject *parent)
-    : QObject(parent)
-    , waitForReadyOK(true)
+UCI::UCI()
+    : waitForReadyOK(true)
     , newGame(true)
 {
     connect(&engine, SIGNAL(readyRead()), SLOT(readData()));
@@ -57,7 +56,8 @@ void UCI::readData()
                 auto fy = (mv.at(1) - '0');
                 auto tx = (mv.at(2) - 'a');
                 auto ty = (mv.at(3) - '0');
-                emit updateView(fx, fy, tx, ty, 1);
+                // Ruft game auf
+                emit updateView(fy, fx, ty, tx, 1);
                 qDebug() << c << ", send new move " << c.split(' ').at(1) << " as " << fx << fy
                          << tx << ty;
             } else {
@@ -93,7 +93,7 @@ QByteArray UCI::posToken(int fromX, int fromY, int toX, int toY)
     return m;
 }
 
-void UCI::move(int fromX, int fromY, int toX, int toY)
+void UCI::MovePiece(int fromX, int fromY, int toX, int toY)
 {
     posToken(fromX, fromY, toX, toY);
     QString tmp;
@@ -102,13 +102,18 @@ void UCI::move(int fromX, int fromY, int toX, int toY)
     if (!tmp.isEmpty())
         tmp.remove(tmp.size() - 1, tmp.size());
     moves = tmp;
+}
 
-    writeDatas("position startpos moves " + moves.toUtf8());
+void UCI::MovePiece(Position from, Position to)
+{
+    MovePiece(from.col, from.row, to.col, to.row);
+    engineGo();
 }
 
 void UCI::engineGo()
 {
     // Start the engine with a time constraint
+    writeDatas("position startpos moves " + moves.toUtf8());
     writeDatas("go time 2");
     writeDatas("isready");
 }

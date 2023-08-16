@@ -4,8 +4,6 @@
 #include <QMainWindow>
 
 #include "boardview.h"
-//#include "boardmodel.h"
-//#include "movegen.h"
 
 #include <QAction>
 #include <QApplication>

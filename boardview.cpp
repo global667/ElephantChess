@@ -1,4 +1,5 @@
 #include "boardview.h"
+#include "genmove.h"
 #include "mainwindow.h"
 
 #include <QPainter>
@@ -208,18 +209,19 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         pressed = false;
 
         basemodel.board_copy = basemodel.board;
-        if (basemodel.board_copy.isLegalMove(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1)) {
+        GenMove nextMove(Position{10 - fromRow, fromCol - 1},
+                         Position{10 - toRow, toCol - 1},
+                         basemodel.board_copy);
+        if (nextMove.isLegalMove(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1)) {
             basemodel.board_copy.movePiece(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1);
-            if (basemodel.board_copy.isCheck(
-                    basemodel.board_copy.getColor({10 - toRow, toCol - 1}))) {
+            if (nextMove.isCheck(nextMove.getColor({10 - toRow, toCol - 1}))) {
                 qDebug() << "check";
                 ((MainWindow *) parentWidget())->statusBar()->showMessage("Check");
 
                 repaint();
                 return;
             }
-            if (basemodel.board_copy.isCheckmate(
-                    basemodel.board_copy.getColor({10 - toRow, toCol - 1}))) {
+            if (nextMove.isCheckmate(nextMove.getColor({10 - toRow, toCol - 1}))) {
                 qDebug() << "checkmate";
                 ((MainWindow *) parentWidget())->statusBar()->showMessage("Checkmate");
 
@@ -238,4 +240,9 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         }
     }
     repaint();
+}
+
+void BoardView::MovePiece(Position from, Position to)
+{
+    basemodel.board.movePiece(from.row, from.col, to.row, to.col);
 }

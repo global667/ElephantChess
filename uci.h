@@ -9,18 +9,20 @@
 #include <QResource>
 #include <QString>
 #include <QThread>
+//#include "player.h"
+#include "basemodel.h"
 
-//#include "opponent.h"
-
-class UCI : public QObject //, Opponent
+class UCI : public QObject //, public Player
 {
     Q_OBJECT
 public:
-    explicit UCI(QObject *parent = nullptr);
+    explicit UCI();
     ~UCI();
 
     void writeDatas(QByteArray d);
-    void move(int fromX, int fromY, int toX, int toY);
+    void MovePiece(Position from, Position to); // override; //
+    void MovePiece(int fromX, int fromY, int toX, int toY);
+
     QProcess engine;
     void engineGo();
     QString moves;

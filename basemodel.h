@@ -6,57 +6,9 @@
 #include <QList>
 #include <QObject>
 #include <QPair>
+#include <QString>
 
-// A chinese chess board in ascii
-//    a b c d e f g h i
-//    -------------------
-//    9|r h e a g a e h r|9
-//    8| | | | | | | | | |8
-//    7| | c | | | | c | |7
-//    6|s| |s| |s| |s| |s|6
-//    5| | | | | | | | | |5
-//    4| | | | | | | | | |4
-//    3|s| |s| |s| |s| |s|3
-//    2| | c | | | | c | |2
-//    1| | | | | | | | | |1
-//    -------------------
-//    a b c d e f g h i
-
-#define ROWS 10
-#define COLS 9
-
-enum class PieceType { Empty, General, Advisor, Elephant, Horse, Chariot, Cannon, Soldier };
-
-enum class Color { Red, Black };
-
-struct Position
-{
-    int row;
-    int col;
-};
-
-extern Position glfrom, glto;
-
-// class Piece
-class Piece
-{
-public:
-    Piece() {}
-    Piece(Color color, PieceType type, Position pos, QImage img)
-        : color(color)
-        , type(type)
-        , pos(pos)
-    {
-        this->img = img;
-    }
-    virtual ~Piece() {}
-
-    QImage img;
-
-    Color color;
-    PieceType type;
-    Position pos;
-};
+#include "types.h"
 
 // class Board
 class Board : public QObject
@@ -90,6 +42,7 @@ public:
 
     virtual ~Board() {}
 
+    // Initialisiert das Spielbrett
     void initBoard()
     {
         for (int row = 0; row < ROWS; ++row) {
@@ -141,12 +94,15 @@ public:
         placePiece(
             Piece(Color::Black, PieceType::Soldier, {6, 8}, QImage(":/res/soldierBlack.png")));
     };
+
+    // Plaziert ein Piece auf dem Board
     void placePiece(Piece piece)
     {
         //Piece p = Piece(piece.color, piece.type, piece.pos, piece.img);
         pieces[piece.pos.row][piece.pos.col] = piece;
     };
 
+    // Macht einen Zug auf dem Brett
     void movePiece(int fromRow, int fromCol, int toRow, int toCol)
     {
         Piece piece = pieces[fromRow][fromCol];
@@ -160,10 +116,25 @@ public:
         pieces[toRow][toCol] = piece;
 
         qDebug() << "Moved piece from " << fromRow << "," << fromCol << " to " << toRow << ","
-                 << toCol << Qt::endl;
-        qDebug() << "From image: " << piece.img << Qt::endl;
+                 << toCol;
+        qDebug() << "From image: " << piece.img;
+        //printBoard();
     };
 
+    // Gibt das Brett in der Konsole aus
+    void printBoard()
+    {
+        for (int i = 0; i < ROWS; i++) {
+            QString line = "";
+            for (int j = 0; j < COLS; j++) {
+                line += QString::number((int) pieces[i][j].type);
+                line += " ";
+            }
+            qDebug() << line;
+        }
+    };
+
+    // Wechselt die Farbe des Spielers, der am Zug ist
     void toggleOnMove()
     {
         if (onMove == Color::Red) {
@@ -172,31 +143,12 @@ public:
             onMove = Color::Red;
         }
     };
+
+    // Gibt die Farbe des Spielers, der am Zug ist, zurück
     Color onMove = Color::Red;
 
+    // Brett des Spiels
     Piece pieces[ROWS][COLS];
-
-    bool isLegalMove(int fromRow, int fromCol, int toRow, int toCol);
-    bool isValidPosition(int row, int col);
-    bool isVacantOrOpponent(int row, int col, Color color);
-    bool isValidSoldierMove(Position from, Position to, Color color);
-    bool isValidCannonMove(Position from, Position to, Color color);
-    bool isValidHorseMove(Position from, Position to, Color color);
-    bool isValidElephantMove(Position from, Position to, Color color);
-    bool isValidAdvisorMove(Position from, Position to, Color color);
-    bool isValidGeneralMove(Position from, Position to, Color color);
-    bool isValidChariotMove(Position from, Position to, Color color);
-
-    std::vector<std::pair<Position, Position>> generateLegalMoves(Color currentPlayerColor);
-    bool isCheck(Color currentPlayerColor);
-    bool isCheckmate(Color currentPlayerColor);
-    //bool isStaleMate(Color currentPlayerColor);
-    bool performMove(Position from, Position to, Color currentPlayerColor);
-    Color getColor(Position p);
-    Piece getPiece(Position p);
-    Position findGeneralPosition(Color currentPlayerColor);
-    void placePiece(int row, int col, PieceType type, Color color);
-    bool isValidMove(Position from, Position to, Color currentPlayerColor);
 };
 
 class BaseModel : public QObject

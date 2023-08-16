@@ -402,30 +402,28 @@ void MainWindow::rrightPressed()
 // sender = 1 -> uci
 void MainWindow::game(int fromX, int fromY, int toX, int toY, int sender)
 {
-    int l_fx = fromX;
-    int l_fy = fromY;
-    int l_tx = toX;
-    int l_ty = toY;
-    qDebug() << l_fx << l_fy << l_tx << l_ty;
     qDebug() << "sender:" << sender;
     switch (sender) {
     case -1:
         break;
     case 0:
-        //basemodel.board.movePiece(fromX, fromY, toX, toY);
-        uci.move(l_fy, l_fx, l_ty, l_tx);
+        uci.MovePiece({fromX, fromY}, {toX, toY});
+
         addMoveToList();
         addMoveToHistory();
+
         basemodel.board.toggleOnMove();
-        uci.engineGo();
+        repaint();
         break;
     case 1:
-        basemodel.board.movePiece(fromY, fromX, toY, toX);
-        repaint();
-        qDebug() << "from: " << fromX << fromY << "to: " << toX << toY;
+        boardview->MovePiece({fromX, fromY}, {toX, toY});
+
         addMoveToList();
         addMoveToHistory();
+
         basemodel.board.toggleOnMove();
+        repaint();
+
         break;
     default:
         qDebug() << "Error in game";
