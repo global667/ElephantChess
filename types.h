@@ -2,6 +2,7 @@
 #define TYPES_H
 
 #include <QImage>
+#include "qdebug.h"
 
 // A chinese chess board in ascii
 //    a b c d e f g h i
@@ -43,7 +44,8 @@ public:
         , type(type)
         , pos(pos)
     {
-        this->img = img;
+        this->img = QImage(img);
+        qDebug() << "Piece::Piece() img" << img;
     }
     virtual ~Piece() {}
 

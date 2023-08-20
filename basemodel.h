@@ -2,12 +2,13 @@
 #define BASEMODEL_H
 
 #include <QDebug>
-#include <QImage>
-#include <QList>
 #include <QObject>
+/*#include <QImage>
+#include <QList>
+
 #include <QPair>
 #include <QString>
-
+*/
 #include "types.h"
 
 // class Board
@@ -15,7 +16,11 @@ class Board : public QObject
 {
     Q_OBJECT
 public:
-    Board() { initBoard(); }
+    Board()
+    {
+        initBoard();
+        qDebug() << "Board CTOR";
+    }
 
     // Kopierkonstruktor
     Board(const Board &other)
@@ -40,16 +45,19 @@ public:
         return *this;
     }
 
-    virtual ~Board() {}
+    virtual ~Board() { Q_CLEANUP_RESOURCE(res); }
 
     // Initialisiert das Spielbrett
     void initBoard()
     {
+        Q_INIT_RESOURCE(res);
+
         for (int row = 0; row < ROWS; ++row) {
             for (int col = 0; col < COLS; ++col) {
                 pieces[row][col] = Piece(Color::Red, PieceType::Empty, {row, col}, QImage(nullptr));
             }
         }
+
         placePiece(Piece(Color::Red, PieceType::Chariot, {0, 0}, QImage(":/res/rookRed.png")));
         placePiece(Piece(Color::Red, PieceType::Horse, {0, 1}, QImage(":/res/horseRed.png")));
         placePiece(Piece(Color::Red, PieceType::Elephant, {0, 2}, QImage(":/res/elephantRed.png")));
@@ -146,14 +154,13 @@ public:
 
     // Gibt die Farbe des Spielers, der am Zug ist, zurück
     Color onMove = Color::Red;
-
     // Brett des Spiels
     Piece pieces[ROWS][COLS];
 };
 
-class BaseModel : public QObject
+class BaseModel //: public QObject
 {
-    Q_OBJECT
+    //Q_OBJECT
 public:
     explicit BaseModel(QObject *parent = nullptr){};
 

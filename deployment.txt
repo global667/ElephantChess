@@ -1,0 +1,16 @@
+Deployment.txt
+How to deploy XiangQi
+
+- change uci path to ./<engine>.exe of local resource engine
+- build as release ( with debug symbols)
+
+- run d:\ReleaseXQ\release.bat
+{
+- delete all except the exe and the pnglib
+- run windeployqt.exe . --release
+- cd D:\ReleaseXQ\tutorial
+- cp "D:\cppsource\Chess\build-XiangQi-Desktop_Qt_6_5_2_MinGW_64_bit-RelWithDebInfo\*" D:\ReleaseXQ\tutorial\packages\com.boringgames.xiangqi\data
+- cd D:\ReleaseXQ\tutorial
+- run D:\Qt\Tools\QtInstallerFramework\4.6\bin\binarycreator.exe -c config\config.xml -p packages XiangQi_v0.1.exe
+- copy XiangQi_vX.X.exe to to server
+}

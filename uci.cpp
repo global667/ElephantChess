@@ -10,7 +10,7 @@ UCI::UCI()
             SLOT(anError(QProcess::ProcessError)));
 
     // Set the program for the engine
-    engine.setProgram("/eleeye.old.exe");
+    engine.setProgram(":/eleeye.exe");
     engine.setReadChannel(QProcess::StandardOutput);
 
     engine.start(QIODevice::Text | QIODevice::ReadWrite);
@@ -70,7 +70,7 @@ void UCI::readData()
 QByteArray UCI::posToken(QByteArray token)
 {
     QByteArray t = token.split(' ').at(1);
-    moves.append(" " + t);
+    moves.append(t);
     return t;
 }
 
@@ -86,22 +86,24 @@ QByteArray UCI::posToken(int fromX, int fromY, int toX, int toY)
     m.append(c2);
     m.append(c3);
     m.append(c4);
-    if (moves.isNull())
-        moves = QString();
-    moves.append(" " + m);
+    if (moves.isEmpty())
+        moves = QStringList();
+    //moves.append(m);
 
     return m;
 }
 
 void UCI::MovePiece(int fromX, int fromY, int toX, int toY)
 {
+    /*
     posToken(fromX, fromY, toX, toY);
     QString tmp;
     for (const auto &m : moves.split(" ", Qt::SkipEmptyParts))
         tmp += m + " ";
     if (!tmp.isEmpty())
         tmp.remove(tmp.size() - 1, tmp.size());
-    moves = tmp;
+*/
+    moves.append(posToken(fromX, fromY, toX, toY));
 }
 
 void UCI::MovePiece(Position from, Position to)
@@ -113,7 +115,7 @@ void UCI::MovePiece(Position from, Position to)
 void UCI::engineGo()
 {
     // Start the engine with a time constraint
-    writeDatas("position startpos moves " + moves.toUtf8());
+    writeDatas("position startpos moves " + moves.join(" ").toUtf8());
     writeDatas("go time 2");
     writeDatas("isready");
 }

@@ -2,9 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
-#include "boardview.h"
-
 #include <QAction>
 #include <QApplication>
 #include <QDockWidget>
@@ -32,6 +29,7 @@
 #include <QWidget>
 
 #include "basemodel.h"
+#include "boardview.h"
 #include "uci.h"
 
 extern BaseModel basemodel;
@@ -81,7 +79,7 @@ public slots:
     void open();
     void save();
     void settings();
-    void enginestarts();
+    void toggleEngineStatus();
     void newgame();
 
     void lleftPressed();

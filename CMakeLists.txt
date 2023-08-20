@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(XiangQi VERSION 0.1 LANGUAGES CXX)
+project(XiangQi VERSION 0.2 LANGUAGES CXX)
 configure_file(Config.h.in Config.h)
 
 set(CMAKE_AUTOUIC ON)
@@ -10,7 +10,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools)
+find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets LinguistTools)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
 
 set(TS_FILES XiangQi_de_DE.ts)
@@ -32,6 +32,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         uci.cpp uci.h
         genmove.h genmove.cpp
         types.h
+        ToDo.md
+        engine.h engine.cpp
+        deployment.txt
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET XiangQi APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -85,6 +88,47 @@ add_library(pgnlibrary pgnlib/PGNCommentText.h
     pgnlib/PGNTagList.cpp
 )
 
+#add_library(Chameleon Chameleon/LICENSE
+#    Chameleon/README.md
+#    Chameleon/bitboard.cpp
+#    Chameleon/bitboard.h
+#    Chameleon/bitcount.h
+#    Chameleon/endgame.cpp
+#    Chameleon/endgame.h
+#    Chameleon/evaluate.cpp
+#    Chameleon/evaluate.h
+#    Chameleon/init.cpp
+#    Chameleon/init.h
+#    Chameleon/magics.h
+#    Chameleon/main.cpp
+#    Chameleon/material.cpp
+#    Chameleon/material.h
+#    Chameleon/misc.cpp
+#    Chameleon/misc.h
+#    Chameleon/movegen.cpp
+#    Chameleon/movegen.h
+#    Chameleon/movepick.cpp
+#    Chameleon/movepick.h
+#    Chameleon/pawns.cpp
+#    Chameleon/pawns.h
+#    Chameleon/position.cpp
+#    Chameleon/position.h
+#    Chameleon/psqt.cpp
+#    Chameleon/search.cpp
+#    Chameleon/search.h
+#    Chameleon/thread.cpp
+#    Chameleon/thread.h
+#    Chameleon/thread_win32.h
+#    Chameleon/timeman.cpp
+#    Chameleon/timeman.h
+#    Chameleon/tt.cpp
+#    Chameleon/tt.h
+#    Chameleon/types.h
+#    Chameleon/uci.cpp
+#   Chameleon/uci.h
+#    Chameleon/ucioption.cpp
+#)
+
 target_link_libraries(XiangQi PUBLIC pgnlibrary PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -115,4 +159,4 @@ endif()
 target_include_directories(XiangQi PUBLIC
                            "${PROJECT_BINARY_DIR}"
                            "${PROJECT_SOURCE_DIR}/pgnlib"
-                           )
+                           "${PROJECT_SOURCE_DIR}/Chameleon")

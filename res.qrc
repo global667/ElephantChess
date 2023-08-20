@@ -14,21 +14,6 @@
         <file>res/soldierBlack.png</file>
         <file>res/soldierRed.png</file>
         <file>res/rookBlack.png</file>
-        <file>res/wood.gif</file>
-        <file>res/Euro/ba.png</file>
-        <file>res/Euro/bca.png</file>
-        <file>res/Euro/bch.png</file>
-        <file>res/Euro/be.png</file>
-        <file>res/Euro/bg.png</file>
-        <file>res/Euro/bh.png</file>
-        <file>res/Euro/bs.png</file>
-        <file>res/Euro/wa.png</file>
-        <file>res/Euro/wca.png</file>
-        <file>res/Euro/wch.png</file>
-        <file>res/Euro/we.png</file>
-        <file>res/Euro/wg.png</file>
-        <file>res/Euro/wh.png</file>
-        <file>res/Euro/ws.png</file>
         <file>res/icons/discover_tune_FILL0_wght400_GRAD0_opsz48.png</file>
         <file>res/icons/exit.png</file>
         <file>res/icons/minimize_FILL0_wght400_GRAD0_opsz48.png</file>
@@ -41,5 +26,6 @@
         <file>res/icons/settings.png</file>
         <file>res/icons/spellcheck_FILL0_wght400_GRAD0_opsz48.png</file>
         <file>res/icons/undo.png</file>
+        <file>res/eleeye.exe</file>
     </qresource>
 </RCC>

@@ -7,10 +7,10 @@
 #include <QObject>
 #include <QProcess>
 #include <QResource>
-#include <QString>
+#include <QStringList>
 #include <QThread>
-//#include "player.h"
-#include "basemodel.h"
+
+#include "types.h"
 
 class UCI : public QObject //, public Player
 {
@@ -25,7 +25,7 @@ public:
 
     QProcess engine;
     void engineGo();
-    QString moves;
+    QStringList moves;
 
 private:
     QByteArray buffer;

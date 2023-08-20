@@ -1,7 +1,7 @@
 #include "genmove.h"
 
-GenMove::GenMove(QObject *parent)
-    : QObject{parent}
+GenMove::GenMove() //QObject *parent)
+    //: QObject{parent}
 {
 
 }

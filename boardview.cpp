@@ -1,7 +1,9 @@
 #include "boardview.h"
+#include "basemodel.h"
 #include "genmove.h"
 #include "mainwindow.h"
 
+#include <QImageReader>
 #include <QPainter>
 
 extern BaseModel basemodel;
@@ -114,26 +116,33 @@ void BoardView::paintBoard(QPainter *p)
 // Painted from upper left!
 void BoardView::paintPieces(QPainter *p)
 {
-    auto w = p->viewport().width();
-    auto h = p->viewport().height();
+    auto w = p->window().width();  //p->viewport().width();
+    auto h = p->window().height(); //p->viewport().height();
+    QImage img(":/res/generalRed.png");
+#define DEF 1
+#ifdef DEF
     for (int j = 0; j < 10; j++) {
         for (int i = 0; i < 9; i++) {
-            p->drawImage(QRect((50 + ((8 - i) * (w - 2 * 50) / cutp_width))
-                                   - w / cutp_width / 2 / 1.5,
-                               (50 + (9 - j) * (h - 50 - 100) / cutp_height)
-                                   - h / cutp_width / 2 / 1.5,
-                               w / (cutp_width) / 1.5,
-                               h / cutp_width / 1.5),
-                         basemodel.board.pieces[j][8 - i].img);
+            p->drawPixmap(QRect((50 + ((8 - i) * (w - 2 * 50) / cutp_width))
+                                    - w / cutp_width / 2 / 1.5,
+                                (50 + (9 - j) * (h - 50 - 100) / cutp_height)
+                                    - h / cutp_width / 2 / 1.5,
+                                w / (cutp_width) / 1.5,
+                                h / cutp_width / 1.5),
+                          QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img));
+            //qDebug() << basemodel.board.pieces[j][8 - i].img;
             //qDebug() << j << j / 9 << j % 9;
             //qDebug() << basemodel.board.pieces[0][0].img;
             //qDebug() << basemodel.board.pieces[j % 9][j / 9].pos.col;
         }
     }
-
+    // qDebug() << QImageReader::supportedImageFormats();
+#else
+    p->drawPixmap(QRect(50, 50, w, h), QPixmap::fromImage(basemodel.board.pieces[0][0].img));
+    qDebug() << basemodel.board.pieces[0][0].img;
     //if (pressed) {
     // Paint the selected piece specials
-
+#endif
     qDebug() << "glfrom, glto" << glfrom.col << glfrom.row << glto.col << glto.row;
 
     if (pressed) {
@@ -194,18 +203,21 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         fromCol = static_cast<int>((50 + boardCursorCol) / squareCol);
         fromRow = static_cast<int>((((50 + boardCursorRow) / squareRow)));
         pressed = true;
-        if (basemodel.board.pieces[10 - fromRow][fromCol - 1].type == PieceType::Empty)
+        if (basemodel.board.pieces[10 - fromRow][fromCol - 1].type == PieceType::Empty) {
+            pressed = false;
             return;
-        if (basemodel.board.pieces[10 - fromRow][fromCol - 1].color != basemodel.board.onMove)
+        }
+        if (basemodel.board.pieces[10 - fromRow][fromCol - 1].color != basemodel.board.onMove) {
+            pressed = false;
             return;
-        qDebug() << "from: " << fromCol << fromRow;
+        }
+
         glfrom.col = fromCol - 1;
         glfrom.row = 10 - fromRow;
 
     } else if (pressed) {
         toCol = static_cast<int>((((50 + boardCursorCol) / squareCol)));
         toRow = static_cast<int>((((50 + boardCursorRow) / squareRow)));
-        qDebug() << "to: " << toCol << toRow;
         pressed = false;
 
         basemodel.board_copy = basemodel.board;

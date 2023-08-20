@@ -2,15 +2,15 @@
 #define GENMOVE_H
 
 #include <QDebug>
-#include <QObject>
+//#include <QObject>
 #include "basemodel.h"
 #include "types.h"
 
-class GenMove : public QObject
+class GenMove //: public QObject
 {
-    Q_OBJECT
+    //Q_OBJECT
 public:
-    explicit GenMove(QObject *parent = nullptr);
+    explicit GenMove(); //QObject *parent = nullptr);
     ~GenMove(){};
     GenMove(Position from, Position to, Board board)
     {
@@ -41,6 +41,7 @@ public:
 
     // Gibt zurück, ob ein Zug gülig ist
     bool isLegalMove(int fromRow, int fromCol, int toRow, int toCol);
+
     bool isValidPosition(int row, int col);
     bool isVacantOrOpponent(int row, int col, Color color);
     bool isValidSoldierMove(Position from, Position to, Color color);

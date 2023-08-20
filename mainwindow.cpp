@@ -57,10 +57,10 @@ MainWindow::MainWindow(QWidget *parent)
     //openbutton->setStatusTip(tr("Create a new file"));
     connect(savebutton, &QAction::triggered, this, &MainWindow::save);
 
-    enginestartsbutton = new QAction(tr("Engine starten"), menubar);
+    enginestartsbutton = new QAction(tr("Enginestatus wechseln"), menubar);
     //openbutton->setShortcuts(QKeySequence::New);
     //openbutton->setStatusTip(tr("Create a new file"));
-    connect(enginestartsbutton, &QAction::triggered, this, &MainWindow::enginestarts);
+    connect(enginestartsbutton, &QAction::triggered, this, &MainWindow::toggleEngineStatus);
 
     settingsbutton = new QAction(tr("Optionen"), menubar);
     //openbutton->setShortcuts(QKeySequence::New);
@@ -229,8 +229,8 @@ void MainWindow::open()
         std::string ltrwhite = game.moves()[j].white().str();
         std::string ltrblack = game.moves()[j].black().str();
 
-        uci.moves.append(ltrwhite + " ");
-        qDebug() << "Moves from pgnlib : " << uci.moves.append(ltrblack + " ");
+        uci.moves << ltrwhite.c_str();
+        //qDebug() << "Moves from pgnlib : " << uci.moves.append(ltrblack + " ");
     }
     uci.moves.removeLast();
 
@@ -244,7 +244,7 @@ void MainWindow::open()
     int i = 0;
 
     QStandardItem *item;
-    for (QString &item1 : uci.moves.split(' ', Qt::SkipEmptyParts)) {
+    for (QString &item1 : uci.moves) {
         item = new QStandardItem(item1);
         if (c % 2 == 0)
             model->setItem(c / 2, 0, item);
@@ -252,9 +252,7 @@ void MainWindow::open()
             model->setItem(c / 2, 1, item);
         c++;
 
-        qDebug() << item1.at(0).toLatin1();
         auto fx = ((char) item1.at(0).toLatin1()) - 'a';
-        qDebug() << fx;
         auto fy = 9 - (item1.at(1).digitValue());
         auto tx = ((char) item1.at(2).toLatin1()) - 'a';
         auto ty = 9 - (item1.at(3).digitValue());
@@ -290,7 +288,7 @@ void MainWindow::save()
                << "\"]\n\n";
 
     int i = 0;
-    for (const auto &m : uci.moves.split(' ')) {
+    for (const auto &m : uci.moves) {
         if (++i % 2 == 1)
             textstream << QString("%1.").arg((i / 2) + 1);
         textstream << m << " ";
@@ -322,7 +320,7 @@ void MainWindow::settings()
         QMessageBox::information(this, "Information", "Noch nicht implementiert");
 }
 
-void MainWindow::enginestarts()
+void MainWindow::toggleEngineStatus()
 {
     if (uciThread.isRunning()) {
         uciThread.quit();
@@ -331,12 +329,18 @@ void MainWindow::enginestarts()
     }
 }
 
+// Startet ein eues Spiel
 void MainWindow::newgame()
 {
     basemodel.board.initBoard();
     basemodel.moveHistory.clear();
     model->clear();
     row = 0, column = 0;
+    basemodel.currentMove = 0;
+    glfrom = {-1, -1};
+    glto = {-1, -1};
+    //basemodel.board().onMove = Color::Red;
+    uci.moves.clear();
     repaint();
 }
 
@@ -344,31 +348,26 @@ void MainWindow::lleftPressed()
 {
     basemodel.currentMove = 0;
     basemodel.board = basemodel.moveHistory[basemodel.currentMove];
-
     glfrom = {-1, -1};
-
     glto = {-1, -1};
+    if (uciThread.isRunning()) {
+        uciThread.quit();
+    }
     repaint();
 }
 
 void MainWindow::leftPressed()
 {
-    qDebug() << "currentMove, size" << basemodel.currentMove << basemodel.moveHistory.size();
     basemodel.currentMove--;
     if (basemodel.currentMove < 0) {
         basemodel.currentMove = 0;
     }
-    /*   for (int var = 0; var < 10; ++var) {
-        for (int var1 = 0; var1 < 9; ++var1) {
-            basemodel.board.pieces[var][var1] = basemodel.moveHistory[basemodel.currentMove]
-                                                    .pieces[var][var1];
-        }
-    }*/
     basemodel.board = basemodel.moveHistory[basemodel.currentMove];
-
     glfrom = {-1, -1};
-
     glto = {-1, -1};
+    if (uciThread.isRunning()) {
+        uciThread.quit();
+    }
     repaint();
 }
 
@@ -379,10 +378,12 @@ void MainWindow::rightPressed()
         basemodel.currentMove = basemodel.moveHistory.size() - 1;
     }
     basemodel.board = basemodel.moveHistory[basemodel.currentMove];
-
     glfrom = {-1, -1};
-
     glto = {-1, -1};
+    if (uciThread.isRunning()) {
+        uciThread.quit();
+    }
+
     repaint();
 }
 
@@ -390,10 +391,11 @@ void MainWindow::rrightPressed()
 {
     basemodel.currentMove = basemodel.moveHistory.size() - 1;
     basemodel.board = basemodel.moveHistory[basemodel.currentMove];
-
     glfrom = {-1, -1};
-
     glto = {-1, -1};
+    if (uciThread.isRunning()) {
+        uciThread.quit();
+    }
     repaint();
 }
 
@@ -407,6 +409,18 @@ void MainWindow::game(int fromX, int fromY, int toX, int toY, int sender)
     case -1:
         break;
     case 0:
+        //Is the game in observe mode?
+        if (basemodel.moveHistory.size() != basemodel.currentMove) {
+            //If so, delete all moves after current move and starts the engine
+            toggleEngineStatus();
+            for (auto i = 0; i < basemodel.moveHistory.size(); ++i) {
+                if (i > basemodel.currentMove) {
+                    basemodel.moveHistory.pop_back();
+                }
+                //uci.moves.pop_back();
+            }
+        }
+
         uci.MovePiece({fromX, fromY}, {toX, toY});
 
         addMoveToList();
@@ -444,7 +458,7 @@ void MainWindow::addMoveToHistory()
 
 void MainWindow::addMoveToList()
 {
-    QString mv = QString(uci.moves.split(' ').last());
+    QString mv = QString(uci.moves.last());
 
     QStandardItem *item = new QStandardItem(mv);
 

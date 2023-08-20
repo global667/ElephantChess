@@ -26,8 +26,8 @@ protected:
 
 private:
     // Mousecoordinates
-    double m_mx;
-    double m_my;
+    //double m_mx;
+    //double m_my;
     // controls the mouse input
     bool pressed = false;
     // Board coordinates from to for the 2-dim array
