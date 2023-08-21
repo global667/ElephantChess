@@ -34,8 +34,8 @@ public:
     // Copy-Konstruktor
     GenMove(const GenMove &other)
     {
-        from = other.from;
-        to = other.to;
+        fromGenMove = other.fromGenMove;
+        toGenMove = other.toGenMove;
         copyBoard(pieces, other.pieces);
     }
 
@@ -61,13 +61,13 @@ public:
     Position findGeneralPosition(Color currentPlayerColor);
     void placePiece(int row, int col, PieceType type, Color color);
     bool isValidMove(Position from, Position to, Color currentPlayerColor);
-    std::vector<std::pair<Position, Position>> isValidPieceMove(Position from);
+    std::vector<std::pair<Position, Position>> isValidPieceMove(const Position from);
 
 private:
     Board board;
     Piece pieces[ROWS][COLS];
-    Position from;
-    Position to;
+    Position fromGenMove;
+    Position toGenMove;
 };
 
 #endif // GENMOVE_H

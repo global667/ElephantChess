@@ -54,19 +54,68 @@ bool GenMove::isValidGeneralMove(Position from, Position to, Color color)
 // Check if the Chariot can move to the target position
 bool GenMove::isValidChariotMove(Position from, Position to, Color color)
 {
+    //if (pieces[to.row][to.col].color == color) {
+    //    return false;
+    //}
+    bool isOwnPiece = true;
     // Check if the Chariot moves horizontally or vertically
     if (from.row == to.row) {
         int step = (to.col > from.col) ? 1 : -1;
-        for (int col = from.col + step; col != to.col; col += step) {
-            if (pieces[from.row][col].type != PieceType::Empty) {
-                return false; // There is an obstacle in the path
+        if (step == 1) {
+            for (int col = from.col + step; col <= to.col; col += step) {
+                if (isOwnPiece == false && pieces[from.row][col].color != color) {
+                    //isOwnPiece = true;
+                    return false; // There is an obstacle in the path
+                }
+                if (pieces[from.row][col].type != PieceType::Empty) {
+                    isOwnPiece = false; // There is an obstacle in the path
+                }
+
+                if (isOwnPiece == false && pieces[from.row][col].color == color) {
+                    return false;
+                }
+            }
+        } else {
+            for (int col = from.col + step; col >= to.col; col += step) {
+                if (isOwnPiece == false && pieces[from.row][col].color != color) {
+                    //isOwnPiece = true;
+                    return false; // There is an obstacle in the path
+                }
+                if (pieces[from.row][col].type != PieceType::Empty) {
+                    isOwnPiece = false; // There is an obstacle in the path
+                }
+                if (isOwnPiece == false && pieces[from.row][col].color == color) {
+                    return false;
+                }
             }
         }
     } else if (from.col == to.col) {
         int step = (to.row > from.row) ? 1 : -1;
-        for (int row = from.row + step; row != to.row; row += step) {
-            if (pieces[row][from.col].type != PieceType::Empty) {
-                return false; // There is an obstacle in the path
+        if (step == 1) {
+            for (int row = from.row + step; row <= to.row; row += step) {
+                if (isOwnPiece == false && pieces[row][from.col].color != color) {
+                    //isOwnPiece = true;
+                    return false; // There is an obstacle in the path
+                }
+                if (pieces[row][from.col].type != PieceType::Empty) {
+                    isOwnPiece = false; // There is an obstacle in the path
+                }
+                if (isOwnPiece == false && pieces[row][from.col].color == color) {
+                    return false;
+                }
+            }
+        } else {
+            for (int row = from.row + step; row >= to.row; row += step) {
+                if (isOwnPiece == false && pieces[row][from.col].color != color) {
+                    //isOwnPiece = true;
+                    return false; // There is an obstacle in the path
+                }
+                if (pieces[row][from.col].type != PieceType::Empty) {
+                    isOwnPiece = false; // There is an obstacle in the path
+                }
+                if (isOwnPiece == false && pieces[row][from.col].color == color) {
+                    return false;
+                }
             }
         }
     } else {
@@ -135,11 +184,11 @@ bool GenMove::isValidAdvisorMove(Position from, Position to, Color color)
     int dy = to.col - from.col;
 
     if (color == Color::Red) {
-        return (to.row >= 0 && to.row <= 2 && to.col >= 3 && to.col <= 5
-                && (dx * dx + dy * dy) == 2);
+        return (to.row >= 0 && to.row <= 2 && to.col >= 3 && to.col <= 5 && (dx * dx + dy * dy) == 2
+                && isVacantOrOpponent(to.row, to.col, color));
     } else {
-        return (to.row >= 7 && to.row <= 9 && to.col >= 3 && to.col <= 5
-                && (dx * dx + dy * dy) == 2);
+        return (to.row >= 7 && to.row <= 9 && to.col >= 3 && to.col <= 5 && (dx * dx + dy * dy) == 2
+                && isVacantOrOpponent(to.row, to.col, color));
     }
 }
 
@@ -186,18 +235,18 @@ bool GenMove::isValidSoldierMove(Position from, Position to, Color color)
     //    qDebug() << "Soldier:";
     //    qDebug() << "dx:" << dx << "dy:" << dy;
 
-    if (color == Color::Red) {
-        if (from.row >= 5 && dx == 1 && dy == 0) {
+    if (color == Color::Black) {
+        if (from.row >= 5 && dx == -1 && dy == 0) {
             return true;
         }
-        if (from.row < 5 && ((dx == 1 && dy == 0) || (dx == 0 && std::abs(dy) == 1))) {
+        if (from.row < 5 && ((dx == -1 && dy == 0) || (dx == 0 && std::abs(dy) == 1))) {
             return true;
         }
     } else {
-        if (from.row <= 4 && dx == -1 && dy == 0) {
+        if (from.row <= 4 && dx == 1 && dy == 0) {
             return true;
         }
-        if (from.row > 4 && ((dx == -1 && dy == 0) || (dx == 0 && std::abs(dy) == 1))) {
+        if (from.row > 4 && ((dx == 1 && dy == 0) || (dx == 0 && std::abs(dy) == 1))) {
             return true;
         }
     }
@@ -349,7 +398,7 @@ bool GenMove::isValidMove(Position from, Position to, Color currentPlayerColor)
     //return false;
 }
 
-std::vector<std::pair<Position, Position>> GenMove::isValidPieceMove(Position from)
+std::vector<std::pair<Position, Position>> GenMove::isValidPieceMove(const Position from)
 {
     PieceType pieceType = pieces[from.row][from.col].type;
     Color currentPlayerColor = pieces[from.row][from.col].color;
@@ -363,6 +412,7 @@ std::vector<std::pair<Position, Position>> GenMove::isValidPieceMove(Position fr
     for (int row = 0; row < ROWS; ++row) {
         for (int col = 0; col < COLS; ++col) {
             Position to = {row, col};
+
             if (isValidMove(from, to, currentPlayerColor)) {
                 legalPieceMoves.push_back({from, to});
             }

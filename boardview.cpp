@@ -182,7 +182,7 @@ void BoardView::paintPieces(QPainter *p)
             }
         }
     }
-
+    legalPieceMovesVar.clear();
     /*
     p->drawImage(QRect((50 + ((fromCol - 1) * (w - 2 * 50) / cutp_width)) - w / cutp_width / 2 / 1.5,
                        (50 + (fromRow - 1) * (h - 50 - 100) / cutp_height)
