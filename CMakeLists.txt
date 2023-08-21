@@ -88,7 +88,7 @@ add_library(pgnlibrary pgnlib/PGNCommentText.h
     pgnlib/PGNTagList.cpp
 )
 
-#add_library(Chameleon Chameleon/LICENSE
+#add_executable(Chameleon Chameleon/LICENSE
 #    Chameleon/README.md
 #    Chameleon/bitboard.cpp
 #    Chameleon/bitboard.h
@@ -129,6 +129,7 @@ add_library(pgnlibrary pgnlib/PGNCommentText.h
 #    Chameleon/ucioption.cpp
 #)
 
+
 target_link_libraries(XiangQi PUBLIC pgnlibrary PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -158,5 +159,5 @@ endif()
 
 target_include_directories(XiangQi PUBLIC
                            "${PROJECT_BINARY_DIR}"
-                           "${PROJECT_SOURCE_DIR}/pgnlib"
-                           "${PROJECT_SOURCE_DIR}/Chameleon")
+                           "${PROJECT_SOURCE_DIR}/pgnlib")
+                           #"${PROJECT_SOURCE_DIR}/Chameleon")

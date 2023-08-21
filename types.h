@@ -45,7 +45,6 @@ public:
         , pos(pos)
     {
         this->img = QImage(img);
-        qDebug() << "Piece::Piece() img" << img;
     }
     virtual ~Piece() {}
 

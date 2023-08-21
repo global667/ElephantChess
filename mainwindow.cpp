@@ -200,7 +200,9 @@ void MainWindow::open()
     //QTextStream textstream(&opfile);
     //str = textstream.readAll();
     //uci.moves = str.simplified();
+
     // collecting games from file
+    // TODO choose one game, if needed
     pgnfile >> game;
 
     qDebug() << "Game: " << game.moves().size();

@@ -19,7 +19,6 @@ public:
     Board()
     {
         initBoard();
-        qDebug() << "Board CTOR";
     }
 
     // Kopierkonstruktor
@@ -125,7 +124,7 @@ public:
 
         qDebug() << "Moved piece from " << fromRow << "," << fromCol << " to " << toRow << ","
                  << toCol;
-        qDebug() << "From image: " << piece.img;
+        //qDebug() << "From image: " << piece.img;
         //printBoard();
     };
 

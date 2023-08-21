@@ -10,14 +10,14 @@ UCI::UCI()
             SLOT(anError(QProcess::ProcessError)));
 
     // Set the program for the engine
-    engine.setProgram(":/eleeye.exe");
+    engine.setProgram("/pikafish.org.exe");
     engine.setReadChannel(QProcess::StandardOutput);
 
     engine.start(QIODevice::Text | QIODevice::ReadWrite);
     engine.waitForStarted();
 
     // Wait for the engine to be ready
-    writeDatas("ucci");
+    writeDatas("uci");
     writeDatas("isready");
     engine.waitForReadyRead();
 }
@@ -32,12 +32,12 @@ void UCI::readData()
     QByteArray data;
     while (engine.canReadLine()) {
         data = engine.readAll();
+        qDebug() << "Data read: " << data;
         for (const auto &c : data.split('\n')) {
             if (c.contains("readyok") && waitForReadyOK) {
-                qDebug() << c;
                 if (newGame) {
                     // Start a new game
-                    writeDatas("newgame");
+                    writeDatas("ucinewgame");
                     writeDatas("position startpos");
                     newGame = false;
                 } else {
@@ -45,7 +45,6 @@ void UCI::readData()
                     //writeDatas("stop");
                 }
             } else if (c.contains("uciok")) {
-                qDebug() << c;
                 // The engine is ready
                 writeDatas("isready");
                 waitForReadyOK = true;
@@ -88,21 +87,11 @@ QByteArray UCI::posToken(int fromX, int fromY, int toX, int toY)
     m.append(c4);
     if (moves.isEmpty())
         moves = QStringList();
-    //moves.append(m);
-
     return m;
 }
 
 void UCI::MovePiece(int fromX, int fromY, int toX, int toY)
 {
-    /*
-    posToken(fromX, fromY, toX, toY);
-    QString tmp;
-    for (const auto &m : moves.split(" ", Qt::SkipEmptyParts))
-        tmp += m + " ";
-    if (!tmp.isEmpty())
-        tmp.remove(tmp.size() - 1, tmp.size());
-*/
     moves.append(posToken(fromX, fromY, toX, toY));
 }
 
@@ -114,16 +103,16 @@ void UCI::MovePiece(Position from, Position to)
 
 void UCI::engineGo()
 {
-    // Start the engine with a time constraint
+    // Start the engine
     writeDatas("position startpos moves " + moves.join(" ").toUtf8());
-    writeDatas("go time 2");
+    writeDatas("go depth 2");
     writeDatas("isready");
 }
 
 void UCI::writeDatas(QByteArray d)
 {
     qint64 bytesWritten = engine.write(d + "\n");
-    qDebug() << "Datas written:" << bytesWritten << d;
+    qDebug() << "Data written:" << bytesWritten << d;
 }
 
 void UCI::anError(QProcess::ProcessError error)

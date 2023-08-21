@@ -348,3 +348,26 @@ bool GenMove::isValidMove(Position from, Position to, Color currentPlayerColor)
 
     //return false;
 }
+
+std::vector<std::pair<Position, Position>> GenMove::isValidPieceMove(Position from)
+{
+    PieceType pieceType = pieces[from.row][from.col].type;
+    Color currentPlayerColor = pieces[from.row][from.col].color;
+    std::vector<std::pair<Position, Position>> legalPieceMoves;
+
+    if (pieceType == PieceType::Empty) {
+        legalPieceMoves.push_back({{-1, -1}, {-1, -1}});
+        return legalPieceMoves;
+    }
+    qDebug() << "Piecetype != Empty";
+    for (int row = 0; row < ROWS; ++row) {
+        for (int col = 0; col < COLS; ++col) {
+            Position to = {row, col};
+            if (isValidMove(from, to, currentPlayerColor)) {
+                legalPieceMoves.push_back({from, to});
+            }
+        }
+    }
+
+    return legalPieceMoves;
+}

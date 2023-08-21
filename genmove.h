@@ -2,6 +2,7 @@
 #define GENMOVE_H
 
 #include <QDebug>
+#include <vector>
 //#include <QObject>
 #include "basemodel.h"
 #include "types.h"
@@ -18,7 +19,6 @@ public:
         to = to;
         board = board;
         copyBoard(pieces, board.pieces);
-        qDebug() << this->pieces[0][0].img << Qt::endl;
     }
 
     // Array der Spielsteine kopieren
@@ -61,6 +61,7 @@ public:
     Position findGeneralPosition(Color currentPlayerColor);
     void placePiece(int row, int col, PieceType type, Color color);
     bool isValidMove(Position from, Position to, Color currentPlayerColor);
+    std::vector<std::pair<Position, Position>> isValidPieceMove(Position from);
 
 private:
     Board board;

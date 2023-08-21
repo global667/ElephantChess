@@ -6,6 +6,7 @@
 #include <QWidget>
 
 #include "basemodel.h"
+#include "types.h"
 //#include "player.h"
 
 // This class is the view of the board. It is a QWidget and draws the board and the pieces.
@@ -19,6 +20,7 @@ public:
     void paintBoard(QPainter *p);
     void paintPieces(QPainter *p);
     void MovePiece(Position from, Position to); // override;
+    std::vector<std::pair<Position, Position>> legalPieceMovesVar;
 
 protected:
     void paintEvent(QPaintEvent *event) override;

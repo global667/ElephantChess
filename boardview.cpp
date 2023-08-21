@@ -118,9 +118,7 @@ void BoardView::paintPieces(QPainter *p)
 {
     auto w = p->window().width();  //p->viewport().width();
     auto h = p->window().height(); //p->viewport().height();
-    QImage img(":/res/generalRed.png");
-#define DEF 1
-#ifdef DEF
+
     for (int j = 0; j < 10; j++) {
         for (int i = 0; i < 9; i++) {
             p->drawPixmap(QRect((50 + ((8 - i) * (w - 2 * 50) / cutp_width))
@@ -136,13 +134,7 @@ void BoardView::paintPieces(QPainter *p)
             //qDebug() << basemodel.board.pieces[j % 9][j / 9].pos.col;
         }
     }
-    // qDebug() << QImageReader::supportedImageFormats();
-#else
-    p->drawPixmap(QRect(50, 50, w, h), QPixmap::fromImage(basemodel.board.pieces[0][0].img));
-    qDebug() << basemodel.board.pieces[0][0].img;
-    //if (pressed) {
-    // Paint the selected piece specials
-#endif
+
     qDebug() << "glfrom, glto" << glfrom.col << glfrom.row << glto.col << glto.row;
 
     if (pressed) {
@@ -167,6 +159,30 @@ void BoardView::paintPieces(QPainter *p)
                   w / (cutp_width) / 1.5,
                   h / cutp_width / 1.5));
     }
+
+    QPen pen;
+    pen.setColor(Qt::red);
+    pen.setWidth(5);
+    p->setPen(pen);
+    qDebug() << "legalPieceMovesVar.size()" << legalPieceMovesVar.size();
+    for (auto move : legalPieceMovesVar) {
+        for (int j = 0; j < 10; j++) {
+            for (int i = 0; i < 9; i++) {
+                if (move.second.col == i && move.second.row == j) {
+                    p->drawEllipse(QRect((50 + ((move.second.col) * (w - 2 * 50) / cutp_width))
+                                             - w / cutp_width / 2 / 1.5,
+                                         (50 + (9 - move.second.row) * (h - 50 - 100) / cutp_height)
+                                             - h / cutp_width / 2 / 1.5,
+                                         w / (cutp_width) / 1.5,
+                                         h / cutp_width / 1.5));
+                    qDebug() << "draw legal moves";
+                }
+                qDebug() << "move.second.col" << move.second.col << "move.second.row"
+                         << move.second.row << "i" << i << "j" << j;
+            }
+        }
+    }
+
     /*
     p->drawImage(QRect((50 + ((fromCol - 1) * (w - 2 * 50) / cutp_width)) - w / cutp_width / 2 / 1.5,
                        (50 + (fromRow - 1) * (h - 50 - 100) / cutp_height)
@@ -214,6 +230,9 @@ void BoardView::mousePressEvent(QMouseEvent *event)
 
         glfrom.col = fromCol - 1;
         glfrom.row = 10 - fromRow;
+
+        GenMove legalMoves({glfrom.row, glfrom.col}, {-1, -1}, basemodel.board);
+        legalPieceMovesVar = legalMoves.isValidPieceMove({glfrom.row, glfrom.col});
 
     } else if (pressed) {
         toCol = static_cast<int>((((50 + boardCursorCol) / squareCol)));
