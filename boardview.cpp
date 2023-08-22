@@ -175,14 +175,14 @@ void BoardView::paintPieces(QPainter *p)
                                              - h / cutp_width / 2 / 1.5,
                                          w / (cutp_width) / 1.5,
                                          h / cutp_width / 1.5));
-                    qDebug() << "draw legal moves";
+                    //qDebug() << "draw legal moves";
                 }
-                qDebug() << "move.second.col" << move.second.col << "move.second.row"
-                         << move.second.row << "i" << i << "j" << j;
+                //qDebug() << "move.second.col" << move.second.col << "move.second.row"
+                //        << move.second.row << "i" << i << "j" << j;
             }
         }
     }
-    legalPieceMovesVar.clear();
+    //legalPieceMovesVar.clear();
     /*
     p->drawImage(QRect((50 + ((fromCol - 1) * (w - 2 * 50) / cutp_width)) - w / cutp_width / 2 / 1.5,
                        (50 + (fromRow - 1) * (h - 50 - 100) / cutp_height)
@@ -231,21 +231,50 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         glfrom.col = fromCol - 1;
         glfrom.row = 10 - fromRow;
 
+        //basemodel.board_copy = basemodel.board;
         GenMove legalMoves({glfrom.row, glfrom.col}, {-1, -1}, basemodel.board);
         legalPieceMovesVar = legalMoves.isValidPieceMove({glfrom.row, glfrom.col});
+
+        qDebug() << "legalPieceMovesVar" << legalPieceMovesVar.size();
+
+        if (legalPieceMovesVar.size() == 0) {
+            pressed = false;
+            glfrom.col = -1;
+            glfrom.row = -1;
+            return;
+        }
 
     } else if (pressed) {
         toCol = static_cast<int>((((50 + boardCursorCol) / squareCol)));
         toRow = static_cast<int>((((50 + boardCursorRow) / squareRow)));
+
+        if (toCol == fromCol && toRow == fromRow) {
+            return;
+        }
         pressed = false;
 
-        basemodel.board_copy = basemodel.board;
+        for (auto move : legalPieceMovesVar) {
+            if ((move.first.row == 10 - fromRow) && (move.first.col == fromCol - 1)
+                && (move.second.row == 10 - toRow) && (move.second.col == toCol - 1)) {
+                basemodel.board.movePiece(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1);
+                emit updateView(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1, 0);
+                break;
+            }
+            //qDebug() << move.first.row << move.first.col << move.second.row << move.second.col;
+            //qDebug() << "---------------------------------------------";
+            //qDebug() << fromRow << fromCol << toRow << toCol;
+        }
+
+        /* basemodel.board_copy = basemodel.board;
         GenMove nextMove(Position{10 - fromRow, fromCol - 1},
                          Position{10 - toRow, toCol - 1},
                          basemodel.board_copy);
         if (nextMove.isLegalMove(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1)) {
-            basemodel.board_copy.movePiece(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1);
-            if (nextMove.isCheck(nextMove.getColor({10 - toRow, toCol - 1}))) {
+            nextMove.performMove({10 - fromRow, fromCol - 1},
+                                 {10 - toRow, toCol - 1},
+                                 nextMove.board.onMove);
+            //basemodel.board_copy.toggleOnMove();
+            if (nextMove.isCheck(nextMove.board.onMove)) {
                 qDebug() << "check";
                 ((MainWindow *) parentWidget())->statusBar()->showMessage("Check");
 
@@ -259,17 +288,21 @@ void BoardView::mousePressEvent(QMouseEvent *event)
                 repaint();
                 return;
             }
-            ((MainWindow *) parentWidget())->statusBar()->showMessage("Play move");
-            basemodel.board = basemodel.board_copy;
-            emit updateView(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1, 0);
-        } else {
+            ((MainWindow *) parentWidget())->statusBar()->showMessage("Play move");*/
+        //basemodel.board.movePiece(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1);
+        //basemodel.board = nextMove.board;
+        //emit updateView(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1, 0);
+        /*       } else {
             qDebug() << "illegal move";
             ((MainWindow *) parentWidget())->statusBar()->showMessage("Illegal move");
 
             repaint();
             return;
         }
+    */
+        legalPieceMovesVar.clear();
     }
+
     repaint();
 }
 

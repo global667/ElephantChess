@@ -34,9 +34,10 @@ public:
     // Copy-Konstruktor
     GenMove(const GenMove &other)
     {
-        fromGenMove = other.fromGenMove;
-        toGenMove = other.toGenMove;
+        //fromGenMove = other.fromGenMove;
+        //toGenMove = other.toGenMove;
         copyBoard(pieces, other.pieces);
+        //board = other.board;
     }
 
     // Gibt zurück, ob ein Zug gülig ist
@@ -63,11 +64,12 @@ public:
     bool isValidMove(Position from, Position to, Color currentPlayerColor);
     std::vector<std::pair<Position, Position>> isValidPieceMove(const Position from);
 
-private:
-    Board board;
+    //private:
+    //Board board_copy;
+    //Board board;
     Piece pieces[ROWS][COLS];
-    Position fromGenMove;
-    Position toGenMove;
+    //Position fromGenMove;
+    //Position toGenMove;
 };
 
 #endif // GENMOVE_H
