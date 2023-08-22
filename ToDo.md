@@ -5,6 +5,7 @@
 - Improve usability
     - change red/black on the upper side
     - compliane the game rules if engine is stopped
+        * Respect move right after take back    
     - add markers
 - improve move list
     - add treeview
