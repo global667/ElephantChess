@@ -431,20 +431,21 @@ std::vector<std::pair<Position, Position>> GenMove::isValidPieceMove(const Posit
     std::vector<std::pair<Position, Position>> legalPieceMoves, legalPieceMovestmp;
 
     if (pieceType == PieceType::Empty) {
-        legalPieceMoves.push_back({{-1, -1}, {-1, -1}});
+        //legalPieceMoves.push_back({{-1, -1}, {-1, -1}});
+        legalPieceMoves.clear();
         return legalPieceMoves;
     }
 
     GenMove copy(*this);
     GenMove copy2(*this);
 
+    // Check if the general is in check and if so, only allow moves that get it out of check
     for (auto move : legalMoves) {
         Position to = move.second;
         Position from = move.first;
         if (fromPos.col == from.col && from.row == fromPos.row) {
             copy = copy2;
             copy.performMove(from, to, currentPlayerColor);
-            qDebug() << "From to" << from.row << from.col << to.row << to.col;
             if (!copy.isCheck(currentPlayerColor) && isValidMove(from, to, currentPlayerColor)) {
                 legalPieceMoves.push_back({fromPos, {to.row, to.col}});
             }
@@ -452,57 +453,6 @@ std::vector<std::pair<Position, Position>> GenMove::isValidPieceMove(const Posit
         for (auto l : legalPieceMoves) {
             qDebug() << "Legal moves" << l.first.row << l.first.col << l.second.row << l.second.col;
         }
-
-        // Make a copy of the current board state
-        //
-        /*        if (to.col == 0 && to.row == 4)
-            qDebug() << "Error in isValidPieceMove";
-        if (fromPos.col == from.col && from.row == fromPos.row) {
-            // If the move is valid and resolves the check, then the player is not in checkmate
-            copy.board.movePiece(from.row, from.col, to.row, to.col);
-            if (!copy.isCheck(currentPlayerColor)) {
-                legalPieceMoves.push_back({fromPos, to});
-                //copy.board.movePiece(from.row, from.col, to.row, to.col);
-                //copy.board.toggleOnMove();
-                *this = copy;
-                //if (!copy.isCheck(currentPlayerColor)) {
-                //legalPieceMoves.push_back({from, to});
-                //}
-                //} else {
-            } else {
-                qDebug() << "Move is not valid";
-                legalPieceMoves.clear();
-            }
-        }
     }
-        qDebug() << "LegalPieceMoves1: " << legalPieceMoves.size();
-    legalPieceMovestmp = legalPieceMoves;
-    legalPieceMoves.clear();
-    for (auto move : legalPieceMovestmp) {
-        //copy = copy2;
-        qDebug() << "move: " << move.first.row << move.first.col << move.second.row
-                 << move.second.col;
-        copy.board.movePiece(move.first.row, move.first.col, move.second.row, move.second.col);
-        //std::vector<std::pair<Position, Position>> legalMoves = generateLegalMoves(Color::Black); // just for draft
-         std::vector<std::pair<Position, Position>> legalMoves_black = generateLegalMoves(Color::Black);
-        for (auto lm : legalMoves) {
-            qDebug() << "legalMoves: " << lm.first.row << lm.first.col << lm.second.row
-                     << lm.second.col;
-            if (isValidMove(lm.first,lm.second,Color::Black)) {
-                legalMoves_black.push_back(move);
-            }
-        }
-        
-        
-        if (copy.isCheck(currentPlayerColor) == false) {
-            legalPieceMoves.push_back(move);
-
-        } else {
-            qDebug() << "Move is not valid";
-            legalPieceMoves.clear();
-        }
-        *this = copy;*/
-    }
-    qDebug() << "LegalPieceMoves2: " << legalPieceMoves.size();
     return legalPieceMoves;
 }

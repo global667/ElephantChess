@@ -1,7 +1,7 @@
 # ToDo for Version 0.3, Mittwoch der 16.08.2023
 
 - Bugfixes
-- show available moves
+- show available moves [ok]
 - Improve usability
     - change red/black on the upper side
     - compliane the game rules if engine is stopped
@@ -10,7 +10,7 @@
 - improve move list
     - add treeview
     - make moves selectable    
-- add Toolbar
+- add Toolbar [ok]
 - select engine
 - smooth piece animation
 - start writing own engine

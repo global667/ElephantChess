@@ -128,15 +128,12 @@ void BoardView::paintPieces(QPainter *p)
                                 w / (cutp_width) / 1.5,
                                 h / cutp_width / 1.5),
                           QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img));
-            //qDebug() << basemodel.board.pieces[j][8 - i].img;
-            //qDebug() << j << j / 9 << j % 9;
-            //qDebug() << basemodel.board.pieces[0][0].img;
-            //qDebug() << basemodel.board.pieces[j % 9][j / 9].pos.col;
         }
     }
 
     qDebug() << "glfrom, glto" << glfrom.col << glfrom.row << glto.col << glto.row;
 
+    // Draw selected piece
     if (pressed) {
         QPen pen;
         pen.setColor(Qt::red);
@@ -160,6 +157,7 @@ void BoardView::paintPieces(QPainter *p)
                   h / cutp_width / 1.5));
     }
 
+    // draw legal moves as dots
     QPen pen;
     pen.setColor(Qt::red);
     pen.setWidth(5);
@@ -175,36 +173,10 @@ void BoardView::paintPieces(QPainter *p)
                                              - h / cutp_width / 2 / 1.5,
                                          w / (cutp_width) / 1.5,
                                          h / cutp_width / 1.5));
-                    //qDebug() << "draw legal moves";
                 }
-                //qDebug() << "move.second.col" << move.second.col << "move.second.row"
-                //        << move.second.row << "i" << i << "j" << j;
             }
         }
     }
-    //legalPieceMovesVar.clear();
-    /*
-    p->drawImage(QRect((50 + ((fromCol - 1) * (w - 2 * 50) / cutp_width)) - w / cutp_width / 2 / 1.5,
-                       (50 + (fromRow - 1) * (h - 50 - 100) / cutp_height)
-                           - h / cutp_width / 2 / 1.5,
-                       w / (cutp_width) / 1.5,
-                       h / cutp_width / 1.5),
-                 QImage(":res/rookRed.png"));
-*/
-    //paint Dots
-    /*    qDebug() << "count of moves to dot:" << piece_moves.size();
-    for (auto move : piece_moves) {
-        p->drawRoundedRect(QRect((((move.second.col) * (w - 2 * 50) / cutp_width))
-                                     - w / cutp_width / 2 / 1.5,
-                                 ((move.second.row) * (h - 50 - 100) / cutp_height)
-                                     - h / cutp_width / 2 / 1.5,
-                                 w / (cutp_width) / 1.5,
-                                 h / cutp_width / 1.5),
-                           1,
-                           1);
-        qDebug() << "move to dot" << move.second.col << move.second.row;
-    }
-*/
 }
 
 void BoardView::mousePressEvent(QMouseEvent *event)
@@ -231,8 +203,10 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         glfrom.col = fromCol - 1;
         glfrom.row = 10 - fromRow;
 
-        //basemodel.board_copy = basemodel.board;
-        GenMove legalMoves({glfrom.row, glfrom.col}, {-1, -1}, basemodel.board);
+        GenMove legalMoves({glfrom.row, glfrom.col},
+                           {-1, -1},
+                           basemodel.board.pieces,
+                           basemodel.board.onMove);
         legalPieceMovesVar = legalMoves.isValidPieceMove({glfrom.row, glfrom.col});
 
         qDebug() << "legalPieceMovesVar" << legalPieceMovesVar.size();
@@ -248,6 +222,17 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         toCol = static_cast<int>((((50 + boardCursorCol) / squareCol)));
         toRow = static_cast<int>((((50 + boardCursorRow) / squareRow)));
 
+        GenMove mate({glfrom.row, glfrom.col},
+                     {toRow - 1, toCol - 1},
+                     basemodel.board.pieces,
+                     basemodel.board.onMove);
+
+        // Is in Checkmate
+        if (mate.isCheckmate(basemodel.board.onMove)) {
+            qDebug() << "Checkmate";
+            return;
+        }
+
         if (toCol == fromCol && toRow == fromRow) {
             return;
         }
@@ -260,46 +245,7 @@ void BoardView::mousePressEvent(QMouseEvent *event)
                 emit updateView(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1, 0);
                 break;
             }
-            //qDebug() << move.first.row << move.first.col << move.second.row << move.second.col;
-            //qDebug() << "---------------------------------------------";
-            //qDebug() << fromRow << fromCol << toRow << toCol;
         }
-
-        /* basemodel.board_copy = basemodel.board;
-        GenMove nextMove(Position{10 - fromRow, fromCol - 1},
-                         Position{10 - toRow, toCol - 1},
-                         basemodel.board_copy);
-        if (nextMove.isLegalMove(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1)) {
-            nextMove.performMove({10 - fromRow, fromCol - 1},
-                                 {10 - toRow, toCol - 1},
-                                 nextMove.board.onMove);
-            //basemodel.board_copy.toggleOnMove();
-            if (nextMove.isCheck(nextMove.board.onMove)) {
-                qDebug() << "check";
-                ((MainWindow *) parentWidget())->statusBar()->showMessage("Check");
-
-                repaint();
-                return;
-            }
-            if (nextMove.isCheckmate(nextMove.getColor({10 - toRow, toCol - 1}))) {
-                qDebug() << "checkmate";
-                ((MainWindow *) parentWidget())->statusBar()->showMessage("Checkmate");
-
-                repaint();
-                return;
-            }
-            ((MainWindow *) parentWidget())->statusBar()->showMessage("Play move");*/
-        //basemodel.board.movePiece(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1);
-        //basemodel.board = nextMove.board;
-        //emit updateView(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1, 0);
-        /*       } else {
-            qDebug() << "illegal move";
-            ((MainWindow *) parentWidget())->statusBar()->showMessage("Illegal move");
-
-            repaint();
-            return;
-        }
-    */
         legalPieceMovesVar.clear();
     }
 

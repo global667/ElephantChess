@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 
 #include "Config.h"
+#include "genmove.h"
 #include <PGNGame.h>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -147,6 +148,25 @@ MainWindow::MainWindow(QWidget *parent)
     dockWidget->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
     dockWidget->setWidget(navigationwidget);
     addDockWidget(Qt::RightDockWidgetArea, dockWidget);
+
+    // Add toolbar
+    QToolBar *toolbar = new QToolBar(this);
+    toolbar->setObjectName("toolbar");
+    toolbar->setAllowedAreas(Qt::TopToolBarArea | Qt::BottomToolBarArea);
+    toolbar->setMovable(false);
+    toolbar->setFloatable(false);
+    toolbar->setOrientation(Qt::Horizontal);
+    toolbar->setBackgroundRole(QPalette::Light);
+    toolbar->setForegroundRole(QPalette::Light);
+    toolbar->setToolButtonStyle(Qt::ToolButtonTextOnly);
+    addToolBar(Qt::TopToolBarArea, toolbar);
+    toolbar->addAction(QIcon(":/icons/stock_new.png"), tr("Neues Spiel"), this, SLOT(newgame()));
+    toolbar->addAction(QIcon(":/res/icons/open.png"), tr("Partie öffnen"), this, SLOT(open()));
+    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Partie speichern"), this, SLOT(save()));
+    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Wechsel Sicht"), this, SLOT(save()));
+    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Wechsel Spieler"), this, SLOT(save()));
+    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Tipp"), this, SLOT(save()));
+    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Aufgeben"), this, SLOT(save()));
 
     statusBar()->showMessage(tr("Ready"));
 
@@ -407,6 +427,8 @@ void MainWindow::rrightPressed()
 void MainWindow::game(int fromX, int fromY, int toX, int toY, int sender)
 {
     qDebug() << "sender:" << sender;
+    GenMove isMate({fromX, fromY}, {toX, toY}, basemodel.board.pieces, basemodel.board.onMove);
+
     switch (sender) {
     case -1:
         break;
@@ -423,6 +445,13 @@ void MainWindow::game(int fromX, int fromY, int toX, int toY, int sender)
             }
         }
 
+        // Is in Checkmate?
+        if (isMate.isCheckmate(basemodel.board.onMove)) {
+            qDebug() << "Checkmate";
+            return;
+        }
+
+        // Give move to engine
         uci.MovePiece({fromX, fromY}, {toX, toY});
 
         addMoveToList();
