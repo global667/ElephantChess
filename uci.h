@@ -12,7 +12,7 @@
 
 #include "types.h"
 
-class UCI : public QObject //, public Player
+class UCI : public QObject
 {
     Q_OBJECT
 public:
@@ -35,8 +35,6 @@ private:
     QByteArray posToken(int fromX, int fromY, int toX, int toY);
     QByteArray posToken(QByteArray token);
 signals:
-    // connected in boardview
-    //void newMove(QString mv);
     void updateView(int, int, int, int, int);
     void boardChanged(int fromX, int fromY, int toX, int toY);
 

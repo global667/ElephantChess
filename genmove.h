@@ -12,30 +12,12 @@ class GenMove //: public QObject
 public:
     explicit GenMove(); //QObject *parent = nullptr);
     ~GenMove(){};
-    GenMove(Position from, Position to, const Piece p[ROWS][COLS], Color onMove)
-    {
-        from = from;
-        to = to;
-        copyBoard(pieces, p);
-        onMove = onMove;
-    }
-
+    GenMove(Position from, Position to, const Piece p[ROWS][COLS], Color onMove);
     // Array der Spielsteine kopieren
-    void copyBoard(Piece pieces[ROWS][COLS], const Piece other[ROWS][COLS])
-    {
-        for (int row = 0; row < ROWS; ++row) {
-            for (int col = 0; col < COLS; ++col) {
-                pieces[row][col] = other[row][col]; // Tiefenkopie der Piece-Objekte
-            }
-        }
-    }
+    void copyBoard(Piece pieces[ROWS][COLS], const Piece other[ROWS][COLS]);
 
     // Copy-Konstruktor
-    GenMove(const GenMove &other)
-    {
-        copyBoard(pieces, other.pieces);
-        onMove = other.onMove;
-    }
+    GenMove(const GenMove &other);
 
     // Gibt zurück, ob ein Zug gülig ist
     bool isLegalMove(int fromRow, int fromCol, int toRow, int toCol);

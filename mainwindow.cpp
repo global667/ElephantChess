@@ -78,7 +78,7 @@ MainWindow::MainWindow(QWidget *parent)
     //openbutton->setStatusTip(tr("Create a new file"));
     connect(exitbutton, &QAction::triggered, this, &MainWindow::close);
 
-    setMenuBar(menubar);
+    /*setMenuBar(menubar);
     menu1 = menuBar()->addMenu("Datei");
     menu1->addAction(openbutton);
     menu1->addAction(savebutton);
@@ -86,7 +86,7 @@ MainWindow::MainWindow(QWidget *parent)
     menu1->addAction(enginestartsbutton);
     menu1->addAction(newgamebutton);
     menu1->addAction(exitbutton);
-
+*/
     // tabwidget1 layout
     QHBoxLayout *tab1layout = new QHBoxLayout;
     tab1layout->addWidget(table);
@@ -163,10 +163,14 @@ MainWindow::MainWindow(QWidget *parent)
     toolbar->addAction(QIcon(":/icons/stock_new.png"), tr("Neues Spiel"), this, SLOT(newgame()));
     toolbar->addAction(QIcon(":/res/icons/open.png"), tr("Partie öffnen"), this, SLOT(open()));
     toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Partie speichern"), this, SLOT(save()));
-    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Wechsel Sicht"), this, SLOT(save()));
-    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Wechsel Spieler"), this, SLOT(save()));
-    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Tipp"), this, SLOT(save()));
-    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Aufgeben"), this, SLOT(save()));
+    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Wechsel Sicht"), this, SLOT());
+    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Wechsel Spieler"), this, SLOT());
+    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Tipp"), this, SLOT());
+    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Aufgeben"), this, SLOT());
+    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Beenden"), this, SLOT());
+    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Einstellungen"), this, SLOT(settings()));
+    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Über"), this, SLOT());
+    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Hilfe"), this, SLOT());
 
     statusBar()->showMessage(tr("Ready"));
 
@@ -327,7 +331,7 @@ void MainWindow::settings()
 {
     QStringList items;
     // see Wikipedia: https://de.wikipedia.org/wiki/Xiangqi
-    items << tr("Algebraische") << tr("Klassische") << tr("Numerische");
+    /*    items << tr("Algebraische") << tr("Klassische") << tr("Numerische");
 
     bool ok;
     QString item = QInputDialog::getItem(this,
@@ -340,6 +344,10 @@ void MainWindow::settings()
     if (ok && !item.isEmpty())
         //    itemLabel->setText(item);
         QMessageBox::information(this, "Information", "Noch nicht implementiert");
+*/
+    SettingsView dialog(this);
+    dialog.setModel(&basemodel);
+    dialog.exec();
 }
 
 void MainWindow::toggleEngineStatus()

@@ -6,6 +6,31 @@ GenMove::GenMove() //QObject *parent)
 
 }
 
+GenMove::GenMove(Position from, Position to, const Piece p[ROWS][COLS], Color onMove)
+{
+    from = from;
+    to = to;
+    copyBoard(pieces, p);
+    onMove = onMove;
+}
+
+// Array der Spielsteine kopieren
+void GenMove::copyBoard(Piece pieces[ROWS][COLS], const Piece other[ROWS][COLS])
+{
+    for (int row = 0; row < ROWS; ++row) {
+        for (int col = 0; col < COLS; ++col) {
+            pieces[row][col] = other[row][col]; // Tiefenkopie der Piece-Objekte
+        }
+    }
+}
+
+// Copy-Konstruktor
+GenMove::GenMove(const GenMove &other)
+{
+    copyBoard(pieces, other.pieces);
+    onMove = other.onMove;
+}
+
 bool GenMove::isLegalMove(int fromRow, int fromCol, int toRow, int toCol)
 {
     return isValidMove({fromRow, fromCol}, {toRow, toCol}, getColor({fromRow, fromCol}));

@@ -1,30 +1,35 @@
-# ToDo for Version 0.3, Mittwoch der 16.08.2023
+## Roadmap, Mittwoch der 16.08.2023
+Every version should release in a weekly to two weekly cyclus.
 
-- Bugfixes
+### Known Bugs
+* dont respect move right after take back 
+* dont compliane the game rules if engine is stopped
+### Version 0.3
 - show available moves [ok]
-- Improve usability
-    - change red/black on the upper side
-    - compliane the game rules if engine is stopped
-        * Respect move right after take back    
-    - add markers
+- add Toolbar [ok]
+- change red/black on the upper side 
+- selectable engines
+### Version 0.4
+- smooth piece animation
+- save settings
+- add euro symbols
+- add markers
+- add engines 
+### Version 0.5
 - improve move list
     - add treeview
-    - make moves selectable    
-- add Toolbar [ok]
-- select engine
-- smooth piece animation
+    - make moves on list selectable
+- add engines fully support (read the options from uci...)
+### Version 0.xx    
 - start writing own engine
 - svg pieces
+- icons
+- different notations (classic, euro, chinese)
+- add languages: englisch, spanisch, chinese
 
-
-
-
+----------------------------------------------------
 How to Markdown
 ---------------
-
-
-
-
 # First Level Heading
 
 Paragraph.

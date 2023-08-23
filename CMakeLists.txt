@@ -32,9 +32,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         uci.cpp uci.h
         genmove.h genmove.cpp
         types.h
-        ToDo.md
+        Roadmap.md
         engine.h engine.cpp
         deployment.txt
+        settingsview.h settingsview.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET XiangQi APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

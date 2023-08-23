@@ -11,7 +11,7 @@
 
 // This class is the view of the board. It is a QWidget and draws the board and the pieces.
 
-class BoardView : public QWidget //, public Player
+class BoardView : public QWidget
 {
     Q_OBJECT
 public:
@@ -27,9 +27,6 @@ protected:
     void mousePressEvent(QMouseEvent *event) override;
 
 private:
-    // Mousecoordinates
-    //double m_mx;
-    //double m_my;
     // controls the mouse input
     bool pressed = false;
     // Board coordinates from to for the 2-dim array

@@ -30,6 +30,7 @@
 
 #include "basemodel.h"
 #include "boardview.h"
+#include "settingsview.h"
 #include "uci.h"
 
 extern BaseModel basemodel;
