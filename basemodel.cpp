@@ -70,7 +70,7 @@ void Board::initBoard()
 
     for (int row = 0; row < ROWS; ++row) {
         for (int col = 0; col < COLS; ++col) {
-            pieces[row][col] = Piece(Color::Red, PieceType::Empty, {row, col}, QImage(nullptr));
+            pieces[row][col] = Piece(Color::Red, PieceType::Empty, {row, col}, QImage());
         }
     }
 

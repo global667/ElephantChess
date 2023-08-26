@@ -4,6 +4,8 @@ Every version should release in a weekly to two weekly cyclus.
 ### Known Bugs
 * dont respect move right after take back 
 * dont compliane the game rules if engine is stopped
+* take-back doen't works
+* load pgn doesn't fill moves right need correct init
 ### Version 0.3
 - show available moves [ok]
 - add Toolbar [ok]

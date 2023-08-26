@@ -26,6 +26,8 @@ void BoardView::paintEvent(QPaintEvent *event)
 
 void BoardView::paintBoard(QPainter *p)
 {
+    Q_ASSERT(p);
+
     const QColor background(252, 175, 62);
     const QColor sides(206, 92, 0);
     const QColor river("#3A438F");
@@ -116,6 +118,8 @@ void BoardView::paintBoard(QPainter *p)
 // Painted from upper left!
 void BoardView::paintPieces(QPainter *p)
 {
+    Q_ASSERT(p);
+
     auto w = p->window().width();  //p->viewport().width();
     auto h = p->window().height(); //p->viewport().height();
 
@@ -208,8 +212,6 @@ void BoardView::mousePressEvent(QMouseEvent *event)
                            basemodel.board.pieces,
                            basemodel.board.onMove);
         legalPieceMovesVar = legalMoves.isValidPieceMove({glfrom.row, glfrom.col});
-
-        qDebug() << "legalPieceMovesVar" << legalPieceMovesVar.size();
 
         if (legalPieceMovesVar.size() == 0) {
             pressed = false;

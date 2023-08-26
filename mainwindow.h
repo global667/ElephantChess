@@ -1,7 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
 #include <QAction>
 #include <QApplication>
 #include <QDockWidget>
@@ -15,12 +14,14 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QList>
+#include <QMainWindow>
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QPushButton>
 #include <QStandardItemModel>
 #include <QStatusBar>
+#include <QStringList>
 #include <QTabWidget>
 #include <QTableView>
 #include <QTextStream>

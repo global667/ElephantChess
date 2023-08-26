@@ -2,7 +2,7 @@
 
 #include "Config.h"
 #include "genmove.h"
-#include <PGNGame.h>
+//#include <PGNGame.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
                    + QString("%1.%2").arg(XiangQi_VERSION_MAJOR).arg(XiangQI_VERSION_MINOR));
     // widgets
     boardview = new BoardView(this);
+    Q_ASSERT(boardview);
     tabview = new QTabWidget(this);
     tabwidget1 = new QWidget(tabview);
     tabwidget2 = new QWidget(tabview);
@@ -173,7 +174,8 @@ MainWindow::MainWindow(QWidget *parent)
     toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Hilfe"), this, SLOT());
 
     statusBar()->showMessage(tr("Ready"));
-
+    Q_ASSERT(&uci);
+    Q_ASSERT(&uciThread);
     uci.moveToThread(&uciThread);
     qDebug() << "Starting uci engine in extra thread";
     uci.start();
@@ -195,31 +197,55 @@ void MainWindow::open()
         statusBar()->showMessage(tr("Lade Datei: fehlgeschlagen"));
         return;
     }
-    /* QFile opfile(openFile);
+    QFile opfile(openFile);
     if (!opfile.open(QIODeviceBase::ReadOnly | QIODeviceBase::Text)) {
         statusBar()->showMessage(tr("Lade Datei: Öffnen fehlgeschlagen"));
         return;
     }
-*/
-    /*   
+
     QTextStream textstream(&opfile);
     auto str = textstream.readAll();
-    for (auto s : str.split('\n'))
-    {
-        if(s.contains("[Event "))
-            
+    for (auto &s : str.split('\n')) {
+        if (s.contains("[Event ")) {
+            loca->setText(s.split("\"").at(1));
+        } else {
+            if (s.contains("Round")) {
+                round->setText(s.split("\"").at(1));
+            } else {
+                if (s.contains("White")) {
+                    opp1->setText(s.split("\"").at(1));
+                } else {
+                    if (s.contains("Black")) {
+                        opp2->setText(s.split("\"").at(1));
+                    } else {
+                        if (s.contains("Date")) {
+                            date->setText(s.split("\"").at(1));
+                        } else {
+                            if (s.split(" ").first().contains("1.")) {
+                                for (auto &s : s.split(" ")) {
+                                    if (s.contains(".")) {
+                                        uci.moves << s.split(".").last();
+                                    }
+                                }
+                                //uci.moves << s.simplified();
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
-    
-    uci.moves = str.simplified();
-   */
+    //}
+
+    //uci.moves = str.simplified();
 
     // TODO: Remove pgnLib dependence
 
-    std::ifstream pgnfile(openFile.toLatin1());
-    qDebug() << "Open pgn" << &pgnfile;
-    pgn::Game game;
-    qDebug() << "game" << game.moves().size();
-
+    //std::ifstream pgnfile(openFile.toLatin1());
+    //qDebug() << "Open pgn" << &pgnfile;
+    //pgn::Game game;
+    //Q_ASSERT(&game);
     //QString str;
     //QTextStream textstream(&opfile);
     //str = textstream.readAll();
@@ -227,26 +253,25 @@ void MainWindow::open()
 
     // collecting games from file
     // TODO choose one game, if needed
-    pgnfile >> game;
 
-    qDebug() << "Game: " << game.moves().size();
+    //pgnfile >> game;
 
     // TODO: Read tags too
     //for (auto i = game.tags().begin(); i != game.tags().end(); i++) {
-    for (const auto &i : game.tags()) {
-        if (i.name() == "Round")
-            round->setText(i.value().c_str());
-        else if (i.name() == "White")
-            opp1->setText(i.value().c_str());
-        else if (i.name() == "Black")
-            opp2->setText(i.value().c_str());
-        else if (i.name() == "Date")
-            date->setText(i.value().c_str());
-        else if (i.name() == "Event")
-            loca->setText(i.value().c_str());
-        else
-            qDebug() << QString("Error tag is: %1").arg(i.value().c_str());
-    }
+    /*for (const auto &i : game.tags()) {
+    if (i.name() == "Round")
+        round->setText(i.value().c_str());
+    else if (i.name() == "White")
+        opp1->setText(i.value().c_str());
+    else if (i.name() == "Black")
+        opp2->setText(i.value().c_str());
+    else if (i.name() == "Date")
+        date->setText(i.value().c_str());
+    else if (i.name() == "Event")
+        loca->setText(i.value().c_str());
+    else
+        qDebug() << QString("Error tag is: %1").arg(i.value().c_str());
+}
 
     int j = 0;
     for (auto i = game.moves().begin(); i != game.moves().end(); ++i, j++) {
@@ -257,8 +282,8 @@ void MainWindow::open()
 
         uci.moves << ltrwhite.c_str();
         //qDebug() << "Moves from pgnlib : " << uci.moves.append(ltrblack + " ");
-    }
-    uci.moves.removeLast();
+    }*/
+    //uci.moves.removeLast();
 
     qDebug() << uci.moves;
     //opfile.close();
