@@ -6,11 +6,13 @@ Every version should release in a weekly to two weekly cyclus.
 * dont compliane the game rules if engine is stopped
 * take-back doen't works
 * load pgn doesn't fill moves right need correct init
+* Elephant moves wrong [ok]
 ### Version 0.3
 - show available moves [ok]
 - add Toolbar [ok]
 - change red/black on the upper side 
 - selectable engines
+- care about more than one game in a file on pgns
 ### Version 0.4
 - smooth piece animation
 - save settings
@@ -28,6 +30,9 @@ Every version should release in a weekly to two weekly cyclus.
 - icons
 - different notations (classic, euro, chinese)
 - add languages: englisch, spanisch, chinese
+- Elo curves and calculator
+- Beginner mode
+
 
 ----------------------------------------------------
 How to Markdown

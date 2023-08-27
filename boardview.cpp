@@ -195,6 +195,7 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         fromCol = static_cast<int>((50 + boardCursorCol) / squareCol);
         fromRow = static_cast<int>((((50 + boardCursorRow) / squareRow)));
         pressed = true;
+
         if (basemodel.board.pieces[10 - fromRow][fromCol - 1].type == PieceType::Empty) {
             pressed = false;
             return;
@@ -207,27 +208,23 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         glfrom.col = fromCol - 1;
         glfrom.row = 10 - fromRow;
 
-        GenMove legalMoves({glfrom.row, glfrom.col},
-                           {-1, -1},
-                           basemodel.board.pieces,
-                           basemodel.board.onMove);
+        GenMove legalMoves(basemodel.board.pieces, basemodel.board.onMove);
         legalPieceMovesVar = legalMoves.isValidPieceMove({glfrom.row, glfrom.col});
 
+        /*
         if (legalPieceMovesVar.size() == 0) {
             pressed = false;
             glfrom.col = -1;
             glfrom.row = -1;
             return;
         }
+*/
 
     } else if (pressed) {
         toCol = static_cast<int>((((50 + boardCursorCol) / squareCol)));
         toRow = static_cast<int>((((50 + boardCursorRow) / squareRow)));
 
-        GenMove mate({glfrom.row, glfrom.col},
-                     {toRow - 1, toCol - 1},
-                     basemodel.board.pieces,
-                     basemodel.board.onMove);
+        GenMove mate(basemodel.board.pieces, basemodel.board.onMove);
 
         // Is in Checkmate
         if (mate.isCheckmate(basemodel.board.onMove)) {
@@ -235,9 +232,6 @@ void BoardView::mousePressEvent(QMouseEvent *event)
             return;
         }
 
-        if (toCol == fromCol && toRow == fromRow) {
-            return;
-        }
         pressed = false;
 
         for (auto move : legalPieceMovesVar) {

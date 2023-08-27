@@ -6,10 +6,8 @@ GenMove::GenMove() //QObject *parent)
 
 }
 
-GenMove::GenMove(Position from, Position to, const Piece p[ROWS][COLS], Color onMove)
+GenMove::GenMove(const Piece p[ROWS][COLS], Color onMove)
 {
-    from = from;
-    to = to;
     copyBoard(pieces, p);
     onMove = onMove;
 }
@@ -82,9 +80,9 @@ bool GenMove::isValidGeneralMove(Position from, Position to, Color color)
 // Check if the Chariot can move to the target position
 bool GenMove::isValidChariotMove(Position from, Position to, Color color)
 {
-    //if (pieces[to.row][to.col].color == color) {
-    //    return false;
-    //}
+    if (to.row == from.row && to.col == from.col) {
+        return false;
+    }
     bool isOwnPiece = true;
     // Check if the Chariot moves horizontally or vertically
     if (from.row == to.row) {
@@ -193,15 +191,21 @@ bool Board::isValidElephantMove(Position from, Position to, Color color)
 bool GenMove::isValidElephantMove(Position from, Position to, Color color)
 {
     //qDebug() << "Elephant: from to: " << from.row << from.col << to.row << to.col;
+
     int dx = to.row - from.row;
     int dy = to.col - from.col;
     //qDebug() << "(dx * dx + dy * dy) = " << (dx * dx + dy * dy);
     if (color == Color::Black) {
-        return (to.row >= 5 && to.row <= 9 && to.col >= 0 && to.col <= 8 && (dx * dx + dy * dy) == 8
-                && isVacantOrOpponent(from.row + dx / 2, from.col + dy / 2, color));
+        return (to.row >= 5 && to.row <= 9 && to.col >= 0 && to.col <= 8
+                && (dx * dx + dy * dy) == 8
+                //&& isVacantOrOpponent(from.row + dx / 2, from.col + dy / 2, color));
+                && isVacantOrOpponent(to.row, to.col, color));
+
     } else {
-        return (to.row >= 0 && to.row <= 4 && to.col >= 0 && to.col <= 8 && (dx * dx + dy * dy) == 8
-                && isVacantOrOpponent(from.row + dx / 2, from.col + dy / 2, color));
+        return (to.row >= 0 && to.row <= 4 && to.col >= 0 && to.col <= 8
+                && (dx * dx + dy * dy) == 8
+                //&& isVacantOrOpponent(from.row + dx / 2, from.col + dy / 2, color)
+                && isVacantOrOpponent(to.row, to.col, color));
     }
 }
 
@@ -234,7 +238,7 @@ bool GenMove::isValidCannonMove(Position from, Position to, Color color)
                 obstacleCount++;
             }
         }
-        if (obstacleCount == 1 && pieces[to.row][to.col].type != PieceType::Empty) {
+        if (obstacleCount == 1 && pieces[to.row][to.col].color == Color::Black) {
             return true;
         }
 
@@ -250,7 +254,7 @@ bool GenMove::isValidCannonMove(Position from, Position to, Color color)
                 obstacleCount++;
             }
         }
-        if (obstacleCount == 1 && pieces[to.row][to.col].type != PieceType::Empty) {
+        if ((obstacleCount == 1) && (pieces[to.row][to.col].color == Color::Black)) {
             return true;
         }
         if (obstacleCount == 0 && pieces[to.row][to.col].type == PieceType::Empty) {
@@ -475,9 +479,9 @@ std::vector<std::pair<Position, Position>> GenMove::isValidPieceMove(const Posit
                 legalPieceMoves.push_back({fromPos, {to.row, to.col}});
             }
         }
-        for (auto l : legalPieceMoves) {
+        /*for (auto l : legalPieceMoves) {
             qDebug() << "Legal moves" << l.first.row << l.first.col << l.second.row << l.second.col;
-        }
+        }*/
     }
     return legalPieceMoves;
 }

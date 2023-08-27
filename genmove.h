@@ -12,7 +12,7 @@ class GenMove //: public QObject
 public:
     explicit GenMove(); //QObject *parent = nullptr);
     ~GenMove(){};
-    GenMove(Position from, Position to, const Piece p[ROWS][COLS], Color onMove);
+    GenMove(const Piece p[ROWS][COLS], Color onMove);
     // Array der Spielsteine kopieren
     void copyBoard(Piece pieces[ROWS][COLS], const Piece other[ROWS][COLS]);
 

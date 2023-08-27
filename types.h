@@ -44,8 +44,8 @@ public:
         , type(type)
         , pos(pos)
     {
-        if (img.isNull())
-            qDebug() << "Piece(): img is null";
+        //if (img.isNull())
+        //    qDebug() << "Piece(): img is null";
         this->img = QImage(img);
     }
     virtual ~Piece() {}

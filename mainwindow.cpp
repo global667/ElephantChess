@@ -203,6 +203,8 @@ void MainWindow::open()
         return;
     }
 
+    statusBar()->showMessage(tr("Lade Datei: ") + openFile);
+
     QTextStream textstream(&opfile);
     auto str = textstream.readAll();
     for (auto &s : str.split('\n')) {
@@ -227,8 +229,6 @@ void MainWindow::open()
                                         uci.moves << s.split(".").last();
                                     }
                                 }
-                                //uci.moves << s.simplified();
-                                break;
                             }
                         }
                     }
@@ -286,13 +286,11 @@ void MainWindow::open()
     //uci.moves.removeLast();
 
     qDebug() << uci.moves;
-    //opfile.close();
 
-    statusBar()->showMessage(tr("Lade Datei: ") + openFile);
+    opfile.close();
     int c = 0;
     basemodel.board.initBoard();
     update();
-    int i = 0;
 
     QStandardItem *item;
     for (QString &item1 : uci.moves) {
@@ -460,7 +458,7 @@ void MainWindow::rrightPressed()
 void MainWindow::game(int fromX, int fromY, int toX, int toY, int sender)
 {
     qDebug() << "sender:" << sender;
-    GenMove isMate({fromX, fromY}, {toX, toY}, basemodel.board.pieces, basemodel.board.onMove);
+    GenMove isMate(basemodel.board.pieces, basemodel.board.onMove);
 
     switch (sender) {
     case -1:
