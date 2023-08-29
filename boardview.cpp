@@ -5,6 +5,7 @@
 
 #include <QImageReader>
 #include <QPainter>
+#include <QRadialGradient>
 #include <QTextItem>
 
 extern BaseModel basemodel;
@@ -22,8 +23,9 @@ void BoardView::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
     paintBoard(&painter);
-    paintPieces(&painter);
-    //paintPiecesRaw(&painter); // For the future: draws with font not with images
+
+    //paintPieces(&painter);
+    paintPiecesRaw(&painter); // For the future: draws with font not with images
 }
 
 // For the future: make a function that draws a single piece
@@ -36,30 +38,100 @@ void BoardView::paintPiecesRaw(QPainter *p)
 
     QPen pen;
     pen.setColor(Qt::red);
-    pen.setWidth(5);
+    pen.setWidth(3);
     p->setPen(pen);
     QFont font("YaHei Consolas Hybrid", 30, 75);
     font.setStretch(150);
 
     p->setFont(font);
 
-    QString str;
-    str = "車";
+    QStringList str;
+    str << "車";
 
-    p->drawText(QRect((50 + (((basemodel.fromHuman.col)) * (w - 2 * 50) / cutp_width))
-                          - w / cutp_width / 2 / 1.5,
-                      (50 + (9 - (basemodel.fromHuman.row)) * (h - 50 - 100) / cutp_height)
-                          - h / cutp_width / 2 / 1.5,
-                      w / (cutp_width) / 1.5,
-                      h / cutp_width / 1.5),
-                str);
+    // Draws all pieces
+    for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < 9; i++) {
+            //            p->drawPixmap(QRect((50 + ((8 - i) * (w - 2 * 50) / cutp_width))
+            //                                    - w / cutp_width / 2 / 1.5,
+            //                                (50 + (9 - j) * (h - 50 - 100) / cutp_height)
+            //                                    - h / cutp_width / 2 / 1.5,
+            //                                w / (cutp_width) / 1.5,
+            //                                h / cutp_width / 1.5),
+            //                          QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img));
 
-    p->drawEllipse(QRect((50 + (((basemodel.fromHuman.col)) * (w - 2 * 50) / cutp_width))
-                             - w / cutp_width / 2 / 1.5,
-                         (50 + (9 - (basemodel.fromHuman.row)) * (h - 50 - 100) / cutp_height)
-                             - h / cutp_width / 2 / 1.5,
-                         w / (cutp_width) / 1.5,
-                         h / cutp_width / 1.5));
+            if (basemodel.board.pieces[j][8 - i].name != "") {
+                // Draw red piece
+                if (basemodel.board.pieces[j][8 - i].color == Color::Red) {
+                    pen.setColor(Qt::red);
+                    p->setPen(pen);
+
+                    QRadialGradient gradient(QPointF(50.0
+                                                         + (((8 - i)) * (w - 2.0 * 50.0)
+                                                            / cutp_width),
+                                                     50 + (9 - j) * (h - 2 * 50) / cutp_height),
+                                             50);
+                    gradient.setColorAt(1, QColor::fromRgb(222, 91, 16, 255));
+                    gradient.setColorAt(0, QColor::fromRgb(255, 255, 255, 255));
+
+                    QBrush brush(gradient); //Qt::SolidPattern);
+                    //brush.setColor(QColor::fromRgb());
+                    //brush
+
+                    p->setBrush(brush);
+
+                    p->drawChord(QRect((50 + (((8 - i)) * (w - 2 * 50) / cutp_width))
+                                           - w / cutp_width / 2 / 1.5,
+                                       (50 + ((9 - j)) * (h - 50 - 100) / cutp_height)
+                                           - h / cutp_width / 2 / 1.5,
+                                       w / (cutp_width) / 1.5,
+                                       h / cutp_width / 1.5),
+                                 0,
+                                 5760);
+
+                    p->drawText(QRect((50 + (((8 - i)) * (w - 2 * 50) / cutp_width))
+                                          - w / cutp_width / 2 / 1.8,
+                                      (50 + ((9 - j)) * (h - 50 - 100) / cutp_height)
+                                          - h / cutp_width / 2 / 2,
+                                      w / (cutp_width),
+                                      h / cutp_width),
+                                basemodel.board.pieces[j][8 - i].name);
+
+                } else {
+                    // Draw black piece
+                    pen.setColor(Qt::black);
+                    p->setPen(pen);
+
+                    QRadialGradient gradient1(QPointF(50.0
+                                                          + (((8 - i)) * (w - 2.0 * 50.0)
+                                                             / cutp_width),
+                                                      50 + (9 - j) * (h - 2 * 50) / cutp_height),
+                                              50);
+                    gradient1.setColorAt(1, QColor::fromRgb(222, 91, 16, 255));
+                    gradient1.setColorAt(0, QColor::fromRgb(255, 255, 255, 255));
+
+                    QBrush brush1(gradient1); //Qt::SolidPattern);
+                    p->setBrush(brush1);
+
+                    p->drawChord(QRect((50 + (((8 - i)) * (w - 2 * 50) / cutp_width))
+                                           - w / cutp_width / 2 / 1.5,
+                                       (50 + (9 - j) * (h - 50 - 100) / cutp_height)
+                                           - h / cutp_width / 2 / 1.5,
+                                       w / (cutp_width) / 1.5,
+                                       h / cutp_width / 1.5),
+                                 0,
+                                 5760);
+
+                    p->drawText(QRect((50 + (((8 - i)) * (w - 2 * 50) / cutp_width))
+                                          - w / cutp_width / 2 / 1.8,
+                                      (50 + (9 - j) * (h - 50 - 100) / cutp_height)
+                                          - h / cutp_width / 2 / 2,
+                                      w / (cutp_width),
+                                      h / cutp_width),
+                                basemodel.board.pieces[j][8 - i].name);
+                }
+            }
+        }
+    }
 }
 
 void BoardView::paintBoard(QPainter *p)

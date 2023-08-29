@@ -31,7 +31,7 @@ public:
     virtual ~Board() { Q_CLEANUP_RESOURCE(res); }
 
     // Initialisiert das Spielbrett
-    void initBoard();
+    void initBoard(bool native = true);
 
     // Plaziert ein Piece auf dem Board
     void placePiece(Piece piece);

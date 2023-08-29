@@ -10,8 +10,8 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets LinguistTools)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
+find_package(QT NAMES Qt6 REQUIRED COMPONENTS StateMachine Widgets LinguistTools)
+find_package(Qt6 REQUIRED COMPONENTS Widgets StateMachine LinguistTools)
 
 set(TS_FILES XiangQi_de_DE.ts)
 
@@ -59,36 +59,6 @@ else()
     qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
-#add_library(pgnlibrary pgnlib/PGNCommentText.h
-#    pgnlib/PGNException.h
-#    pgnlib/PGNGame.h
-#    pgnlib/PGNGameCollection.h
-#    pgnlib/PGNGameResult.h
-#    pgnlib/PGNMove.h
-#    pgnlib/PGNMoveList.h
-#    pgnlib/PGNParser.h
-#    pgnlib/PGNPiece.h
-#    pgnlib/PGNPly.h
-#    pgnlib/PGNPosition.h
-#    pgnlib/PGNSquare.h
-#    pgnlib/PGNTag.h
-#    pgnlib/PGNTagList.h
-#    pgnlib/PGNCommentText.cpp
-#    pgnlib/PGNException.cpp
-#    pgnlib/PGNGame.cpp
-#    pgnlib/PGNGameCollection.cpp
-#    pgnlib/PGNGameResult.cpp
-#    pgnlib/PGNMove.cpp
-#    pgnlib/PGNMoveList.cpp
-#    pgnlib/PGNParser.cpp
-#    pgnlib/PGNPiece.cpp
-#    pgnlib/PGNPly.cpp
-#    pgnlib/PGNPosition.cpp
-#    pgnlib/PGNSquare.cpp
-#    pgnlib/PGNTag.cpp
-#    pgnlib/PGNTagList.cpp
-#)
-
 #add_executable(Chameleon Chameleon/LICENSE
 #    Chameleon/README.md
 #    Chameleon/bitboard.cpp
@@ -131,13 +101,13 @@ endif()
 #)
 
 
-target_link_libraries(XiangQi PRIVATE Qt${QT_VERSION_MAJOR}::Widgets) #pgnlibrary
+target_link_libraries(XiangQi PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt6::StateMachine) #pgnlibrary
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.
 if(${QT_VERSION} VERSION_LESS 6.1.0)
-  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.XiangQi)
+  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.boringgames.XiangQi)
 endif()
 set_target_properties(XiangQi PROPERTIES
     ${BUNDLE_ID_OPTION}

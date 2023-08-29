@@ -48,12 +48,24 @@ public:
         //    qDebug() << "Piece(): img is null";
         this->img = QImage(img);
     }
+
+    Piece(Color color, PieceType type, Position pos, QString name)
+        : color(color)
+        , type(type)
+        , pos(pos)
+    {
+        //if (img.isNull())
+        //    qDebug() << "Piece(): img is null";
+        this->name = name;
+    }
+
     virtual ~Piece() {}
 
     QImage img;
     Color color;
     PieceType type;
     Position pos;
+    QString name;
 };
 
 #endif // TYPES_H
