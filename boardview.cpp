@@ -5,10 +5,11 @@
 
 #include <QImageReader>
 #include <QPainter>
+#include <QTextItem>
 
 extern BaseModel basemodel;
-extern Position glfrom;
-extern Position glto;
+//extern Position glfrom;
+//extern Position glto;
 
 BoardView::BoardView(QWidget *parent)
     : QWidget{parent}
@@ -22,6 +23,43 @@ void BoardView::paintEvent(QPaintEvent *event)
     painter.setRenderHint(QPainter::Antialiasing, true);
     paintBoard(&painter);
     paintPieces(&painter);
+    //paintPiecesRaw(&painter); // For the future: draws with font not with images
+}
+
+// For the future: make a function that draws a single piece
+void BoardView::paintPiecesRaw(QPainter *p)
+{
+    Q_ASSERT(p);
+
+    auto w = p->window().width();  //p->viewport().width();
+    auto h = p->window().height(); //p->viewport().height();
+
+    QPen pen;
+    pen.setColor(Qt::red);
+    pen.setWidth(5);
+    p->setPen(pen);
+    QFont font("YaHei Consolas Hybrid", 30, 75);
+    font.setStretch(150);
+
+    p->setFont(font);
+
+    QString str;
+    str = "車";
+
+    p->drawText(QRect((50 + (((basemodel.fromHuman.col)) * (w - 2 * 50) / cutp_width))
+                          - w / cutp_width / 2 / 1.5,
+                      (50 + (9 - (basemodel.fromHuman.row)) * (h - 50 - 100) / cutp_height)
+                          - h / cutp_width / 2 / 1.5,
+                      w / (cutp_width) / 1.5,
+                      h / cutp_width / 1.5),
+                str);
+
+    p->drawEllipse(QRect((50 + (((basemodel.fromHuman.col)) * (w - 2 * 50) / cutp_width))
+                             - w / cutp_width / 2 / 1.5,
+                         (50 + (9 - (basemodel.fromHuman.row)) * (h - 50 - 100) / cutp_height)
+                             - h / cutp_width / 2 / 1.5,
+                         w / (cutp_width) / 1.5,
+                         h / cutp_width / 1.5));
 }
 
 void BoardView::paintBoard(QPainter *p)
@@ -123,6 +161,7 @@ void BoardView::paintPieces(QPainter *p)
     auto w = p->window().width();  //p->viewport().width();
     auto h = p->window().height(); //p->viewport().height();
 
+    // Draws all pieces
     for (int j = 0; j < 10; j++) {
         for (int i = 0; i < 9; i++) {
             p->drawPixmap(QRect((50 + ((8 - i) * (w - 2 * 50) / cutp_width))
@@ -135,33 +174,40 @@ void BoardView::paintPieces(QPainter *p)
         }
     }
 
-    qDebug() << "glfrom, glto" << glfrom.col << glfrom.row << glto.col << glto.row;
 
-    // Draw selected piece
+    // Draws selected piece
     if (pressed) {
         QPen pen;
-        pen.setColor(Qt::red);
+        pen.setColor(Qt::green);
         pen.setWidth(5);
         p->setPen(pen);
-        p->drawEllipse(
-            QRect((50 + (((glfrom.col)) * (w - 2 * 50) / cutp_width)) - w / cutp_width / 2 / 1.5,
-                  (50 + (9 - (glfrom.row)) * (h - 50 - 100) / cutp_height)
-                      - h / cutp_width / 2 / 1.5,
-                  w / (cutp_width) / 1.5,
-                  h / cutp_width / 1.5));
-    } else if (glfrom.col != -1 && glfrom.row != -1) {
+        p->drawEllipse(QRect((50 + (((basemodel.fromHuman.col)) * (w - 2 * 50) / cutp_width))
+                                 - w / cutp_width / 2 / 1.5,
+                             (50 + (9 - (basemodel.fromHuman.row)) * (h - 50 - 100) / cutp_height)
+                                 - h / cutp_width / 2 / 1.5,
+                             w / (cutp_width) / 1.5,
+                             h / cutp_width / 1.5));
+    } else if (basemodel.fromUCI.col != -1 && basemodel.fromUCI.row != -1) {
         QPen pen;
         pen.setColor(Qt::blue);
         pen.setWidth(5);
         p->setPen(pen);
-        p->drawEllipse(
-            QRect((50 + (((glto.col)) * (w - 2 * 50) / cutp_width)) - w / cutp_width / 2 / 1.5,
-                  (50 + (9 - (glto.row)) * (h - 50 - 100) / cutp_height) - h / cutp_width / 2 / 1.5,
-                  w / (cutp_width) / 1.5,
-                  h / cutp_width / 1.5));
+        p->drawEllipse(QRect((50 + (((basemodel.toUCI.col)) * (w - 2 * 50) / cutp_width))
+                                 - w / cutp_width / 2 / 1.5,
+                             (50 + (9 - (basemodel.toUCI.row)) * (h - 50 - 100) / cutp_height)
+                                 - h / cutp_width / 2 / 1.5,
+                             w / (cutp_width) / 1.5,
+                             h / cutp_width / 1.5));
+
+        p->drawEllipse(QRect((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutp_width))
+                                 - w / cutp_width / 2 / 1.5,
+                             (50 + (9 - (basemodel.fromUCI.row)) * (h - 50 - 100) / cutp_height)
+                                 - h / cutp_width / 2 / 1.5,
+                             w / (cutp_width) / 1.5,
+                             h / cutp_width / 1.5));
     }
 
-    // draw legal moves as dots
+    // draws legal moves as dots
     QPen pen;
     pen.setColor(Qt::red);
     pen.setWidth(5);
@@ -205,11 +251,11 @@ void BoardView::mousePressEvent(QMouseEvent *event)
             return;
         }
 
-        glfrom.col = fromCol - 1;
-        glfrom.row = 10 - fromRow;
+        basemodel.fromHuman.col = fromCol - 1;
+        basemodel.fromHuman.row = 10 - fromRow;
 
         GenMove legalMoves(basemodel.board.pieces, basemodel.board.onMove);
-        legalPieceMovesVar = legalMoves.isValidPieceMove({glfrom.row, glfrom.col});
+        legalPieceMovesVar = legalMoves.isValidPieceMove(basemodel.fromHuman);
 
         /*
         if (legalPieceMovesVar.size() == 0) {

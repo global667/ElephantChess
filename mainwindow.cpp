@@ -2,7 +2,8 @@
 
 #include "Config.h"
 #include "genmove.h"
-//#include <PGNGame.h>
+
+//extern Position glfrom, glto;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -24,10 +25,10 @@ MainWindow::MainWindow(QWidget *parent)
     navigationview = new QWidget(navigationwidget);
 
     // navigation buttons
-    lleft = new QPushButton("|<-");
-    left = new QPushButton("<-");
-    right = new QPushButton("->");
-    rright = new QPushButton("->|");
+    right = new QPushButton(QIcon(style()->standardIcon(QStyle::SP_MediaSeekForward)), "");
+    rright = new QPushButton(QIcon(style()->standardIcon(QStyle::SP_MediaSkipForward)), "");
+    left = new QPushButton(QIcon(style()->standardIcon(QStyle::SP_MediaSeekBackward)), "");
+    lleft = new QPushButton(QIcon(style()->standardIcon(QStyle::SP_MediaSkipBackward)), "");
     connect(lleft, SIGNAL(pressed()), SLOT(lleftPressed()));
     connect(left, SIGNAL(pressed()), SLOT(leftPressed()));
     connect(right, SIGNAL(pressed()), SLOT(rightPressed()));
@@ -47,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     setCentralWidget(boardview);
 
-    // menu buttons
+    /*   // menu buttons
     openbutton = new QAction(QIcon(":/res/icons/open.png"), tr("Laden"), menubar);
     //openbutton->setIcon();
     //openbutton->setShortcuts(QKeySequence::New);
@@ -79,7 +80,7 @@ MainWindow::MainWindow(QWidget *parent)
     //openbutton->setStatusTip(tr("Create a new file"));
     connect(exitbutton, &QAction::triggered, this, &MainWindow::close);
 
-    /*setMenuBar(menubar);
+    setMenuBar(menubar);
     menu1 = menuBar()->addMenu("Datei");
     menu1->addAction(openbutton);
     menu1->addAction(savebutton);
@@ -159,19 +160,59 @@ MainWindow::MainWindow(QWidget *parent)
     toolbar->setOrientation(Qt::Horizontal);
     toolbar->setBackgroundRole(QPalette::Light);
     toolbar->setForegroundRole(QPalette::Light);
-    toolbar->setToolButtonStyle(Qt::ToolButtonTextOnly);
+    toolbar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     addToolBar(Qt::TopToolBarArea, toolbar);
-    toolbar->addAction(QIcon(":/icons/stock_new.png"), tr("Neues Spiel"), this, SLOT(newgame()));
-    toolbar->addAction(QIcon(":/res/icons/open.png"), tr("Partie öffnen"), this, SLOT(open()));
-    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Partie speichern"), this, SLOT(save()));
-    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Wechsel Sicht"), this, SLOT());
-    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Wechsel Spieler"), this, SLOT());
-    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Tipp"), this, SLOT());
-    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Aufgeben"), this, SLOT());
-    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Beenden"), this, SLOT());
-    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Einstellungen"), this, SLOT(settings()));
-    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Über"), this, SLOT());
-    toolbar->addAction(QIcon(":/res/icons/save.png"), tr("Hilfe"), this, SLOT());
+    QIcon icon = style()->standardIcon(QStyle::SP_ArrowBack);
+    toolbar->addAction(QIcon(style()->standardIcon(QStyle::SP_DialogApplyButton)),
+                       tr("Neues Spiel"),
+                       this,
+                       SLOT(newgame()));
+    toolbar->addAction(QIcon(style()->standardIcon(QStyle::SP_DialogOpenButton)),
+                       tr("Öffnen"),
+                       this,
+                       SLOT(open()));
+    toolbar->addAction(QIcon(style()->standardIcon(QStyle::SP_DialogSaveButton)),
+                       tr("Speichern"),
+                       this,
+                       SLOT(save()));
+    toolbar->addSeparator();
+
+    toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_BrowserReload))),
+                       tr("Spieler"),
+                       this,
+                       SLOT(togglePlayer()));
+    toolbar->addSeparator();
+
+    toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_BrowserReload))),
+                       tr("Sicht"),
+                       this,
+                       SLOT(toggleGameView()));
+    toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_MessageBoxInformation))),
+                       tr("Tipp"),
+                       this,
+                       SLOT(giveTipp()));
+    toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_MessageBoxCritical))),
+                       tr("Aufgeben"),
+                       this,
+                       SLOT(giveUpGame()));
+    toolbar->addSeparator();
+    toolbar->addAction(QIcon(style()->standardIcon(QStyle::SP_ComputerIcon)),
+                       tr("Einstellungen"),
+                       this,
+                       SLOT(settings()));
+    toolbar->addAction(QIcon(style()->standardIcon(
+                           (QStyle::SP_DialogHelpButton))), //SP_TitleBarContextHelpButton))),
+                       tr("Hilfe"),
+                       this,
+                       SLOT(Help()));
+    toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_TitleBarMenuButton))),
+                       tr("Über"),
+                       this,
+                       SLOT(About()));
+    toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_DialogCloseButton))),
+                       tr("Beenden"),
+                       this,
+                       SLOT(exit()));
 
     statusBar()->showMessage(tr("Ready"));
     Q_ASSERT(&uci);
@@ -185,6 +226,36 @@ MainWindow::MainWindow(QWidget *parent)
     connect(boardview,
             SIGNAL(updateView(int, int, int, int, int)),
             SLOT(game(int, int, int, int, int)));
+}
+
+void MainWindow::giveUpGame()
+{
+    QMessageBox::information(this, "Information", "Noch nicht implementiert");
+}
+
+void MainWindow::exit()
+{
+    QMessageBox::information(this, "Information", "Noch nicht implementiert");
+}
+void MainWindow::toggleGameView()
+{
+    QMessageBox::information(this, "Information", "Noch nicht implementiert");
+}
+void MainWindow::togglePlayer()
+{
+    QMessageBox::information(this, "Information", "Noch nicht implementiert");
+}
+void MainWindow::giveTipp()
+{
+    QMessageBox::information(this, "Information", "Noch nicht implementiert");
+}
+void MainWindow::About()
+{
+    QMessageBox::information(this, "Information", "Noch nicht implementiert");
+}
+void MainWindow::Help()
+{
+    QMessageBox::information(this, "Information", "Noch nicht implementiert");
 }
 
 void MainWindow::open()
@@ -236,54 +307,6 @@ void MainWindow::open()
             }
         }
     }
-    //}
-
-    //uci.moves = str.simplified();
-
-    // TODO: Remove pgnLib dependence
-
-    //std::ifstream pgnfile(openFile.toLatin1());
-    //qDebug() << "Open pgn" << &pgnfile;
-    //pgn::Game game;
-    //Q_ASSERT(&game);
-    //QString str;
-    //QTextStream textstream(&opfile);
-    //str = textstream.readAll();
-    //uci.moves = str.simplified();
-
-    // collecting games from file
-    // TODO choose one game, if needed
-
-    //pgnfile >> game;
-
-    // TODO: Read tags too
-    //for (auto i = game.tags().begin(); i != game.tags().end(); i++) {
-    /*for (const auto &i : game.tags()) {
-    if (i.name() == "Round")
-        round->setText(i.value().c_str());
-    else if (i.name() == "White")
-        opp1->setText(i.value().c_str());
-    else if (i.name() == "Black")
-        opp2->setText(i.value().c_str());
-    else if (i.name() == "Date")
-        date->setText(i.value().c_str());
-    else if (i.name() == "Event")
-        loca->setText(i.value().c_str());
-    else
-        qDebug() << QString("Error tag is: %1").arg(i.value().c_str());
-}
-
-    int j = 0;
-    for (auto i = game.moves().begin(); i != game.moves().end(); ++i, j++) {
-        //uci.moves =
-
-        std::string ltrwhite = game.moves()[j].white().str();
-        std::string ltrblack = game.moves()[j].black().str();
-
-        uci.moves << ltrwhite.c_str();
-        //qDebug() << "Moves from pgnlib : " << uci.moves.append(ltrblack + " ");
-    }*/
-    //uci.moves.removeLast();
 
     qDebug() << uci.moves;
 
@@ -352,22 +375,6 @@ void MainWindow::save()
 
 void MainWindow::settings()
 {
-    QStringList items;
-    // see Wikipedia: https://de.wikipedia.org/wiki/Xiangqi
-    /*    items << tr("Algebraische") << tr("Klassische") << tr("Numerische");
-
-    bool ok;
-    QString item = QInputDialog::getItem(this,
-                                         tr("Notation und Figuren"),
-                                         tr("Notaion + Figuren"),
-                                         items,
-                                         0,
-                                         false,
-                                         &ok);
-    if (ok && !item.isEmpty())
-        //    itemLabel->setText(item);
-        QMessageBox::information(this, "Information", "Noch nicht implementiert");
-*/
     SettingsView dialog(this);
     dialog.setModel(&basemodel);
     dialog.exec();
@@ -382,7 +389,7 @@ void MainWindow::toggleEngineStatus()
     }
 }
 
-// Startet ein eues Spiel
+// Startet ein neues Spiel
 void MainWindow::newgame()
 {
     basemodel.board.initBoard();
@@ -390,8 +397,8 @@ void MainWindow::newgame()
     model->clear();
     row = 0, column = 0;
     basemodel.currentMove = 0;
-    glfrom = {-1, -1};
-    glto = {-1, -1};
+    basemodel.fromHuman = {-1, -1};
+    basemodel.toHuman = {-1, -1};
     //basemodel.board().onMove = Color::Red;
     uci.moves.clear();
     repaint();
@@ -401,8 +408,8 @@ void MainWindow::lleftPressed()
 {
     basemodel.currentMove = 0;
     basemodel.board = basemodel.moveHistory[basemodel.currentMove];
-    glfrom = {-1, -1};
-    glto = {-1, -1};
+    basemodel.fromHuman = {-1, -1};
+    basemodel.toHuman = {-1, -1};
     if (uciThread.isRunning()) {
         uciThread.quit();
     }
@@ -416,8 +423,8 @@ void MainWindow::leftPressed()
         basemodel.currentMove = 0;
     }
     basemodel.board = basemodel.moveHistory[basemodel.currentMove];
-    glfrom = {-1, -1};
-    glto = {-1, -1};
+    basemodel.fromHuman = {-1, -1};
+    basemodel.toHuman = {-1, -1};
     if (uciThread.isRunning()) {
         uciThread.quit();
     }
@@ -431,8 +438,8 @@ void MainWindow::rightPressed()
         basemodel.currentMove = basemodel.moveHistory.size() - 1;
     }
     basemodel.board = basemodel.moveHistory[basemodel.currentMove];
-    glfrom = {-1, -1};
-    glto = {-1, -1};
+    basemodel.fromHuman = {-1, -1};
+    basemodel.toHuman = {-1, -1};
     if (uciThread.isRunning()) {
         uciThread.quit();
     }
@@ -444,8 +451,8 @@ void MainWindow::rrightPressed()
 {
     basemodel.currentMove = basemodel.moveHistory.size() - 1;
     basemodel.board = basemodel.moveHistory[basemodel.currentMove];
-    glfrom = {-1, -1};
-    glto = {-1, -1};
+    basemodel.fromHuman = {-1, -1};
+    basemodel.toHuman = {-1, -1};
     if (uciThread.isRunning()) {
         uciThread.quit();
     }
@@ -493,7 +500,8 @@ void MainWindow::game(int fromX, int fromY, int toX, int toY, int sender)
         break;
     case 1:
         boardview->MovePiece({fromX, fromY}, {toX, toY});
-
+        basemodel.fromUCI = {fromX, fromY};
+        basemodel.toUCI = {toX, toY};
         addMoveToList();
         addMoveToHistory();
 

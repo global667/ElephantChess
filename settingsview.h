@@ -4,6 +4,8 @@
 #include <QComboBox>
 #include <QDialog>
 #include <QFileDialog>
+#include <QInputDialog>
+#include <QMessageBox>
 #include <QPushButton>
 
 #include "basemodel.h"
@@ -18,10 +20,12 @@ public:
 
 private:
     BaseModel *model;
-    QComboBox *comboBox;
-    QPushButton *button;
+    QComboBox *engines_comboBox;
+    QPushButton *engine_button;
+    QPushButton *style_button;
 
     void chooseEngine();
+    void chooseStyle();
 
 signals:
 };

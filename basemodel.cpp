@@ -2,7 +2,7 @@
 
 //Q_GLOBAL_STATIC(BaseModel, basemodel)
 BaseModel basemodel;
-Position glfrom = {-1, -1}, glto = {-1, -1};
+//Position glfrom = {-1, -1}, glto = {-1, -1};
 
 Board::Board()
 {
@@ -33,8 +33,8 @@ void Board::movePiece(int fromRow, int fromCol, int toRow, int toCol)
     piece.pos.row = toRow;
     piece.pos.col = toCol;
 
-    glfrom = {fromRow, fromCol};
-    glto = {toRow, toCol};
+    basemodel.fromHuman = {fromRow, fromCol};
+    basemodel.toHuman = {toRow, toCol};
 
     pieces[toRow][toCol] = piece;
 

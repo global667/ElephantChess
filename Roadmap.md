@@ -13,6 +13,7 @@ Every version should release in a weekly to two weekly cyclus.
 - change red/black on the upper side 
 - selectable engines
 - care about more than one game in a file on pgns
+- delete pgnlibrary deps [ok]
 ### Version 0.4
 - smooth piece animation
 - save settings

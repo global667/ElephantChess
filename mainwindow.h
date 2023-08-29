@@ -83,6 +83,13 @@ public slots:
     void settings();
     void toggleEngineStatus();
     void newgame();
+    void exit();
+    void toggleGameView();
+    void togglePlayer();
+    void giveTipp();
+    void About();
+    void Help();
+    void giveUpGame();
 
     void lleftPressed();
     void leftPressed();

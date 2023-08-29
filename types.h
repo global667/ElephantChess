@@ -32,7 +32,7 @@ struct Position
     int col;
 };
 
-extern Position glfrom, glto;
+//extern Position glfrom, glto;
 
 // class Piece
 class Piece

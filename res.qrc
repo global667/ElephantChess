@@ -26,5 +26,6 @@
         <file>res/icons/settings.png</file>
         <file>res/icons/spellcheck_FILL0_wght400_GRAD0_opsz48.png</file>
         <file>res/icons/undo.png</file>
+        <file>res/xiangqi.qmodel</file>
     </qresource>
 </RCC>

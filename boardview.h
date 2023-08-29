@@ -19,6 +19,7 @@ public:
 
     void paintBoard(QPainter *p);
     void paintPieces(QPainter *p);
+    void paintPiecesRaw(QPainter *p);
     void MovePiece(Position from, Position to); // override;
     std::vector<std::pair<Position, Position>> legalPieceMovesVar;
 
@@ -39,6 +40,7 @@ private:
     const int cutp_height = BaseModel::BoardRowPoints; //9;
 
 signals:
+    // signals to the controller
     void updateView(int, int, int, int, int);
 };
 
