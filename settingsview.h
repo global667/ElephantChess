@@ -23,11 +23,14 @@ private:
     QComboBox *engines_comboBox;
     QPushButton *engine_button;
     QPushButton *style_button;
+    QPushButton *board_style_button;
 
     void chooseEngine();
     void chooseStyle();
+    void chooseBoardStyle();
 
 signals:
+    void boardStyleChanged();
 };
 
 #endif // SETTINGSVIEW_H

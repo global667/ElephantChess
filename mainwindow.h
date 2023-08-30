@@ -34,7 +34,7 @@
 #include "settingsview.h"
 #include "uci.h"
 
-extern BaseModel basemodel;
+//extern BaseModel basemodel;
 
 class MainWindow : public QMainWindow
 {
@@ -73,6 +73,8 @@ private:
     QLineEdit *opp1, *opp2, *loca, *round, *date;
     QHBoxLayout *location;
 
+    SettingsView *dialog;
+
     int row = 0, column = 0;
     void addMoveToList();
     void addMoveToHistory();
@@ -95,6 +97,8 @@ public slots:
     void leftPressed();
     void rightPressed();
     void rrightPressed();
+
+    void boardStyleChanged();
 public slots:
     void game(int fromX, int fromY, int toX, int toY, int sender);
 };

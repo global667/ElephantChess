@@ -11,13 +11,14 @@ Every version should release in a weekly to two weekly cyclus.
 - show available moves [ok]
 - add Toolbar [ok]
 - change red/black on the upper side 
-- selectable engines
 - care about more than one game in a file on pgns
 - delete pgnlibrary deps [ok]
+- transform to state maschine
 ### Version 0.4
+- selectable engines
 - smooth piece animation
 - save settings
-- add euro symbols
+- add euro symbols [ok]
 - add markers
 - add engines 
 ### Version 0.5
@@ -33,6 +34,8 @@ Every version should release in a weekly to two weekly cyclus.
 - add languages: englisch, spanisch, chinese
 - Elo curves and calculator
 - Beginner mode
+- Make board authentic (doubled outter lines, 
+doubled cutting points for cannons and soldiers)
 
 
 ----------------------------------------------------

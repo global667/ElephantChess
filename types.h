@@ -2,7 +2,6 @@
 #define TYPES_H
 
 #include <QImage>
-#include "qdebug.h"
 
 // A chinese chess board in ascii
 //    a b c d e f g h i
@@ -21,6 +20,8 @@
 
 #define ROWS 10
 #define COLS 9
+
+enum class ViewStyleMode { traditional_native, traditional_png, western_png };
 
 enum class PieceType { Empty, General, Advisor, Elephant, Horse, Chariot, Cannon, Soldier };
 

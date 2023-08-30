@@ -5,26 +5,50 @@ SettingsView::SettingsView(QWidget *parent)
     : QDialog{parent}
 {
     engines_comboBox = new QComboBox{this};
-    //comboBox->addItem()
-    engine_button = new QPushButton{"Wähle die Engine", this};
-    connect(engine_button, &QPushButton::clicked, this, &SettingsView::chooseEngine);
-    //button->setGeometry(0, 0, 100, 50);
-    engine_button->show();
+    engines_comboBox->addItem("Eleeye");
+    engines_comboBox->addItem("Chameleon");
 
-    style_button = new QPushButton{"Wähle den Style", this};
+    style_button = new QPushButton{"Wähle den Notationsstil", this};
+    engine_button = new QPushButton{"Wähle die Engine", this};
+    board_style_button = new QPushButton{"Wähle das Brett-Design", this};
 
     QVBoxLayout *layout = new QVBoxLayout{this};
     layout->addWidget(engines_comboBox);
     layout->addWidget(engine_button);
     layout->addWidget(style_button);
+    layout->addWidget(board_style_button);
     setLayout(layout);
 
+    connect(engine_button, &QPushButton::clicked, this, &SettingsView::chooseEngine);
     connect(style_button, &QPushButton::clicked, this, &SettingsView::chooseStyle);
+    connect(board_style_button, &QPushButton::clicked, this, &SettingsView::chooseBoardStyle);
 }
 
 void SettingsView::setModel(BaseModel *newModel)
 {
     model = newModel;
+}
+
+void SettingsView::chooseBoardStyle()
+{
+    QStringList items;
+    QFont font;
+    font.setFamily("YaHei");
+
+    items << tr("Traditionell") << tr("Traditionell/PNG") << tr("Westlich vereinfacht");
+
+    bool ok;
+    QString item = QInputDialog::getItem(this, tr("Figuren"), tr("Figuren"), items, 0, false, &ok);
+    if (ok && !item.isEmpty()) {
+        if (item == tr("Traditionell")) {
+            model->board.viewStyleMode = ViewStyleMode::traditional_native;
+        } else if (item == tr("Traditionell/PNG")) {
+            model->board.viewStyleMode = ViewStyleMode::traditional_png;
+        } else if (item == tr("Westlich vereinfacht")) {
+            model->board.viewStyleMode = ViewStyleMode::western_png;
+        }
+        emit boardStyleChanged();
+    }
 }
 
 void SettingsView::chooseStyle()

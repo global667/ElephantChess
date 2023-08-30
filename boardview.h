@@ -39,6 +39,12 @@ private:
     const int cutp_width = BaseModel::BoardColPoints;  //8;
     const int cutp_height = BaseModel::BoardRowPoints; //9;
 
+    QString red_river = "楚 河"; // (Chǔ hé) - Dieser Schriftzug bedeutet "Fluss von Chu".
+    //Es befindet sich auf der Seite des Brettes, die dem Spieler mit den roten Figuren gehört.
+
+    QString black_river = "漢 界"; //  (Hàn jiè) - Dieser Schriftzug bedeutet "Grenze von Han".
+    //Es befindet sich auf der Seite des Brettes, die dem Spieler mit den schwarzen Figuren gehört.
+
 signals:
     // signals to the controller
     void updateView(int, int, int, int, int);

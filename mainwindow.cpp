@@ -3,7 +3,7 @@
 #include "Config.h"
 #include "genmove.h"
 
-//extern Position glfrom, glto;
+extern BaseModel basemodel;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -214,6 +214,9 @@ MainWindow::MainWindow(QWidget *parent)
                        this,
                        SLOT(exit()));
 
+    dialog = new SettingsView(this);
+    dialog->setModel(&basemodel);
+
     statusBar()->showMessage(tr("Ready"));
     Q_ASSERT(&uci);
     Q_ASSERT(&uciThread);
@@ -226,7 +229,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(boardview,
             SIGNAL(updateView(int, int, int, int, int)),
             SLOT(game(int, int, int, int, int)));
+    connect(dialog, SIGNAL(boardStyleChanged()), this, SLOT(newgame()));
 }
+
+void MainWindow::boardStyleChanged() {}
 
 void MainWindow::giveUpGame()
 {
@@ -375,9 +381,7 @@ void MainWindow::save()
 
 void MainWindow::settings()
 {
-    SettingsView dialog(this);
-    dialog.setModel(&basemodel);
-    dialog.exec();
+    dialog->exec();
 }
 
 void MainWindow::toggleEngineStatus()
