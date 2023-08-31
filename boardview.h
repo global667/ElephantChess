@@ -23,7 +23,7 @@ public:
     void MovePiece(Position from, Position to); // override;
     std::vector<std::pair<Position, Position>> legalPieceMovesVar;
 
-protected:
+    //protected:
     void paintEvent(QPaintEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
 
@@ -35,6 +35,10 @@ private:
     int fromRow;
     int toCol;
     int toRow;
+
+    int rowOffset = 0;
+    int colOffset = 0;
+
     // Cutting points of the board
     const int cutp_width = BaseModel::BoardColPoints;  //8;
     const int cutp_height = BaseModel::BoardRowPoints; //9;
@@ -47,7 +51,7 @@ private:
 
 signals:
     // signals to the controller
-    void updateView(int, int, int, int, int);
+    void updateView(Position from, Position to);
 };
 
 #endif // BOARDVIEW_H

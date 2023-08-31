@@ -35,7 +35,7 @@ private:
     QByteArray posToken(int fromX, int fromY, int toX, int toY);
     QByteArray posToken(QByteArray token);
 signals:
-    void updateView(int, int, int, int, int);
+    void updateView(Position from, Position to);
     void boardChanged(int fromX, int fromY, int toX, int toY);
 
 public slots:

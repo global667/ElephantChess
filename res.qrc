@@ -1,17 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>res/icons/discover_tune_FILL0_wght400_GRAD0_opsz48.png</file>
-        <file>res/icons/exit.png</file>
-        <file>res/icons/minimize_FILL0_wght400_GRAD0_opsz48.png</file>
-        <file>res/icons/open.png</file>
-        <file>res/icons/preview_FILL0_wght400_GRAD0_opsz48.png</file>
-        <file>res/icons/preview_off_FILL0_wght400_GRAD0_opsz48.png</file>
-        <file>res/icons/print.png</file>
-        <file>res/icons/redo.png</file>
-        <file>res/icons/save.png</file>
-        <file>res/icons/settings.png</file>
-        <file>res/icons/spellcheck_FILL0_wght400_GRAD0_opsz48.png</file>
-        <file>res/icons/undo.png</file>
         <file>res/xiangqi.qmodel</file>
         <file>res/Xiangqi_Soldier_(Trad).png</file>
         <file>res/Xiangqi_Advisor_(Trad).png</file>
@@ -20,5 +8,6 @@
         <file>res/Xiangqi_Elephant_(Trad).png</file>
         <file>res/Xiangqi_General_(Trad).png</file>
         <file>res/Xiangqi_Horse_(Trad).png</file>
+        <file>res/generalRed.png</file>
     </qresource>
 </RCC>

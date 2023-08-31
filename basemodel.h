@@ -29,6 +29,11 @@ public:
     Position toHuman = {-1, -1};
     Position fromUCI = {-1, -1};
     Position toUCI = {-1, -1};
+
+    // legt fest welche Farbe unten ist und welche oben,
+    // die genannte ist unten
+    Color gameView = Color::Red;
+    Color humanColor = Color::Red;
 };
 
 #endif // BASEMODEL_H

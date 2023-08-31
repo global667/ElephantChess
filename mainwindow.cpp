@@ -163,6 +163,8 @@ MainWindow::MainWindow(QWidget *parent)
     toolbar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     addToolBar(Qt::TopToolBarArea, toolbar);
     QIcon icon = style()->standardIcon(QStyle::SP_ArrowBack);
+
+    //QAction *new_action = new QAction();
     toolbar->addAction(QIcon(style()->standardIcon(QStyle::SP_DialogApplyButton)),
                        tr("Neues Spiel"),
                        this,
@@ -205,14 +207,15 @@ MainWindow::MainWindow(QWidget *parent)
                        tr("Hilfe"),
                        this,
                        SLOT(Help()));
-    toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_TitleBarMenuButton))),
-                       tr("Über"),
-                       this,
-                       SLOT(About()));
+    QAction *about_action = new QAction(QIcon(
+                                            style()->standardIcon((QStyle::SP_TitleBarMenuButton))),
+                                        tr("Über"),
+                                        this);
+    toolbar->addAction(about_action);
     toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_DialogCloseButton))),
                        tr("Beenden"),
-                       this,
-                       SLOT(exit()));
+                       QCoreApplication::instance(),
+                       &QCoreApplication::quit);
 
     dialog = new SettingsView(this);
     dialog->setModel(&basemodel);
@@ -225,31 +228,54 @@ MainWindow::MainWindow(QWidget *parent)
     uci.start();
     uciThread.start();
 
-    connect(&uci, SIGNAL(updateView(int, int, int, int, int)), SLOT(game(int, int, int, int, int)));
-    connect(boardview,
-            SIGNAL(updateView(int, int, int, int, int)),
-            SLOT(game(int, int, int, int, int)));
+    connect(&uci, SIGNAL(updateView(Position, Position)), SLOT(blackToMove(Position, Position)));
+    connect(boardview, SIGNAL(updateView(Position, Position)), SLOT(redToMove(Position, Position)));
+
     connect(dialog, SIGNAL(boardStyleChanged()), this, SLOT(newgame()));
 }
-
-void MainWindow::boardStyleChanged() {}
 
 void MainWindow::giveUpGame()
 {
     QMessageBox::information(this, "Information", "Noch nicht implementiert");
 }
 
-void MainWindow::exit()
-{
-    QMessageBox::information(this, "Information", "Noch nicht implementiert");
-}
 void MainWindow::toggleGameView()
 {
-    QMessageBox::information(this, "Information", "Noch nicht implementiert");
+    if (basemodel.gameView == Color::Red) {
+        basemodel.gameView = Color::Black;
+        statusBar()->showMessage("Schwarz ist jetzt unten");
+    } else {
+        basemodel.gameView = Color::Red;
+        statusBar()->showMessage("Rot ist jetzt unten");
+    }
+    repaint();
 }
 void MainWindow::togglePlayer()
 {
-    QMessageBox::information(this, "Information", "Noch nicht implementiert");
+    //disconnect(&uci, SIGNAL(updateView(Position, Position)), nullptr, nullptr);
+    //disconnect(boardview, SIGNAL(updateView(Position, Position)), nullptr, nullptr);
+
+    if (basemodel.humanColor == Color::Red) {
+        basemodel.humanColor = Color::Black;
+
+        /* connect(&uci, SIGNAL(updateView(Position, Position)), SLOT(redToMove(Position, Position)));
+        connect(boardview,
+                SIGNAL(updateView(Position, Position)),
+                SLOT(blackToMove(Position, Position)));
+*/
+        uci.engineGo();
+    }
+
+    else {
+        basemodel.humanColor = Color::Red;
+        /*
+        connect(&uci, SIGNAL(updateView(Position, Position)), SLOT(blackToMove(Position, Position)));
+        connect(boardview,
+                SIGNAL(updateView(Position, Position)),
+                SLOT(redToMove(Position, Position)));
+    
+*/
+    }
 }
 void MainWindow::giveTipp()
 {
@@ -381,7 +407,8 @@ void MainWindow::save()
 
 void MainWindow::settings()
 {
-    dialog->exec();
+    dialog->setModal(true);
+    dialog->open();
 }
 
 void MainWindow::toggleEngineStatus()
@@ -463,18 +490,13 @@ void MainWindow::rrightPressed()
     repaint();
 }
 
-// sender = -1 -> model
-// sender = 0 -> human
-// sender = 1 -> uci
-void MainWindow::game(int fromX, int fromY, int toX, int toY, int sender)
+void MainWindow::redToMove(Position from, Position to)
 {
-    qDebug() << "sender:" << sender;
-    GenMove isMate(basemodel.board.pieces, basemodel.board.onMove);
+    qDebug() << "redToMove";
 
-    switch (sender) {
-    case -1:
-        break;
-    case 0:
+    if (basemodel.humanColor == Color::Red) {
+        GenMove isMate(basemodel.board.pieces, basemodel.board.onMove);
+
         //Is the game in observe mode?
         if (basemodel.moveHistory.size() != basemodel.currentMove) {
             //If so, delete all moves after current move and starts the engine
@@ -494,33 +516,48 @@ void MainWindow::game(int fromX, int fromY, int toX, int toY, int sender)
         }
 
         // Give move to engine
-        uci.MovePiece({fromX, fromY}, {toX, toY});
-
+        uci.MovePiece(from, to);
+        uci.engineGo();
         addMoveToList();
         addMoveToHistory();
 
         basemodel.board.toggleOnMove();
-        repaint();
-        break;
-    case 1:
-        boardview->MovePiece({fromX, fromY}, {toX, toY});
-        basemodel.fromUCI = {fromX, fromY};
-        basemodel.toUCI = {toX, toY};
+    } else {
+        uci.MovePiece(from, to);
+
+        uci.engineGo();
+
+        basemodel.fromUCI = from;
+        basemodel.toUCI = to;
         addMoveToList();
         addMoveToHistory();
 
         basemodel.board.toggleOnMove();
-        repaint();
-
-        break;
-    default:
-        qDebug() << "Error in game";
-        statusBar()->showMessage("Error in game");
-        break;
     }
+    repaint();
+}
 
-    //row++;
+void MainWindow::blackToMove(Position from, Position to)
+{
+    qDebug() << "blackToMove";
 
+    if (basemodel.humanColor == Color::Red) {
+        boardview->MovePiece(from, to);
+        basemodel.fromUCI = from;
+        basemodel.toUCI = to;
+        addMoveToList();
+        addMoveToHistory();
+
+        basemodel.board.toggleOnMove();
+        //row++;
+    } else {
+        boardview->MovePiece(from, to);
+        basemodel.fromUCI = from;
+        basemodel.toUCI = to;
+        addMoveToList();
+        addMoveToHistory();
+        basemodel.board.toggleOnMove();
+    }
     repaint();
 }
 

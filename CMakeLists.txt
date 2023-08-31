@@ -10,8 +10,8 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 REQUIRED COMPONENTS StateMachine Widgets LinguistTools)
-find_package(Qt6 REQUIRED COMPONENTS Widgets StateMachine LinguistTools)
+find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets LinguistTools)
+find_package(Qt6 REQUIRED COMPONENTS Widgets LinguistTools)
 
 set(TS_FILES XiangQi_de_DE.ts)
 
@@ -102,7 +102,7 @@ endif()
 #)
 
 
-target_link_libraries(XiangQi PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt6::StateMachine) #pgnlibrary
+target_link_libraries(XiangQi PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

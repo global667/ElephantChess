@@ -13,9 +13,8 @@ Every version should release in a weekly to two weekly cyclus.
 - change red/black on the upper side 
 - care about more than one game in a file on pgns
 - delete pgnlibrary deps [ok]
-- transform to state maschine
-### Version 0.4
 - selectable engines
+### Version 0.4
 - smooth piece animation
 - save settings
 - add euro symbols [ok]
@@ -36,6 +35,7 @@ Every version should release in a weekly to two weekly cyclus.
 - Beginner mode
 - Make board authentic (doubled outter lines, 
 doubled cutting points for cannons and soldiers)
+- transform to state maschine
 
 
 ----------------------------------------------------

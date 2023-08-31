@@ -43,6 +43,7 @@ void UCI::readData()
                 } else {
                     // Stop the engine
                     //writeDatas("stop");
+                    waitForReadyOK = false;
                 }
             } else if (c.contains("uciok")) {
                 // The engine is ready
@@ -56,7 +57,7 @@ void UCI::readData()
                 auto tx = (mv.at(2) - 'a');
                 auto ty = (mv.at(3) - '0');
                 // Ruft game auf
-                emit updateView(fy, fx, ty, tx, 1);
+                emit updateView({fy, fx}, {ty, tx});
                 qDebug() << c << ", send new move " << c.split(' ').at(1) << " as " << fx << fy
                          << tx << ty;
             } else {
@@ -98,7 +99,6 @@ void UCI::MovePiece(int fromX, int fromY, int toX, int toY)
 void UCI::MovePiece(Position from, Position to)
 {
     MovePiece(from.col, from.row, to.col, to.row);
-    engineGo();
 }
 
 void UCI::engineGo()

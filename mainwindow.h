@@ -79,13 +79,15 @@ private:
     void addMoveToList();
     void addMoveToHistory();
 
+    QPushButton button;
+
 public slots:
     void open();
     void save();
     void settings();
     void toggleEngineStatus();
     void newgame();
-    void exit();
+    //void exit();
     void toggleGameView();
     void togglePlayer();
     void giveTipp();
@@ -98,8 +100,8 @@ public slots:
     void rightPressed();
     void rrightPressed();
 
-    void boardStyleChanged();
 public slots:
-    void game(int fromX, int fromY, int toX, int toY, int sender);
+    void redToMove(Position from, Position to);
+    void blackToMove(Position from, Position to);
 };
 #endif // MAINWINDOW_H
