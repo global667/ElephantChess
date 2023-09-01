@@ -699,8 +699,8 @@ void BoardView::drawSelectedPieces(QPainter *p)
 {
     Q_ASSERT(p);
 
-    auto w = p->window().width();  //p->viewport().width();
-    auto h = p->window().height(); //p->viewport().height();
+    auto w = p->viewport().width();  //p->viewport().width();
+    auto h = p->viewport().height(); //p->viewport().height();
 
     // Draws selected piece
     p->setBrush(Qt::transparent);
@@ -789,8 +789,11 @@ void BoardView::mousePressEvent(QMouseEvent *event)
 {
     //qDebug() << "mousePressEvent";
 
-    auto squareCol = (width() - 2 * 50) / BaseModel::BoardColPoints;
-    auto squareRow = (height() - 50 - 100) / BaseModel::BoardRowPoints;
+    float w = width();
+    float h = height();
+
+    float squareCol = floor((w - 2.0 * 50.0) / BaseModel::BoardColPoints);
+    float squareRow = floor((h - 50.0 - 100.0) / BaseModel::BoardRowPoints);
     float boardCursorCol;
     float boardCursorRow;
     if (basemodel.gameView == Color::Red) {
@@ -802,23 +805,21 @@ void BoardView::mousePressEvent(QMouseEvent *event)
     }
 
     if (!pressed) {
-        fromCol = static_cast<int>((50 + boardCursorCol) / squareCol);
-        fromRow = static_cast<int>((((50 + boardCursorRow) / squareRow)));
+        fromCol = static_cast<int>(floor(((boardCursorCol) / squareCol)) + 1);
+        fromRow = static_cast<int>(floor(((boardCursorRow) / squareRow)) + 1);
         pressed = true;
 
-        if (basemodel.board.pieces[10 - fromRow + rowOffset][fromCol - 1 + colOffset].type
-            == PieceType::Empty) {
+        if (basemodel.board.pieces[10 - fromRow][fromCol - 1].type == PieceType::Empty) {
             pressed = false;
             return;
         }
-        if (basemodel.board.pieces[10 - fromRow + rowOffset][fromCol - 1 + colOffset].color
-            != basemodel.board.onMove) {
+        if (basemodel.board.pieces[10 - fromRow][fromCol - 1].color != basemodel.board.onMove) {
             pressed = false;
             return;
         }
 
-        basemodel.fromHuman.col = fromCol - 1 + colOffset;
-        basemodel.fromHuman.row = 10 - fromRow + rowOffset;
+        basemodel.fromHuman.col = fromCol - 1;
+        basemodel.fromHuman.row = 10 - fromRow;
 
         qDebug() << basemodel.fromHuman.col << basemodel.fromHuman.row;
 
@@ -826,8 +827,8 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         legalPieceMovesVar = legalMoves.isValidPieceMove(basemodel.fromHuman);
 
     } else if (pressed) {
-        toCol = static_cast<int>((((50 + boardCursorCol) / squareCol)));
-        toRow = static_cast<int>((((50 + boardCursorRow) / squareRow)));
+        toCol = static_cast<int>(floor(((boardCursorCol) / squareCol)) + 1);
+        toRow = static_cast<int>(floor(((boardCursorRow) / squareRow)) + 1);
 
         GenMove mate(basemodel.board.pieces, basemodel.board.onMove);
 

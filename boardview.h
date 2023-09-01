@@ -42,9 +42,6 @@ private:
     int toCol;
     int toRow;
 
-    int rowOffset = 0;
-    int colOffset = 0;
-
     // Cutting points of the board
     const int cutp_width = BaseModel::BoardColPoints;  //8;
     const int cutp_height = BaseModel::BoardRowPoints; //9;
