@@ -33,12 +33,11 @@ doubled cutting points for cannons and soldiers)
 - add languages: englisch, spanisch, chinese
 - Elo curves and calculator
 - Beginner mode
-- transform to state maschine
-- delete single marker
+- delete single marker or figure
 - care about more than one game in a file on pgns
 - add engines 
 - set board pieces
-
+- add system tray (QSystemTrayIcon)
 ----------------------------------------------------
 How to Markdown
 ---------------

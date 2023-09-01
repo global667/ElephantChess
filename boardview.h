@@ -73,7 +73,8 @@ private:
         SoldierSchwarz
     };
     QList<QPair<QPoint, PieceTypeDifferentiation>> pieces;
-
+    int contextMenuX;
+    int contextMenuY;
     QPoint calcBoardcoords(QPoint r);
     QPixmap pix;
 

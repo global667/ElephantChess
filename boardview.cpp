@@ -13,7 +13,7 @@ extern BaseModel basemodel;
 BoardView::BoardView(QWidget *parent)
     : QWidget{parent}
 {
-    setMouseTracking(true);
+    setMouseTracking(false);
     setFocusPolicy(Qt::StrongFocus);
 }
 
@@ -61,7 +61,7 @@ void BoardView::contextMenuEvent(QContextMenuEvent *event)
     QAction *action4 = contextMenu->addAction("Viereck");
     QAction *action5 = contextMenu->addAction("Linie");
     QAction *action6 = contextMenu->addAction("Linienende");
-    QAction *action7 = contextMenu->addAction("Alles löschen");
+    QAction *action7 = contextMenu->addAction("Kläre Symbole");
 
     connect(a0, &QAction::triggered, this, &BoardView::clearBoard);
     //connect(action, &QAction::triggered, this, &BoardView::Kreuz);
@@ -71,6 +71,9 @@ void BoardView::contextMenuEvent(QContextMenuEvent *event)
     connect(action4, &QAction::triggered, this, &BoardView::Viereck);
     connect(action6, &QAction::triggered, this, &BoardView::Linienende);
     connect(action7, &QAction::triggered, this, &BoardView::clearMarkers);
+
+    contextMenuX = event->x();
+    contextMenuY = event->y();
 
     contextMenu->exec(QCursor::pos());
 }
@@ -90,7 +93,7 @@ void BoardView::clearBoard()
 void BoardView::GeneralRot()
 {
     qDebug() << "GeneralRot";
-    QPoint cur = mapFromGlobal(QCursor::pos());
+    QPoint cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, PieceTypeDifferentiation::GeneralRot));
     paintPiecesDiff();
 }
@@ -98,7 +101,7 @@ void BoardView::GeneralRot()
 void BoardView::GeneralSchwarz()
 {
     qDebug() << "GeneralSchwarz";
-    QPoint cur = mapFromGlobal(QCursor::pos());
+    QPoint cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, PieceTypeDifferentiation::GeneralSchwarz));
     paintPiecesDiff();
 }
@@ -106,7 +109,7 @@ void BoardView::GeneralSchwarz()
 void BoardView::BeraterRot()
 {
     qDebug() << "BeraterRot";
-    QPoint cur = mapFromGlobal(QCursor::pos());
+    QPoint cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, PieceTypeDifferentiation::AdvisorRot));
     paintPiecesDiff();
 }
@@ -114,7 +117,7 @@ void BoardView::BeraterRot()
 void BoardView::BeraterSchwarz()
 {
     qDebug() << "BeraterSchwarz";
-    QPoint cur = mapFromGlobal(QCursor::pos());
+    QPoint cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, PieceTypeDifferentiation::AdvisorSchwarz));
     paintPiecesDiff();
 }
@@ -122,7 +125,7 @@ void BoardView::BeraterSchwarz()
 void BoardView::PferdRot()
 {
     qDebug() << "PferdRot";
-    QPoint cur = mapFromGlobal(QCursor::pos());
+    QPoint cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, PieceTypeDifferentiation::HorseRot));
     paintPiecesDiff();
 }
@@ -130,7 +133,7 @@ void BoardView::PferdRot()
 void BoardView::PferdSchwarz()
 {
     qDebug() << "PferdSchwarz";
-    QPoint cur = mapFromGlobal(QCursor::pos());
+    QPoint cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, PieceTypeDifferentiation::HorseSchwarz));
     paintPiecesDiff();
 }
@@ -138,7 +141,7 @@ void BoardView::PferdSchwarz()
 void BoardView::ElefantRot()
 {
     qDebug() << "ElefantRot";
-    QPoint cur = mapFromGlobal(QCursor::pos());
+    QPoint cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, PieceTypeDifferentiation::ElephantRot));
     paintPiecesDiff();
 }
@@ -146,7 +149,7 @@ void BoardView::ElefantRot()
 void BoardView::ElefantSchwarz()
 {
     qDebug() << "ElefantSchwarz";
-    QPoint cur = mapFromGlobal(QCursor::pos());
+    QPoint cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, PieceTypeDifferentiation::ElephantSchwarz));
     paintPiecesDiff();
 }
@@ -154,7 +157,7 @@ void BoardView::ElefantSchwarz()
 void BoardView::KanoneRot()
 {
     qDebug() << "KanoneRot";
-    QPoint cur = mapFromGlobal(QCursor::pos());
+    QPoint cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, PieceTypeDifferentiation::CannonRot));
     paintPiecesDiff();
 }
@@ -162,7 +165,7 @@ void BoardView::KanoneRot()
 void BoardView::KanoneSchwarz()
 {
     qDebug() << "KanoneSchwarz";
-    QPoint cur = mapFromGlobal(QCursor::pos());
+    QPoint cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, PieceTypeDifferentiation::CannonSchwarz));
     paintPiecesDiff();
 }
@@ -170,7 +173,7 @@ void BoardView::KanoneSchwarz()
 void BoardView::SoldatRot()
 {
     qDebug() << "SoldatRot";
-    QPoint cur = mapFromGlobal(QCursor::pos());
+    QPoint cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, PieceTypeDifferentiation::SoldierRot));
     paintPiecesDiff();
 }
@@ -178,7 +181,7 @@ void BoardView::SoldatRot()
 void BoardView::SoldatSchwarz()
 {
     qDebug() << "SoldatSchwarz";
-    QPoint cur = mapFromGlobal(QCursor::pos());
+    QPoint cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, PieceTypeDifferentiation::SoldierSchwarz));
     paintPiecesDiff();
 }
@@ -186,7 +189,7 @@ void BoardView::SoldatSchwarz()
 void BoardView::TurmRot()
 {
     qDebug() << "TurmRot";
-    QPoint cur = mapFromGlobal(QCursor::pos());
+    QPoint cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, PieceTypeDifferentiation::ChariotRot));
     paintPiecesDiff();
 }
@@ -194,7 +197,7 @@ void BoardView::TurmRot()
 void BoardView::TurmSchwarz()
 {
     qDebug() << "TurmSchwarz";
-    QPoint cur = mapFromGlobal(QCursor::pos());
+    QPoint cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, PieceTypeDifferentiation::ChariotSchwarz));
     paintPiecesDiff();
 }
@@ -207,21 +210,21 @@ void BoardView::clearMarkers()
 void BoardView::Viereck()
 {
     qDebug() << "Viereck";
-    QPoint cur = mapFromGlobal(QCursor::pos());
+    QPoint cur = {contextMenuX, contextMenuY};
     markers.append(std::make_pair(cur, MarkerType::Viereck));
 }
 
 void BoardView::Dreieck()
 {
     qDebug() << "Dreieck";
-    QPoint cur = mapFromGlobal(QCursor::pos());
+    QPoint cur = {contextMenuX, contextMenuY};
     markers.append(std::make_pair(cur, MarkerType::Dreieck));
 }
 
 void BoardView::Kreis()
 {
     qDebug() << "Kreis";
-    QPoint cur = mapFromGlobal(QCursor::pos());
+    QPoint cur = {contextMenuX, contextMenuY};
     markers.append(std::make_pair(cur, MarkerType::Kreis));
     repaint();
 }
@@ -229,21 +232,21 @@ void BoardView::Kreis()
 void BoardView::Linie()
 {
     qDebug() << "Linie";
-    QPoint cur = mapFromGlobal(QCursor::pos());
+    QPoint cur = {contextMenuX, contextMenuY};
     markers.append(std::make_pair(cur, MarkerType::Linie));
 }
 
 void BoardView::Linienende()
 {
     qDebug() << "Linienende";
-    QPoint cur = mapFromGlobal(QCursor::pos());
+    QPoint cur = {contextMenuX, contextMenuY};
     markers.append(std::make_pair(cur, MarkerType::Linienende));
 }
 
 void BoardView::Kreuz()
 {
     qDebug() << "Kreuz";
-    QPoint cur = mapFromGlobal(QCursor::pos());
+    QPoint cur = {contextMenuX, contextMenuY};
     markers.append(std::make_pair(cur, MarkerType::Kreuz));
 }
 
@@ -262,89 +265,74 @@ void BoardView::paintEvent(QPaintEvent *event)
     paintMarker(&painter);
 }
 
-QPoint BoardView::calcBoardcoords(QPoint r)
-{
-    //auto w = r.width();
-    //auto h = r.height();
-
-    auto x = r.x();
-    auto y = r.y();
-
-    qDebug() << x << y << "x und y";
-
-    auto squareCol = (width() - 2 * 50) / BaseModel::BoardColPoints;
-    auto squareRow = (height() - 50 - 100) / BaseModel::BoardRowPoints;
-    float boardCursorCol;
-    float boardCursorRow;
-    if (basemodel.gameView == Color::Red) {
-        boardCursorCol = x;
-        boardCursorRow = y;
-    } else {
-        boardCursorCol = width() - x;
-        boardCursorRow = height() - y;
-    }
-
-    int col, row;
-
-    col = static_cast<int>((50 + boardCursorCol) / squareCol);
-    row = static_cast<int>((50 + boardCursorRow) / squareRow);
-    return QPoint(col, row);
-}
-
 // Sets the selected pieces on the (clean) board
 void BoardView::paintPiecesDiff()
 {
     QPoint coords;
     for (auto piece : pieces) {
         coords = calcBoardcoords(piece.first);
+        QPoint tmp = coords;
+        coords.setX(10 - tmp.y());
+        coords.setY(tmp.x() - 1);
         switch (piece.second) {
         case PieceTypeDifferentiation::GeneralRot:
-            qDebug() << "coords" << coords;
             basemodel.board.placePiece(
                 Piece(Color::Red, PieceType::General, {coords.x(), coords.y()}, "帥"));
-
             break;
         case PieceTypeDifferentiation::GeneralSchwarz:
-
+            basemodel.board.placePiece(
+                Piece(Color::Black, PieceType::General, {coords.x(), coords.y()}, "將"));
             break;
         case PieceTypeDifferentiation::AdvisorRot:
-
+            basemodel.board.placePiece(
+                Piece(Color::Red, PieceType::Advisor, {coords.x(), coords.y()}, "仕"));
             break;
         case PieceTypeDifferentiation::AdvisorSchwarz:
-
+            basemodel.board.placePiece(
+                Piece(Color::Black, PieceType::Advisor, {coords.x(), coords.y()}, "士"));
             break;
         case PieceTypeDifferentiation::ElephantRot:
-
+            basemodel.board.placePiece(
+                Piece(Color::Red, PieceType::Elephant, {coords.x(), coords.y()}, "相"));
             break;
         case PieceTypeDifferentiation::ElephantSchwarz:
-
+            basemodel.board.placePiece(
+                Piece(Color::Black, PieceType::Elephant, {coords.x(), coords.y()}, "象"));
             break;
         case PieceTypeDifferentiation::HorseRot:
-
+            basemodel.board.placePiece(
+                Piece(Color::Red, PieceType::Horse, {coords.x(), coords.y()}, "傌"));
             break;
         case PieceTypeDifferentiation::HorseSchwarz:
-
+            basemodel.board.placePiece(
+                Piece(Color::Black, PieceType::Horse, {coords.x(), coords.y()}, "馬"));
             break;
         case PieceTypeDifferentiation::ChariotRot:
-
+            basemodel.board.placePiece(
+                Piece(Color::Red, PieceType::Chariot, {coords.x(), coords.y()}, "俥"));
             break;
         case PieceTypeDifferentiation::ChariotSchwarz:
-
+            basemodel.board.placePiece(
+                Piece(Color::Black, PieceType::Chariot, {coords.x(), coords.y()}, "車"));
             break;
         case PieceTypeDifferentiation::CannonRot:
-
+            basemodel.board.placePiece(
+                Piece(Color::Red, PieceType::Cannon, {coords.x(), coords.y()}, "炮"));
             break;
         case PieceTypeDifferentiation::CannonSchwarz:
-
+            basemodel.board.placePiece(
+                Piece(Color::Black, PieceType::Cannon, {coords.x(), coords.y()}, "砲"));
             break;
         case PieceTypeDifferentiation::SoldierRot:
-
+            basemodel.board.placePiece(
+                Piece(Color::Red, PieceType::Soldier, {coords.x(), coords.y()}, "兵"));
             break;
         case PieceTypeDifferentiation::SoldierSchwarz:
-
+            basemodel.board.placePiece(
+                Piece(Color::Black, PieceType::Soldier, {coords.x(), coords.y()}, "卒"));
             break;
-
         default:
+            qDebug() << "Error in boarview";
             break;
         }
     }
@@ -355,8 +343,8 @@ void BoardView::paintMarker(QPainter *p)
 {
     Q_ASSERT(p);
 
-    auto w = p->window().width();  //p->viewport().width();
-    auto h = p->window().height(); //p->viewport().height();
+    auto w = p->viewport().width();  //p->viewport().width();
+    auto h = p->viewport().height(); //p->viewport().height();
 
     int lcol = 0;
     int lrow = 0;
@@ -394,7 +382,7 @@ void BoardView::paintMarker(QPainter *p)
             p->setPen(QPen(Qt::blue, 8));
             p->drawPoint((50
                           + (((col - 1)) * (w - 2 * 50) / cutp_width)), // - w / cutp_width / 2 / 1.5,
-                         (50 + ((row - 2)) * (h - 50 - 100) / cutp_height));
+                         (50 + ((row - 1)) * (h - 50 - 100) / cutp_height));
             //- h / cutp_width / 2 / 1.5);
             lrow = row;
             lcol = col;
@@ -403,9 +391,9 @@ void BoardView::paintMarker(QPainter *p)
             p->setPen(QPen(Qt::blue, 8));
 
             p->drawLine(50 + (((lcol - 1)) * (w - 2 * 50) / cutp_width), // - w / cutp_width / 2 / 1.5,
-                        (50 + ((lrow - 2)) * (h - 50 - 100) / cutp_height),
+                        (50 + ((lrow - 1)) * (h - 50 - 100) / cutp_height),
                         50 + (((col - 1)) * (w - 2 * 50) / cutp_width), // - w / cutp_width / 2 / 1.5,
-                        (50 + ((row - 2)) * (h - 50 - 100) / cutp_height));
+                        (50 + ((row - 1)) * (h - 50 - 100) / cutp_height));
 
             break;
         case MarkerType::Viereck:
@@ -413,7 +401,7 @@ void BoardView::paintMarker(QPainter *p)
 
             p->drawRect(
                 QRect((50 + (((col - 1)) * (w - 2 * 50) / cutp_width)) - w / cutp_width / 2 / 1.5,
-                      (50 + ((row - 2)) * (h - 50 - 100) / cutp_height) - h / cutp_width / 2 / 1.5,
+                      (50 + ((row - 1)) * (h - 50 - 100) / cutp_height) - h / cutp_width / 2 / 1.5,
                       w / (cutp_width) / 1.5,
                       h / cutp_width / 1.5));
             break;
@@ -429,8 +417,8 @@ QPixmap *BoardView::paintPiecesRaw(QPainter *p, int row, int col)
     //QPainter *p;
     Q_ASSERT(p);
 
-    auto w = p->window().width();  //p->viewport().width();
-    auto h = p->window().height(); //p->viewport().height();
+    auto w = p->viewport().width();  //p->viewport().width();
+    auto h = p->viewport().height(); //p->viewport().height();
 
     QPen pen;
     pen.setColor(Qt::red);
@@ -789,7 +777,7 @@ void BoardView::mousePressEvent(QMouseEvent *event)
 {
     //qDebug() << "mousePressEvent";
 
-    float w = width();
+    /*   float w = width();
     float h = height();
 
     float squareCol = floor((w - 2.0 * 50.0) / BaseModel::BoardColPoints);
@@ -803,10 +791,14 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         boardCursorCol = width() - event->pos().x();
         boardCursorRow = height() - event->pos().y();
     }
+*/
+    QPoint p = calcBoardcoords({event->pos().x(), event->pos().y()});
 
     if (!pressed) {
-        fromCol = static_cast<int>(floor(((boardCursorCol) / squareCol)) + 1);
-        fromRow = static_cast<int>(floor(((boardCursorRow) / squareRow)) + 1);
+        //fromCol = static_cast<int>(floor(((boardCursorCol) / squareCol)) + 1);
+        //fromRow = static_cast<int>(floor(((boardCursorRow) / squareRow)) + 1);
+        fromCol = p.x();
+        fromRow = p.y();
         pressed = true;
 
         if (basemodel.board.pieces[10 - fromRow][fromCol - 1].type == PieceType::Empty) {
@@ -827,8 +819,11 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         legalPieceMovesVar = legalMoves.isValidPieceMove(basemodel.fromHuman);
 
     } else if (pressed) {
-        toCol = static_cast<int>(floor(((boardCursorCol) / squareCol)) + 1);
-        toRow = static_cast<int>(floor(((boardCursorRow) / squareRow)) + 1);
+        //toCol = static_cast<int>(floor(((boardCursorCol) / squareCol)) + 1);
+        //toRow = static_cast<int>(floor(((boardCursorRow) / squareRow)) + 1);
+
+        toCol = p.x();
+        toRow = p.y();
 
         GenMove mate(basemodel.board.pieces, basemodel.board.onMove);
 
@@ -852,6 +847,36 @@ void BoardView::mousePressEvent(QMouseEvent *event)
     }
 
     repaint();
+}
+
+QPoint BoardView::calcBoardcoords(QPoint r)
+{
+    float w = width();
+    float h = height();
+    QPoint p = r;
+
+    float x = p.x();
+    float y = p.y();
+
+    qDebug() << x << y << "x und y";
+
+    float squareCol = (w - 2.0 * 50.0) / BaseModel::BoardColPoints;
+    float squareRow = (h - 50.0 - 100.0) / BaseModel::BoardRowPoints;
+    float boardCursorCol;
+    float boardCursorRow;
+    if (basemodel.gameView == Color::Red) {
+        boardCursorCol = x;
+        boardCursorRow = y;
+    } else {
+        boardCursorCol = w - x;
+        boardCursorRow = h - y;
+    }
+
+    int col, row;
+
+    col = static_cast<int>(floor((boardCursorCol) / squareCol) + 1);
+    row = static_cast<int>(floor((boardCursorRow) / squareRow) + 1);
+    return QPoint(col, row);
 }
 
 void BoardView::MovePiece(Position from, Position to)
