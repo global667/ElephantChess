@@ -21,7 +21,10 @@ public:
     void paintMarker(QPainter *p);
     void paintBoard(QPainter *p);
     void paintPieces(QPainter *p);
-    void paintPiecesRaw(QPainter *p);
+    QPixmap *paintPiecesRaw(QPainter *p, int row, int col);
+    void drawSelectedPieces(QPainter *p);
+
+    void paintPiecesDiff();
     void MovePiece(Position from, Position to); // override;
     std::vector<std::pair<Position, Position>> legalPieceMovesVar;
 
@@ -56,7 +59,26 @@ private:
     enum class MarkerType { Kreuz, Kreis, Dreieck, Linie, Linienende, Viereck };
     QList<QPair<QPoint, MarkerType>> markers;
 
+    enum class PieceTypeDifferentiation {
+        GeneralRot,
+        AdvisorRot,
+        ElephantRot,
+        HorseRot,
+        ChariotRot,
+        CannonRot,
+        SoldierRot,
+        GeneralSchwarz,
+        AdvisorSchwarz,
+        ElephantSchwarz,
+        HorseSchwarz,
+        ChariotSchwarz,
+        CannonSchwarz,
+        SoldierSchwarz
+    };
+    QList<QPair<QPoint, PieceTypeDifferentiation>> pieces;
+
     QPoint calcBoardcoords(QPoint r);
+    QPixmap pix;
 
 public slots:
     void Kreuz();
@@ -66,6 +88,22 @@ public slots:
     void Linienende();
     void Viereck();
     void clearMarkers();
+
+    void GeneralRot();
+    void GeneralSchwarz();
+    void BeraterRot();
+    void BeraterSchwarz();
+    void PferdRot();
+    void PferdSchwarz();
+    void ElefantRot();
+    void ElefantSchwarz();
+    void KanoneRot();
+    void KanoneSchwarz();
+    void SoldatRot();
+    void SoldatSchwarz();
+    void TurmRot();
+    void TurmSchwarz();
+    void clearBoard();
 
 signals:
     // signals to the controller

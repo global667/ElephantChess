@@ -37,6 +37,7 @@ doubled cutting points for cannons and soldiers)
 - delete single marker
 - care about more than one game in a file on pgns
 - add engines 
+- set board pieces
 
 ----------------------------------------------------
 How to Markdown

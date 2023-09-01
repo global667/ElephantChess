@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 
 project(XiangQi VERSION 0.2 LANGUAGES CXX)
 configure_file(Config.h.in Config.h)
+enable_testing(true)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -19,13 +20,6 @@ set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
         mainwindow.h
-        ${TS_FILES}
-)
-
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(XiangQi
-        MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
         boardview.h boardview.cpp
         basemodel.h basemodel.cpp
         res.qrc
@@ -37,6 +31,14 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         deployment.txt
         settingsview.h settingsview.cpp
         board.h board.cpp
+        ${TS_FILES}
+)
+
+if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+    qt_add_executable(XiangQi
+        MANUAL_FINALIZATION
+        ${PROJECT_SOURCES}
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET XiangQi APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -60,7 +62,10 @@ else()
     qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
-add_executable(test_xiangqi_app test_xiangqi_app.cpp test_xiangqi_app.h)
+add_executable(test_xiangqi_app test_xiangqi_app.cpp test_xiangqi_app.h
+    genmove.cpp genmove.h types.h boardview.cpp boardview.h board.cpp board.h
+    basemodel.cpp basemodel.h res.qrc engine.cpp engine.h uci.cpp uci.h settingsview.cpp settingsview.h
+    mainwindow.cpp mainwindow.h)
 target_link_libraries(test_xiangqi_app PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Test)
 
 #add_executable(Chameleon Chameleon/LICENSE
@@ -106,8 +111,6 @@ target_link_libraries(test_xiangqi_app PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt
 
 
 target_link_libraries(XiangQi PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Test)
-
-enable_testing(true)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

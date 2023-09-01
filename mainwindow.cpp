@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 
+#ifdef TEST
 #include "Config.h"
+#endif
 #include "genmove.h"
 
 extern BaseModel basemodel;
@@ -10,8 +12,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
     resize(1200, 900);
     setWindowIcon(QIcon(":/res/generalRed.png"));
+#ifdef TEST
     setWindowTitle("XiangQi v"
                    + QString("%1.%2").arg(XiangQi_VERSION_MAJOR).arg(XiangQI_VERSION_MINOR));
+#else
+    setWindowTitle("XiangQi");
+#endif
     // widgets
     boardview = new BoardView(this);
     Q_ASSERT(boardview);
@@ -20,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
     tabwidget2 = new QWidget(tabview);
     menubar = new QMenuBar(this);
     menu1 = new QMenu(menubar);
-    table = new QTableView(tabwidget1);
+    //table = new QTableView(tabwidget1);
     navigationwidget = new QWidget(this);
     navigationview = new QWidget(navigationwidget);
 
@@ -43,10 +49,11 @@ MainWindow::MainWindow(QWidget *parent)
     headerview->setStretchLastSection(true);
     headerview->setDefaultAlignment(Qt::AlignJustify | Qt::AlignVCenter);
 
-    table->setHorizontalHeader(headerview);
-    table->setModel((QAbstractItemModel *) model);
-
     setCentralWidget(boardview);
+
+    table = new QTreeWidget();
+    table->setColumnCount(1);
+    table->setHeaderLabels(QStringList() << "Züge");
 
     /*   // menu buttons
     openbutton = new QAction(QIcon(":/res/icons/open.png"), tr("Laden"), menubar);
@@ -134,11 +141,7 @@ MainWindow::MainWindow(QWidget *parent)
     gameinfosh->addLayout(location);
 
     gameinfoswidget->setLayout(gameinfosh);
-    //QLineEdit("none");
-    //ICS unrated blitz match, 2000.06.05</center>\n"
-    //"<center>topogigio (ELO -) vs. Wolf S. Kappesser (ELO 1200)</center>");
-    //gameinfoslabel->setTextFormat(Qt::RichText);
-    // navigationwidget
+
     QVBoxLayout *naviwidlayout = new QVBoxLayout;
     naviwidlayout->addWidget(navigationview);
     naviwidlayout->addWidget(gameinfoswidget);
@@ -232,6 +235,19 @@ MainWindow::MainWindow(QWidget *parent)
     connect(boardview, SIGNAL(updateView(Position, Position)), SLOT(redToMove(Position, Position)));
 
     connect(dialog, SIGNAL(boardStyleChanged()), this, SLOT(newgame()));
+
+    connect(table,
+            SIGNAL(itemClicked(QTreeWidgetItem *, int)),
+            SLOT(itemClicked(QTreeWidgetItem *, int)));
+}
+
+void MainWindow::itemClicked(QTreeWidgetItem *item, int column)
+{
+    qDebug() << "item clicked";
+    int row = table->indexFromItem(item).row();
+    basemodel.board = basemodel.moveHistory[row];
+    isTableClicked = row;
+    repaint();
 }
 
 void MainWindow::giveUpGame()
@@ -511,21 +527,17 @@ void MainWindow::redToMove(Position from, Position to)
     if (basemodel.humanColor == Color::Red) {
         GenMove isMate(basemodel.board.pieces, basemodel.board.onMove);
 
-        //Is the game in observe mode?
-        if (basemodel.moveHistory.size() != basemodel.currentMove) {
-            //If so, delete all moves after current move and starts the engine
-            toggleEngineStatus();
-            for (auto i = 0; i < basemodel.moveHistory.size(); ++i) {
-                if (i > basemodel.currentMove) {
-                    basemodel.moveHistory.pop_back();
-                }
-                //uci.moves.pop_back();
-            }
+        // Is in Check?
+        if (isMate.isCheck(basemodel.board.onMove)) {
+            qDebug() << "Check";
+            statusBar()->showMessage("Check");
+            return;
         }
 
         // Is in Checkmate?
         if (isMate.isCheckmate(basemodel.board.onMove)) {
             qDebug() << "Checkmate";
+            statusBar()->showMessage("Checkmate");
             return;
         }
 
@@ -561,10 +573,25 @@ void MainWindow::blackToMove(Position from, Position to)
         basemodel.toUCI = to;
         addMoveToList();
         addMoveToHistory();
-
         basemodel.board.toggleOnMove();
         //row++;
     } else {
+        GenMove isMate(basemodel.board.pieces, basemodel.board.onMove);
+
+        // Is in Check?
+        if (isMate.isCheck(basemodel.board.onMove)) {
+            qDebug() << "Check";
+            statusBar()->showMessage("Check");
+            return;
+        }
+
+        // Is in Checkmate?
+        if (isMate.isCheckmate(basemodel.board.onMove)) {
+            qDebug() << "Checkmate";
+            statusBar()->showMessage("Checkmate");
+            return;
+        }
+
         boardview->MovePiece(from, to);
         basemodel.fromUCI = from;
         basemodel.toUCI = to;
@@ -585,14 +612,26 @@ void MainWindow::addMoveToList()
 {
     QString mv = QString(uci.moves.last());
 
-    QStandardItem *item = new QStandardItem(mv);
-
-    if (column % 2 == 0) {
+    QTreeWidgetItem *item = new QTreeWidgetItem();
+    item->setText(0, mv);
+    if (isTableClicked) {
+        qDebug() << isTableClicked << "isTableClicked";
+        qDebug() << table->topLevelItemCount() << "table->topLevelItemCount()";
+        if (table->topLevelItemCount() == isTableClicked + 1) {
+            table->addTopLevelItem(item);
+        } else {
+            table->currentItem()->addChild(item);
+        }
+    } else {
+        table->addTopLevelItem(item);
+    }
+    /*    if (column % 2 == 0) {
         model->setItem(column / 2, 0, item);
     }
     if (column % 2 == 1) {
         model->setItem(column / 2, 1, item);
     }
+*/
     column++;
     //delete item;
 }

@@ -26,6 +26,7 @@
 #include <QTableView>
 #include <QTextStream>
 #include <QToolBar>
+#include <QTreeWidget>
 #include <QVBoxLayout>
 #include <QWidget>
 
@@ -54,7 +55,10 @@ private:
     QWidget *tabwidget1;
     QWidget *tabwidget2;
     QWidget *menu;
-    QTableView *table;
+
+    //QTableView *table;
+    QTreeWidget *table;
+
     QWidget *toolbar;
     QAction *openbutton, *savebutton, *settingsbutton, *enginestartsbutton, *exitbutton,
         *newgamebutton;
@@ -81,6 +85,8 @@ private:
 
     QPushButton button;
 
+    int isTableClicked = 0;
+
 public slots:
     void open();
     void save();
@@ -101,6 +107,7 @@ public slots:
     void rrightPressed();
 
     void updateSettings();
+    void itemClicked(QTreeWidgetItem *, int);
 
 public slots:
     void redToMove(Position from, Position to);

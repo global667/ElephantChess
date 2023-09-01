@@ -59,10 +59,11 @@ void UCI::readData()
                 auto ty = (mv.at(3) - '0');
                 // Ruft game auf
                 emit updateView({fy, fx}, {ty, tx});
-                qDebug() << c << ", send new move " << c.split(' ').at(1) << " as " << fx << fy
-                         << tx << ty;
+                //qDebug() << c << ", send new move " << c.split(' ').at(1) << " as " << fx << fy
+                //         << tx << ty;
             } else {
                 // Handle other cases (if necessary)
+                Q_ASSERT(1);
             }
         }
     }

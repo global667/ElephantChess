@@ -9,7 +9,7 @@ GenMove::GenMove() //QObject *parent)
 GenMove::GenMove(const Piece p[ROWS][COLS], Color onMove)
 {
     copyBoard(pieces, p);
-    onMove = onMove;
+    this->onMove = onMove;
 }
 
 // Array der Spielsteine kopieren
