@@ -1,0 +1,78 @@
+/*html, body, div, input, span, a, select, textarea, option, h1, h2, h3, h4, main, aside, article, section, header, p, footer, nav, pre {
+*/    /*box-sizing: border-box;*/
+body {
+    font-family: Tahoma, Geneva, sans-serif;
+    
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /*height: 100vh;*/
+            font-size: 12px;
+}
+html {
+    background-color: #F8F9F9;
+    padding: 30px;
+}
+
+.required {    
+    font-size: small; 
+    font-style: italic;
+}
+
+.footer {
+    font-size: smaller;    
+}
+
+.header {
+    font-size: larger;
+    font-weight: bold;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+/*style="line-height:1.0em; border: 1px solid black; height: 40px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);"*/
+
+.download {
+    line-height: 1.0em;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid black;
+    font-size: large;
+}
+
+input,textarea,p {
+    outline: 0;
+}
+h1 {
+    margin: 0;
+    padding: 20px;
+    font-size: 22px;
+    text-align: center;
+    border-bottom: 1px solid #eceff2;
+    color: #6a737f;
+    font-weight: 600;
+}
+ul {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    color: #6a737f;
+    font-weight: 400;
+}
+
+ul li {
+    text-align: center;
+    list-style: none;
+}
