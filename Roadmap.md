@@ -10,16 +10,17 @@ Every version should release in a weekly to two weekly cyclus.
 ### Version 0.3
 - show available moves [ok]
 - add Toolbar [ok]
-- change red/black on the upper side 
-- care about more than one game in a file on pgns
+- change red/black on the upper side [ok]
 - delete pgnlibrary deps [ok]
-- selectable engines
+- selectable engines [ok]
 ### Version 0.4
-- smooth piece animation
+- smooth piece animation [ok]
 - save settings
 - add euro symbols [ok]
-- add markers
-- add engines 
+- add markers [ok]
+- Make board authentic (doubled outter lines, 
+doubled cutting points for cannons and soldiers)
+- different notations (classic, euro, chinese)
 ### Version 0.5
 - improve move list
     - add treeview
@@ -28,15 +29,14 @@ Every version should release in a weekly to two weekly cyclus.
 ### Version 0.xx    
 - start writing own engine
 - svg pieces
-- icons
-- different notations (classic, euro, chinese)
+- icons [ok]
 - add languages: englisch, spanisch, chinese
 - Elo curves and calculator
 - Beginner mode
-- Make board authentic (doubled outter lines, 
-doubled cutting points for cannons and soldiers)
 - transform to state maschine
-
+- delete single marker
+- care about more than one game in a file on pgns
+- add engines 
 
 ----------------------------------------------------
 How to Markdown

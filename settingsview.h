@@ -15,8 +15,11 @@ class SettingsView : public QDialog
     Q_OBJECT
 public:
     explicit SettingsView(QWidget *parent = nullptr);
+    ~SettingsView();
 
     void setModel(BaseModel *newModel);
+
+    QString engineName;
 
 private:
     BaseModel *model;
@@ -28,6 +31,9 @@ private:
     void chooseEngine();
     void chooseStyle();
     void chooseBoardStyle();
+
+public slots:
+    void comboBoxSetEngineName();
 
 signals:
     void boardStyleChanged();

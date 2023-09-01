@@ -27,6 +27,8 @@ public:
     void engineGo();
     QStringList moves;
 
+    QString engineName = "chameleon";
+
 private:
     QByteArray buffer;
     bool waitForReadyOK;

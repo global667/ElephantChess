@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets LinguistTools)
-find_package(Qt6 REQUIRED COMPONENTS Widgets LinguistTools)
+find_package(Qt6 REQUIRED COMPONENTS Widgets Test LinguistTools)
 
 set(TS_FILES XiangQi_de_DE.ts)
 
@@ -60,6 +60,9 @@ else()
     qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
+add_executable(test_xiangqi_app test_xiangqi_app.cpp test_xiangqi_app.h)
+target_link_libraries(test_xiangqi_app PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Test)
+
 #add_executable(Chameleon Chameleon/LICENSE
 #    Chameleon/README.md
 #    Chameleon/bitboard.cpp
@@ -102,7 +105,9 @@ endif()
 #)
 
 
-target_link_libraries(XiangQi PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(XiangQi PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Test)
+
+enable_testing(true)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

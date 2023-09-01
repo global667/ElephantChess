@@ -100,6 +100,8 @@ public slots:
     void rightPressed();
     void rrightPressed();
 
+    void updateSettings();
+
 public slots:
     void redToMove(Position from, Position to);
     void blackToMove(Position from, Position to);

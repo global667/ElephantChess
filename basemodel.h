@@ -33,7 +33,11 @@ public:
     // legt fest welche Farbe unten ist und welche oben,
     // die genannte ist unten
     Color gameView = Color::Red;
+
+    // legt fest welche Farbe der Mensch spielt
     Color humanColor = Color::Red;
+
+    QString engine = "chameleon";
 };
 
 #endif // BASEMODEL_H

@@ -408,7 +408,21 @@ void MainWindow::save()
 void MainWindow::settings()
 {
     dialog->setModal(true);
+    connect(dialog, SIGNAL(finished(int)), this, SLOT(updateSettings()));
     dialog->open();
+}
+
+void MainWindow::updateSettings()
+{
+    uciThread.quit();
+    uciThread.wait();
+    uci.engineName = basemodel.engine = dialog->engineName;
+    Q_ASSERT(&uci);
+    Q_ASSERT(&uciThread);
+    uci.moveToThread(&uciThread);
+    qDebug() << "Starting uci engine (" + uci.engineName + ") in extra thread";
+    uci.start();
+    uciThread.start();
 }
 
 void MainWindow::toggleEngineStatus()

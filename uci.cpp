@@ -10,7 +10,8 @@ UCI::UCI()
             SLOT(anError(QProcess::ProcessError)));
 
     // Set the program for the engine
-    engine.setProgram("/engine.exe");
+    engine.setProgram("/" + engineName + ".exe");
+    qDebug() << "Starting uci engine:" << engineName;
     engine.setReadChannel(QProcess::StandardOutput);
 
     engine.start(QIODevice::Text | QIODevice::ReadWrite);

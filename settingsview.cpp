@@ -5,8 +5,8 @@ SettingsView::SettingsView(QWidget *parent)
     : QDialog{parent}
 {
     engines_comboBox = new QComboBox{this};
-    engines_comboBox->addItem("Eleeye");
-    engines_comboBox->addItem("Chameleon");
+    engines_comboBox->addItem("eleeye");
+    engines_comboBox->addItem("chameleon");
 
     style_button = new QPushButton{"Wähle den Notationsstil", this};
     engine_button = new QPushButton{"Wähle die Engine", this};
@@ -22,6 +22,24 @@ SettingsView::SettingsView(QWidget *parent)
     connect(engine_button, &QPushButton::clicked, this, &SettingsView::chooseEngine);
     connect(style_button, &QPushButton::clicked, this, &SettingsView::chooseStyle);
     connect(board_style_button, &QPushButton::clicked, this, &SettingsView::chooseBoardStyle);
+    engineName = engines_comboBox->currentText();
+    connect(engines_comboBox,
+            &QComboBox::currentIndexChanged,
+            this,
+            &SettingsView::comboBoxSetEngineName);
+}
+
+void SettingsView::comboBoxSetEngineName()
+{
+    engineName = engines_comboBox->currentText();
+}
+
+SettingsView::~SettingsView()
+{
+    delete engines_comboBox;
+    delete engine_button;
+    delete style_button;
+    delete board_style_button;
 }
 
 void SettingsView::setModel(BaseModel *newModel)

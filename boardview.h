@@ -1,6 +1,7 @@
 #ifndef BOARDVIEW_H
 #define BOARDVIEW_H
 
+#include <QMenu>
 #include <QMouseEvent>
 #include <QPainter>
 #include <QWidget>
@@ -17,15 +18,17 @@ class BoardView : public QWidget
 public:
     explicit BoardView(QWidget *parent = nullptr);
 
+    void paintMarker(QPainter *p);
     void paintBoard(QPainter *p);
     void paintPieces(QPainter *p);
     void paintPiecesRaw(QPainter *p);
     void MovePiece(Position from, Position to); // override;
     std::vector<std::pair<Position, Position>> legalPieceMovesVar;
 
-    //protected:
+protected:
     void paintEvent(QPaintEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
+    void contextMenuEvent(QContextMenuEvent *event) override;
 
 private:
     // controls the mouse input
@@ -48,6 +51,21 @@ private:
 
     QString black_river = "漢 界"; //  (Hàn jiè) - Dieser Schriftzug bedeutet "Grenze von Han".
     //Es befindet sich auf der Seite des Brettes, die dem Spieler mit den schwarzen Figuren gehört.
+
+    QMenu *contextMenu;
+    enum class MarkerType { Kreuz, Kreis, Dreieck, Linie, Linienende, Viereck };
+    QList<QPair<QPoint, MarkerType>> markers;
+
+    QPoint calcBoardcoords(QPoint r);
+
+public slots:
+    void Kreuz();
+    void Kreis();
+    void Dreieck();
+    void Linie();
+    void Linienende();
+    void Viereck();
+    void clearMarkers();
 
 signals:
     // signals to the controller
