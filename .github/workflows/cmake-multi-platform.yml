@@ -51,6 +51,22 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: ${{ matrix.qt_version }}
+
+    - name: Build library with CMake
+      run: |
+        cmake . ${{ matrix.additional_arguments }}
+        cmake --build .
+
+    - name: Build basic example with CMake
+      working-directory: examples/basic/
+      run: |
+        cmake . ${{ matrix.additional_arguments }}
+        cmake --build .
+
     - name: Set reusable strings
       # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
       id: strings
