@@ -16,14 +16,18 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets Test LinguistTools)
 
 set(TS_FILES XiangQi_de_DE.ts)
 
+set(MISC_SOURCES
+    deployment.txt
+    Roadmap.md
+    res/xiangqi.qmodel
+)
+
 set(PROJECT_WEBSITE "docs/lizenzen.html"
     "docs/robots.txt"
     "docs/Screenshot.jpg"
     "docs/sitemaps.txt"
     "docs/sitemaps.xml"
     "docs/style.css"
-    "docs/test"
-    "docs/.htaccess"
     "docs/apple-touch-icon-120x120-precomposed.png"
     "docs/apple-touch-icon-152x152-precomposed.png"
     "docs/datenschutz.html"
@@ -41,21 +45,18 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         boardview.h boardview.cpp
-        basemodel.h basemodel.cpp
-        res.qrc
+        basemodel.h basemodel.cpp        
         uci.cpp uci.h
         genmove.h genmove.cpp
-        types.h
-        Roadmap.md
-        engine.h engine.cpp
-        deployment.txt
+        types.h        
+        engine.h engine.cpp        
         settingsview.h settingsview.cpp
         board.h board.cpp
+        res.qrc
         ${TS_FILES}
         ${PROJECT_WEBSITE}
+        ${MISC_SOURCES}
 )
-
-
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(XiangQi
