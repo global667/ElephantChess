@@ -14,12 +14,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets LinguistTools)
 find_package(Qt6 REQUIRED COMPONENTS Widgets Test LinguistTools)
 
-set(TS_FILES XiangQi_de_DE.ts)
+set(TS_FILES i18n/XiangQi_de_DE.ts)
 
 set(MISC_SOURCES
-    deployment.txt
-    Roadmap.md
-    res/xiangqi.qmodel
+    assets/deployment.txt
+    assets/Roadmap.md
+    assets//xiangqi.qmodel
 )
 
 set(PROJECT_WEBSITE "docs/lizenzen.html"
@@ -40,56 +40,62 @@ set(PROJECT_WEBSITE "docs/lizenzen.html"
     "docs/links.html"
 )
 
+qt_standard_project_setup()
+
+add_subdirectory(sources)
+#add_subdirectory(sources/tests)
+
 set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        boardview.h boardview.cpp
-        basemodel.h basemodel.cpp        
-        uci.cpp uci.h
-        genmove.h genmove.cpp
-        types.h        
-        engine.h engine.cpp        
-        settingsview.h settingsview.cpp
-        board.h board.cpp
-        res.qrc
+#        main.cpp
+#        mainwindow.cpp
+#        mainwindow.h
+#        boardview.h boardview.cpp
+#        basemodel.h basemodel.cpp
+#        uci.cpp uci.h
+#        genmove.h genmove.cpp
+#        types.h
+#        engine.h engine.cpp
+#        settingsview.h settingsview.cpp
+#        board.h board.cpp
+       # ${PROJECT_CPP_SOURCES}
+        assets/res.qrc
         ${TS_FILES}
         ${PROJECT_WEBSITE}
         ${MISC_SOURCES}
 )
 
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(XiangQi
-        MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
-    )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET XiangQi APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
+#if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+#    qt_add_executable(XiangQi
+#        MANUAL_FINALIZATION
+#        ${PROJECT_SOURCES}
+#    )
+## Define target properties for Android with Qt 6 as:
+##    set_property(TARGET XiangQi APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
+##                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
+## For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 
-    qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
-else()
-    if(ANDROID)
-        add_library(XiangQi SHARED
-            ${PROJECT_SOURCES}
-        )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-    else()
-        add_executable(XiangQi
-            ${PROJECT_SOURCES}
-        )
-    endif()
+#    qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+#else()
+#    if(ANDROID)
+#        add_library(XiangQi SHARED
+#            ${PROJECT_SOURCES}
+#        )
+## Define properties for Android with Qt 5 after find_package() calls as:
+##    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
+#    else()
+#        add_executable(XiangQi
+#            ${PROJECT_SOURCES}
+#        )
+#    endif()
 
-    qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
-endif()
+#    qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+#endif()
 
-add_executable(test_xiangqi_app test_xiangqi_app.cpp test_xiangqi_app.h
-    genmove.cpp genmove.h types.h boardview.cpp boardview.h board.cpp board.h
-    basemodel.cpp basemodel.h res.qrc engine.cpp engine.h uci.cpp uci.h settingsview.cpp settingsview.h
-    mainwindow.cpp mainwindow.h)
-target_link_libraries(test_xiangqi_app PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Test)
+#add_executable(test_xiangqi_app test_xiangqi_app.cpp test_xiangqi_app.h
+#    genmove.cpp genmove.h types.h boardview.cpp boardview.h board.cpp board.h
+#    basemodel.cpp basemodel.h res.qrc engine.cpp engine.h uci.cpp uci.h settingsview.cpp settingsview.h
+#    mainwindow.cpp mainwindow.h)
+#target_link_libraries(test_xiangqi_app PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Test)
 
 #add_executable(Chameleon Chameleon/LICENSE
 #    Chameleon/README.md
@@ -133,34 +139,34 @@ target_link_libraries(test_xiangqi_app PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt
 #)
 
 
-target_link_libraries(XiangQi PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Test)
+#target_link_libraries(XiangQi PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Test)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.
-if(${QT_VERSION} VERSION_LESS 6.1.0)
-  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.boringgames.XiangQi)
-endif()
-set_target_properties(XiangQi PROPERTIES
-    ${BUNDLE_ID_OPTION}
-    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-    MACOSX_BUNDLE TRUE
-    WIN32_EXECUTABLE TRUE
-)
+#if(${QT_VERSION} VERSION_LESS 6.1.0)
+#  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.boringgames.XiangQi)
+#endif()
+##set_target_properties(XiangQi PROPERTIES
+##    ${BUNDLE_ID_OPTION}
+##    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+##    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+##    MACOSX_BUNDLE FALSE
+##    WIN32_EXECUTABLE TRUE
+##)
 
-include(GNUInstallDirs)
-install(TARGETS XiangQi
-    BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
+#include(GNUInstallDirs)
+#install(TARGETS XiangQi
+#    BUNDLE DESTINATION .
+#    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+#    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+#)
 
-if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(XiangQi)
-endif()
+#if(QT_VERSION_MAJOR EQUAL 6)
+#    qt_finalize_executable(XiangQi)
+#endif()
 
-target_include_directories(XiangQi PUBLIC
-    "${PROJECT_BINARY_DIR}")
-                           #"${PROJECT_SOURCE_DIR}/pgnlib")
-                           #"${PROJECT_SOURCE_DIR}/Chameleon")
+#target_include_directories(XiangQi PUBLIC
+#    "${PROJECT_BINARY_DIR}")
+#                           #"${PROJECT_SOURCE_DIR}/pgnlib")
+#                           #"${PROJECT_SOURCE_DIR}/Chameleon")

@@ -1,0 +1,25 @@
+<RCC>
+    <qresource prefix="/">
+        <file>../assets/800px-Xiangqi_board.svg.png</file>
+        <file>../assets/Basic.nsi</file>
+        <file>../assets/deployment.txt</file>
+        <file>../assets/eleeye.exe</file>
+        <file>../assets/engine-interface.txt</file>
+        <file>../assets/example.sgf</file>
+        <file>../assets/generalRed.png</file>
+        <file>../assets/ia902908.us.archive.org_26_items_pgn-standard-1994-03-12_PGN_standard_1994-03-12.txt</file>
+        <file>../assets/ModelViewControllerDiagram.png</file>
+        <file>../assets/modelview-overview.png</file>
+        <file>../assets/Roadmap.md</file>
+        <file>../assets/test.pgn</file>
+        <file>../assets/wood.gif</file>
+        <file>../assets/xiangqi.qmodel</file>
+        <file>../assets/Xiangqi_Advisor_(Trad).png</file>
+        <file>../assets/Xiangqi_Cannon_(Trad).png</file>
+        <file>../assets/Xiangqi_Chariot_(Trad).png</file>
+        <file>../assets/Xiangqi_Elephant_(Trad).png</file>
+        <file>../assets/Xiangqi_General_(Trad).png</file>
+        <file>../assets/Xiangqi_Horse_(Trad).png</file>
+        <file>../assets/Xiangqi_Soldier_(Trad).png</file>
+    </qresource>
+</RCC>

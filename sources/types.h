@@ -69,4 +69,23 @@ public:
     QString name;
 };
 
+enum class MarkerType { Kreuz, Kreis, Dreieck, Linie, Linienende, Viereck };
+
+enum class CompletePieceType {
+    GeneralRot,
+    AdvisorRot,
+    ElephantRot,
+    HorseRot,
+    ChariotRot,
+    CannonRot,
+    SoldierRot,
+    GeneralSchwarz,
+    AdvisorSchwarz,
+    ElephantSchwarz,
+    HorseSchwarz,
+    ChariotSchwarz,
+    CannonSchwarz,
+    SoldierSchwarz
+};
+
 #endif // TYPES_H

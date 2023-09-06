@@ -5,12 +5,14 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QWidget>
+#include "contexmenu.h"
 #include <vector>
 
 #include "basemodel.h"
 #include "types.h"
 
 // This class is the view of the board. It is a QWidget and draws the board and the pieces.
+// Handles the mouse input and the context menu.
 
 class BoardView : public QWidget
 {
@@ -18,15 +20,14 @@ class BoardView : public QWidget
 public:
     explicit BoardView(QWidget *parent = nullptr);
 
+    void MovePiece(Position from, Position to);
+
+private:
     void paintMarker(QPainter *p);
     void paintBoard(QPainter *p);
     void paintPieces(QPainter *p);
     QPixmap *paintPiecesRaw(QPainter *p, int row, int col);
     void drawSelectedPieces(QPainter *p);
-
-    void paintPiecesDiff();
-    void MovePiece(Position from, Position to); // override;
-    std::vector<std::pair<Position, Position>> legalPieceMovesVar;
 
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -34,6 +35,10 @@ protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
 
 private:
+    QPoint calcBoardcoords(QPoint r);
+    QPixmap pix;
+    void setEditorPieces();
+
     // controls the mouse input
     bool pressed = false;
     // Board coordinates from to for the 2-dim array
@@ -41,6 +46,7 @@ private:
     int fromRow;
     int toCol;
     int toRow;
+    std::vector<std::pair<Position, Position>> allPreviewMoves;
 
     // Cutting points of the board
     const int cutp_width = BaseModel::BoardColPoints;  //8;
@@ -52,56 +58,8 @@ private:
     QString black_river = "漢 界"; //  (Hàn jiè) - Dieser Schriftzug bedeutet "Grenze von Han".
     //Es befindet sich auf der Seite des Brettes, die dem Spieler mit den schwarzen Figuren gehört.
 
-    QMenu *contextMenu;
-    enum class MarkerType { Kreuz, Kreis, Dreieck, Linie, Linienende, Viereck };
-    QList<QPair<QPoint, MarkerType>> markers;
-
-    enum class PieceTypeDifferentiation {
-        GeneralRot,
-        AdvisorRot,
-        ElephantRot,
-        HorseRot,
-        ChariotRot,
-        CannonRot,
-        SoldierRot,
-        GeneralSchwarz,
-        AdvisorSchwarz,
-        ElephantSchwarz,
-        HorseSchwarz,
-        ChariotSchwarz,
-        CannonSchwarz,
-        SoldierSchwarz
-    };
-    QList<QPair<QPoint, PieceTypeDifferentiation>> pieces;
-    int contextMenuX;
-    int contextMenuY;
-    QPoint calcBoardcoords(QPoint r);
-    QPixmap pix;
-
-public slots:
-    void Kreuz();
-    void Kreis();
-    void Dreieck();
-    void Linie();
-    void Linienende();
-    void Viereck();
-    void clearMarkers();
-
-    void GeneralRot();
-    void GeneralSchwarz();
-    void BeraterRot();
-    void BeraterSchwarz();
-    void PferdRot();
-    void PferdSchwarz();
-    void ElefantRot();
-    void ElefantSchwarz();
-    void KanoneRot();
-    void KanoneSchwarz();
-    void SoldatRot();
-    void SoldatSchwarz();
-    void TurmRot();
-    void TurmSchwarz();
-    void clearBoard();
+    // Kontexmenue mit Figuren und Marker
+    contexMenu *contextMenu;
 
 signals:
     // signals to the controller

@@ -15,244 +15,22 @@ BoardView::BoardView(QWidget *parent)
 {
     setMouseTracking(false);
     setFocusPolicy(Qt::StrongFocus);
+    contextMenu = new contexMenu(this);
 }
 
 void BoardView::contextMenuEvent(QContextMenuEvent *event)
 {
     //Q_UNUSED(event);
     qDebug() << "contextMenuEvent";
-    contextMenu = new QMenu(this);
-    QAction *a0 = contextMenu->addAction("Kläre Brett");
-    QMenu *redPiecesMenu = new QMenu("Figuren (Rot)");
-    QAction *a11 = redPiecesMenu->addAction("General");
-    QAction *a12 = redPiecesMenu->addAction("Berater");
-    QAction *a13 = redPiecesMenu->addAction("Elefant");
-    QAction *a14 = redPiecesMenu->addAction("Pferd");
-    QAction *a15 = redPiecesMenu->addAction("Kanone");
-    QAction *a16 = redPiecesMenu->addAction("Soldat");
-    QAction *a17 = redPiecesMenu->addAction("Turm");
-    connect(a11, &QAction::triggered, this, &BoardView::GeneralRot);
-    connect(a12, &QAction::triggered, this, &BoardView::BeraterRot);
-    connect(a13, &QAction::triggered, this, &BoardView::ElefantRot);
-    connect(a14, &QAction::triggered, this, &BoardView::PferdRot);
-    connect(a15, &QAction::triggered, this, &BoardView::KanoneRot);
-    connect(a16, &QAction::triggered, this, &BoardView::SoldatRot);
-    connect(a17, &QAction::triggered, this, &BoardView::TurmRot);
-    QMenu *blackPiecesMenu = new QMenu("Figuren (Schwarz)");
-    QAction *a21 = blackPiecesMenu->addAction("General");
-    QAction *a22 = blackPiecesMenu->addAction("Berater");
-    QAction *a23 = blackPiecesMenu->addAction("Elefant");
-    QAction *a24 = blackPiecesMenu->addAction("Pferd");
-    QAction *a25 = blackPiecesMenu->addAction("Kanone");
-    QAction *a26 = blackPiecesMenu->addAction("Soldat");
-    QAction *a27 = blackPiecesMenu->addAction("Turm");
-    connect(a21, &QAction::triggered, this, &BoardView::GeneralSchwarz);
-    connect(a22, &QAction::triggered, this, &BoardView::BeraterSchwarz);
-    connect(a23, &QAction::triggered, this, &BoardView::ElefantSchwarz);
-    connect(a24, &QAction::triggered, this, &BoardView::PferdSchwarz);
-    connect(a25, &QAction::triggered, this, &BoardView::KanoneSchwarz);
-    connect(a26, &QAction::triggered, this, &BoardView::SoldatSchwarz);
-    connect(a27, &QAction::triggered, this, &BoardView::TurmSchwarz);
-    contextMenu->addMenu(blackPiecesMenu);
-    contextMenu->addMenu(redPiecesMenu);
-    //QAction *action = contextMenu->addAction("Kreuz");
-    QAction *action2 = contextMenu->addAction("Kreis");
-    //QAction *action3 = contextMenu->addAction("Dreieck");
-    QAction *action4 = contextMenu->addAction("Viereck");
-    QAction *action5 = contextMenu->addAction("Linie");
-    QAction *action6 = contextMenu->addAction("Linienende");
-    QAction *action7 = contextMenu->addAction("Kläre Symbole");
-
-    connect(a0, &QAction::triggered, this, &BoardView::clearBoard);
-    //connect(action, &QAction::triggered, this, &BoardView::Kreuz);
-    connect(action5, &QAction::triggered, this, &BoardView::Linie);
-    connect(action2, &QAction::triggered, this, &BoardView::Kreis);
-    //connect(action3, &QAction::triggered, this, &BoardView::Dreieck);
-    connect(action4, &QAction::triggered, this, &BoardView::Viereck);
-    connect(action6, &QAction::triggered, this, &BoardView::Linienende);
-    connect(action7, &QAction::triggered, this, &BoardView::clearMarkers);
-
-    contextMenuX = event->x();
-    contextMenuY = event->y();
 
     contextMenu->exec(QCursor::pos());
-}
-
-void BoardView::clearBoard()
-{
-    qDebug() << "clearBoard";
-    pieces.clear();
-    for (int row = 0; row < ROWS; ++row) {
-        for (int col = 0; col < COLS; ++col) {
-            basemodel.board.pieces[row][col] = Piece(Color::Red, PieceType::Empty, {row, col}, "");
-        }
-    }
-    repaint();
-}
-
-void BoardView::GeneralRot()
-{
-    qDebug() << "GeneralRot";
-    QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, PieceTypeDifferentiation::GeneralRot));
-    paintPiecesDiff();
-}
-
-void BoardView::GeneralSchwarz()
-{
-    qDebug() << "GeneralSchwarz";
-    QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, PieceTypeDifferentiation::GeneralSchwarz));
-    paintPiecesDiff();
-}
-
-void BoardView::BeraterRot()
-{
-    qDebug() << "BeraterRot";
-    QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, PieceTypeDifferentiation::AdvisorRot));
-    paintPiecesDiff();
-}
-
-void BoardView::BeraterSchwarz()
-{
-    qDebug() << "BeraterSchwarz";
-    QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, PieceTypeDifferentiation::AdvisorSchwarz));
-    paintPiecesDiff();
-}
-
-void BoardView::PferdRot()
-{
-    qDebug() << "PferdRot";
-    QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, PieceTypeDifferentiation::HorseRot));
-    paintPiecesDiff();
-}
-
-void BoardView::PferdSchwarz()
-{
-    qDebug() << "PferdSchwarz";
-    QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, PieceTypeDifferentiation::HorseSchwarz));
-    paintPiecesDiff();
-}
-
-void BoardView::ElefantRot()
-{
-    qDebug() << "ElefantRot";
-    QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, PieceTypeDifferentiation::ElephantRot));
-    paintPiecesDiff();
-}
-
-void BoardView::ElefantSchwarz()
-{
-    qDebug() << "ElefantSchwarz";
-    QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, PieceTypeDifferentiation::ElephantSchwarz));
-    paintPiecesDiff();
-}
-
-void BoardView::KanoneRot()
-{
-    qDebug() << "KanoneRot";
-    QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, PieceTypeDifferentiation::CannonRot));
-    paintPiecesDiff();
-}
-
-void BoardView::KanoneSchwarz()
-{
-    qDebug() << "KanoneSchwarz";
-    QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, PieceTypeDifferentiation::CannonSchwarz));
-    paintPiecesDiff();
-}
-
-void BoardView::SoldatRot()
-{
-    qDebug() << "SoldatRot";
-    QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, PieceTypeDifferentiation::SoldierRot));
-    paintPiecesDiff();
-}
-
-void BoardView::SoldatSchwarz()
-{
-    qDebug() << "SoldatSchwarz";
-    QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, PieceTypeDifferentiation::SoldierSchwarz));
-    paintPiecesDiff();
-}
-
-void BoardView::TurmRot()
-{
-    qDebug() << "TurmRot";
-    QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, PieceTypeDifferentiation::ChariotRot));
-    paintPiecesDiff();
-}
-
-void BoardView::TurmSchwarz()
-{
-    qDebug() << "TurmSchwarz";
-    QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, PieceTypeDifferentiation::ChariotSchwarz));
-    paintPiecesDiff();
-}
-
-void BoardView::clearMarkers()
-{
-    markers.clear();
-}
-
-void BoardView::Viereck()
-{
-    qDebug() << "Viereck";
-    QPoint cur = {contextMenuX, contextMenuY};
-    markers.append(std::make_pair(cur, MarkerType::Viereck));
-}
-
-void BoardView::Dreieck()
-{
-    qDebug() << "Dreieck";
-    QPoint cur = {contextMenuX, contextMenuY};
-    markers.append(std::make_pair(cur, MarkerType::Dreieck));
-}
-
-void BoardView::Kreis()
-{
-    qDebug() << "Kreis";
-    QPoint cur = {contextMenuX, contextMenuY};
-    markers.append(std::make_pair(cur, MarkerType::Kreis));
-    repaint();
-}
-
-void BoardView::Linie()
-{
-    qDebug() << "Linie";
-    QPoint cur = {contextMenuX, contextMenuY};
-    markers.append(std::make_pair(cur, MarkerType::Linie));
-}
-
-void BoardView::Linienende()
-{
-    qDebug() << "Linienende";
-    QPoint cur = {contextMenuX, contextMenuY};
-    markers.append(std::make_pair(cur, MarkerType::Linienende));
-}
-
-void BoardView::Kreuz()
-{
-    qDebug() << "Kreuz";
-    QPoint cur = {contextMenuX, contextMenuY};
-    markers.append(std::make_pair(cur, MarkerType::Kreuz));
 }
 
 void BoardView::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
+
+    setEditorPieces();
 
     if (basemodel.gameView == Color::Black) {
         painter.rotate(180);
@@ -265,80 +43,6 @@ void BoardView::paintEvent(QPaintEvent *event)
     paintMarker(&painter);
 }
 
-// Sets the selected pieces on the (clean) board
-void BoardView::paintPiecesDiff()
-{
-    QPoint coords;
-    for (auto piece : pieces) {
-        coords = calcBoardcoords(piece.first);
-        QPoint tmp = coords;
-        coords.setX(10 - tmp.y());
-        coords.setY(tmp.x() - 1);
-        switch (piece.second) {
-        case PieceTypeDifferentiation::GeneralRot:
-            basemodel.board.placePiece(
-                Piece(Color::Red, PieceType::General, {coords.x(), coords.y()}, "帥"));
-            break;
-        case PieceTypeDifferentiation::GeneralSchwarz:
-            basemodel.board.placePiece(
-                Piece(Color::Black, PieceType::General, {coords.x(), coords.y()}, "將"));
-            break;
-        case PieceTypeDifferentiation::AdvisorRot:
-            basemodel.board.placePiece(
-                Piece(Color::Red, PieceType::Advisor, {coords.x(), coords.y()}, "仕"));
-            break;
-        case PieceTypeDifferentiation::AdvisorSchwarz:
-            basemodel.board.placePiece(
-                Piece(Color::Black, PieceType::Advisor, {coords.x(), coords.y()}, "士"));
-            break;
-        case PieceTypeDifferentiation::ElephantRot:
-            basemodel.board.placePiece(
-                Piece(Color::Red, PieceType::Elephant, {coords.x(), coords.y()}, "相"));
-            break;
-        case PieceTypeDifferentiation::ElephantSchwarz:
-            basemodel.board.placePiece(
-                Piece(Color::Black, PieceType::Elephant, {coords.x(), coords.y()}, "象"));
-            break;
-        case PieceTypeDifferentiation::HorseRot:
-            basemodel.board.placePiece(
-                Piece(Color::Red, PieceType::Horse, {coords.x(), coords.y()}, "傌"));
-            break;
-        case PieceTypeDifferentiation::HorseSchwarz:
-            basemodel.board.placePiece(
-                Piece(Color::Black, PieceType::Horse, {coords.x(), coords.y()}, "馬"));
-            break;
-        case PieceTypeDifferentiation::ChariotRot:
-            basemodel.board.placePiece(
-                Piece(Color::Red, PieceType::Chariot, {coords.x(), coords.y()}, "俥"));
-            break;
-        case PieceTypeDifferentiation::ChariotSchwarz:
-            basemodel.board.placePiece(
-                Piece(Color::Black, PieceType::Chariot, {coords.x(), coords.y()}, "車"));
-            break;
-        case PieceTypeDifferentiation::CannonRot:
-            basemodel.board.placePiece(
-                Piece(Color::Red, PieceType::Cannon, {coords.x(), coords.y()}, "炮"));
-            break;
-        case PieceTypeDifferentiation::CannonSchwarz:
-            basemodel.board.placePiece(
-                Piece(Color::Black, PieceType::Cannon, {coords.x(), coords.y()}, "砲"));
-            break;
-        case PieceTypeDifferentiation::SoldierRot:
-            basemodel.board.placePiece(
-                Piece(Color::Red, PieceType::Soldier, {coords.x(), coords.y()}, "兵"));
-            break;
-        case PieceTypeDifferentiation::SoldierSchwarz:
-            basemodel.board.placePiece(
-                Piece(Color::Black, PieceType::Soldier, {coords.x(), coords.y()}, "卒"));
-            break;
-        default:
-            qDebug() << "Error in boarview";
-            break;
-        }
-    }
-    repaint();
-}
-
 void BoardView::paintMarker(QPainter *p)
 {
     Q_ASSERT(p);
@@ -349,7 +53,7 @@ void BoardView::paintMarker(QPainter *p)
     int lcol = 0;
     int lrow = 0;
 
-    for (auto marker : markers) {
+    for (auto marker : contextMenu->markers) {
         auto x = marker.first.x();
         auto y = marker.first.y();
 
@@ -756,8 +460,8 @@ void BoardView::drawSelectedPieces(QPainter *p)
     pen.setColor(Qt::red);
     pen.setWidth(5);
     p->setPen(pen);
-    qDebug() << "legalPieceMovesVar.size()" << legalPieceMovesVar.size();
-    for (auto move : legalPieceMovesVar) {
+    //qDebug() << "legalPieceMovesVar.size()" << legalPieceMovesVar.size();
+    for (auto move : allPreviewMoves) {
         for (int j = 0; j < 10; j++) {
             for (int i = 0; i < 9; i++) {
                 if (move.second.col == i && move.second.row == j) {
@@ -816,7 +520,7 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         qDebug() << basemodel.fromHuman.col << basemodel.fromHuman.row;
 
         GenMove legalMoves(basemodel.board.pieces, basemodel.board.onMove);
-        legalPieceMovesVar = legalMoves.isValidPieceMove(basemodel.fromHuman);
+        allPreviewMoves = legalMoves.isValidPieceMove(basemodel.fromHuman);
 
     } else if (pressed) {
         //toCol = static_cast<int>(floor(((boardCursorCol) / squareCol)) + 1);
@@ -835,7 +539,7 @@ void BoardView::mousePressEvent(QMouseEvent *event)
 
         pressed = false;
 
-        for (auto move : legalPieceMovesVar) {
+        for (auto move : allPreviewMoves) {
             if ((move.first.row == 10 - fromRow) && (move.first.col == fromCol - 1)
                 && (move.second.row == 10 - toRow) && (move.second.col == toCol - 1)) {
                 basemodel.board.movePiece(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1);
@@ -843,10 +547,83 @@ void BoardView::mousePressEvent(QMouseEvent *event)
                 break;
             }
         }
-        legalPieceMovesVar.clear();
+        allPreviewMoves.clear();
     }
 
     repaint();
+}
+
+// Sets the selected pieces on the (clean) board
+void BoardView::setEditorPieces()
+{
+    QPoint coords;
+    for (auto piece : contextMenu->pieces) {
+        coords = calcBoardcoords(piece.first);
+        QPoint tmp = coords;
+        coords.setX(10 - tmp.y());
+        coords.setY(tmp.x() - 1);
+        switch (piece.second) {
+        case CompletePieceType::GeneralRot:
+            basemodel.board.placePiece(
+                Piece(Color::Red, PieceType::General, {coords.x(), coords.y()}, "帥"));
+            break;
+        case CompletePieceType::GeneralSchwarz:
+            basemodel.board.placePiece(
+                Piece(Color::Black, PieceType::General, {coords.x(), coords.y()}, "將"));
+            break;
+        case CompletePieceType::AdvisorRot:
+            basemodel.board.placePiece(
+                Piece(Color::Red, PieceType::Advisor, {coords.x(), coords.y()}, "仕"));
+            break;
+        case CompletePieceType::AdvisorSchwarz:
+            basemodel.board.placePiece(
+                Piece(Color::Black, PieceType::Advisor, {coords.x(), coords.y()}, "士"));
+            break;
+        case CompletePieceType::ElephantRot:
+            basemodel.board.placePiece(
+                Piece(Color::Red, PieceType::Elephant, {coords.x(), coords.y()}, "相"));
+            break;
+        case CompletePieceType::ElephantSchwarz:
+            basemodel.board.placePiece(
+                Piece(Color::Black, PieceType::Elephant, {coords.x(), coords.y()}, "象"));
+            break;
+        case CompletePieceType::HorseRot:
+            basemodel.board.placePiece(
+                Piece(Color::Red, PieceType::Horse, {coords.x(), coords.y()}, "傌"));
+            break;
+        case CompletePieceType::HorseSchwarz:
+            basemodel.board.placePiece(
+                Piece(Color::Black, PieceType::Horse, {coords.x(), coords.y()}, "馬"));
+            break;
+        case CompletePieceType::ChariotRot:
+            basemodel.board.placePiece(
+                Piece(Color::Red, PieceType::Chariot, {coords.x(), coords.y()}, "俥"));
+            break;
+        case CompletePieceType::ChariotSchwarz:
+            basemodel.board.placePiece(
+                Piece(Color::Black, PieceType::Chariot, {coords.x(), coords.y()}, "車"));
+            break;
+        case CompletePieceType::CannonRot:
+            basemodel.board.placePiece(
+                Piece(Color::Red, PieceType::Cannon, {coords.x(), coords.y()}, "炮"));
+            break;
+        case CompletePieceType::CannonSchwarz:
+            basemodel.board.placePiece(
+                Piece(Color::Black, PieceType::Cannon, {coords.x(), coords.y()}, "砲"));
+            break;
+        case CompletePieceType::SoldierRot:
+            basemodel.board.placePiece(
+                Piece(Color::Red, PieceType::Soldier, {coords.x(), coords.y()}, "兵"));
+            break;
+        case CompletePieceType::SoldierSchwarz:
+            basemodel.board.placePiece(
+                Piece(Color::Black, PieceType::Soldier, {coords.x(), coords.y()}, "卒"));
+            break;
+        default:
+            qDebug() << "Error in boarview";
+            break;
+        }
+    }
 }
 
 QPoint BoardView::calcBoardcoords(QPoint r)
