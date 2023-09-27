@@ -58,19 +58,6 @@ contexMenu::contexMenu(QWidget *parent)
     connect(action7, &QAction::triggered, this, &contexMenu::clearMarkers);
 }
 
-//void contexMenu::mousePressEvent(QMouseEvent *event)
-//{
-//    qDebug() << "contexMenu::mousePressEvent";
-//    if (event->button() == Qt::RightButton) {
-//        contextMenuX = event->position().x();
-//        contextMenuY = event->position().y();
-//        //popup(event->globalPosition().toPoint());
-//        event->accept();
-//        return;
-//    }
-//    event->ignore();
-//}
-
 void contexMenu::clearBoard()
 {
     qDebug() << "clearBoard";
@@ -86,7 +73,8 @@ void contexMenu::clearBoard()
 void contexMenu::GeneralRot()
 {
     qDebug() << "GeneralRot";
-    QPoint cur = mapFromGlobal(QCursor::pos());
+    //QPoint cur = QCursor::pos();
+    QPoint cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, CompletePieceType::GeneralRot));
     repaint();
 }

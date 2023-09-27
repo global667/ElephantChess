@@ -23,6 +23,8 @@ void BoardView::contextMenuEvent(QContextMenuEvent *event)
     //Q_UNUSED(event);
     qDebug() << "contextMenuEvent";
 
+    contextMenu->contextMenuX = event->pos().x();
+    contextMenu->contextMenuY = event->pos().y();
     contextMenu->exec(QCursor::pos());
 }
 
