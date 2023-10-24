@@ -11,10 +11,10 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets LinguistTools)
-find_package(Qt6 REQUIRED COMPONENTS Widgets Test LinguistTools)
+find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets)# LinguistTools)
+find_package(Qt6 REQUIRED COMPONENTS Widgets Test)# LinguistTools)
 
-set(TS_FILES i18n/XiangQi_de_DE.ts)
+#set(TS_FILES i18n/XiangQi_de_DE.ts)
 
 set(MISC_SOURCES
     assets/deployment.txt
@@ -40,7 +40,7 @@ set(PROJECT_WEBSITE "docs/lizenzen.html"
     "docs/links.html"
 )
 
-qt_standard_project_setup()
+#qt_standard_project_setup()
 
 add_subdirectory(sources)
 #add_subdirectory(sources/tests)

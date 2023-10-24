@@ -14,7 +14,7 @@ set(PROJECT_CPP
 
 qt_add_resources(RESOURCES res.qrc)
 
-qt_add_translation(QM_FILES ${TS_FILES})
+#qt_add_translation(QM_FILES ${TS_FILES})
 
 add_executable(XiangQi ${PROJECT_CPP} ${RESOURCES}
     contexmenu.h contexmenu.cpp)
