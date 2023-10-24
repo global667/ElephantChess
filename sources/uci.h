@@ -11,6 +11,7 @@
 #include <QThread>
 
 #include "types.h"
+#include "engine.h"
 
 class UCI : public QObject
 {

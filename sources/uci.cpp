@@ -106,9 +106,13 @@ void UCI::MovePiece(Position from, Position to)
 void UCI::engineGo()
 {
     // Start the engine
-    writeDatas("position startpos moves " + moves.join(" ").toUtf8());
-    writeDatas("go depth 2");
-    writeDatas("isready");
+    // writeDatas("position startpos moves " + moves.join(" ").toUtf8());
+    // writeDatas("go depth 2");
+    // writeDatas("isready");
+    class engine eng;
+    std::pair<Position, Position> ownEngineMove;
+    ownEngineMove = eng.getBestMove(Color::Black);
+    emit updateView(ownEngineMove.first, ownEngineMove.second);
 }
 
 void UCI::writeDatas(QByteArray d)

@@ -7,12 +7,15 @@
 #include <QPoint>
 #include <QRadialGradient>
 #include <QTextItem>
+#include <QFontDatabase>
 
 extern BaseModel basemodel;
 
 BoardView::BoardView(QWidget *parent)
     : QWidget{parent}
 {
+    int fontStatus = QFontDatabase::addApplicationFont(":/res/BabelStoneHan.ttf");
+    if (fontStatus == -1) qDebug() << "Error in font loading";
     setMouseTracking(false);
     setFocusPolicy(Qt::StrongFocus);
     contextMenu = new contexMenu(this);
@@ -131,8 +134,7 @@ QPixmap *BoardView::paintPiecesRaw(QPainter *p, int row, int col)
     pen.setWidth(3);
     p->setPen(pen);
 
-    QFont font("YaHei Consolas Hybrid", 30, 75);
-    font.setStretch(150);
+    QFont font("BabelStoneHan", 30, 75);//"Songti");//"YaHei Consolas Hybrid", 30, 75);    font.setStretch(150);
     p->setFont(font);
     // Draws all pieces
     //for (int j = 0; j < 10; j++) {
@@ -295,7 +297,7 @@ void BoardView::paintBoard(QPainter *p)
 
     // Flussufer
     QFont tmp = QFont(p->font());
-    QFont font = QFont("YaHei", 40);
+    QFont font = QFont("BabelStoneHan", 40);
     font.setPointSize(40);
     font.setBold(false);
     font.setItalic(true);

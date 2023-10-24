@@ -2,13 +2,16 @@
 #define ENGINE_H
 
 #include "types.h"
+#include "basemodel.h"
+#include "genmove.h"
+#include <QRandomGenerator>
 
 // chinese chess engine
 class engine
 {
 public:
     engine();
-    Position getBestMove(Color color);
+    std::pair<Position, Position> getBestMove(Color color);
 
     // get all possible moves for a piece
     // return a list of positions
