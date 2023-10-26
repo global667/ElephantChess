@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(XiangQi VERSION 0.2 LANGUAGES CXX)
-configure_file(Config.h.in Config.h)
-enable_testing(true)
+project(ElephantChess VERSION 0.4 LANGUAGES CXX)
+
+#enable_testing(false)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -17,9 +17,9 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets Test)# LinguistTools)
 #set(TS_FILES i18n/XiangQi_de_DE.ts)
 
 set(MISC_SOURCES
-    assets/deployment.txt
-    assets/Roadmap.md
-    assets//xiangqi.qmodel
+    res/deployment.txt
+    res/Roadmap.md
+    res//xiangqi.qmodel
 )
 
 set(PROJECT_WEBSITE "docs/lizenzen.html"
@@ -58,7 +58,7 @@ set(PROJECT_SOURCES
 #        settingsview.h settingsview.cpp
 #        board.h board.cpp
        # ${PROJECT_CPP_SOURCES}
-        assets/res.qrc
+        res.qrc
         ${TS_FILES}
         ${PROJECT_WEBSITE}
         ${MISC_SOURCES}

@@ -1,8 +1,8 @@
 #include "mainwindow.h"
 
-#ifdef TEST
-#include "Config.h"
-#endif
+//#ifdef TEST
+//#include "config.h"
+//#endif
 #include "genmove.h"
 
 extern BaseModel basemodel;
@@ -12,12 +12,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
     resize(1200, 900);
     setWindowIcon(QIcon(":/res/generalRed.png"));
-#ifdef TEST
-    setWindowTitle("XiangQi v"
-                   + QString("%1.%2").arg(XiangQi_VERSION_MAJOR).arg(XiangQI_VERSION_MINOR));
-#else
-    setWindowTitle("XiangQi");
-#endif
+//#ifdef TEST
+//    setWindowTitle("ElephantChess v"
+//                   + QString("%1.%2").arg(ElephantChess_VERSION_MAJOR).arg(ElephantChess_VERSION_MINOR));
+//#else
+    setWindowTitle("ElephantChess");
+//#endif
     // widgets
     boardview = new BoardView(this);
     Q_ASSERT(boardview);
@@ -227,9 +227,9 @@ MainWindow::MainWindow(QWidget *parent)
     Q_ASSERT(&uci);
     Q_ASSERT(&uciThread);
     uci.moveToThread(&uciThread);
-    qDebug() << "Starting uci engine in extra thread";
-    uci.start();
-    uciThread.start();
+    //qDebug() << "Starting uci engine in extra thread";
+    //uci.start();
+    //uciThread.start();
 
     connect(&uci, SIGNAL(updateView(Position, Position)), SLOT(blackToMove(Position, Position)));
     connect(boardview, SIGNAL(updateView(Position, Position)), SLOT(redToMove(Position, Position)));
@@ -543,11 +543,11 @@ void MainWindow::redToMove(Position from, Position to)
 
         // Give move to engine
         uci.MovePiece(from, to);
-        uci.engineGo();
         addMoveToList();
         addMoveToHistory();
-
         basemodel.board.toggleOnMove();
+        uci.engineGo();
+
     } else {
         uci.MovePiece(from, to);
 
@@ -571,9 +571,9 @@ void MainWindow::blackToMove(Position from, Position to)
         boardview->MovePiece(from, to);
         basemodel.fromUCI = from;
         basemodel.toUCI = to;
-        addMoveToList();
-        addMoveToHistory();
         basemodel.board.toggleOnMove();
+        addMoveToHistory();
+        addMoveToList();
         //row++;
     } else {
         GenMove isMate(basemodel.board.pieces, basemodel.board.onMove);
@@ -595,9 +595,9 @@ void MainWindow::blackToMove(Position from, Position to)
         boardview->MovePiece(from, to);
         basemodel.fromUCI = from;
         basemodel.toUCI = to;
-        addMoveToList();
-        addMoveToHistory();
         basemodel.board.toggleOnMove();
+        addMoveToHistory();
+        addMoveToList();
     }
     repaint();
 }
@@ -632,6 +632,8 @@ void MainWindow::addMoveToList()
         model->setItem(column / 2, 1, item);
     }
 */
+    item = nullptr;
+    mv = nullptr;
     column++;
     //delete item;
 }

@@ -547,6 +547,7 @@ void BoardView::mousePressEvent(QMouseEvent *event)
             if ((move.first.row == 10 - fromRow) && (move.first.col == fromCol - 1)
                 && (move.second.row == 10 - toRow) && (move.second.col == toCol - 1)) {
                 basemodel.board.movePiece(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1);
+
                 emit updateView({10 - fromRow, fromCol - 1}, {10 - toRow, toCol - 1});
                 break;
             }

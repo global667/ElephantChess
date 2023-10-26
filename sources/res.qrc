@@ -20,5 +20,6 @@
         <file>../res/BabelStoneHan.ttf</file>
         <file>../license.txt</file>
         <file>../README.md</file>
+        <file>config.h.in</file>
     </qresource>
 </RCC>

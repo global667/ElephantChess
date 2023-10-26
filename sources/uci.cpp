@@ -4,23 +4,23 @@ UCI::UCI()
     : waitForReadyOK(true)
     , newGame(true)
 {
-    connect(&engine, SIGNAL(readyRead()), SLOT(readData()));
-    connect(&engine,
-            SIGNAL(errorOccurred(QProcess::ProcessError)),
-            SLOT(anError(QProcess::ProcessError)));
+    //connect(&engine, SIGNAL(readyRead()), SLOT(readData()));
+    //connect(&engine,
+    //        SIGNAL(errorOccurred(QProcess::ProcessError)),
+    //        SLOT(anError(QProcess::ProcessError)));
 
     // Set the program for the engine
-    engine.setProgram("/" + engineName + ".exe");
-    qDebug() << "Starting uci engine:" << engineName;
-    engine.setReadChannel(QProcess::StandardOutput);
+    //engine.setProgram("/" + engineName + ".exe");
+    //qDebug() << "Starting uci engine:" << engineName;
+    //engine.setReadChannel(QProcess::StandardOutput);
 
-    engine.start(QIODevice::Text | QIODevice::ReadWrite);
-    engine.waitForStarted();
+    //engine.start(QIODevice::Text | QIODevice::ReadWrite);
+    //engine.waitForStarted();
 
     // Wait for the engine to be ready
-    writeDatas("uci");
-    writeDatas("isready");
-    engine.waitForReadyRead();
+    //writeDatas("uci");
+    //writeDatas("isready");
+    //engine.waitForReadyRead();
 }
 
 void UCI::start()
@@ -112,6 +112,8 @@ void UCI::engineGo()
     class engine eng;
     std::pair<Position, Position> ownEngineMove;
     ownEngineMove = eng.getBestMove(Color::Black);
+    QByteArray mv = posToken(ownEngineMove.first.col, ownEngineMove.first.row, ownEngineMove.second.col, ownEngineMove.second.row);
+    moves.append(mv);
     emit updateView(ownEngineMove.first, ownEngineMove.second);
 }
 

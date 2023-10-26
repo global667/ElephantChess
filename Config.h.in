@@ -1,3 +1,0 @@
-// the configured options and settings for Tutorial
-#define XiangQi_VERSION_MAJOR @XiangQi_VERSION_MAJOR@
-#define XiangQI_VERSION_MINOR @XiangQi_VERSION_MINOR@
