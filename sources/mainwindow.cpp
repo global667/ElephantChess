@@ -548,7 +548,7 @@ void MainWindow::redToMove(Position from, Position to)
         basemodel.board.toggleOnMove();
         uci.engineGo();
 
-    } else {
+    }/* else {
         uci.MovePiece(from, to);
 
         uci.engineGo();
@@ -559,7 +559,7 @@ void MainWindow::redToMove(Position from, Position to)
         addMoveToHistory();
 
         basemodel.board.toggleOnMove();
-    }
+    }*/
     repaint();
 }
 
@@ -575,7 +575,7 @@ void MainWindow::blackToMove(Position from, Position to)
         addMoveToHistory();
         addMoveToList();
         //row++;
-    } else {
+    } /*else {
         GenMove isMate(basemodel.board.pieces, basemodel.board.onMove);
 
         // Is in Check?
@@ -598,7 +598,7 @@ void MainWindow::blackToMove(Position from, Position to)
         basemodel.board.toggleOnMove();
         addMoveToHistory();
         addMoveToList();
-    }
+    }*/
     repaint();
 }
 

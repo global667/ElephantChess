@@ -9,7 +9,7 @@ engine::engine()
 
 std::pair<Position, Position> engine::getBestMove(Color color)
 {
-    GenMove generatedMoves(basemodel.board.pieces, Color::Black);
+    GenMove generatedMoves(basemodel.board.pieces, color);
 
     std::vector<std::pair<Position, Position>> pos;
     std::vector<std::pair<Position, Position>> posAll;
@@ -18,9 +18,15 @@ std::pair<Position, Position> engine::getBestMove(Color color)
     for (int i = 0; i < 10; i++)
         for (int j = 0; j < 9; j++)
     {
+            if (generatedMoves.getColor({i,j}) == color)
+            {
             pos = generatedMoves.isValidPieceMove(Position {i,j});//generateLegalMoves(Color::Black);
             for (std::pair<Position, Position> p : pos)
+            {
                 posAll.push_back(p);
+                qDebug() << p.first.row << p.first.col;
+            }
+            }
     }
 
     int sizeOfPosAll = posAll.size();
