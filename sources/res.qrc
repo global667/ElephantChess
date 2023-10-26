@@ -18,5 +18,7 @@
         <file>../res/Xiangqi_Horse_(Trad).png</file>
         <file>../res/Xiangqi_Soldier_(Trad).png</file>
         <file>../res/BabelStoneHan.ttf</file>
+        <file>../license.txt</file>
+        <file>../README.md</file>
     </qresource>
 </RCC>
