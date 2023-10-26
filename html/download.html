@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="description" content="Willkommen bei elephant-chess, der Seite für chinesisches Schach.">   
+    <title>Willkommen bei elephant-chess</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <script src="jquery-3.7.0.min.js"></script>
+    <script>
+        $(function(){
+            $("#header").load("header.html"), function() {
+            console.log("Header wurde geladen.");
+            };  
+            $("#footer").load("footer.html"), function() {
+            console.log("Header wurde geladen.");
+            }; 
+        });
+    </script>
+</head>
+<body>      
+    <div class="container">        
+        <h1>Geschichte</h1>    
+        <div id="header"></div> 
+        <p>Um das Spiel herunterzuladen, klicken Sie bitte auf den folgenden Link:</p>
+        <p class="download">
+            <a href="XiangQi_v0.3.exe">Download XiangQi version 0.3</a><br>
+            <a class="required">Systemvoraussetzungen: x64-Prozessor, Windows 10 oder höher</a>
+        </p>
+<div id="footer"></div>
+
+</div>
+</body>
+</html>
+
+
+
+
+

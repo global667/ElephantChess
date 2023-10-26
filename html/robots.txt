@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://elephant-chess.com/sitemaps.xml
+Sitemap: https://www.elephant-chess.com/sitemaps.xml
