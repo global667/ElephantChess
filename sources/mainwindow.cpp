@@ -1,3 +1,21 @@
+/*
+  ElephantChess, a UCI chinese chess playing GUI with builtin engine
+  Copyright (C) 2022-2023 Wolf S. Kappesser
+
+  ElephantChess is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  ElephantChess is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include "mainwindow.h"
 
 //#ifdef TEST
@@ -221,7 +239,7 @@ MainWindow::MainWindow(QWidget *parent)
                        &QCoreApplication::quit);
 
     dialog = new SettingsView(this);
-    dialog->setModel(&basemodel);
+    dialog->SetModel(&basemodel);
 
     statusBar()->showMessage(tr("Ready"));
     Q_ASSERT(&uci);
@@ -231,8 +249,8 @@ MainWindow::MainWindow(QWidget *parent)
     //uci.start();
     //uciThread.start();
 
-    connect(&uci, SIGNAL(updateView(Position, Position)), SLOT(blackToMove(Position, Position)));
-    connect(boardview, SIGNAL(updateView(Position, Position)), SLOT(redToMove(Position, Position)));
+    connect(&uci, SIGNAL(updateView(position, position)), SLOT(blackToMove(position, position)));
+    connect(boardview, SIGNAL(updateView(position, position)), SLOT(redToMove(position, position)));
 
     connect(dialog, SIGNAL(boardStyleChanged()), this, SLOT(newgame()));
 
@@ -257,11 +275,11 @@ void MainWindow::giveUpGame()
 
 void MainWindow::toggleGameView()
 {
-    if (basemodel.gameView == Color::Red) {
-        basemodel.gameView = Color::Black;
+    if (basemodel.gameView == color::Red) {
+        basemodel.gameView = color::Black;
         statusBar()->showMessage("Schwarz ist jetzt unten");
     } else {
-        basemodel.gameView = Color::Red;
+        basemodel.gameView = color::Red;
         statusBar()->showMessage("Rot ist jetzt unten");
     }
     repaint();
@@ -271,8 +289,8 @@ void MainWindow::togglePlayer()
     //disconnect(&uci, SIGNAL(updateView(Position, Position)), nullptr, nullptr);
     //disconnect(boardview, SIGNAL(updateView(Position, Position)), nullptr, nullptr);
 
-    if (basemodel.humanColor == Color::Red) {
-        basemodel.humanColor = Color::Black;
+    if (basemodel.humanColor == color::Red) {
+        basemodel.humanColor = color::Black;
 
         /* connect(&uci, SIGNAL(updateView(Position, Position)), SLOT(redToMove(Position, Position)));
         connect(boardview,
@@ -283,7 +301,7 @@ void MainWindow::togglePlayer()
     }
 
     else {
-        basemodel.humanColor = Color::Red;
+        basemodel.humanColor = color::Red;
         /*
         connect(&uci, SIGNAL(updateView(Position, Position)), SLOT(blackToMove(Position, Position)));
         connect(boardview,
@@ -522,22 +540,22 @@ void MainWindow::rrightPressed()
     repaint();
 }
 
-void MainWindow::redToMove(Position from, Position to)
+void MainWindow::redToMove(position from, position to)
 {
     qDebug() << "redToMove";
 
-    if (basemodel.humanColor == Color::Red) {
+    if (basemodel.humanColor == color::Red) {
         GenMove isMate(basemodel.board.pieces, basemodel.board.onMove);
 
         // Is in Check?
-        if (isMate.isCheck(basemodel.board.onMove)) {
+        if (isMate.IsCheck(basemodel.board.onMove)) {
             qDebug() << "Check";
             statusBar()->showMessage("Check");
             return;
         }
 
         // Is in Checkmate?
-        if (isMate.isCheckmate(basemodel.board.onMove)) {
+        if (isMate.IsCheckmate(basemodel.board.onMove)) {
             qDebug() << "Checkmate";
             statusBar()->showMessage("Checkmate");
             return;
@@ -550,7 +568,7 @@ void MainWindow::redToMove(Position from, Position to)
         basemodel.board.toggleOnMove();
         uci.engineGo();
 
-    }/* else {
+    } /* else {
         uci.MovePiece(from, to);
 
         uci.engineGo();
@@ -565,11 +583,11 @@ void MainWindow::redToMove(Position from, Position to)
     repaint();
 }
 
-void MainWindow::blackToMove(Position from, Position to)
+void MainWindow::blackToMove(position from, position to)
 {
     qDebug() << "blackToMove";
 
-    if (basemodel.humanColor == Color::Red) {
+    if (basemodel.humanColor == color::Red) {
         boardview->MovePiece(from, to);
         basemodel.fromUCI = from;
         basemodel.toUCI = to;

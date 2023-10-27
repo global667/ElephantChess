@@ -1,3 +1,21 @@
+/*
+  ElephantChess, a UCI chinese chess playing GUI with builtin engine
+  Copyright (C) 2022-2023 Wolf S. Kappesser
+
+  ElephantChess is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  ElephantChess is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #ifndef TYPES_H
 #define TYPES_H
 
@@ -21,13 +39,13 @@
 #define ROWS 10
 #define COLS 9
 
-enum class ViewStyleMode { traditional_native, traditional_png, western_png };
+enum class viewStyleMode { traditional_native, traditional_png, western_png };
 
-enum class PieceType { Empty, General, Advisor, Elephant, Horse, Chariot, Cannon, Soldier };
+enum class pieceType { Empty, General, Advisor, Elephant, Horse, Chariot, Cannon, Soldier };
 
-enum class Color { Red, Black };
+enum class color { Red, Black };
 
-struct Position
+struct position
 {
     int row;
     int col;
@@ -40,8 +58,8 @@ class Piece
 {
 public:
     Piece() {}
-    Piece(Color color, PieceType type, Position pos, QImage img)
-        : color(color)
+    Piece(color colr, pieceType type, position pos, QImage img)
+        : colr(colr)
         , type(type)
         , pos(pos)
     {
@@ -50,8 +68,8 @@ public:
         this->img = QImage(img);
     }
 
-    Piece(Color color, PieceType type, Position pos, QString name)
-        : color(color)
+    Piece(color colr, pieceType type, position pos, QString name)
+        : colr(colr)
         , type(type)
         , pos(pos)
     {
@@ -63,15 +81,15 @@ public:
     virtual ~Piece() {}
 
     QImage img;
-    Color color;
-    PieceType type;
-    Position pos;
+    color colr;
+    pieceType type;
+    position pos;
     QString name;
 };
 
-enum class MarkerType { Kreuz, Kreis, Dreieck, Linie, Linienende, Viereck };
+enum class markerType { Kreuz, Kreis, Dreieck, Linie, Linienende, Viereck };
 
-enum class CompletePieceType {
+enum class completePieceType {
     GeneralRot,
     AdvisorRot,
     ElephantRot,

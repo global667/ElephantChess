@@ -1,31 +1,45 @@
+/*
+  ElephantChess, a UCI chinese chess playing GUI with builtin engine
+  Copyright (C) 2022-2023 Wolf S. Kappesser
+
+  ElephantChess is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  ElephantChess is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include "engine.h"
 
 extern BaseModel basemodel;
 
-engine::engine()
-{
-    
-}
+Engine::Engine() {}
 
-std::pair<Position, Position> engine::getBestMove(Color color)
+std::pair<position, position> Engine::GetBestMove(color color)
 {
     GenMove generatedMoves(basemodel.board.pieces, color);
 
-    std::vector<std::pair<Position, Position>> pos;
-    std::vector<std::pair<Position, Position>> posAll;
+    std::vector<std::pair<position, position>> pos;
+    std::vector<std::pair<position, position>> posAll;
 
     // all valid moves
     for (int i = 0; i < 10; i++)
         for (int j = 0; j < 9; j++)
     {
-            if (generatedMoves.getColor({i,j}) == color)
-            {
-            pos = generatedMoves.isValidPieceMove(Position {i,j});//generateLegalMoves(Color::Black);
-            for (std::pair<Position, Position> p : pos)
-            {
-                posAll.push_back(p);
-                //qDebug() << p.first.row << p.first.col;
-            }
+            if (generatedMoves.GetColor({i, j}) == color) {
+                pos = generatedMoves.IsValidPieceMove(
+                    position{i, j}); //generateLegalMoves(Color::Black);
+                for (std::pair<position, position> p : pos) {
+                    posAll.push_back(p);
+                    //qDebug() << p.first.row << p.first.col;
+                }
             }
     }
 
@@ -36,12 +50,12 @@ std::pair<Position, Position> engine::getBestMove(Color color)
     return posAll.at(random);
 }
 
-QList<Position> engine::getPossibleMoves(Piece *piece)
+QList<position> Engine::GetPossibleMoves(Piece *piece)
 {
-    return QList<Position>();
+    return QList<position>();
 }
 
-QList<Position> engine::getPossibleMoves(Color color)
+QList<position> Engine::GetPossibleMoves(color color)
 {
-    return QList<Position>();
+    return QList<position>();
 }

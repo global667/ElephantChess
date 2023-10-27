@@ -1,14 +1,12 @@
 <RCC>
     <qresource prefix="/">
         <file>../res/800px-Xiangqi_board.svg.png</file>
-        <file>../res/Basic.nsi</file>
         <file>../res/engine-interface.txt</file>
         <file>../res/example.sgf</file>
         <file>../res/generalRed.png</file>
         <file>../res/ia902908.us.archive.org_26_items_pgn-standard-1994-03-12_PGN_standard_1994-03-12.txt</file>
         <file>../res/modelview-overview.png</file>
         <file>../res/ModelViewControllerDiagram.png</file>
-        <file>../res/wood.gif</file>
         <file>../res/xiangqi.qmodel</file>
         <file>../res/Xiangqi_Advisor_(Trad).png</file>
         <file>../res/Xiangqi_Cannon_(Trad).png</file>
@@ -21,5 +19,6 @@
         <file>../license.txt</file>
         <file>../README.md</file>
         <file>config.h.in</file>
+        <file>../res/license_short.txt</file>
     </qresource>
 </RCC>

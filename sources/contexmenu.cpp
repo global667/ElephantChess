@@ -1,10 +1,28 @@
+/*
+  ElephantChess, a UCI chinese chess playing GUI with builtin engine
+  Copyright (C) 2022-2023 Wolf S. Kappesser
+
+  ElephantChess is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  ElephantChess is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include "contexmenu.h"
 
 #include <QPoint>
 
 extern BaseModel basemodel;
 
-contexMenu::contexMenu(QWidget *parent)
+ContexMenu::ContexMenu(QWidget *parent)
     : QMenu(parent)
 {
     QAction *a0 = addAction("Kläre Brett");
@@ -16,13 +34,13 @@ contexMenu::contexMenu(QWidget *parent)
     QAction *a15 = redPiecesMenu->addAction("Kanone");
     QAction *a16 = redPiecesMenu->addAction("Soldat");
     QAction *a17 = redPiecesMenu->addAction("Turm");
-    connect(a11, &QAction::triggered, this, &contexMenu::GeneralRot);
-    connect(a12, &QAction::triggered, this, &contexMenu::BeraterRot);
-    connect(a13, &QAction::triggered, this, &contexMenu::ElefantRot);
-    connect(a14, &QAction::triggered, this, &contexMenu::PferdRot);
-    connect(a15, &QAction::triggered, this, &contexMenu::KanoneRot);
-    connect(a16, &QAction::triggered, this, &contexMenu::SoldatRot);
-    connect(a17, &QAction::triggered, this, &contexMenu::TurmRot);
+    connect(a11, &QAction::triggered, this, &ContexMenu::GeneralRot);
+    connect(a12, &QAction::triggered, this, &ContexMenu::BeraterRot);
+    connect(a13, &QAction::triggered, this, &ContexMenu::ElefantRot);
+    connect(a14, &QAction::triggered, this, &ContexMenu::PferdRot);
+    connect(a15, &QAction::triggered, this, &ContexMenu::KanoneRot);
+    connect(a16, &QAction::triggered, this, &ContexMenu::SoldatRot);
+    connect(a17, &QAction::triggered, this, &ContexMenu::TurmRot);
     QMenu *blackPiecesMenu = new QMenu("Figuren (Schwarz)");
     QAction *a21 = blackPiecesMenu->addAction("General");
     QAction *a22 = blackPiecesMenu->addAction("Berater");
@@ -31,13 +49,13 @@ contexMenu::contexMenu(QWidget *parent)
     QAction *a25 = blackPiecesMenu->addAction("Kanone");
     QAction *a26 = blackPiecesMenu->addAction("Soldat");
     QAction *a27 = blackPiecesMenu->addAction("Turm");
-    connect(a21, &QAction::triggered, this, &contexMenu::GeneralSchwarz);
-    connect(a22, &QAction::triggered, this, &contexMenu::BeraterSchwarz);
-    connect(a23, &QAction::triggered, this, &contexMenu::ElefantSchwarz);
-    connect(a24, &QAction::triggered, this, &contexMenu::PferdSchwarz);
-    connect(a25, &QAction::triggered, this, &contexMenu::KanoneSchwarz);
-    connect(a26, &QAction::triggered, this, &contexMenu::SoldatSchwarz);
-    connect(a27, &QAction::triggered, this, &contexMenu::TurmSchwarz);
+    connect(a21, &QAction::triggered, this, &ContexMenu::GeneralSchwarz);
+    connect(a22, &QAction::triggered, this, &ContexMenu::BeraterSchwarz);
+    connect(a23, &QAction::triggered, this, &ContexMenu::ElefantSchwarz);
+    connect(a24, &QAction::triggered, this, &ContexMenu::PferdSchwarz);
+    connect(a25, &QAction::triggered, this, &ContexMenu::KanoneSchwarz);
+    connect(a26, &QAction::triggered, this, &ContexMenu::SoldatSchwarz);
+    connect(a27, &QAction::triggered, this, &ContexMenu::TurmSchwarz);
     addMenu(blackPiecesMenu);
     addMenu(redPiecesMenu);
     //QAction *action = contextMenu->addAction("Kreuz");
@@ -48,172 +66,172 @@ contexMenu::contexMenu(QWidget *parent)
     QAction *action6 = addAction("Linienende");
     QAction *action7 = addAction("Kläre Symbole");
 
-    connect(a0, &QAction::triggered, this, &contexMenu::clearBoard);
+    connect(a0, &QAction::triggered, this, &ContexMenu::clearBoard);
     //connect(action, &QAction::triggered, this, &BoardView::Kreuz);
-    connect(action5, &QAction::triggered, this, &contexMenu::Linie);
-    connect(action2, &QAction::triggered, this, &contexMenu::Kreis);
+    connect(action5, &QAction::triggered, this, &ContexMenu::Linie);
+    connect(action2, &QAction::triggered, this, &ContexMenu::Kreis);
     //connect(action3, &QAction::triggered, this, &BoardView::Dreieck);
-    connect(action4, &QAction::triggered, this, &contexMenu::Viereck);
-    connect(action6, &QAction::triggered, this, &contexMenu::Linienende);
-    connect(action7, &QAction::triggered, this, &contexMenu::clearMarkers);
+    connect(action4, &QAction::triggered, this, &ContexMenu::Viereck);
+    connect(action6, &QAction::triggered, this, &ContexMenu::Linienende);
+    connect(action7, &QAction::triggered, this, &ContexMenu::clearMarkers);
 }
 
-void contexMenu::clearBoard()
+void ContexMenu::clearBoard()
 {
     qDebug() << "clearBoard";
     pieces.clear();
     for (int row = 0; row < ROWS; ++row) {
         for (int col = 0; col < COLS; ++col) {
-            basemodel.board.pieces[row][col] = Piece(Color::Red, PieceType::Empty, {row, col}, "");
+            basemodel.board.pieces[row][col] = Piece(color::Red, pieceType::Empty, {row, col}, "");
         }
     }
     repaint();
 }
 
-void contexMenu::GeneralRot()
+void ContexMenu::GeneralRot()
 {
     qDebug() << "GeneralRot";
     //QPoint cur = QCursor::pos();
     QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, CompletePieceType::GeneralRot));
+    pieces.append(std::make_pair(cur, completePieceType::GeneralRot));
     repaint();
 }
 
-void contexMenu::GeneralSchwarz()
+void ContexMenu::GeneralSchwarz()
 {
     qDebug() << "GeneralSchwarz";
     QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, CompletePieceType::GeneralSchwarz));
+    pieces.append(std::make_pair(cur, completePieceType::GeneralSchwarz));
 }
 
-void contexMenu::BeraterRot()
+void ContexMenu::BeraterRot()
 {
     qDebug() << "BeraterRot";
     QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, CompletePieceType::AdvisorRot));
+    pieces.append(std::make_pair(cur, completePieceType::AdvisorRot));
 }
 
-void contexMenu::BeraterSchwarz()
+void ContexMenu::BeraterSchwarz()
 {
     qDebug() << "BeraterSchwarz";
     QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, CompletePieceType::AdvisorSchwarz));
+    pieces.append(std::make_pair(cur, completePieceType::AdvisorSchwarz));
 }
 
-void contexMenu::PferdRot()
+void ContexMenu::PferdRot()
 {
     qDebug() << "PferdRot";
     QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, CompletePieceType::HorseRot));
+    pieces.append(std::make_pair(cur, completePieceType::HorseRot));
 }
 
-void contexMenu::PferdSchwarz()
+void ContexMenu::PferdSchwarz()
 {
     qDebug() << "PferdSchwarz";
     QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, CompletePieceType::HorseSchwarz));
+    pieces.append(std::make_pair(cur, completePieceType::HorseSchwarz));
 }
 
-void contexMenu::ElefantRot()
+void ContexMenu::ElefantRot()
 {
     qDebug() << "ElefantRot";
     QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, CompletePieceType::ElephantRot));
+    pieces.append(std::make_pair(cur, completePieceType::ElephantRot));
 }
 
-void contexMenu::ElefantSchwarz()
+void ContexMenu::ElefantSchwarz()
 {
     qDebug() << "ElefantSchwarz";
     QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, CompletePieceType::ElephantSchwarz));
+    pieces.append(std::make_pair(cur, completePieceType::ElephantSchwarz));
 }
 
-void contexMenu::KanoneRot()
+void ContexMenu::KanoneRot()
 {
     qDebug() << "KanoneRot";
     QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, CompletePieceType::CannonRot));
+    pieces.append(std::make_pair(cur, completePieceType::CannonRot));
 }
 
-void contexMenu::KanoneSchwarz()
+void ContexMenu::KanoneSchwarz()
 {
     qDebug() << "KanoneSchwarz";
     QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, CompletePieceType::CannonSchwarz));
+    pieces.append(std::make_pair(cur, completePieceType::CannonSchwarz));
 }
 
-void contexMenu::SoldatRot()
+void ContexMenu::SoldatRot()
 {
     qDebug() << "SoldatRot";
     QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, CompletePieceType::SoldierRot));
+    pieces.append(std::make_pair(cur, completePieceType::SoldierRot));
 }
 
-void contexMenu::SoldatSchwarz()
+void ContexMenu::SoldatSchwarz()
 {
     qDebug() << "SoldatSchwarz";
     QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, CompletePieceType::SoldierSchwarz));
+    pieces.append(std::make_pair(cur, completePieceType::SoldierSchwarz));
 }
 
-void contexMenu::TurmRot()
+void ContexMenu::TurmRot()
 {
     qDebug() << "TurmRot";
     QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, CompletePieceType::ChariotRot));
+    pieces.append(std::make_pair(cur, completePieceType::ChariotRot));
 }
 
-void contexMenu::TurmSchwarz()
+void ContexMenu::TurmSchwarz()
 {
     qDebug() << "TurmSchwarz";
     QPoint cur = {contextMenuX, contextMenuY};
-    pieces.append(std::make_pair(cur, CompletePieceType::ChariotSchwarz));
+    pieces.append(std::make_pair(cur, completePieceType::ChariotSchwarz));
 }
 
-void contexMenu::clearMarkers()
+void ContexMenu::clearMarkers()
 {
     markers.clear();
 }
 
-void contexMenu::Viereck()
+void ContexMenu::Viereck()
 {
     qDebug() << "Viereck";
     QPoint cur = {contextMenuX, contextMenuY};
-    markers.append(std::make_pair(cur, MarkerType::Viereck));
+    markers.append(std::make_pair(cur, markerType::Viereck));
 }
 
-void contexMenu::Dreieck()
+void ContexMenu::Dreieck()
 {
     qDebug() << "Dreieck";
     QPoint cur = {contextMenuX, contextMenuY};
-    markers.append(std::make_pair(cur, MarkerType::Dreieck));
+    markers.append(std::make_pair(cur, markerType::Dreieck));
 }
 
-void contexMenu::Kreis()
+void ContexMenu::Kreis()
 {
     qDebug() << "Kreis";
     QPoint cur = {contextMenuX, contextMenuY};
-    markers.append(std::make_pair(cur, MarkerType::Kreis));
+    markers.append(std::make_pair(cur, markerType::Kreis));
     repaint();
 }
 
-void contexMenu::Linie()
+void ContexMenu::Linie()
 {
     qDebug() << "Linie";
     QPoint cur = {contextMenuX, contextMenuY};
-    markers.append(std::make_pair(cur, MarkerType::Linie));
+    markers.append(std::make_pair(cur, markerType::Linie));
 }
 
-void contexMenu::Linienende()
+void ContexMenu::Linienende()
 {
     qDebug() << "Linienende";
     QPoint cur = {contextMenuX, contextMenuY};
-    markers.append(std::make_pair(cur, MarkerType::Linienende));
+    markers.append(std::make_pair(cur, markerType::Linienende));
 }
 
-void contexMenu::Kreuz()
+void ContexMenu::Kreuz()
 {
     qDebug() << "Kreuz";
     QPoint cur = {contextMenuX, contextMenuY};
-    markers.append(std::make_pair(cur, MarkerType::Kreuz));
+    markers.append(std::make_pair(cur, markerType::Kreuz));
 }

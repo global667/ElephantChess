@@ -1,3 +1,21 @@
+/*
+  ElephantChess, a UCI chinese chess playing GUI with builtin engine
+  Copyright (C) 2022-2023 Wolf S. Kappesser
+
+  ElephantChess is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  ElephantChess is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include "uci.h"
 
 UCI::UCI()
@@ -98,7 +116,7 @@ void UCI::MovePiece(int fromX, int fromY, int toX, int toY)
     moves.append(posToken(fromX, fromY, toX, toY));
 }
 
-void UCI::MovePiece(Position from, Position to)
+void UCI::MovePiece(position from, position to)
 {
     MovePiece(from.col, from.row, to.col, to.row);
 }
@@ -109,9 +127,9 @@ void UCI::engineGo()
     // writeDatas("position startpos moves " + moves.join(" ").toUtf8());
     // writeDatas("go depth 2");
     // writeDatas("isready");
-    class engine eng;
-    std::pair<Position, Position> ownEngineMove;
-    ownEngineMove = eng.getBestMove(Color::Black);
+    class Engine eng;
+    std::pair<position, position> ownEngineMove;
+    ownEngineMove = eng.GetBestMove(color::Black);
     QByteArray mv = posToken(ownEngineMove.first.col, ownEngineMove.first.row, ownEngineMove.second.col, ownEngineMove.second.row);
     moves.append(mv);
     emit updateView(ownEngineMove.first, ownEngineMove.second);

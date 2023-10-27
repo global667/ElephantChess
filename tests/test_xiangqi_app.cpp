@@ -33,7 +33,7 @@ void test_xiangqi_app::benchmarkMoveGenerator()
     QBENCHMARK
     {
         GenMove g;
-        g.generateLegalMoves(Color::Red);
+        g.GenerateLegalMoves(color::Red);
     }
 }
 
@@ -49,50 +49,50 @@ void test_xiangqi_app::benchmarkPaintEvent()
 void test_xiangqi_app::isValidGeneralMove()
 {
     GenMove g;
-    QCOMPARE(true, g.isValidGeneralMove({0, 4}, {1, 4}, Color::Red));
-    QCOMPARE(false, g.isValidGeneralMove({0, 4}, {2, 4}, Color::Red));
+    QCOMPARE(true, g.IsValidGeneralMove({0, 4}, {1, 4}, color::Red));
+    QCOMPARE(false, g.IsValidGeneralMove({0, 4}, {2, 4}, color::Red));
 }
 
 void test_xiangqi_app::isValidAdvisorMove()
 {
     GenMove g;
-    QCOMPARE(true, g.isValidAdvisorMove({0, 3}, {1, 4}, Color::Red));
-    QCOMPARE(false, g.isValidAdvisorMove({0, 3}, {2, 4}, Color::Red));
+    QCOMPARE(true, g.IsValidAdvisorMove({0, 3}, {1, 4}, color::Red));
+    QCOMPARE(false, g.IsValidAdvisorMove({0, 3}, {2, 4}, color::Red));
 }
 
 void test_xiangqi_app::isValidElephantMove()
 {
     GenMove g;
-    QCOMPARE(true, g.isValidElephantMove({0, 2}, {2, 4}, Color::Red));
-    QCOMPARE(false, g.isValidElephantMove({0, 2}, {3, 5}, Color::Red));
+    QCOMPARE(true, g.IsValidElephantMove({0, 2}, {2, 4}, color::Red));
+    QCOMPARE(false, g.IsValidElephantMove({0, 2}, {3, 5}, color::Red));
 }
 
 void test_xiangqi_app::isValidHorseMove()
 {
     GenMove g;
-    QCOMPARE(true, g.isValidHorseMove({0, 1}, {2, 2}, Color::Red));
-    QCOMPARE(false, g.isValidHorseMove({0, 1}, {3, 3}, Color::Red));
+    QCOMPARE(true, g.IsValidHorseMove({0, 1}, {2, 2}, color::Red));
+    QCOMPARE(false, g.IsValidHorseMove({0, 1}, {3, 3}, color::Red));
 }
 
 void test_xiangqi_app::isValidChariotMove()
 {
     GenMove g;
-    QCOMPARE(true, g.isValidChariotMove({0, 0}, {0, 1}, Color::Red));
-    QCOMPARE(false, g.isValidChariotMove({0, 0}, {0, 2}, Color::Red));
+    QCOMPARE(true, g.IsValidChariotMove({0, 0}, {0, 1}, color::Red));
+    QCOMPARE(false, g.IsValidChariotMove({0, 0}, {0, 2}, color::Red));
 }
 
 void test_xiangqi_app::isValidCannonMove()
 {
     GenMove g;
-    QCOMPARE(true, g.isValidCannonMove({2, 1}, {2, 2}, Color::Red));
-    QCOMPARE(false, g.isValidCannonMove({2, 1}, {2, 3}, Color::Red));
+    QCOMPARE(true, g.IsValidCannonMove({2, 1}, {2, 2}, color::Red));
+    QCOMPARE(false, g.IsValidCannonMove({2, 1}, {2, 3}, color::Red));
 }
 
 void test_xiangqi_app::isValidSoldierMove()
 {
     GenMove g;
-    QCOMPARE(true, g.isValidSoldierMove({3, 0}, {4, 0}, Color::Red));
-    QCOMPARE(false, g.isValidSoldierMove({3, 0}, {5, 0}, Color::Red));
+    QCOMPARE(true, g.IsValidSoldierMove({3, 0}, {4, 0}, color::Red));
+    QCOMPARE(false, g.IsValidSoldierMove({3, 0}, {5, 0}, color::Red));
 }
 
 QTEST_MAIN(test_xiangqi_app)

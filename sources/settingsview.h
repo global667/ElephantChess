@@ -1,3 +1,21 @@
+/*
+  ElephantChess, a UCI chinese chess playing GUI with builtin engine
+  Copyright (C) 2022-2023 Wolf S. Kappesser
+
+  ElephantChess is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  ElephantChess is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #ifndef SETTINGSVIEW_H
 #define SETTINGSVIEW_H
 
@@ -17,20 +35,20 @@ public:
     explicit SettingsView(QWidget *parent = nullptr);
     ~SettingsView();
 
-    void setModel(BaseModel *newModel);
+    void SetModel(BaseModel *newModel);
 
     QString engineName;
 
 private:
     BaseModel *model;
-    QComboBox *engines_comboBox;
-    QPushButton *engine_button;
-    QPushButton *style_button;
-    QPushButton *board_style_button;
+    QComboBox *enginesComboBox;
+    QPushButton *engineButton;
+    QPushButton *styleButton;
+    QPushButton *boardStyleButton;
 
-    void chooseEngine();
-    void chooseStyle();
-    void chooseBoardStyle();
+    void ChooseEngine();
+    void ChooseStyle();
+    void ChooseBoardStyle();
 
 public slots:
     void comboBoxSetEngineName();

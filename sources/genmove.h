@@ -1,3 +1,21 @@
+/*
+  ElephantChess, a UCI chinese chess playing GUI with builtin engine
+  Copyright (C) 2022-2023 Wolf S. Kappesser
+
+  ElephantChess is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  ElephantChess is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #ifndef GENMOVE_H
 #define GENMOVE_H
 
@@ -12,7 +30,7 @@ class GenMove //: public QObject
 public:
     explicit GenMove(); //QObject *parent = nullptr);
     ~GenMove(){};
-    GenMove(const Piece p[ROWS][COLS], Color onMove);
+    GenMove(const Piece p[ROWS][COLS], color onMove);
     // Array der Spielsteine kopieren
     void copyBoard(Piece pieces[ROWS][COLS], const Piece other[ROWS][COLS]);
 
@@ -20,31 +38,31 @@ public:
     GenMove(const GenMove &other);
 
     // Gibt zurück, ob ein Zug gülig ist
-    bool isLegalMove(int fromRow, int fromCol, int toRow, int toCol);
+    bool IsLegalMove(int fromRow, int fromCol, int toRow, int toCol);
 
-    bool isValidPosition(int row, int col);
-    bool isVacantOrOpponent(int row, int col, Color color);
-    bool isValidSoldierMove(Position from, Position to, Color color);
-    bool isValidCannonMove(Position from, Position to, Color color);
-    bool isValidHorseMove(Position from, Position to, Color color);
-    bool isValidElephantMove(Position from, Position to, Color color);
-    bool isValidAdvisorMove(Position from, Position to, Color color);
-    bool isValidGeneralMove(Position from, Position to, Color color);
-    bool isValidChariotMove(Position from, Position to, Color color);
-    std::vector<std::pair<Position, Position>> generateLegalMoves(Color currentPlayerColor);
-    bool isCheck(Color currentPlayerColor);
-    bool isCheckmate(Color currentPlayerColor);
+    bool IsValidPosition(int row, int col);
+    bool IsVacantOrOpponent(int row, int col, color color);
+    bool IsValidSoldierMove(position from, position to, color color);
+    bool IsValidCannonMove(position from, position to, color color);
+    bool IsValidHorseMove(position from, position to, color color);
+    bool IsValidElephantMove(position from, position to, color color);
+    bool IsValidAdvisorMove(position from, position to, color color);
+    bool IsValidGeneralMove(position from, position to, color color);
+    bool IsValidChariotMove(position from, position to, color color);
+    std::vector<std::pair<position, position>> GenerateLegalMoves(color currentPlayerColor);
+    bool IsCheck(color currentPlayerColor);
+    bool IsCheckmate(color currentPlayerColor);
     //bool isStaleMate(Color currentPlayerColor);
-    bool performMove(Position from, Position to, Color currentPlayerColor);
-    Color getColor(Position p);
-    Piece getPiece(Position p);
-    Position findGeneralPosition(Color currentPlayerColor);
-    void placePiece(int row, int col, PieceType type, Color color);
-    bool isValidMove(Position from, Position to, Color currentPlayerColor);
-    std::vector<std::pair<Position, Position>> isValidPieceMove(const Position from);
+    bool PerformMove(position from, position to, color currentPlayerColor);
+    color GetColor(position p);
+    Piece GetPiece(position p);
+    position FindGeneralPosition(color currentPlayerColor);
+    void PlacePiece(int row, int col, pieceType type, color color);
+    bool IsValidMove(position from, position to, color currentPlayerColor);
+    std::vector<std::pair<position, position>> IsValidPieceMove(const position from);
 
     Piece pieces[ROWS][COLS];
-    Color onMove;
+    color onMove;
 };
 
 #endif // GENMOVE_H

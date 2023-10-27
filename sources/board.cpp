@@ -1,3 +1,21 @@
+/*
+  ElephantChess, a UCI chinese chess playing GUI with builtin engine
+  Copyright (C) 2022-2023 Wolf S. Kappesser
+
+  ElephantChess is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  ElephantChess is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include "board.h"
 #include "basemodel.h"
 
@@ -21,6 +39,18 @@ Board::Board(const Board &other)
     }
 }
 
+Board &Board::operator=(const Board &other)
+{
+    if (this != &other) { // Vermeiden Sie Selbstzuweisung
+        for (int row = 0; row < ROWS; ++row) {
+            for (int col = 0; col < COLS; ++col) {
+                pieces[row][col] = other.pieces[row][col]; // Tiefenkopie der Piece-Objekte
+            }
+        }
+    }
+    return *this;
+}
+
 void Board::placePiece(Piece piece)
 {
     //Piece p = Piece(piece.color, piece.type, piece.pos, piece.img);
@@ -31,7 +61,7 @@ void Board::placePiece(Piece piece)
 void Board::movePiece(int fromRow, int fromCol, int toRow, int toCol)
 {
     Piece piece = pieces[fromRow][fromCol];
-    pieces[fromRow][fromCol] = Piece(Color::Red, PieceType::Empty, {fromRow, fromCol}, QImage());
+    pieces[fromRow][fromCol] = Piece(color::Red, pieceType::Empty, {fromRow, fromCol}, QImage());
     piece.pos.row = toRow;
     piece.pos.col = toCol;
 
@@ -59,176 +89,176 @@ void Board::printBoard()
 // Wechselt die Farbe des Spielers, der am Zug ist
 void Board::toggleOnMove()
 {
-    if (onMove == Color::Red) {
-        onMove = Color::Black;
+    if (onMove == color::Red) {
+        onMove = color::Black;
     } else {
-        onMove = Color::Red;
+        onMove = color::Red;
     }
 };
 
 void Board::initBoard()
 {
-    if (ViewStyleMode::traditional_native == viewStyleMode) {
+    if (viewStyleMode::traditional_native == viewStyleModeVar) {
         for (int row = 0; row < ROWS; ++row) {
             for (int col = 0; col < COLS; ++col) {
-                pieces[row][col] = Piece(Color::Red, PieceType::Empty, {row, col}, "");
+                pieces[row][col] = Piece(color::Red, pieceType::Empty, {row, col}, "");
             }
         }
-        placePiece(Piece(Color::Red, PieceType::Chariot, {0, 0}, "車"));
-        placePiece(Piece(Color::Red, PieceType::Horse, {0, 1}, "馬"));
-        placePiece(Piece(Color::Red, PieceType::Elephant, {0, 2}, "相"));
-        placePiece(Piece(Color::Red, PieceType::Advisor, {0, 3}, "仕"));
-        placePiece(Piece(Color::Red, PieceType::General, {0, 4}, "帥"));
-        placePiece(Piece(Color::Red, PieceType::Advisor, {0, 5}, "仕"));
-        placePiece(Piece(Color::Red, PieceType::Elephant, {0, 6}, "相"));
-        placePiece(Piece(Color::Red, PieceType::Horse, {0, 7}, "馬"));
-        placePiece(Piece(Color::Red, PieceType::Chariot, {0, 8}, "車"));
-        placePiece(Piece(Color::Red, PieceType::Cannon, {2, 1}, "炮"));
-        placePiece(Piece(Color::Red, PieceType::Cannon, {2, 7}, "炮"));
-        placePiece(Piece(Color::Red, PieceType::Soldier, {3, 0}, "兵"));
-        placePiece(Piece(Color::Red, PieceType::Soldier, {3, 2}, "兵"));
-        placePiece(Piece(Color::Red, PieceType::Soldier, {3, 4}, "兵"));
-        placePiece(Piece(Color::Red, PieceType::Soldier, {3, 6}, "兵"));
-        placePiece(Piece(Color::Red, PieceType::Soldier, {3, 8}, "兵"));
+        placePiece(Piece(color::Red, pieceType::Chariot, {0, 0}, "車"));
+        placePiece(Piece(color::Red, pieceType::Horse, {0, 1}, "馬"));
+        placePiece(Piece(color::Red, pieceType::Elephant, {0, 2}, "相"));
+        placePiece(Piece(color::Red, pieceType::Advisor, {0, 3}, "仕"));
+        placePiece(Piece(color::Red, pieceType::General, {0, 4}, "帥"));
+        placePiece(Piece(color::Red, pieceType::Advisor, {0, 5}, "仕"));
+        placePiece(Piece(color::Red, pieceType::Elephant, {0, 6}, "相"));
+        placePiece(Piece(color::Red, pieceType::Horse, {0, 7}, "馬"));
+        placePiece(Piece(color::Red, pieceType::Chariot, {0, 8}, "車"));
+        placePiece(Piece(color::Red, pieceType::Cannon, {2, 1}, "炮"));
+        placePiece(Piece(color::Red, pieceType::Cannon, {2, 7}, "炮"));
+        placePiece(Piece(color::Red, pieceType::Soldier, {3, 0}, "兵"));
+        placePiece(Piece(color::Red, pieceType::Soldier, {3, 2}, "兵"));
+        placePiece(Piece(color::Red, pieceType::Soldier, {3, 4}, "兵"));
+        placePiece(Piece(color::Red, pieceType::Soldier, {3, 6}, "兵"));
+        placePiece(Piece(color::Red, pieceType::Soldier, {3, 8}, "兵"));
 
-        placePiece(Piece(Color::Black, PieceType::Chariot, {9, 0}, "車"));
-        placePiece(Piece(Color::Black, PieceType::Horse, {9, 1}, "馬"));
-        placePiece(Piece(Color::Black, PieceType::Elephant, {9, 2}, "象"));
-        placePiece(Piece(Color::Black, PieceType::Advisor, {9, 3}, "士"));
-        placePiece(Piece(Color::Black, PieceType::General, {9, 4}, "將"));
-        placePiece(Piece(Color::Black, PieceType::Advisor, {9, 5}, "士"));
-        placePiece(Piece(Color::Black, PieceType::Elephant, {9, 6}, "象"));
-        placePiece(Piece(Color::Black, PieceType::Horse, {9, 7}, "馬"));
-        placePiece(Piece(Color::Black, PieceType::Chariot, {9, 8}, "車"));
-        placePiece(Piece(Color::Black, PieceType::Cannon, {7, 1}, "砲"));
-        placePiece(Piece(Color::Black, PieceType::Cannon, {7, 7}, "砲"));
-        placePiece(Piece(Color::Black, PieceType::Soldier, {6, 0}, "卒"));
-        placePiece(Piece(Color::Black, PieceType::Soldier, {6, 2}, "卒"));
-        placePiece(Piece(Color::Black, PieceType::Soldier, {6, 4}, "卒"));
-        placePiece(Piece(Color::Black, PieceType::Soldier, {6, 6}, "卒"));
-        placePiece(Piece(Color::Black, PieceType::Soldier, {6, 8}, "卒"));
+        placePiece(Piece(color::Black, pieceType::Chariot, {9, 0}, "車"));
+        placePiece(Piece(color::Black, pieceType::Horse, {9, 1}, "馬"));
+        placePiece(Piece(color::Black, pieceType::Elephant, {9, 2}, "象"));
+        placePiece(Piece(color::Black, pieceType::Advisor, {9, 3}, "士"));
+        placePiece(Piece(color::Black, pieceType::General, {9, 4}, "將"));
+        placePiece(Piece(color::Black, pieceType::Advisor, {9, 5}, "士"));
+        placePiece(Piece(color::Black, pieceType::Elephant, {9, 6}, "象"));
+        placePiece(Piece(color::Black, pieceType::Horse, {9, 7}, "馬"));
+        placePiece(Piece(color::Black, pieceType::Chariot, {9, 8}, "車"));
+        placePiece(Piece(color::Black, pieceType::Cannon, {7, 1}, "砲"));
+        placePiece(Piece(color::Black, pieceType::Cannon, {7, 7}, "砲"));
+        placePiece(Piece(color::Black, pieceType::Soldier, {6, 0}, "卒"));
+        placePiece(Piece(color::Black, pieceType::Soldier, {6, 2}, "卒"));
+        placePiece(Piece(color::Black, pieceType::Soldier, {6, 4}, "卒"));
+        placePiece(Piece(color::Black, pieceType::Soldier, {6, 6}, "卒"));
+        placePiece(Piece(color::Black, pieceType::Soldier, {6, 8}, "卒"));
     } else {
         for (int row = 0; row < ROWS; ++row) {
             for (int col = 0; col < COLS; ++col) {
-                pieces[row][col] = Piece(Color::Red, PieceType::Empty, {row, col}, QImage());
+                pieces[row][col] = Piece(color::Red, pieceType::Empty, {row, col}, QImage());
             }
         }
 
-        placePiece(Piece(Color::Red,
-                         PieceType::Chariot,
+        placePiece(Piece(color::Red,
+                         pieceType::Chariot,
                          {0, 0},
                          QImage(":/res/Xiangqi_Chariot_(Trad).png")));
         placePiece(
-            Piece(Color::Red, PieceType::Horse, {0, 1}, QImage(":/res/Xiangqi_Horse_(Trad).png")));
-        placePiece(Piece(Color::Red,
-                         PieceType::Elephant,
+            Piece(color::Red, pieceType::Horse, {0, 1}, QImage(":/res/Xiangqi_Horse_(Trad).png")));
+        placePiece(Piece(color::Red,
+                         pieceType::Elephant,
                          {0, 2},
                          QImage(":/res/Xiangqi_Elephant_(Trad).png")));
-        placePiece(Piece(Color::Red,
-                         PieceType::Advisor,
+        placePiece(Piece(color::Red,
+                         pieceType::Advisor,
                          {0, 3},
                          QImage(":/res/Xiangqi_Advisor_(Trad).png")));
-        placePiece(Piece(Color::Red,
-                         PieceType::General,
+        placePiece(Piece(color::Red,
+                         pieceType::General,
                          {0, 4},
                          QImage(":/res/Xiangqi_General_(Trad).png")));
-        placePiece(Piece(Color::Red,
-                         PieceType::Advisor,
+        placePiece(Piece(color::Red,
+                         pieceType::Advisor,
                          {0, 5},
                          QImage(":/res/Xiangqi_Advisor_(Trad).png")));
-        placePiece(Piece(Color::Red,
-                         PieceType::Elephant,
+        placePiece(Piece(color::Red,
+                         pieceType::Elephant,
                          {0, 6},
                          QImage(":/res/Xiangqi_Elephant_(Trad).png")));
         placePiece(
-            Piece(Color::Red, PieceType::Horse, {0, 7}, QImage(":/res/Xiangqi_Horse_(Trad).png")));
-        placePiece(Piece(Color::Red,
-                         PieceType::Chariot,
+            Piece(color::Red, pieceType::Horse, {0, 7}, QImage(":/res/Xiangqi_Horse_(Trad).png")));
+        placePiece(Piece(color::Red,
+                         pieceType::Chariot,
                          {0, 8},
                          QImage(":/res/Xiangqi_Chariot_(Trad).png")));
         placePiece(
-            Piece(Color::Red, PieceType::Cannon, {2, 1}, QImage(":/res/Xiangqi_Cannon_(Trad).png")));
+            Piece(color::Red, pieceType::Cannon, {2, 1}, QImage(":/res/Xiangqi_Cannon_(Trad).png")));
         placePiece(
-            Piece(Color::Red, PieceType::Cannon, {2, 7}, QImage(":/res/Xiangqi_Cannon_(Trad).png")));
-        placePiece(Piece(Color::Red,
-                         PieceType::Soldier,
+            Piece(color::Red, pieceType::Cannon, {2, 7}, QImage(":/res/Xiangqi_Cannon_(Trad).png")));
+        placePiece(Piece(color::Red,
+                         pieceType::Soldier,
                          {3, 0},
                          QImage(":/res/Xiangqi_Soldier_(Trad).png")));
-        placePiece(Piece(Color::Red,
-                         PieceType::Soldier,
+        placePiece(Piece(color::Red,
+                         pieceType::Soldier,
                          {3, 2},
                          QImage(":/res/Xiangqi_Soldier_(Trad).png")));
-        placePiece(Piece(Color::Red,
-                         PieceType::Soldier,
+        placePiece(Piece(color::Red,
+                         pieceType::Soldier,
                          {3, 4},
                          QImage(":/res/Xiangqi_Soldier_(Trad).png")));
-        placePiece(Piece(Color::Red,
-                         PieceType::Soldier,
+        placePiece(Piece(color::Red,
+                         pieceType::Soldier,
                          {3, 6},
                          QImage(":/res/Xiangqi_Soldier_(Trad).png")));
-        placePiece(Piece(Color::Red,
-                         PieceType::Soldier,
+        placePiece(Piece(color::Red,
+                         pieceType::Soldier,
                          {3, 8},
                          QImage(":/res/Xiangqi_Soldier_(Trad).png")));
 
-        placePiece(Piece(Color::Black,
-                         PieceType::Chariot,
+        placePiece(Piece(color::Black,
+                         pieceType::Chariot,
                          {9, 0},
                          QImage(":/res/Xiangqi_Chariot_(Trad).png")));
         placePiece(
-            Piece(Color::Black, PieceType::Horse, {9, 1}, QImage(":/res/Xiangqi_Horse_(Trad).png")));
-        placePiece(Piece(Color::Black,
-                         PieceType::Elephant,
+            Piece(color::Black, pieceType::Horse, {9, 1}, QImage(":/res/Xiangqi_Horse_(Trad).png")));
+        placePiece(Piece(color::Black,
+                         pieceType::Elephant,
                          {9, 2},
                          QImage(":/res/Xiangqi_Elephant_(Trad).png")));
-        placePiece(Piece(Color::Black,
-                         PieceType::Advisor,
+        placePiece(Piece(color::Black,
+                         pieceType::Advisor,
                          {9, 3},
                          QImage(":/res/Xiangqi_Advisor_(Trad).png")));
-        placePiece(Piece(Color::Black,
-                         PieceType::General,
+        placePiece(Piece(color::Black,
+                         pieceType::General,
                          {9, 4},
                          QImage(":/res/Xiangqi_General_(Trad).png")));
-        placePiece(Piece(Color::Black,
-                         PieceType::Advisor,
+        placePiece(Piece(color::Black,
+                         pieceType::Advisor,
                          {9, 5},
                          QImage(":/res/Xiangqi_Advisor_(Trad).png")));
-        placePiece(Piece(Color::Black,
-                         PieceType::Elephant,
+        placePiece(Piece(color::Black,
+                         pieceType::Elephant,
                          {9, 6},
                          QImage(":/res/Xiangqi_Elephant_(Trad).png")));
         placePiece(
-            Piece(Color::Black, PieceType::Horse, {9, 7}, QImage(":/res/Xiangqi_Horse_(Trad).png")));
-        placePiece(Piece(Color::Black,
-                         PieceType::Chariot,
+            Piece(color::Black, pieceType::Horse, {9, 7}, QImage(":/res/Xiangqi_Horse_(Trad).png")));
+        placePiece(Piece(color::Black,
+                         pieceType::Chariot,
                          {9, 8},
                          QImage(":/res/Xiangqi_Chariot_(Trad).png")));
-        placePiece(Piece(Color::Black,
-                         PieceType::Cannon,
+        placePiece(Piece(color::Black,
+                         pieceType::Cannon,
                          {7, 1},
                          QImage(":/res/Xiangqi_Cannon_(Trad).png")));
-        placePiece(Piece(Color::Black,
-                         PieceType::Cannon,
+        placePiece(Piece(color::Black,
+                         pieceType::Cannon,
                          {7, 7},
                          QImage(":/res/Xiangqi_Cannon_(Trad).png")));
-        placePiece(Piece(Color::Black,
-                         PieceType::Soldier,
+        placePiece(Piece(color::Black,
+                         pieceType::Soldier,
                          {6, 0},
                          QImage(":/res/Xiangqi_Soldier_(Trad).png")));
-        placePiece(Piece(Color::Black,
-                         PieceType::Soldier,
+        placePiece(Piece(color::Black,
+                         pieceType::Soldier,
                          {6, 2},
                          QImage(":/res/Xiangqi_Soldier_(Trad).png")));
-        placePiece(Piece(Color::Black,
-                         PieceType::Soldier,
+        placePiece(Piece(color::Black,
+                         pieceType::Soldier,
                          {6, 4},
                          QImage(":/res/Xiangqi_Soldier_(Trad).png")));
-        placePiece(Piece(Color::Black,
-                         PieceType::Soldier,
+        placePiece(Piece(color::Black,
+                         pieceType::Soldier,
                          {6, 6},
                          QImage(":/res/Xiangqi_Soldier_(Trad).png")));
-        placePiece(Piece(Color::Black,
-                         PieceType::Soldier,
+        placePiece(Piece(color::Black,
+                         pieceType::Soldier,
                          {6, 8},
                          QImage(":/res/Xiangqi_Soldier_(Trad).png")));
     }

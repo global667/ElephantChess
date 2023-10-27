@@ -1,3 +1,21 @@
+/*
+  ElephantChess, a UCI chinese chess playing GUI with builtin engine
+  Copyright (C) 2022-2023 Wolf S. Kappesser
+
+  ElephantChess is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  ElephantChess is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include "boardview.h"
 #include "basemodel.h"
 #include "genmove.h"
@@ -18,7 +36,7 @@ BoardView::BoardView(QWidget *parent)
     if (fontStatus == -1) qDebug() << "Error in font loading";
     setMouseTracking(false);
     setFocusPolicy(Qt::StrongFocus);
-    contextMenu = new contexMenu(this);
+    contextMenu = new ContexMenu(this);
 }
 
 void BoardView::contextMenuEvent(QContextMenuEvent *event)
@@ -35,20 +53,20 @@ void BoardView::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
 
-    setEditorPieces();
+    SetEditorPieces();
 
-    if (basemodel.gameView == Color::Black) {
+    if (basemodel.gameView == color::Black) {
         painter.rotate(180);
         painter.translate(-width(), -height());
     }
     painter.setRenderHint(QPainter::Antialiasing, true);
-    paintBoard(&painter);
-    paintPieces(&painter);
-    drawSelectedPieces(&painter);
-    paintMarker(&painter);
+    PaintBoard(&painter);
+    PaintPieces(&painter);
+    DrawSelectedPieces(&painter);
+    PaintMarker(&painter);
 }
 
-void BoardView::paintMarker(QPainter *p)
+void BoardView::PaintMarker(QPainter *p)
 {
     Q_ASSERT(p);
 
@@ -64,55 +82,55 @@ void BoardView::paintMarker(QPainter *p)
 
         qDebug() << x << y << "x und y";
 
-        QPoint coords = calcBoardcoords(marker.first);
+        QPoint coords = CalcBoardCoords(marker.first);
         int col = coords.x();
         int row = coords.y();
 
         switch (marker.second) {
-        case MarkerType::Kreuz:
+        case markerType::Kreuz:
 
             break;
-        case MarkerType::Kreis:
+        case markerType::Kreis:
             p->setPen(QPen(Qt::green, 8));
-            p->drawChord(QRect((50 + (((col - 1)) * (w - 2 * 50) / cutp_width))
-                                   - w / cutp_width / 2 / 1.5,
-                               (50 + ((row - 1)) * (h - 50 - 100) / cutp_height)
-                                   - h / cutp_width / 2 / 1.5,
-                               w / (cutp_width) / 1.5,
-                               h / cutp_width / 1.5),
+            p->drawChord(QRect((50 + (((col - 1)) * (w - 2 * 50) / cutpWidth))
+                                   - w / cutpWidth / 2 / 1.5,
+                               (50 + ((row - 1)) * (h - 50 - 100) / cutpHeight)
+                                   - h / cutpWidth / 2 / 1.5,
+                               w / (cutpWidth) / 1.5,
+                               h / cutpWidth / 1.5),
                          0,
                          5760);
 
             break;
-        case MarkerType::Dreieck:
+        case markerType::Dreieck:
 
             break;
-        case MarkerType::Linie:
+        case markerType::Linie:
             p->setPen(QPen(Qt::blue, 8));
             p->drawPoint((50
-                          + (((col - 1)) * (w - 2 * 50) / cutp_width)), // - w / cutp_width / 2 / 1.5,
-                         (50 + ((row - 1)) * (h - 50 - 100) / cutp_height));
+                          + (((col - 1)) * (w - 2 * 50) / cutpWidth)), // - w / cutp_width / 2 / 1.5,
+                         (50 + ((row - 1)) * (h - 50 - 100) / cutpHeight));
             //- h / cutp_width / 2 / 1.5);
             lrow = row;
             lcol = col;
             break;
-        case MarkerType::Linienende:
+        case markerType::Linienende:
             p->setPen(QPen(Qt::blue, 8));
 
-            p->drawLine(50 + (((lcol - 1)) * (w - 2 * 50) / cutp_width), // - w / cutp_width / 2 / 1.5,
-                        (50 + ((lrow - 1)) * (h - 50 - 100) / cutp_height),
-                        50 + (((col - 1)) * (w - 2 * 50) / cutp_width), // - w / cutp_width / 2 / 1.5,
-                        (50 + ((row - 1)) * (h - 50 - 100) / cutp_height));
+            p->drawLine(50 + (((lcol - 1)) * (w - 2 * 50) / cutpWidth), // - w / cutp_width / 2 / 1.5,
+                        (50 + ((lrow - 1)) * (h - 50 - 100) / cutpHeight),
+                        50 + (((col - 1)) * (w - 2 * 50) / cutpWidth), // - w / cutp_width / 2 / 1.5,
+                        (50 + ((row - 1)) * (h - 50 - 100) / cutpHeight));
 
             break;
-        case MarkerType::Viereck:
+        case markerType::Viereck:
             p->setPen(QPen(Qt::yellow, 8));
 
             p->drawRect(
-                QRect((50 + (((col - 1)) * (w - 2 * 50) / cutp_width)) - w / cutp_width / 2 / 1.5,
-                      (50 + ((row - 1)) * (h - 50 - 100) / cutp_height) - h / cutp_width / 2 / 1.5,
-                      w / (cutp_width) / 1.5,
-                      h / cutp_width / 1.5));
+                QRect((50 + (((col - 1)) * (w - 2 * 50) / cutpWidth)) - w / cutpWidth / 2 / 1.5,
+                      (50 + ((row - 1)) * (h - 50 - 100) / cutpHeight) - h / cutpWidth / 2 / 1.5,
+                      w / (cutpWidth) / 1.5,
+                      h / cutpWidth / 1.5));
             break;
         default:
             break;
@@ -121,7 +139,7 @@ void BoardView::paintMarker(QPainter *p)
 }
 
 // Draws the pieces on the board (native)
-QPixmap *BoardView::paintPiecesRaw(QPainter *p, int row, int col)
+QPixmap *BoardView::PaintPiecesRaw(QPainter *p, int row, int col)
 {
     //QPainter *p;
     Q_ASSERT(p);
@@ -140,7 +158,7 @@ QPixmap *BoardView::paintPiecesRaw(QPainter *p, int row, int col)
     //for (int j = 0; j < 10; j++) {
     // for (int i = 0; i < 9; i++) {
     if (basemodel.board.pieces[row][8 - col].name != "") {
-        if (basemodel.board.pieces[row][8 - col].color == Color::Red) {
+        if (basemodel.board.pieces[row][8 - col].colr == color::Red) {
             // Draw red
             pen.setColor(Qt::red);
             p->setPen(pen);
@@ -149,8 +167,8 @@ QPixmap *BoardView::paintPiecesRaw(QPainter *p, int row, int col)
             pen.setColor(Qt::black);
             p->setPen(pen);
         }
-        QRadialGradient gradient1(QPointF(50.0 + (((8 - col)) * (w - 2.0 * 50.0) / cutp_width),
-                                          50 + (9 - row) * (h - 2 * 50) / cutp_height),
+        QRadialGradient gradient1(QPointF(50.0 + (((8 - col)) * (w - 2.0 * 50.0) / cutpWidth),
+                                          50 + (9 - row) * (h - 2 * 50) / cutpHeight),
                                   50);
         gradient1.setColorAt(1, QColor::fromRgb(222, 91, 16, 255));
         gradient1.setColorAt(0, QColor::fromRgb(255, 255, 255, 255));
@@ -158,20 +176,17 @@ QPixmap *BoardView::paintPiecesRaw(QPainter *p, int row, int col)
         QBrush brush1(gradient1);
         p->setBrush(brush1);
 
-        p->drawChord(QRect((50 + (((8 - col)) * (w - 2 * 50) / cutp_width))
-                               - w / cutp_width / 2 / 1.5,
-                           (50 + (9 - row) * (h - 50 - 100) / cutp_height)
-                               - h / cutp_width / 2 / 1.5,
-                           w / (cutp_width) / 1.5,
-                           h / cutp_width / 1.5),
+        p->drawChord(QRect((50 + (((8 - col)) * (w - 2 * 50) / cutpWidth)) - w / cutpWidth / 2 / 1.5,
+                           (50 + (9 - row) * (h - 50 - 100) / cutpHeight) - h / cutpWidth / 2 / 1.5,
+                           w / (cutpWidth) / 1.5,
+                           h / cutpWidth / 1.5),
                      0,
                      5760);
 
-        p->drawText(QRect((50 + (((8 - col)) * (w - 2 * 50) / cutp_width))
-                              - w / cutp_width / 2 / 1.8,
-                          (50 + (9 - row) * (h - 50 - 100) / cutp_height) - h / cutp_width / 2 / 2,
-                          w / (cutp_width),
-                          h / cutp_width),
+        p->drawText(QRect((50 + (((8 - col)) * (w - 2 * 50) / cutpWidth)) - w / cutpWidth / 2 / 1.8,
+                          (50 + (9 - row) * (h - 50 - 100) / cutpHeight) - h / cutpWidth / 2 / 2,
+                          w / (cutpWidth),
+                          h / cutpWidth),
                     basemodel.board.pieces[row][8 - col].name);
         p->drawPixmap(0, 0, pix);
     }
@@ -181,7 +196,7 @@ QPixmap *BoardView::paintPiecesRaw(QPainter *p, int row, int col)
 }
 
 // Painted from upper left!
-void BoardView::paintPieces(QPainter *p)
+void BoardView::PaintPieces(QPainter *p)
 {
     Q_ASSERT(p);
 
@@ -194,39 +209,39 @@ void BoardView::paintPieces(QPainter *p)
         for (int i = 0; i < 9; i++) {
             QPixmap pixm;
             QPixmap pixm2;
-            if (basemodel.board.pieces[j][8 - i].color == Color::Red) {
-                if (basemodel.board.viewStyleMode == ViewStyleMode::western_png) {
+            if (basemodel.board.pieces[j][8 - i].colr == color::Red) {
+                if (basemodel.board.viewStyleModeVar == viewStyleMode::western_png) {
                     pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
                     pixm2 = pixm.copy(100, 0, 100, 100);
-                } else if (basemodel.board.viewStyleMode == ViewStyleMode::traditional_png) {
+                } else if (basemodel.board.viewStyleModeVar == viewStyleMode::traditional_png) {
                     pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
                     pixm2 = pixm.copy(0, 0, 100, 100);
-                } else if (basemodel.board.viewStyleMode == ViewStyleMode::traditional_native) {
-                    pixm2 = *paintPiecesRaw(p, j, i);
+                } else if (basemodel.board.viewStyleModeVar == viewStyleMode::traditional_native) {
+                    pixm2 = *PaintPiecesRaw(p, j, i);
                 }
             } else {
-                if (basemodel.board.viewStyleMode == ViewStyleMode::western_png) {
+                if (basemodel.board.viewStyleModeVar == viewStyleMode::western_png) {
                     pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
                     pixm2 = pixm.copy(300, 0, 100, 100);
-                } else if (basemodel.board.viewStyleMode == ViewStyleMode::traditional_png) {
+                } else if (basemodel.board.viewStyleModeVar == viewStyleMode::traditional_png) {
                     pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
                     pixm2 = pixm.copy(200, 0, 100, 100);
-                } else if (basemodel.board.viewStyleMode == ViewStyleMode::traditional_native) {
-                    pixm2 = *paintPiecesRaw(p, j, i);
+                } else if (basemodel.board.viewStyleModeVar == viewStyleMode::traditional_native) {
+                    pixm2 = *PaintPiecesRaw(p, j, i);
                 }
             }
-            p->drawPixmap(QRect((50 + ((8 - i) * (w - 2 * 50) / cutp_width))
-                                    - w / cutp_width / 2 / 1.5,
-                                (50 + (9 - j) * (h - 50 - 100) / cutp_height)
-                                    - h / cutp_width / 2 / 1.5,
-                                w / (cutp_width) / 1.5,
-                                h / cutp_width / 1.5),
+            p->drawPixmap(QRect((50 + ((8 - i) * (w - 2 * 50) / cutpWidth))
+                                    - w / cutpWidth / 2 / 1.5,
+                                (50 + (9 - j) * (h - 50 - 100) / cutpHeight)
+                                    - h / cutpWidth / 2 / 1.5,
+                                w / (cutpWidth) / 1.5,
+                                h / cutpWidth / 1.5),
                           pixm2);
         }
     }
 }
 
-void BoardView::paintBoard(QPainter *p)
+void BoardView::PaintBoard(QPainter *p)
 {
     Q_ASSERT(p);
 
@@ -246,40 +261,40 @@ void BoardView::paintBoard(QPainter *p)
     p->setFont(font);
 */
     // Palaeste
-    p->drawLine(50 + (3 * (width() - 2 * 50) / cutp_width),
-                50 + 0 * (height() - 50 - 100) / cutp_height,
-                50 + (5 * (width() - 2 * 50) / cutp_width),
-                50 + 2 * (height() - 50 - 100) / cutp_height);
+    p->drawLine(50 + (3 * (width() - 2 * 50) / cutpWidth),
+                50 + 0 * (height() - 50 - 100) / cutpHeight,
+                50 + (5 * (width() - 2 * 50) / cutpWidth),
+                50 + 2 * (height() - 50 - 100) / cutpHeight);
 
-    p->drawLine(50 + (3 * (width() - 2 * 50) / cutp_width),
-                50 + 2 * (height() - 50 - 100) / cutp_height,
-                50 + (5 * (width() - 2 * 50) / cutp_width),
-                50 + 0 * (height() - 50 - 100) / cutp_height);
+    p->drawLine(50 + (3 * (width() - 2 * 50) / cutpWidth),
+                50 + 2 * (height() - 50 - 100) / cutpHeight,
+                50 + (5 * (width() - 2 * 50) / cutpWidth),
+                50 + 0 * (height() - 50 - 100) / cutpHeight);
 
-    p->drawLine(50 + (3 * (width() - 2 * 50) / cutp_width),
-                50 + 9 * (height() - 50 - 100) / cutp_height,
-                50 + (5 * (width() - 2 * 50) / cutp_width),
-                50 + 7 * (height() - 50 - 100) / cutp_height);
+    p->drawLine(50 + (3 * (width() - 2 * 50) / cutpWidth),
+                50 + 9 * (height() - 50 - 100) / cutpHeight,
+                50 + (5 * (width() - 2 * 50) / cutpWidth),
+                50 + 7 * (height() - 50 - 100) / cutpHeight);
 
-    p->drawLine(50 + (3 * (width() - 2 * 50) / cutp_width),
-                50 + 7 * (height() - 50 - 100) / cutp_height,
-                50 + (5 * (width() - 2 * 50) / cutp_width),
-                50 + 9 * (height() - 50 - 100) / cutp_height);
+    p->drawLine(50 + (3 * (width() - 2 * 50) / cutpWidth),
+                50 + 7 * (height() - 50 - 100) / cutpHeight,
+                50 + (5 * (width() - 2 * 50) / cutpWidth),
+                50 + 9 * (height() - 50 - 100) / cutpHeight);
 
     // Vertikale Linien
-    for (int i = 0; i <= cutp_width; i++) {
-        p->drawLine(50 + (i * (width() - 2 * 50) / cutp_width),
+    for (int i = 0; i <= cutpWidth; i++) {
+        p->drawLine(50 + (i * (width() - 2 * 50) / cutpWidth),
                     50,
-                    50 + (i * (width() - 2 * 50) / cutp_width),
+                    50 + (i * (width() - 2 * 50) / cutpWidth),
                     height() - 100);
     }
 
     // Horizontale Linien
-    for (int i = 0; i <= cutp_height; i++) {
+    for (int i = 0; i <= cutpHeight; i++) {
         p->drawLine(50,
-                    50 + i * (height() - 50 - 100) / cutp_height,
+                    50 + i * (height() - 50 - 100) / cutpHeight,
                     width() - 50,
-                    50 + i * (height() - 50 - 100) / cutp_height);
+                    50 + i * (height() - 50 - 100) / cutpHeight);
     }
 
     // Hervorgehoben Punkte von Soldaten und Kanonen
@@ -290,9 +305,9 @@ void BoardView::paintBoard(QPainter *p)
 
     // Fluss
     p->fillRect(0,
-                50 + 4 * (height() - 50 - 100) / cutp_height,
+                50 + 4 * (height() - 50 - 100) / cutpHeight,
                 width(),
-                (height() - 50 - 100) / cutp_height,
+                (height() - 50 - 100) / cutpHeight,
                 river); //background);
 
     // Flussufer
@@ -303,17 +318,17 @@ void BoardView::paintBoard(QPainter *p)
     font.setItalic(true);
     p->setFont(font);
     p->drawText(QRect(100,
-                      5 * (height() - 50 - 100) / cutp_height + 10,
+                      5 * (height() - 50 - 100) / cutpHeight + 10,
                       150, //width(),
-                      (height() - 50 - 100) / cutp_height / 2),
+                      (height() - 50 - 100) / cutpHeight / 2),
                 Qt::AlignCenter,
-                red_river);
+                redRiver);
     p->drawText(QRect(600,
-                      5 * (height() - 50 - 100) / cutp_height - 20,
+                      5 * (height() - 50 - 100) / cutpHeight - 20,
                       150, //width(),
-                      (height() - 50 - 100) / cutp_height / 2),
+                      (height() - 50 - 100) / cutpHeight / 2),
                 Qt::AlignCenter,
-                black_river);
+                blackRiver);
 
     p->setFont(tmp);
 
@@ -332,17 +347,17 @@ void BoardView::paintBoard(QPainter *p)
         // Westliche, an Schach angelehnte Notation
 
         // Vertikaler Text
-        for (int i = 0; i <= cutp_height; i++) {
+        for (int i = 0; i <= cutpHeight; i++) {
             p->drawText(50 / 2,
-                        50 + i * (height() - 50 - 100) / cutp_height,
+                        50 + i * (height() - 50 - 100) / cutpHeight,
                         //width() - 50,
                         //50 + i * (height() - 50 - 100) / cutp_height,
                         //0,
                         QString("%1").arg(QChar('9' - i)));
         }
         // Horizontaler Text
-        for (int i = 0; i <= cutp_width; i++) {
-            p->drawText(50 + (i * (width() - 2 * 50) / cutp_width),
+        for (int i = 0; i <= cutpWidth; i++) {
+            p->drawText(50 + (i * (width() - 2 * 50) / cutpWidth),
                         height() - (2 * 50 / 2),
                         //50 + (i * (width() - 2 * 50) / cutp_width),
                         //height() - 100,
@@ -364,15 +379,15 @@ void BoardView::paintBoard(QPainter *p)
              << "八"
              << "九";
 
-        for (int i = 0; i <= cutp_width; i++) {
-            p->drawText(50 + (i * (width() - 2 * 50) / cutp_width),
+        for (int i = 0; i <= cutpWidth; i++) {
+            p->drawText(50 + (i * (width() - 2 * 50) / cutpWidth),
                         height() - (2 * 50 / 2),
                         QString("%1").arg(list.at(8 - i)));
         }
 
         // Horizontaler Text, oben
-        for (int i = 0; i <= cutp_width; i++) {
-            p->drawText(50 + (i * (width() - 2 * 50) / cutp_width),
+        for (int i = 0; i <= cutpWidth; i++) {
+            p->drawText(50 + (i * (width() - 2 * 50) / cutpWidth),
                         10,
                         QString("%1").arg(QChar('1' + i)));
         }
@@ -391,7 +406,7 @@ void BoardView::paintBoard(QPainter *p)
     p->setPen(pn);
 }
 
-void BoardView::drawSelectedPieces(QPainter *p)
+void BoardView::DrawSelectedPieces(QPainter *p)
 {
     Q_ASSERT(p);
 
@@ -405,12 +420,12 @@ void BoardView::drawSelectedPieces(QPainter *p)
         pen.setColor(Qt::green);
         pen.setWidth(5);
         p->setPen(pen);
-        p->drawEllipse(QRect((50 + (((basemodel.fromHuman.col)) * (w - 2 * 50) / cutp_width))
-                                 - w / cutp_width / 2 / 1.5,
-                             (50 + (9 - (basemodel.fromHuman.row)) * (h - 50 - 100) / cutp_height)
-                                 - h / cutp_width / 2 / 1.5,
-                             w / (cutp_width) / 1.5,
-                             h / cutp_width / 1.5));
+        p->drawEllipse(QRect((50 + (((basemodel.fromHuman.col)) * (w - 2 * 50) / cutpWidth))
+                                 - w / cutpWidth / 2 / 1.5,
+                             (50 + (9 - (basemodel.fromHuman.row)) * (h - 50 - 100) / cutpHeight)
+                                 - h / cutpWidth / 2 / 1.5,
+                             w / (cutpWidth) / 1.5,
+                             h / cutpWidth / 1.5));
     } else if (basemodel.fromUCI.col != -1 && basemodel.fromUCI.row != -1) {
         QPen pen;
 
@@ -420,22 +435,22 @@ void BoardView::drawSelectedPieces(QPainter *p)
         p->setPen(pen);
         p->setOpacity(0.7);
         // draws the last move line
-        p->drawLine((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutp_width)),
-                    (50 + ((9 - basemodel.fromUCI.row)) * (h - 50 - 100) / cutp_height),
+        p->drawLine((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutpWidth)),
+                    (50 + ((9 - basemodel.fromUCI.row)) * (h - 50 - 100) / cutpHeight),
 
-                    (50 + (((basemodel.toUCI.col)) * (w - 2 * 50) / cutp_width)),
-                    (50 + ((9 - basemodel.toUCI.row)) * (h - 50 - 100) / cutp_height));
+                    (50 + (((basemodel.toUCI.col)) * (w - 2 * 50) / cutpWidth)),
+                    (50 + ((9 - basemodel.toUCI.row)) * (h - 50 - 100) / cutpHeight));
 
         pen.setWidth(25);
         p->setPen(pen);
 
-        p->drawPoint((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutp_width)),
-                     (50 + ((9 - basemodel.fromUCI.row)) * (h - 50 - 100) / cutp_height));
+        p->drawPoint((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutpWidth)),
+                     (50 + ((9 - basemodel.fromUCI.row)) * (h - 50 - 100) / cutpHeight));
 
         pen.setWidth(18);
         p->setPen(pen);
-        p->drawPoint((50 + (((basemodel.toUCI.col)) * (w - 2 * 50) / cutp_width)),
-                     (50 + ((9 - basemodel.toUCI.row)) * (h - 50 - 100) / cutp_height));
+        p->drawPoint((50 + (((basemodel.toUCI.col)) * (w - 2 * 50) / cutpWidth)),
+                     (50 + ((9 - basemodel.toUCI.row)) * (h - 50 - 100) / cutpHeight));
 
         pen.setWidth(5);
         p->setPen(pen);
@@ -444,19 +459,19 @@ void BoardView::drawSelectedPieces(QPainter *p)
         pen.setColor(Qt::black);
         pen.setWidth(5);
         p->setPen(pen);
-        p->drawEllipse(QRect((50 + (((basemodel.toUCI.col)) * (w - 2 * 50) / cutp_width))
-                                 - w / cutp_width / 2 / 1.5,
-                             (50 + (9 - (basemodel.toUCI.row)) * (h - 50 - 100) / cutp_height)
-                                 - h / cutp_width / 2 / 1.5,
-                             w / (cutp_width) / 1.5,
-                             h / cutp_width / 1.5));
+        p->drawEllipse(QRect((50 + (((basemodel.toUCI.col)) * (w - 2 * 50) / cutpWidth))
+                                 - w / cutpWidth / 2 / 1.5,
+                             (50 + (9 - (basemodel.toUCI.row)) * (h - 50 - 100) / cutpHeight)
+                                 - h / cutpWidth / 2 / 1.5,
+                             w / (cutpWidth) / 1.5,
+                             h / cutpWidth / 1.5));
 
-        p->drawEllipse(QRect((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutp_width))
-                                 - w / cutp_width / 2 / 1.5,
-                             (50 + (9 - (basemodel.fromUCI.row)) * (h - 50 - 100) / cutp_height)
-                                 - h / cutp_width / 2 / 1.5,
-                             w / (cutp_width) / 1.5,
-                             h / cutp_width / 1.5));
+        p->drawEllipse(QRect((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutpWidth))
+                                 - w / cutpWidth / 2 / 1.5,
+                             (50 + (9 - (basemodel.fromUCI.row)) * (h - 50 - 100) / cutpHeight)
+                                 - h / cutpWidth / 2 / 1.5,
+                             w / (cutpWidth) / 1.5,
+                             h / cutpWidth / 1.5));
     }
 
     // draws legal moves as dots
@@ -469,12 +484,12 @@ void BoardView::drawSelectedPieces(QPainter *p)
         for (int j = 0; j < 10; j++) {
             for (int i = 0; i < 9; i++) {
                 if (move.second.col == i && move.second.row == j) {
-                    p->drawEllipse(QRect((50 + ((move.second.col) * (w - 2 * 50) / cutp_width))
-                                             - w / cutp_width / 2 / 1.5,
-                                         (50 + (9 - move.second.row) * (h - 50 - 100) / cutp_height)
-                                             - h / cutp_width / 2 / 1.5,
-                                         w / (cutp_width) / 1.5,
-                                         h / cutp_width / 1.5));
+                    p->drawEllipse(QRect((50 + ((move.second.col) * (w - 2 * 50) / cutpWidth))
+                                             - w / cutpWidth / 2 / 1.5,
+                                         (50 + (9 - move.second.row) * (h - 50 - 100) / cutpHeight)
+                                             - h / cutpWidth / 2 / 1.5,
+                                         w / (cutpWidth) / 1.5,
+                                         h / cutpWidth / 1.5));
                 }
             }
         }
@@ -500,7 +515,7 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         boardCursorRow = height() - event->pos().y();
     }
 */
-    QPoint p = calcBoardcoords({event->pos().x(), event->pos().y()});
+    QPoint p = CalcBoardCoords({event->pos().x(), event->pos().y()});
 
     if (!pressed) {
         //fromCol = static_cast<int>(floor(((boardCursorCol) / squareCol)) + 1);
@@ -509,11 +524,11 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         fromRow = p.y();
         pressed = true;
 
-        if (basemodel.board.pieces[10 - fromRow][fromCol - 1].type == PieceType::Empty) {
+        if (basemodel.board.pieces[10 - fromRow][fromCol - 1].type == pieceType::Empty) {
             pressed = false;
             return;
         }
-        if (basemodel.board.pieces[10 - fromRow][fromCol - 1].color != basemodel.board.onMove) {
+        if (basemodel.board.pieces[10 - fromRow][fromCol - 1].colr != basemodel.board.onMove) {
             pressed = false;
             return;
         }
@@ -524,7 +539,7 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         qDebug() << basemodel.fromHuman.col << basemodel.fromHuman.row;
 
         GenMove legalMoves(basemodel.board.pieces, basemodel.board.onMove);
-        allPreviewMoves = legalMoves.isValidPieceMove(basemodel.fromHuman);
+        allPreviewMoves = legalMoves.IsValidPieceMove(basemodel.fromHuman);
 
     } else if (pressed) {
         //toCol = static_cast<int>(floor(((boardCursorCol) / squareCol)) + 1);
@@ -536,7 +551,7 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         GenMove mate(basemodel.board.pieces, basemodel.board.onMove);
 
         // Is in Checkmate
-        if (mate.isCheckmate(basemodel.board.onMove)) {
+        if (mate.IsCheckmate(basemodel.board.onMove)) {
             qDebug() << "Checkmate";
             return;
         }
@@ -559,70 +574,70 @@ void BoardView::mousePressEvent(QMouseEvent *event)
 }
 
 // Sets the selected pieces on the (clean) board
-void BoardView::setEditorPieces()
+void BoardView::SetEditorPieces()
 {
     QPoint coords;
     for (auto piece : contextMenu->pieces) {
-        coords = calcBoardcoords(piece.first);
+        coords = CalcBoardCoords(piece.first);
         QPoint tmp = coords;
         coords.setX(10 - tmp.y());
         coords.setY(tmp.x() - 1);
         switch (piece.second) {
-        case CompletePieceType::GeneralRot:
+        case completePieceType::GeneralRot:
             basemodel.board.placePiece(
-                Piece(Color::Red, PieceType::General, {coords.x(), coords.y()}, "帥"));
+                Piece(color::Red, pieceType::General, {coords.x(), coords.y()}, "帥"));
             break;
-        case CompletePieceType::GeneralSchwarz:
+        case completePieceType::GeneralSchwarz:
             basemodel.board.placePiece(
-                Piece(Color::Black, PieceType::General, {coords.x(), coords.y()}, "將"));
+                Piece(color::Black, pieceType::General, {coords.x(), coords.y()}, "將"));
             break;
-        case CompletePieceType::AdvisorRot:
+        case completePieceType::AdvisorRot:
             basemodel.board.placePiece(
-                Piece(Color::Red, PieceType::Advisor, {coords.x(), coords.y()}, "仕"));
+                Piece(color::Red, pieceType::Advisor, {coords.x(), coords.y()}, "仕"));
             break;
-        case CompletePieceType::AdvisorSchwarz:
+        case completePieceType::AdvisorSchwarz:
             basemodel.board.placePiece(
-                Piece(Color::Black, PieceType::Advisor, {coords.x(), coords.y()}, "士"));
+                Piece(color::Black, pieceType::Advisor, {coords.x(), coords.y()}, "士"));
             break;
-        case CompletePieceType::ElephantRot:
+        case completePieceType::ElephantRot:
             basemodel.board.placePiece(
-                Piece(Color::Red, PieceType::Elephant, {coords.x(), coords.y()}, "相"));
+                Piece(color::Red, pieceType::Elephant, {coords.x(), coords.y()}, "相"));
             break;
-        case CompletePieceType::ElephantSchwarz:
+        case completePieceType::ElephantSchwarz:
             basemodel.board.placePiece(
-                Piece(Color::Black, PieceType::Elephant, {coords.x(), coords.y()}, "象"));
+                Piece(color::Black, pieceType::Elephant, {coords.x(), coords.y()}, "象"));
             break;
-        case CompletePieceType::HorseRot:
+        case completePieceType::HorseRot:
             basemodel.board.placePiece(
-                Piece(Color::Red, PieceType::Horse, {coords.x(), coords.y()}, "傌"));
+                Piece(color::Red, pieceType::Horse, {coords.x(), coords.y()}, "傌"));
             break;
-        case CompletePieceType::HorseSchwarz:
+        case completePieceType::HorseSchwarz:
             basemodel.board.placePiece(
-                Piece(Color::Black, PieceType::Horse, {coords.x(), coords.y()}, "馬"));
+                Piece(color::Black, pieceType::Horse, {coords.x(), coords.y()}, "馬"));
             break;
-        case CompletePieceType::ChariotRot:
+        case completePieceType::ChariotRot:
             basemodel.board.placePiece(
-                Piece(Color::Red, PieceType::Chariot, {coords.x(), coords.y()}, "俥"));
+                Piece(color::Red, pieceType::Chariot, {coords.x(), coords.y()}, "俥"));
             break;
-        case CompletePieceType::ChariotSchwarz:
+        case completePieceType::ChariotSchwarz:
             basemodel.board.placePiece(
-                Piece(Color::Black, PieceType::Chariot, {coords.x(), coords.y()}, "車"));
+                Piece(color::Black, pieceType::Chariot, {coords.x(), coords.y()}, "車"));
             break;
-        case CompletePieceType::CannonRot:
+        case completePieceType::CannonRot:
             basemodel.board.placePiece(
-                Piece(Color::Red, PieceType::Cannon, {coords.x(), coords.y()}, "炮"));
+                Piece(color::Red, pieceType::Cannon, {coords.x(), coords.y()}, "炮"));
             break;
-        case CompletePieceType::CannonSchwarz:
+        case completePieceType::CannonSchwarz:
             basemodel.board.placePiece(
-                Piece(Color::Black, PieceType::Cannon, {coords.x(), coords.y()}, "砲"));
+                Piece(color::Black, pieceType::Cannon, {coords.x(), coords.y()}, "砲"));
             break;
-        case CompletePieceType::SoldierRot:
+        case completePieceType::SoldierRot:
             basemodel.board.placePiece(
-                Piece(Color::Red, PieceType::Soldier, {coords.x(), coords.y()}, "兵"));
+                Piece(color::Red, pieceType::Soldier, {coords.x(), coords.y()}, "兵"));
             break;
-        case CompletePieceType::SoldierSchwarz:
+        case completePieceType::SoldierSchwarz:
             basemodel.board.placePiece(
-                Piece(Color::Black, PieceType::Soldier, {coords.x(), coords.y()}, "卒"));
+                Piece(color::Black, pieceType::Soldier, {coords.x(), coords.y()}, "卒"));
             break;
         default:
             qDebug() << "Error in boarview";
@@ -631,7 +646,7 @@ void BoardView::setEditorPieces()
     }
 }
 
-QPoint BoardView::calcBoardcoords(QPoint r)
+QPoint BoardView::CalcBoardCoords(QPoint r)
 {
     float w = width();
     float h = height();
@@ -646,7 +661,7 @@ QPoint BoardView::calcBoardcoords(QPoint r)
     float squareRow = (h - 50.0 - 100.0) / BaseModel::BoardRowPoints;
     float boardCursorCol;
     float boardCursorRow;
-    if (basemodel.gameView == Color::Red) {
+    if (basemodel.gameView == color::Red) {
         boardCursorCol = x;
         boardCursorRow = y;
     } else {
@@ -661,7 +676,7 @@ QPoint BoardView::calcBoardcoords(QPoint r)
     return QPoint(col, row);
 }
 
-void BoardView::MovePiece(Position from, Position to)
+void BoardView::MovePiece(position from, position to)
 {
     basemodel.board.movePiece(from.row, from.col, to.row, to.col);
 }

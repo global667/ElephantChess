@@ -1,29 +1,47 @@
+/*
+  ElephantChess, a UCI chinese chess playing GUI with builtin engine
+  Copyright (C) 2022-2023 Wolf S. Kappesser
+
+  ElephantChess is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  ElephantChess is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include "settingsview.h"
 #include "qboxlayout.h"
 
 SettingsView::SettingsView(QWidget *parent)
     : QDialog{parent}
 {
-    engines_comboBox = new QComboBox{this};
-    engines_comboBox->addItem("eleeye");
-    engines_comboBox->addItem("chameleon");
+    enginesComboBox = new QComboBox{this};
+    enginesComboBox->addItem("eleeye");
+    enginesComboBox->addItem("chameleon");
 
-    style_button = new QPushButton{"Wähle den Notationsstil", this};
-    engine_button = new QPushButton{"Wähle die Engine", this};
-    board_style_button = new QPushButton{"Wähle das Brett-Design", this};
+    styleButton = new QPushButton{"Wähle den Notationsstil", this};
+    engineButton = new QPushButton{"Wähle die Engine", this};
+    boardStyleButton = new QPushButton{"Wähle das Brett-Design", this};
 
     QVBoxLayout *layout = new QVBoxLayout{this};
-    layout->addWidget(engines_comboBox);
-    layout->addWidget(engine_button);
-    layout->addWidget(style_button);
-    layout->addWidget(board_style_button);
+    layout->addWidget(enginesComboBox);
+    layout->addWidget(engineButton);
+    layout->addWidget(styleButton);
+    layout->addWidget(boardStyleButton);
     setLayout(layout);
 
-    connect(engine_button, &QPushButton::clicked, this, &SettingsView::chooseEngine);
-    connect(style_button, &QPushButton::clicked, this, &SettingsView::chooseStyle);
-    connect(board_style_button, &QPushButton::clicked, this, &SettingsView::chooseBoardStyle);
-    engineName = engines_comboBox->currentText();
-    connect(engines_comboBox,
+    connect(engineButton, &QPushButton::clicked, this, &SettingsView::ChooseEngine);
+    connect(styleButton, &QPushButton::clicked, this, &SettingsView::ChooseStyle);
+    connect(boardStyleButton, &QPushButton::clicked, this, &SettingsView::ChooseBoardStyle);
+    engineName = enginesComboBox->currentText();
+    connect(enginesComboBox,
             &QComboBox::currentIndexChanged,
             this,
             &SettingsView::comboBoxSetEngineName);
@@ -31,23 +49,23 @@ SettingsView::SettingsView(QWidget *parent)
 
 void SettingsView::comboBoxSetEngineName()
 {
-    engineName = engines_comboBox->currentText();
+    engineName = enginesComboBox->currentText();
 }
 
 SettingsView::~SettingsView()
 {
-    delete engines_comboBox;
-    delete engine_button;
-    delete style_button;
-    delete board_style_button;
+    delete enginesComboBox;
+    delete engineButton;
+    delete styleButton;
+    delete boardStyleButton;
 }
 
-void SettingsView::setModel(BaseModel *newModel)
+void SettingsView::SetModel(BaseModel *newModel)
 {
     model = newModel;
 }
 
-void SettingsView::chooseBoardStyle()
+void SettingsView::ChooseBoardStyle()
 {
     QStringList items;
     QFont font;
@@ -59,17 +77,17 @@ void SettingsView::chooseBoardStyle()
     QString item = QInputDialog::getItem(this, tr("Figuren"), tr("Figuren"), items, 0, false, &ok);
     if (ok && !item.isEmpty()) {
         if (item == tr("Traditionell")) {
-            model->board.viewStyleMode = ViewStyleMode::traditional_native;
+            model->board.viewStyleModeVar = viewStyleMode::traditional_native;
         } else if (item == tr("Traditionell/PNG")) {
-            model->board.viewStyleMode = ViewStyleMode::traditional_png;
+            model->board.viewStyleModeVar = viewStyleMode::traditional_png;
         } else if (item == tr("Westlich vereinfacht")) {
-            model->board.viewStyleMode = ViewStyleMode::western_png;
+            model->board.viewStyleModeVar = viewStyleMode::western_png;
         }
         emit boardStyleChanged();
     }
 }
 
-void SettingsView::chooseStyle()
+void SettingsView::ChooseStyle()
 {
     // see Wikipedia: https://de.wikipedia.org/wiki/Xiangqi
     QStringList items;
@@ -91,7 +109,7 @@ void SettingsView::chooseStyle()
         QMessageBox::information(this, "Information", "Noch nicht implementiert");
 }
 
-void SettingsView::chooseEngine()
+void SettingsView::ChooseEngine()
 {
     QString filename = QFileDialog::getOpenFileName(this,
                                                     "Wähle die Engine",
@@ -99,8 +117,8 @@ void SettingsView::chooseEngine()
                                                     "Engines (*.exe)");
     if (filename.isEmpty())
         return;
-    engines_comboBox->addItem(filename);
-    engines_comboBox->show();
+    enginesComboBox->addItem(filename);
+    enginesComboBox->show();
 
     //parent()->setEngine(filename);
 }

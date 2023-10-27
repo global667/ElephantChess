@@ -1,3 +1,21 @@
+/*
+  ElephantChess, a UCI chinese chess playing GUI with builtin engine
+  Copyright (C) 2022-2023 Wolf S. Kappesser
+
+  ElephantChess is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  ElephantChess is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #ifndef UCI_H
 #define UCI_H
 
@@ -21,7 +39,7 @@ public:
     ~UCI();
 
     void writeDatas(QByteArray d);
-    void MovePiece(Position from, Position to); // override; //
+    void MovePiece(position from, position to); // override; //
     void MovePiece(int fromX, int fromY, int toX, int toY);
 
     QProcess engine;
@@ -38,7 +56,7 @@ private:
     QByteArray posToken(int fromX, int fromY, int toX, int toY);
     QByteArray posToken(QByteArray token);
 signals:
-    void updateView(Position from, Position to);
+    void updateView(position from, position to);
     void boardChanged(int fromX, int fromY, int toX, int toY);
 
 public slots:
