@@ -6,7 +6,7 @@ extern BaseModel basemodel;
 Board::Board(QObject *parent)
     : QObject{parent}
 {
-    Q_INIT_RESOURCE(res);
+    //Q_INIT_RESOURCE(res);
 
     initBoard();
 }

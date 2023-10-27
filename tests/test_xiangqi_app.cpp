@@ -1,8 +1,9 @@
 #include "test_xiangqi_app.h"
-#include "boardview.h"
-#include "genmove.h"
-#include "mainwindow.h"
-#include "types.h"
+#include "../sources/boardview.h"
+#include "../sources/genmove.h"
+#include "../sources/mainwindow.h"
+#include "../sources/types.h"
+
 
 test_xiangqi_app::test_xiangqi_app(QObject *parent)
     : QObject{parent}

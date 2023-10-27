@@ -27,7 +27,7 @@ public:
         return *this;
     }
 
-    virtual ~Board() { Q_CLEANUP_RESOURCE(res); }
+    virtual ~Board() {}// Q_CLEANUP_RESOURCE(res); }
 
     // Initialisiert das Spielbrett
     void initBoard();

@@ -384,12 +384,14 @@ void MainWindow::open()
 
 void MainWindow::save()
 {
-    auto saveFile = QFileDialog::getSaveFileName(this, tr("Datei speichern"));
+    auto saveFile = QFileDialog::getSaveFileName(this, tr("Datei speichern"), "~/untitled", tr("Portable Game Notation ( *.pgn)"));
 
     if (saveFile.isNull()) {
         statusBar()->showMessage(tr("Speichere Datei: fehlgeschlagen"));
         return;
     }
+    if (!saveFile.contains(".pgn"))
+        saveFile = saveFile + ".pgn";
     QFile svfile(saveFile);
     if (!svfile.open(QIODeviceBase::WriteOnly | QIODeviceBase::Text)) {
         statusBar()->showMessage(tr("Speichere Datei: Öffnen fehlgeschlagen"));

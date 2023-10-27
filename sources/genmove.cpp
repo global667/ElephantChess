@@ -198,14 +198,14 @@ bool GenMove::isValidElephantMove(Position from, Position to, Color color)
     if (color == Color::Black) {
         return (to.row >= 5 && to.row <= 9 && to.col >= 0 && to.col <= 8
                 && (dx * dx + dy * dy) == 8
-                //&& isVacantOrOpponent(from.row + dx / 2, from.col + dy / 2, color));
-                && isVacantOrOpponent(to.row, to.col, color));
+                && isVacantOrOpponent(from.row + dx / 2, from.col + dy / 2, color));
+                //&& isVacantOrOpponent(to.row, to.col, color));
 
     } else {
         return (to.row >= 0 && to.row <= 4 && to.col >= 0 && to.col <= 8
                 && (dx * dx + dy * dy) == 8
-                //&& isVacantOrOpponent(from.row + dx / 2, from.col + dy / 2, color)
-                && isVacantOrOpponent(to.row, to.col, color));
+                && isVacantOrOpponent(from.row + dx / 2, from.col + dy / 2, color));
+                //&& isVacantOrOpponent(to.row, to.col, color));
     }
 }
 

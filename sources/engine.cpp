@@ -24,7 +24,7 @@ std::pair<Position, Position> engine::getBestMove(Color color)
             for (std::pair<Position, Position> p : pos)
             {
                 posAll.push_back(p);
-                qDebug() << p.first.row << p.first.col;
+                //qDebug() << p.first.row << p.first.col;
             }
             }
     }
