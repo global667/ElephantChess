@@ -50,8 +50,9 @@
 
 #include "basemodel.h"
 #include "boardview.h"
+#include "engine.h"
 #include "settingsview.h"
-#include "uci.h"
+//#include "uci.h"
 
 //extern BaseModel basemodel;
 
@@ -64,8 +65,9 @@ public:
     ~MainWindow();
 
     // The engine, as exe and its thread
-    UCI uci;
-    QThread uciThread;
+    //UCI uci;
+    //QThread uciThread;
+    Engine engine;
 
 private:
     BoardView *boardview;

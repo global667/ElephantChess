@@ -25,8 +25,9 @@
 #include <QRandomGenerator>
 
 // chinese chess engine
-class Engine
+class Engine : public QObject
 {
+    Q_OBJECT
 public:
     Engine();
     std::pair<position, position> GetBestMove(color color);
@@ -39,7 +40,16 @@ public:
     // return a list of positions
     QList<position> GetPossibleMoves(color color);
 
+    void engineGo();
+
+    void MovePiece(position from, position to);
+
 private:
+    QByteArray posToken(int fromX, int fromY, int toX, int toY);
+
+    void MovePiece(int fromX, int fromY, int toX, int toY);
+signals:
+    void updateView(position from, position to);
 };
 
 #endif // ENGINE_H

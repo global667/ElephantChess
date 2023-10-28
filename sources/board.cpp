@@ -104,39 +104,39 @@ void Board::initBoard()
                 pieces[row][col] = Piece(color::Red, pieceType::Empty, {row, col}, "");
             }
         }
-        placePiece(Piece(color::Red, pieceType::Chariot, {0, 0}, "車"));
-        placePiece(Piece(color::Red, pieceType::Horse, {0, 1}, "馬"));
-        placePiece(Piece(color::Red, pieceType::Elephant, {0, 2}, "相"));
-        placePiece(Piece(color::Red, pieceType::Advisor, {0, 3}, "仕"));
-        placePiece(Piece(color::Red, pieceType::General, {0, 4}, "帥"));
-        placePiece(Piece(color::Red, pieceType::Advisor, {0, 5}, "仕"));
-        placePiece(Piece(color::Red, pieceType::Elephant, {0, 6}, "相"));
-        placePiece(Piece(color::Red, pieceType::Horse, {0, 7}, "馬"));
-        placePiece(Piece(color::Red, pieceType::Chariot, {0, 8}, "車"));
-        placePiece(Piece(color::Red, pieceType::Cannon, {2, 1}, "炮"));
-        placePiece(Piece(color::Red, pieceType::Cannon, {2, 7}, "炮"));
-        placePiece(Piece(color::Red, pieceType::Soldier, {3, 0}, "兵"));
-        placePiece(Piece(color::Red, pieceType::Soldier, {3, 2}, "兵"));
-        placePiece(Piece(color::Red, pieceType::Soldier, {3, 4}, "兵"));
-        placePiece(Piece(color::Red, pieceType::Soldier, {3, 6}, "兵"));
-        placePiece(Piece(color::Red, pieceType::Soldier, {3, 8}, "兵"));
+        placePiece(Piece(color::Red, pieceType::Chariot, {0, 0}, "\u8ECA"));        //"車"));
+        placePiece(Piece(color::Red, pieceType::Horse, {0, 1}, QString("\u99AC"))); //"馬"));
+        placePiece(Piece(color::Red, pieceType::Elephant, {0, 2}, "\u76f8"));       //"相"));
+        placePiece(Piece(color::Red, pieceType::Advisor, {0, 3}, "\u4ed5"));        //"仕"));
+        placePiece(Piece(color::Red, pieceType::General, {0, 4}, "\u5e25"));        //"帥"));
+        placePiece(Piece(color::Red, pieceType::Advisor, {0, 5}, "\u4ed5"));        // "仕"));
+        placePiece(Piece(color::Red, pieceType::Elephant, {0, 6}, "\u76f8"));       // "相"));
+        placePiece(Piece(color::Red, pieceType::Horse, {0, 7}, "\u99AC"));          // "馬"));
+        placePiece(Piece(color::Red, pieceType::Chariot, {0, 8}, "\u8ECA"));        // "車"));
+        placePiece(Piece(color::Red, pieceType::Cannon, {2, 1}, "\u70ae"));         //"炮"));
+        placePiece(Piece(color::Red, pieceType::Cannon, {2, 7}, "\u70ae"));         //"炮"));
+        placePiece(Piece(color::Red, pieceType::Soldier, {3, 0}, "\u5175"));        //"兵"));
+        placePiece(Piece(color::Red, pieceType::Soldier, {3, 2}, "\u5175"));        //"兵"));
+        placePiece(Piece(color::Red, pieceType::Soldier, {3, 4}, "\u5175"));        //"兵"));
+        placePiece(Piece(color::Red, pieceType::Soldier, {3, 6}, "\u5175"));        //"兵"));
+        placePiece(Piece(color::Red, pieceType::Soldier, {3, 8}, "\u5175"));        //"兵"));
 
-        placePiece(Piece(color::Black, pieceType::Chariot, {9, 0}, "車"));
-        placePiece(Piece(color::Black, pieceType::Horse, {9, 1}, "馬"));
-        placePiece(Piece(color::Black, pieceType::Elephant, {9, 2}, "象"));
-        placePiece(Piece(color::Black, pieceType::Advisor, {9, 3}, "士"));
-        placePiece(Piece(color::Black, pieceType::General, {9, 4}, "將"));
-        placePiece(Piece(color::Black, pieceType::Advisor, {9, 5}, "士"));
-        placePiece(Piece(color::Black, pieceType::Elephant, {9, 6}, "象"));
-        placePiece(Piece(color::Black, pieceType::Horse, {9, 7}, "馬"));
-        placePiece(Piece(color::Black, pieceType::Chariot, {9, 8}, "車"));
-        placePiece(Piece(color::Black, pieceType::Cannon, {7, 1}, "砲"));
-        placePiece(Piece(color::Black, pieceType::Cannon, {7, 7}, "砲"));
-        placePiece(Piece(color::Black, pieceType::Soldier, {6, 0}, "卒"));
-        placePiece(Piece(color::Black, pieceType::Soldier, {6, 2}, "卒"));
-        placePiece(Piece(color::Black, pieceType::Soldier, {6, 4}, "卒"));
-        placePiece(Piece(color::Black, pieceType::Soldier, {6, 6}, "卒"));
-        placePiece(Piece(color::Black, pieceType::Soldier, {6, 8}, "卒"));
+        placePiece(Piece(color::Black, pieceType::Chariot, {9, 0}, "\u8ECA"));        //"車"));
+        placePiece(Piece(color::Black, pieceType::Horse, {9, 1}, QString("\u99AC"))); // "馬"));
+        placePiece(Piece(color::Black, pieceType::Elephant, {9, 2}, "\u8c61"));       //"象"));
+        placePiece(Piece(color::Black, pieceType::Advisor, {9, 3}, "\u58eb"));        // "士"));
+        placePiece(Piece(color::Black, pieceType::General, {9, 4}, "\u5c07"));        // "將"));
+        placePiece(Piece(color::Black, pieceType::Advisor, {9, 5}, "\u58eb"));        //"士"));
+        placePiece(Piece(color::Black, pieceType::Elephant, {9, 6}, "\u8c61"));       //"象"));
+        placePiece(Piece(color::Black, pieceType::Horse, {9, 7}, QString("\u99AC"))); //"馬"));
+        placePiece(Piece(color::Black, pieceType::Chariot, {9, 8}, "\u8ECA"));        //"車"));
+        placePiece(Piece(color::Black, pieceType::Cannon, {7, 1}, "\u7832"));         //"砲"));
+        placePiece(Piece(color::Black, pieceType::Cannon, {7, 7}, "\u7832"));         //"砲"));
+        placePiece(Piece(color::Black, pieceType::Soldier, {6, 0}, "\u5352"));        //"卒"));
+        placePiece(Piece(color::Black, pieceType::Soldier, {6, 2}, "\u5352"));        //"卒"));
+        placePiece(Piece(color::Black, pieceType::Soldier, {6, 4}, "\u5352"));        //"卒"));
+        placePiece(Piece(color::Black, pieceType::Soldier, {6, 6}, "\u5352"));        //"卒"));
+        placePiece(Piece(color::Black, pieceType::Soldier, {6, 8}, "\u5352"));        //"卒"));
     } else {
         for (int row = 0; row < ROWS; ++row) {
             for (int col = 0; col < COLS; ++col) {

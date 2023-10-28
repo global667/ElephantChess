@@ -59,3 +59,47 @@ QList<position> Engine::GetPossibleMoves(color color)
 {
     return QList<position>();
 }
+
+void Engine::engineGo()
+{
+    // Start the engine
+    // writeDatas("position startpos moves " + moves.join(" ").toUtf8());
+    // writeDatas("go depth 2");
+    // writeDatas("isready");
+    class Engine eng;
+    std::pair<position, position> ownEngineMove;
+    ownEngineMove = eng.GetBestMove(color::Black);
+    QByteArray mv = posToken(ownEngineMove.first.col,
+                             ownEngineMove.first.row,
+                             ownEngineMove.second.col,
+                             ownEngineMove.second.row);
+    basemodel.moves.append(mv);
+    emit updateView(ownEngineMove.first, ownEngineMove.second);
+}
+
+QByteArray Engine::posToken(int fromX, int fromY, int toX, int toY)
+{
+    QByteArray m;
+    char c1 = fromX + 'a';
+    char c2 = (fromY) + '0';
+    char c3 = toX + 'a';
+    char c4 = (toY) + '0';
+    m.clear();
+    m.append(c1);
+    m.append(c2);
+    m.append(c3);
+    m.append(c4);
+    if (basemodel.moves.isEmpty())
+    basemodel.moves = QStringList();
+    return m;
+}
+
+void Engine::MovePiece(position from, position to)
+{
+    MovePiece(from.col, from.row, to.col, to.row);
+}
+
+void Engine::MovePiece(int fromX, int fromY, int toX, int toY)
+{
+    basemodel.moves.append(posToken(fromX, fromY, toX, toY));
+}

@@ -41,6 +41,8 @@ public:
     Board boardCopy;
 
     int currentMove = 0;
+    QStringList moves;
+    QString engineName = "native";
     QList<Board> moveHistory;
 
     position fromHuman = {-1, -1};

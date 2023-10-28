@@ -242,14 +242,14 @@ MainWindow::MainWindow(QWidget *parent)
     dialog->SetModel(&basemodel);
 
     statusBar()->showMessage(tr("Ready"));
-    Q_ASSERT(&uci);
-    Q_ASSERT(&uciThread);
-    uci.moveToThread(&uciThread);
+    //Q_ASSERT(&uci);
+    //Q_ASSERT(&uciThread);
+    //uci.moveToThread(&uciThread);
     //qDebug() << "Starting uci engine in extra thread";
     //uci.start();
     //uciThread.start();
 
-    connect(&uci, SIGNAL(updateView(position, position)), SLOT(blackToMove(position, position)));
+    connect(&engine, SIGNAL(updateView(position, position)), SLOT(blackToMove(position, position)));
     connect(boardview, SIGNAL(updateView(position, position)), SLOT(redToMove(position, position)));
 
     connect(dialog, SIGNAL(boardStyleChanged()), this, SLOT(newgame()));
@@ -297,7 +297,7 @@ void MainWindow::togglePlayer()
                 SIGNAL(updateView(Position, Position)),
                 SLOT(blackToMove(Position, Position)));
 */
-        uci.engineGo();
+        engine.engineGo();
     }
 
     else {
@@ -363,7 +363,7 @@ void MainWindow::open()
                             if (s.split(" ").first().contains("1.")) {
                                 for (auto &s : s.split(" ")) {
                                     if (s.contains(".")) {
-                                        uci.moves << s.split(".").last();
+                                        basemodel.moves << s.split(".").last();
                                     }
                                 }
                             }
@@ -374,7 +374,7 @@ void MainWindow::open()
         }
     }
 
-    qDebug() << uci.moves;
+    qDebug() << basemodel.moves;
 
     opfile.close();
     int c = 0;
@@ -382,7 +382,7 @@ void MainWindow::open()
     update();
 
     QStandardItem *item;
-    for (QString &item1 : uci.moves) {
+    for (QString &item1 : basemodel.moves) {
         item = new QStandardItem(item1);
         if (c % 2 == 0)
             model->setItem(c / 2, 0, item);
@@ -428,7 +428,7 @@ void MainWindow::save()
                << "\"]\n\n";
 
     int i = 0;
-    for (const auto &m : uci.moves) {
+    for (const auto &m : basemodel.moves) {
         if (++i % 2 == 1)
             textstream << QString("%1.").arg((i / 2) + 1);
         textstream << m << " ";
@@ -450,24 +450,25 @@ void MainWindow::settings()
 
 void MainWindow::updateSettings()
 {
-    uciThread.quit();
-    uciThread.wait();
-    uci.engineName = basemodel.engine = dialog->engineName;
-    Q_ASSERT(&uci);
-    Q_ASSERT(&uciThread);
-    uci.moveToThread(&uciThread);
-    qDebug() << "Starting uci engine (" + uci.engineName + ") in extra thread";
-    uci.start();
-    uciThread.start();
+    //uciThread.quit();
+    //uciThread.wait();
+    //uci.engineName =
+    basemodel.engine = dialog->engineName;
+    //Q_ASSERT(&uci);
+    //Q_ASSERT(&uciThread);
+    //uci.moveToThread(&uciThread);
+    qDebug() << "Starting uci engine (" + basemodel.engineName + ") in extra thread";
+    //uci.start();
+    //uciThread.start();
 }
 
 void MainWindow::toggleEngineStatus()
 {
-    if (uciThread.isRunning()) {
-        uciThread.quit();
-    } else {
-        uciThread.start();
-    }
+    //    if (uciThread.isRunning()) {
+    //        uciThread.quit();
+    //    } else {
+    //        uciThread.start();
+    //    }
 }
 
 // Startet ein neues Spiel
@@ -481,7 +482,7 @@ void MainWindow::newgame()
     basemodel.fromHuman = {-1, -1};
     basemodel.toHuman = {-1, -1};
     //basemodel.board().onMove = Color::Red;
-    uci.moves.clear();
+    basemodel.moves.clear();
     repaint();
 }
 
@@ -491,9 +492,9 @@ void MainWindow::lleftPressed()
     basemodel.board = basemodel.moveHistory[basemodel.currentMove];
     basemodel.fromHuman = {-1, -1};
     basemodel.toHuman = {-1, -1};
-    if (uciThread.isRunning()) {
-        uciThread.quit();
-    }
+    //if (uciThread.isRunning()) {
+    //    uciThread.quit();
+    //}
     repaint();
 }
 
@@ -506,9 +507,9 @@ void MainWindow::leftPressed()
     basemodel.board = basemodel.moveHistory[basemodel.currentMove];
     basemodel.fromHuman = {-1, -1};
     basemodel.toHuman = {-1, -1};
-    if (uciThread.isRunning()) {
-        uciThread.quit();
-    }
+    //if (uciThread.isRunning()) {
+    //    uciThread.quit();
+    //}
     repaint();
 }
 
@@ -521,9 +522,9 @@ void MainWindow::rightPressed()
     basemodel.board = basemodel.moveHistory[basemodel.currentMove];
     basemodel.fromHuman = {-1, -1};
     basemodel.toHuman = {-1, -1};
-    if (uciThread.isRunning()) {
-        uciThread.quit();
-    }
+    //if (uciThread.isRunning()) {
+    //    uciThread.quit();
+    //}
 
     repaint();
 }
@@ -534,9 +535,9 @@ void MainWindow::rrightPressed()
     basemodel.board = basemodel.moveHistory[basemodel.currentMove];
     basemodel.fromHuman = {-1, -1};
     basemodel.toHuman = {-1, -1};
-    if (uciThread.isRunning()) {
-        uciThread.quit();
-    }
+    //if (uciThread.isRunning()) {
+    //    uciThread.quit();
+    //}
     repaint();
 }
 
@@ -562,11 +563,11 @@ void MainWindow::redToMove(position from, position to)
         }
 
         // Give move to engine
-        uci.MovePiece(from, to);
+        engine.MovePiece(from, to);
         addMoveToList();
         addMoveToHistory();
         basemodel.board.toggleOnMove();
-        uci.engineGo();
+        engine.engineGo();
 
     } /* else {
         uci.MovePiece(from, to);
@@ -630,7 +631,7 @@ void MainWindow::addMoveToHistory()
 
 void MainWindow::addMoveToList()
 {
-    QString mv = QString(uci.moves.last());
+    QString mv = QString(basemodel.moves.last());
 
     QTreeWidgetItem *item = new QTreeWidgetItem();
     item->setText(0, mv);
@@ -660,6 +661,6 @@ void MainWindow::addMoveToList()
 
 MainWindow::~MainWindow()
 {
-    uciThread.quit();
-    uciThread.wait();
+    //uciThread.quit();
+    //uciThread.wait();
 }
