@@ -26,9 +26,9 @@ SettingsView::SettingsView(QWidget *parent)
     enginesComboBox->addItem("eleeye");
     enginesComboBox->addItem("chameleon");
 
-    styleButton = new QPushButton{"Wähle den Notationsstil", this};
-    engineButton = new QPushButton{"Wähle die Engine", this};
-    boardStyleButton = new QPushButton{"Wähle das Brett-Design", this};
+    styleButton = new QPushButton{"Choose notation style", this};
+    engineButton = new QPushButton{"Choose engine", this};
+    boardStyleButton = new QPushButton{"Choose board style", this};
 
     QVBoxLayout *layout = new QVBoxLayout{this};
     layout->addWidget(enginesComboBox);
@@ -68,19 +68,19 @@ void SettingsView::SetModel(BaseModel *newModel)
 void SettingsView::ChooseBoardStyle()
 {
     QStringList items;
-    QFont font;
-    font.setFamily("YaHei");
+    //QFont font;
+    //font.setFamily("YaHei");
 
-    items << tr("Traditionell") << tr("Traditionell/PNG") << tr("Westlich vereinfacht");
+    items << tr("Traditionel") << tr("Traditionel/PNG") << tr("Western simplified");
 
     bool ok;
     QString item = QInputDialog::getItem(this, tr("Figuren"), tr("Figuren"), items, 0, false, &ok);
     if (ok && !item.isEmpty()) {
-        if (item == tr("Traditionell")) {
+        if (item == tr("Traditionel")) {
             model->board.viewStyleModeVar = viewStyleMode::traditional_native;
-        } else if (item == tr("Traditionell/PNG")) {
+        } else if (item == tr("Traditionel/PNG")) {
             model->board.viewStyleModeVar = viewStyleMode::traditional_png;
-        } else if (item == tr("Westlich vereinfacht")) {
+        } else if (item == tr("Western simplified")) {
             model->board.viewStyleModeVar = viewStyleMode::western_png;
         }
         emit boardStyleChanged();
@@ -91,10 +91,10 @@ void SettingsView::ChooseStyle()
 {
     // see Wikipedia: https://de.wikipedia.org/wiki/Xiangqi
     QStringList items;
-    QFont font;
-    font.setFamily("YaHei");
+    //QFont font;
+    //font.setFamily("YaHei");
 
-    items << tr("Algebraische") << tr("Klassische") << tr("Numerische");
+    items << tr("Algebraic") << tr("Classical") << tr("Numeric");
 
     bool ok;
     QString item = QInputDialog::getItem(this,
@@ -112,9 +112,9 @@ void SettingsView::ChooseStyle()
 void SettingsView::ChooseEngine()
 {
     QString filename = QFileDialog::getOpenFileName(this,
-                                                    "Wähle die Engine",
+                                                    "Choose engine",
                                                     QDir::homePath(),
-                                                    "Engines (*.exe)");
+                                                    nullptr);
     if (filename.isEmpty())
         return;
     enginesComboBox->addItem(filename);

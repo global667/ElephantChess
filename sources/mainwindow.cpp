@@ -35,10 +35,12 @@ MainWindow::MainWindow(QWidget *parent)
 //                   + QString("%1.%2").arg(ElephantChess_VERSION_MAJOR).arg(ElephantChess_VERSION_MINOR));
 //#else
     setWindowTitle("ElephantChess");
-//#endif
-    // widgets
+    //#endif
+
+    // mainwidgets
     boardview = new BoardView(this);
-    Q_ASSERT(boardview);
+    setCentralWidget(boardview);
+
     tabview = new QTabWidget(this);
     tabwidget1 = new QWidget(tabview);
     tabwidget2 = new QWidget(tabview);
@@ -58,20 +60,17 @@ MainWindow::MainWindow(QWidget *parent)
     connect(right, SIGNAL(pressed()), SLOT(rightPressed()));
     connect(rright, SIGNAL(pressed()), SLOT(rrightPressed()));
 
+    // move listing
     model = new QStandardItemModel(0, 2);
     model->setHeaderData(0, Qt::Horizontal, tr("Red"));
     model->setHeaderData(1, Qt::Horizontal, tr("Black"));
-
     headerview = new QHeaderView(Qt::Horizontal);
     headerview->resizeSections(QHeaderView::Stretch);
     headerview->setStretchLastSection(true);
     headerview->setDefaultAlignment(Qt::AlignJustify | Qt::AlignVCenter);
-
-    setCentralWidget(boardview);
-
     table = new QTreeWidget();
     table->setColumnCount(1);
-    table->setHeaderLabels(QStringList() << "Züge");
+    table->setHeaderLabels(QStringList() << "Moves");
 
     /*   // menu buttons
     openbutton = new QAction(QIcon(":/res/icons/open.png"), tr("Laden"), menubar);
@@ -122,7 +121,7 @@ MainWindow::MainWindow(QWidget *parent)
     // tabwidget2 layout
 
     // tabview
-    tabview->addTab(tabwidget1, "Zugliste");
+    tabview->addTab(tabwidget1, "Move list");
     tabview->addTab(tabwidget2, "Info");
 
     // navgationview
@@ -148,12 +147,12 @@ MainWindow::MainWindow(QWidget *parent)
     loca = new QLineEdit();
     loca->setPlaceholderText("beijin masters");
     location->addWidget(loca);
-    location->addWidget(new QLabel(", Runde"));
+    location->addWidget(new QLabel(", round"));
     round = new QLineEdit();
     round->setPlaceholderText("8");
     round->setMaximumWidth(30);
     location->addWidget(round);
-    location->addWidget(new QLabel(", den"));
+    location->addWidget(new QLabel(", the"));
     date = new QLineEdit();
     date->setPlaceholderText("20.02.2000");
     date->setMaximumWidth(60);
@@ -191,27 +190,27 @@ MainWindow::MainWindow(QWidget *parent)
 
     //QAction *new_action = new QAction();
     toolbar->addAction(QIcon(style()->standardIcon(QStyle::SP_DialogApplyButton)),
-                       tr("Neues Spiel"),
+                       tr("New game"),
                        this,
                        SLOT(newgame()));
     toolbar->addAction(QIcon(style()->standardIcon(QStyle::SP_DialogOpenButton)),
-                       tr("Öffnen"),
+                       tr("Open"),
                        this,
                        SLOT(open()));
     toolbar->addAction(QIcon(style()->standardIcon(QStyle::SP_DialogSaveButton)),
-                       tr("Speichern"),
+                       tr("Save"),
                        this,
                        SLOT(save()));
     toolbar->addSeparator();
 
     toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_BrowserReload))),
-                       tr("Spieler"),
+                       tr("Toggle player"),
                        this,
                        SLOT(togglePlayer()));
     toolbar->addSeparator();
 
     toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_BrowserReload))),
-                       tr("Sicht"),
+                       tr("Toggle view"),
                        this,
                        SLOT(toggleGameView()));
     toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_MessageBoxInformation))),
@@ -219,26 +218,26 @@ MainWindow::MainWindow(QWidget *parent)
                        this,
                        SLOT(giveTipp()));
     toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_MessageBoxCritical))),
-                       tr("Aufgeben"),
+                       tr("Give up"),
                        this,
                        SLOT(giveUpGame()));
     toolbar->addSeparator();
     toolbar->addAction(QIcon(style()->standardIcon(QStyle::SP_ComputerIcon)),
-                       tr("Einstellungen"),
+                       tr("Options"),
                        this,
                        SLOT(settings()));
     toolbar->addAction(QIcon(style()->standardIcon(
                            (QStyle::SP_DialogHelpButton))), //SP_TitleBarContextHelpButton))),
-                       tr("Hilfe"),
+                       tr("Help"),
                        this,
                        SLOT(Help()));
     QAction *about_action = new QAction(QIcon(
                                             style()->standardIcon((QStyle::SP_TitleBarMenuButton))),
-                                        tr("Über"),
+                                        tr("About"),
                                         this);
     toolbar->addAction(about_action);
     toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_DialogCloseButton))),
-                       tr("Beenden"),
+                       tr("Close"),
                        QCoreApplication::instance(),
                        &QCoreApplication::quit);
 
@@ -281,10 +280,10 @@ void MainWindow::toggleGameView()
 {
     if (basemodel.gameView == color::Red) {
         basemodel.gameView = color::Black;
-        statusBar()->showMessage("Schwarz ist jetzt unten");
+        statusBar()->showMessage("Black on bottom now");
     } else {
         basemodel.gameView = color::Red;
-        statusBar()->showMessage("Rot ist jetzt unten");
+        statusBar()->showMessage("Red on bottom now");
     }
     repaint();
 }
@@ -330,21 +329,21 @@ void MainWindow::Help()
 
 void MainWindow::open()
 {
-    auto openFile = QFileDialog::getOpenFileName(this, tr("Datei öffnen"));
-    statusBar()->showMessage(tr("Öffne Datei: ") + openFile);
+    auto openFile = QFileDialog::getOpenFileName(this, tr("Open file"));
+    statusBar()->showMessage(tr("Open file: ") + openFile);
     //QMessageBox::information(this, "Information", "Noch nicht implementiert");
 
     if (openFile.isNull()) {
-        statusBar()->showMessage(tr("Lade Datei: fehlgeschlagen"));
+        statusBar()->showMessage(tr("Open file error"));
         return;
     }
     QFile opfile(openFile);
     if (!opfile.open(QIODeviceBase::ReadOnly | QIODeviceBase::Text)) {
-        statusBar()->showMessage(tr("Lade Datei: Öffnen fehlgeschlagen"));
+        statusBar()->showMessage(tr("Open file error"));
         return;
     }
 
-    statusBar()->showMessage(tr("Lade Datei: ") + openFile);
+    statusBar()->showMessage(tr("Load file ") + openFile);
 
     QTextStream textstream(&opfile);
     auto str = textstream.readAll();
@@ -406,7 +405,10 @@ void MainWindow::open()
 
 void MainWindow::save()
 {
-    auto saveFile = QFileDialog::getSaveFileName(this, tr("Datei speichern"), "~/untitled", tr("Portable Game Notation ( *.pgn)"));
+    auto saveFile = QFileDialog::getSaveFileName(this,
+                                                 tr("Save file "),
+                                                 "~/untitled",
+                                                 tr("Portable Game Notation ( *.pgn)"));
 
     if (saveFile.isNull()) {
         statusBar()->showMessage(tr("Speichere Datei: fehlgeschlagen"));
@@ -416,7 +418,7 @@ void MainWindow::save()
         saveFile = saveFile + ".pgn";
     QFile svfile(saveFile);
     if (!svfile.open(QIODeviceBase::WriteOnly | QIODeviceBase::Text)) {
-        statusBar()->showMessage(tr("Speichere Datei: Öffnen fehlgeschlagen"));
+        statusBar()->showMessage(tr("Save file: opening error"));
         return;
     }
 
@@ -442,7 +444,7 @@ void MainWindow::save()
 
     svfile.close();
 
-    statusBar()->showMessage(tr("Speichere Datei: ") + saveFile);
+    statusBar()->showMessage(tr("Save file: ") + saveFile);
 }
 
 void MainWindow::settings()

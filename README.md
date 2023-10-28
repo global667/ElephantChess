@@ -4,8 +4,8 @@ Chinese chess GUI with randombot and in pre alpha stadium...
 The aim is to play and analyse games for Chinese Chess like with "Arena" 
 for Europe Chess (with the commercial "Fritz" in mind).
 
-- Chinese Chess on Wikipedia <a href="https://en.wikipedia.org/wiki/Xiangqi">XiangQi</a>
-- Europe Chess on Wikipedia <a href="https://en.wikipedia.org/wiki/Chess">Chess</a>
+- Chinese Chess on Wikipedia: <a href="https://en.wikipedia.org/wiki/Xiangqi">XiangQi</a>
+- Europe Chess on Wikipedia: <a href="https://en.wikipedia.org/wiki/Chess">Chess</a>
 
 ## Installation
 - Go to https://www.qt.io/download-open-source and login
