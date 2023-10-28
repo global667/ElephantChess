@@ -152,7 +152,9 @@ QPixmap *BoardView::PaintPiecesRaw(QPainter *p, int row, int col)
     pen.setWidth(3);
     p->setPen(pen);
 
-    QFont font("BabelStoneHan", 30, 75);//"Songti");//"YaHei Consolas Hybrid", 30, 75);    font.setStretch(150);
+    QFont font; //"BabelStoneHan", 30, 75);//"Songti");//"YaHei Consolas Hybrid", 30, 75);    font.setStretch(150);
+    font.setPointSize(30);
+    font.setWeight(QFont::DemiBold);
     p->setFont(font);
     // Draws all pieces
     //for (int j = 0; j < 10; j++) {
@@ -369,15 +371,15 @@ void BoardView::PaintBoard(QPainter *p)
 
         // Horizontaler Text ,unten
         QStringList list;
-        list << "一"
-             << "二"
-             << "三"
-             << "四"
-             << "五"
-             << "六"
-             << "七"
-             << "八"
-             << "九";
+        list << "\u4e00"  //"一"
+             << "\u4e8c"  //"二"
+             << "\u4e09"  //"三"
+             << "\u56db"  //"四"
+             << "\u4e94"  //"五"
+             << "\u516d"  //"六"
+             << "\u4e03"  //"七"
+             << "\u516b"  //"八"
+             << "\u4e5d"; //"九";
 
         for (int i = 0; i <= cutpWidth; i++) {
             p->drawText(50 + (i * (width() - 2 * 50) / cutpWidth),

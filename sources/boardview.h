@@ -71,10 +71,13 @@ private:
     const int cutpHeight = BaseModel::BoardRowPoints; //9;
 
     QString redRiver = QString(
-        "\u9A6C"); //"楚 河"; // (Chǔ hé) - Dieser Schriftzug bedeutet "Fluss von Chu".
+        "\u695a"
+        "\u6cb3"); //"楚 河"; // (Chǔ hé) - Dieser Schriftzug bedeutet "Fluss von Chu".
     //Es befindet sich auf der Seite des Brettes, die dem Spieler mit den roten Figuren gehört.
 
-    QString blackRiver = "漢 界"; //  (Hàn jiè) - Dieser Schriftzug bedeutet "Grenze von Han".
+    QString blackRiver = QString(
+        "\u6f22"
+        "\u754c"); //"漢 界"; //  (Hàn jiè) - Dieser Schriftzug bedeutet "Grenze von Han".
     //Es befindet sich auf der Seite des Brettes, die dem Spieler mit den schwarzen Figuren gehört.
 
     // Kontexmenue mit Figuren und Marker
