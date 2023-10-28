@@ -136,22 +136,26 @@ MainWindow::MainWindow(QWidget *parent)
     gameinfoswidget = new QWidget();
     QVBoxLayout *gameinfosh = new QVBoxLayout;
     QHBoxLayout *opponents = new QHBoxLayout;
-    opp1 = new QLineEdit("opp1");
+    opp1 = new QLineEdit();
+    opp1->setPlaceholderText("Player One");
     opponents->addWidget(opp1);
-    opp2 = new QLineEdit("opp2");
+    opp2 = new QLineEdit();
+    opp2->setPlaceholderText("Player Two");
     opponents->addWidget(opp2);
 
-    // TODO: set the placeholder text with setPlaceholderText(...);
+    // TODO: set the placeholder text with setPlaceholderText(...); [ok]
     QHBoxLayout *location = new QHBoxLayout;
-    loca = new QLineEdit("beijin mastertournement");
+    loca = new QLineEdit();
+    loca->setPlaceholderText("beijin masters");
     location->addWidget(loca);
     location->addWidget(new QLabel(", Runde"));
     round = new QLineEdit();
-    round->setText("8");
+    round->setPlaceholderText("8");
     round->setMaximumWidth(30);
     location->addWidget(round);
     location->addWidget(new QLabel(", den"));
-    date = new QLineEdit("20.02.2000");
+    date = new QLineEdit();
+    date->setPlaceholderText("20.02.2000");
     date->setMaximumWidth(60);
     location->addWidget(date);
 
@@ -545,7 +549,7 @@ void MainWindow::redToMove(position from, position to)
 {
     qDebug() << "redToMove";
 
-    if (basemodel.humanColor == color::Red) {
+    if (basemodel.board.onMove == color::Red) {
         GenMove isMate(basemodel.board.pieces, basemodel.board.onMove);
 
         // Is in Check?
@@ -588,8 +592,9 @@ void MainWindow::blackToMove(position from, position to)
 {
     qDebug() << "blackToMove";
 
-    if (basemodel.humanColor == color::Red) {
-        boardview->MovePiece(from, to);
+    if (basemodel.board.onMove == color::Black) {
+        basemodel.board.movePiece(from.row, from.col, to.row, to.col);
+        //boardview->MovePiece(from, to);
         basemodel.fromUCI = from;
         basemodel.toUCI = to;
         basemodel.board.toggleOnMove();

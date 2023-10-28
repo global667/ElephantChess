@@ -186,6 +186,8 @@ bool GenMove::IsValidHorseMove(position from, position to, color color)
     }
     return false;
 }
+
+// TODO: Elephant func is buggy
 //(to.row == 0 && to.col == 2) || (to.row == 2 && to.col == 4)
 //    || (to.row == 2 && to.col == 0) || (to.row == 4 && to.col == 2);
 

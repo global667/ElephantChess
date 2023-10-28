@@ -41,6 +41,20 @@ std::pair<position, position> Engine::GetBestMove(color color)
                     //qDebug() << p.first.row << p.first.col;
                 }
             }
+        }
+
+    // Is in Check?
+    if (generatedMoves.IsCheck(color)) {
+        qDebug() << "Check";
+        //statusBar()->showMessage("Check");
+        //return;
+    }
+
+    // Is in Checkmate?
+    if (generatedMoves.IsCheckmate(color)) {
+        qDebug() << "Checkmate";
+        //statusBar()->showMessage("Checkmate");
+        //return;
     }
 
     int sizeOfPosAll = posAll.size();
@@ -90,7 +104,7 @@ QByteArray Engine::posToken(int fromX, int fromY, int toX, int toY)
     m.append(c3);
     m.append(c4);
     if (basemodel.moves.isEmpty())
-    basemodel.moves = QStringList();
+        basemodel.moves = QStringList();
     return m;
 }
 

@@ -297,8 +297,7 @@ void BoardView::PaintBoard(QPainter *p)
                     50 + i * (height() - 50 - 100) / cutpHeight);
     }
 
-    // Hervorgehoben Punkte von Soldaten und Kanonen
-    // TODO: implementieren
+    // TODO: Hervorgehoben Punkte von Soldaten und Kanonen implementieren
 
     // Oberer Rand
     p->fillRect(0, 0, width(), 50, sides);
@@ -312,7 +311,7 @@ void BoardView::PaintBoard(QPainter *p)
 
     // Flussufer
     QFont tmp = QFont(p->font());
-    QFont font = QFont(); //"BabelStoneHan", 40);
+    QFont font = QFont();
     font.setPointSize(30);
     font.setBold(false);
     font.setItalic(true);
@@ -415,67 +414,20 @@ void BoardView::DrawSelectedPieces(QPainter *p)
 
     // Draws selected piece
     p->setBrush(Qt::transparent);
-    if (pressed) {
-        QPen pen;
-        pen.setColor(Qt::green);
-        pen.setWidth(5);
-        p->setPen(pen);
-        p->drawEllipse(QRect((50 + (((basemodel.fromHuman.col)) * (w - 2 * 50) / cutpWidth))
-                                 - w / cutpWidth / 2 / 1.5,
-                             (50 + (9 - (basemodel.fromHuman.row)) * (h - 50 - 100) / cutpHeight)
-                                 - h / cutpWidth / 2 / 1.5,
-                             w / (cutpWidth) / 1.5,
-                             h / cutpWidth / 1.5));
-    } else if (basemodel.fromUCI.col != -1 && basemodel.fromUCI.row != -1) {
-        QPen pen;
-
-        pen.setColor(Qt::black);
-
-        pen.setWidth(4);
-        p->setPen(pen);
-        p->setOpacity(0.7);
-        // draws the last move line
-        p->drawLine((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutpWidth)),
-                    (50 + ((9 - basemodel.fromUCI.row)) * (h - 50 - 100) / cutpHeight),
-
-                    (50 + (((basemodel.toUCI.col)) * (w - 2 * 50) / cutpWidth)),
-                    (50 + ((9 - basemodel.toUCI.row)) * (h - 50 - 100) / cutpHeight));
-
-        pen.setWidth(25);
-        p->setPen(pen);
-
-        p->drawPoint((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutpWidth)),
-                     (50 + ((9 - basemodel.fromUCI.row)) * (h - 50 - 100) / cutpHeight));
-
-        pen.setWidth(18);
-        p->setPen(pen);
-        p->drawPoint((50 + (((basemodel.toUCI.col)) * (w - 2 * 50) / cutpWidth)),
-                     (50 + ((9 - basemodel.toUCI.row)) * (h - 50 - 100) / cutpHeight));
-
-        pen.setWidth(5);
-        p->setPen(pen);
-        p->setOpacity(1);
-
-        pen.setColor(Qt::black);
-        pen.setWidth(5);
-        p->setPen(pen);
-        p->drawEllipse(QRect((50 + (((basemodel.toUCI.col)) * (w - 2 * 50) / cutpWidth))
-                                 - w / cutpWidth / 2 / 1.5,
-                             (50 + (9 - (basemodel.toUCI.row)) * (h - 50 - 100) / cutpHeight)
-                                 - h / cutpWidth / 2 / 1.5,
-                             w / (cutpWidth) / 1.5,
-                             h / cutpWidth / 1.5));
-
-        p->drawEllipse(QRect((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutpWidth))
-                                 - w / cutpWidth / 2 / 1.5,
-                             (50 + (9 - (basemodel.fromUCI.row)) * (h - 50 - 100) / cutpHeight)
-                                 - h / cutpWidth / 2 / 1.5,
-                             w / (cutpWidth) / 1.5,
-                             h / cutpWidth / 1.5));
-    }
+    //if (basemodel.board.onMove == color::Black) { // pressed) {
+    QPen pen;
+    pen.setColor(Qt::green);
+    pen.setWidth(5);
+    p->setPen(pen);
+    p->drawEllipse(QRect((50 + (((basemodel.fromHuman.col)) * (w - 2 * 50) / cutpWidth))
+                             - w / cutpWidth / 2 / 1.5,
+                         (50 + (9 - (basemodel.fromHuman.row)) * (h - 50 - 100) / cutpHeight)
+                             - h / cutpWidth / 2 / 1.5,
+                         w / (cutpWidth) / 1.5,
+                         h / cutpWidth / 1.5));
 
     // draws legal moves as dots
-    QPen pen;
+    //QPen pen;
     pen.setColor(Qt::red);
     pen.setWidth(5);
     p->setPen(pen);
@@ -494,6 +446,57 @@ void BoardView::DrawSelectedPieces(QPainter *p)
             }
         }
     }
+
+    //if (basemodel.board.onMove
+    //    == color::Black) { //basemodel.fromUCI.col != -1 && basemodel.fromUCI.row != -1) {
+    //QPen pen;
+
+    // draws the last moved line
+    pen.setColor(Qt::black);
+
+    pen.setWidth(4);
+    p->setPen(pen);
+    p->setOpacity(0.7);
+
+    qDebug() << basemodel.toUCI.col;
+    p->drawLine((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutpWidth)),
+                (50 + ((9 - basemodel.fromUCI.row)) * (h - 50 - 100) / cutpHeight),
+
+                (50 + (((basemodel.toUCI.col)) * (w - 2 * 50) / cutpWidth)),
+                (50 + ((9 - basemodel.toUCI.row)) * (h - 50 - 100) / cutpHeight));
+
+    pen.setWidth(25);
+    p->setPen(pen);
+
+    p->drawPoint((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutpWidth)),
+                 (50 + ((9 - basemodel.fromUCI.row)) * (h - 50 - 100) / cutpHeight));
+
+    pen.setWidth(18);
+    p->setPen(pen);
+    p->drawPoint((50 + (((basemodel.toUCI.col)) * (w - 2 * 50) / cutpWidth)),
+                 (50 + ((9 - basemodel.toUCI.row)) * (h - 50 - 100) / cutpHeight));
+
+    pen.setWidth(5);
+    p->setPen(pen);
+    p->setOpacity(1);
+
+    pen.setColor(Qt::black);
+    pen.setWidth(5);
+    p->setPen(pen);
+    p->drawEllipse(
+        QRect((50 + (((basemodel.toUCI.col)) * (w - 2 * 50) / cutpWidth)) - w / cutpWidth / 2 / 1.5,
+              (50 + (9 - (basemodel.toUCI.row)) * (h - 50 - 100) / cutpHeight)
+                  - h / cutpWidth / 2 / 1.5,
+              w / (cutpWidth) / 1.5,
+              h / cutpWidth / 1.5));
+
+    p->drawEllipse(QRect((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutpWidth))
+                             - w / cutpWidth / 2 / 1.5,
+                         (50 + (9 - (basemodel.fromUCI.row)) * (h - 50 - 100) / cutpHeight)
+                             - h / cutpWidth / 2 / 1.5,
+                         w / (cutpWidth) / 1.5,
+                         h / cutpWidth / 1.5));
+    // }
 }
 
 void BoardView::mousePressEvent(QMouseEvent *event)
