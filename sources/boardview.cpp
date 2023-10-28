@@ -32,8 +32,6 @@ extern BaseModel basemodel;
 BoardView::BoardView(QWidget *parent)
     : QWidget{parent}
 {
-    int fontStatus = QFontDatabase::addApplicationFont(":/res/BabelStoneHan.ttf");
-    if (fontStatus == -1) qDebug() << "Error in font loading";
     setMouseTracking(false);
     setFocusPolicy(Qt::StrongFocus);
     contextMenu = new ContexMenu(this);
@@ -314,8 +312,8 @@ void BoardView::PaintBoard(QPainter *p)
 
     // Flussufer
     QFont tmp = QFont(p->font());
-    QFont font = QFont("BabelStoneHan", 40);
-    font.setPointSize(40);
+    QFont font = QFont(); //"BabelStoneHan", 40);
+    font.setPointSize(30);
     font.setBold(false);
     font.setItalic(true);
     p->setFont(font);
