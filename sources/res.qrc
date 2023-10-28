@@ -19,5 +19,7 @@
         <file>../README.md</file>
         <file>config.h.in</file>
         <file>../res/license_short.txt</file>
+        <file>../res/settings.png</file>
+        <file>../res/play-now.png</file>
     </qresource>
 </RCC>

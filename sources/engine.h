@@ -19,17 +19,19 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include "types.h"
+#include <QRandomGenerator>
 #include "basemodel.h"
 #include "genmove.h"
-#include <QRandomGenerator>
+#include "types.h"
 
 // chinese chess engine
-class Engine : public QObject
+class Engine : public QObject //, public Players
 {
     Q_OBJECT
 public:
     Engine();
+    ~Engine(){};
+
     std::pair<position, position> GetBestMove(color color);
 
     // get all possible moves for a piece
@@ -44,12 +46,15 @@ public:
 
     void MovePiece(position from, position to);
 
+    // For Players
+    void MovePiece(int fromX, int fromY, int toX, int toY);
+    QString Kind() { return "Engine"; };
+
 private:
     QByteArray posToken(int fromX, int fromY, int toX, int toY);
 
-    void MovePiece(int fromX, int fromY, int toX, int toY);
 signals:
-    void updateView(position from, position to);
+    void updateView(position from, position to, QString kind);
 };
 
 #endif // ENGINE_H

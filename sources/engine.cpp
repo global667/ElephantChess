@@ -80,15 +80,16 @@ void Engine::engineGo()
     // writeDatas("position startpos moves " + moves.join(" ").toUtf8());
     // writeDatas("go depth 2");
     // writeDatas("isready");
-    class Engine eng;
+    //Engine eng;
     std::pair<position, position> ownEngineMove;
-    ownEngineMove = eng.GetBestMove(color::Black);
+    ownEngineMove = GetBestMove(basemodel.board.onMove);
     QByteArray mv = posToken(ownEngineMove.first.col,
                              ownEngineMove.first.row,
                              ownEngineMove.second.col,
                              ownEngineMove.second.row);
     basemodel.moves.append(mv);
-    emit updateView(ownEngineMove.first, ownEngineMove.second);
+    basemodel.currentMoves.push_back(ownEngineMove);
+    emit updateView(ownEngineMove.first, ownEngineMove.second, "engine");
 }
 
 QByteArray Engine::posToken(int fromX, int fromY, int toX, int toY)

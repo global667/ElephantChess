@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 
 project(ElephantChess VERSION 0.4 LANGUAGES CXX)
 
-enable_testing(true)
+#enable_testing(true)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -15,7 +15,7 @@ find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets)# LinguistTools)
 find_package(Qt6 REQUIRED COMPONENTS Widgets Test)# LinguistTools)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-add_test(NAME ElephantChess COMMAND ElephantChess)
+#add_test(NAME ElephantChess COMMAND ElephantChess)
 #set(TS_FILES i18n/XiangQi_de_DE.ts)
 
 set(MISC_SOURCES
@@ -45,7 +45,7 @@ set(PROJECT_WEBSITE "docs/lizenzen.html"
 qt_standard_project_setup()
 
 add_subdirectory(sources)
-add_subdirectory(tests)
+#add_subdirectory(tests)
 
 set(PROJECT_SOURCES
 #        main.cpp

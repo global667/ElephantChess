@@ -61,16 +61,22 @@ void Board::placePiece(Piece piece)
 void Board::movePiece(int fromRow, int fromCol, int toRow, int toCol)
 {
     Piece piece = pieces[fromRow][fromCol];
-    pieces[fromRow][fromCol] = Piece(color::Red, pieceType::Empty, {fromRow, fromCol}, QImage());
+    pieces[fromRow][fromCol] = Piece(GetColor({fromRow, fromCol}),
+                                     pieceType::Empty,
+                                     {fromRow, fromCol},
+                                     QImage());
     piece.pos.row = toRow;
     piece.pos.col = toCol;
 
-    basemodel.fromHuman = {fromRow, fromCol};
-    basemodel.toHuman = {toRow, toCol};
+    // basemodel.fromHuman = {fromRow, fromCol};
+    // basemodel.toHuman = {toRow, toCol};
+
+    // basemodel.fromUCI = {fromRow, fromCol};
+    // basemodel.toUCI = {toRow, toCol};
 
     pieces[toRow][toCol] = piece;
 
-    qDebug() << "Moved piece from " << fromRow << "," << fromCol << " to " << toRow << "," << toCol;
+    //qDebug() << "Moved piece from " << fromRow << "," << fromCol << " to " << toRow << "," << toCol;
 };
 
 // Gibt das Brett in der Konsole aus

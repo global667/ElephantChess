@@ -133,17 +133,17 @@ MainWindow::MainWindow(QWidget *parent)
     navigationview->setLayout(navibuttonslayout);
 
     gameinfoswidget = new QWidget();
-    QVBoxLayout *gameinfosh = new QVBoxLayout;
-    QHBoxLayout *opponents = new QHBoxLayout;
+    gameinfosh = new QVBoxLayout;
+    opponents = new QHBoxLayout;
     opp1 = new QLineEdit();
     opp1->setPlaceholderText("Player One");
     opponents->addWidget(opp1);
     opp2 = new QLineEdit();
-    opp2->setPlaceholderText("Player Two");
+    opp2->setPlaceholderText(basemodel.engineName);
     opponents->addWidget(opp2);
 
     // TODO: set the placeholder text with setPlaceholderText(...); [ok]
-    QHBoxLayout *location = new QHBoxLayout;
+    location = new QHBoxLayout;
     loca = new QLineEdit();
     loca->setPlaceholderText("beijin masters");
     location->addWidget(loca);
@@ -170,13 +170,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     navigationwidget->setLayout(naviwidlayout);
 
-    QDockWidget *dockWidget = new QDockWidget(tr("Dock"), this);
+    dockWidget = new QDockWidget(tr("Dock"), this);
     dockWidget->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
     dockWidget->setWidget(navigationwidget);
     addDockWidget(Qt::RightDockWidgetArea, dockWidget);
 
     // Add toolbar
-    QToolBar *toolbar = new QToolBar(this);
+    toolbar = new QToolBar(this);
     toolbar->setObjectName("toolbar");
     toolbar->setAllowedAreas(Qt::TopToolBarArea | Qt::BottomToolBarArea);
     toolbar->setMovable(false);
@@ -186,7 +186,7 @@ MainWindow::MainWindow(QWidget *parent)
     toolbar->setForegroundRole(QPalette::Light);
     toolbar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     addToolBar(Qt::TopToolBarArea, toolbar);
-    QIcon icon = style()->standardIcon(QStyle::SP_ArrowBack);
+    //QIcon icon = style()->standardIcon(QStyle::SP_ArrowBack);
 
     //QAction *new_action = new QAction();
     toolbar->addAction(QIcon(style()->standardIcon(QStyle::SP_DialogApplyButton)),
@@ -203,10 +203,13 @@ MainWindow::MainWindow(QWidget *parent)
                        SLOT(save()));
     toolbar->addSeparator();
 
-    toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_BrowserReload))),
-                       tr("Toggle player"),
-                       this,
-                       SLOT(togglePlayer()));
+    //    toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_BrowserReload))),
+    //                       tr("Toggle player"),
+    //                       this,
+    //                       SLOT(togglePlayer()));
+
+    toolbar->addAction(QIcon(":res/play-now.png"), tr("Play now!"), this, SLOT(playNow()));
+
     toolbar->addSeparator();
 
     toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_BrowserReload))),
@@ -222,7 +225,7 @@ MainWindow::MainWindow(QWidget *parent)
                        this,
                        SLOT(giveUpGame()));
     toolbar->addSeparator();
-    toolbar->addAction(QIcon(style()->standardIcon(QStyle::SP_ComputerIcon)),
+    toolbar->addAction(QIcon(":res/settings.png"), //style()->standardIcon(QStyle::SP_ComputerIcon)),
                        tr("Options"),
                        this,
                        SLOT(settings()));
@@ -252,8 +255,15 @@ MainWindow::MainWindow(QWidget *parent)
     //uci.start();
     //uciThread.start();
 
-    connect(&engine, SIGNAL(updateView(position, position)), SLOT(blackToMove(position, position)));
-    connect(boardview, SIGNAL(updateView(position, position)), SLOT(redToMove(position, position)));
+    connect(&engine,
+            SIGNAL(updateView(position, position, QString)),
+            SLOT(ToMove(position, position, QString)));
+    connect(boardview,
+            SIGNAL(updateView(position, position, QString)),
+            SLOT(ToMove(position, position, QString)));
+
+    //connect(&engine, SIGNAL(updateView(Players)), SLOT(redToMove(Players)));
+    //connect(boardview, SIGNAL(updateView(Players)), SLOT(redToMove(Players)));
 
     connect(dialog, SIGNAL(boardStyleChanged()), this, SLOT(newgame()));
 
@@ -287,33 +297,35 @@ void MainWindow::toggleGameView()
     }
     repaint();
 }
-void MainWindow::togglePlayer()
-{
-    //disconnect(&uci, SIGNAL(updateView(Position, Position)), nullptr, nullptr);
-    //disconnect(boardview, SIGNAL(updateView(Position, Position)), nullptr, nullptr);
 
-    if (basemodel.humanColor == color::Red) {
-        basemodel.humanColor = color::Black;
+//void MainWindow::togglePlayer()
+//{
+//    //disconnect(&uci, SIGNAL(updateView(Position, Position)), nullptr, nullptr);
+//    //disconnect(boardview, SIGNAL(updateView(Position, Position)), nullptr, nullptr);
 
-        /* connect(&uci, SIGNAL(updateView(Position, Position)), SLOT(redToMove(Position, Position)));
-        connect(boardview,
-                SIGNAL(updateView(Position, Position)),
-                SLOT(blackToMove(Position, Position)));
-*/
-        engine.engineGo();
-    }
+//    if (basemodel.humanColor == color::Red) {
+//        basemodel.humanColor = color::Black;
 
-    else {
-        basemodel.humanColor = color::Red;
-        /*
-        connect(&uci, SIGNAL(updateView(Position, Position)), SLOT(blackToMove(Position, Position)));
-        connect(boardview,
-                SIGNAL(updateView(Position, Position)),
-                SLOT(redToMove(Position, Position)));
-    
-*/
-    }
-}
+//        /* connect(&uci, SIGNAL(updateView(Position, Position)), SLOT(redToMove(Position, Position)));
+//        connect(boardview,
+//                SIGNAL(updateView(Position, Position)),
+//                SLOT(blackToMove(Position, Position)));
+//*/
+//        engine.engineGo();
+//    }
+
+//    else {
+//        basemodel.humanColor = color::Red;
+//        /*
+//        connect(&uci, SIGNAL(updateView(Position, Position)), SLOT(blackToMove(Position, Position)));
+//        connect(boardview,
+//                SIGNAL(updateView(Position, Position)),
+//                SLOT(redToMove(Position, Position)));
+
+//*/
+//    }
+//}
+
 void MainWindow::giveTipp()
 {
     QMessageBox::information(this, "Information", "Noch nicht implementiert");
@@ -325,6 +337,34 @@ void MainWindow::About()
 void MainWindow::Help()
 {
     QMessageBox::information(this, "Information", "Noch nicht implementiert");
+}
+
+void MainWindow::playNow()
+{
+    /*if (disconnect(&engine, SIGNAL(updateView(position, position)), nullptr, nullptr)
+        && disconnect(boardview, SIGNAL(updateView(position, position)), nullptr, nullptr)) {
+        if (basemodel.board.onMove == color::Black) {
+            connect(boardview,
+                    SIGNAL(updateView(position, position)),
+                    SLOT(blackToMove(position, position)));
+            connect(&engine,
+                    SIGNAL(updateView(position, position)),
+                    SLOT(redToMove(position, position)));
+        } else {
+            connect(&engine,
+                    SIGNAL(updateView(position, position)),
+                    SLOT(blackToMove(position, position)));
+            connect(boardview,
+                    SIGNAL(updateView(position, position)),
+                    SLOT(redToMove(position, position)));
+        }
+
+        engine.engineGo();
+        //basemodel.board.toggleOnMove();
+    } else {
+        qDebug() << "Error in play Now !";
+    }*/
+    engine.engineGo();
 }
 
 void MainWindow::open()
@@ -459,13 +499,14 @@ void MainWindow::updateSettings()
     //uciThread.quit();
     //uciThread.wait();
     //uci.engineName =
-    basemodel.engine = dialog->engineName;
+    //basemodel.engine = dialog->engineName;
     //Q_ASSERT(&uci);
     //Q_ASSERT(&uciThread);
     //uci.moveToThread(&uciThread);
     qDebug() << "Starting uci engine (" + basemodel.engineName + ") in extra thread";
     //uci.start();
     //uciThread.start();
+    opp2->setPlaceholderText(basemodel.engineName);
 }
 
 void MainWindow::toggleEngineStatus()
@@ -487,8 +528,15 @@ void MainWindow::newgame()
     basemodel.currentMove = 0;
     basemodel.fromHuman = {-1, -1};
     basemodel.toHuman = {-1, -1};
-    //basemodel.board().onMove = Color::Red;
+    basemodel.fromUCI = {-1, -1};
+    basemodel.toUCI = {-1, -1};
+    basemodel.board.onMove = color::Red;
+    for (int i = basemodel.moves.size(); i >= 0; i--) {
+        table->takeTopLevelItem(i);
+    }
     basemodel.moves.clear();
+    basemodel.moveHistory.append(basemodel.board);
+    basemodel.currentMove++;
     repaint();
 }
 
@@ -498,6 +546,8 @@ void MainWindow::lleftPressed()
     basemodel.board = basemodel.moveHistory[basemodel.currentMove];
     basemodel.fromHuman = {-1, -1};
     basemodel.toHuman = {-1, -1};
+    basemodel.fromUCI = {-1, -1};
+    basemodel.toUCI = {-1, -1};
     //if (uciThread.isRunning()) {
     //    uciThread.quit();
     //}
@@ -507,12 +557,14 @@ void MainWindow::lleftPressed()
 void MainWindow::leftPressed()
 {
     basemodel.currentMove--;
-    if (basemodel.currentMove < 0) {
+    if (basemodel.currentMove <= 0) {
         basemodel.currentMove = 0;
     }
     basemodel.board = basemodel.moveHistory[basemodel.currentMove];
     basemodel.fromHuman = {-1, -1};
     basemodel.toHuman = {-1, -1};
+    basemodel.fromUCI = {-1, -1};
+    basemodel.toUCI = {-1, -1};
     //if (uciThread.isRunning()) {
     //    uciThread.quit();
     //}
@@ -522,12 +574,14 @@ void MainWindow::leftPressed()
 void MainWindow::rightPressed()
 {
     basemodel.currentMove++;
-    if (basemodel.currentMove > basemodel.moveHistory.size() - 1) {
+    if (basemodel.currentMove >= basemodel.moveHistory.size() - 1) {
         basemodel.currentMove = basemodel.moveHistory.size() - 1;
     }
     basemodel.board = basemodel.moveHistory[basemodel.currentMove];
     basemodel.fromHuman = {-1, -1};
     basemodel.toHuman = {-1, -1};
+    basemodel.fromUCI = {-1, -1};
+    basemodel.toUCI = {-1, -1};
     //if (uciThread.isRunning()) {
     //    uciThread.quit();
     //}
@@ -541,17 +595,79 @@ void MainWindow::rrightPressed()
     basemodel.board = basemodel.moveHistory[basemodel.currentMove];
     basemodel.fromHuman = {-1, -1};
     basemodel.toHuman = {-1, -1};
+    basemodel.fromUCI = {-1, -1};
+    basemodel.toUCI = {-1, -1};
     //if (uciThread.isRunning()) {
     //    uciThread.quit();
     //}
     repaint();
 }
 
-void MainWindow::redToMove(position from, position to)
+void MainWindow::ToMove(position from, position to, QString kind)
 {
-    qDebug() << "redToMove";
+    qDebug() << "ToMove";
+    basemodel.currentMoves.push_back({from, to});
+    //if (basemodel.board.onMove == color::Red) {
+    // qDebug() << "onMove == Red";
+    if (kind.contains("human")) {
+        GenMove isMate(basemodel.board.pieces, basemodel.board.onMove);
 
-    if (basemodel.board.onMove == color::Red) {
+        // Is in Check?
+        if (isMate.IsCheck(basemodel.board.onMove)) {
+            qDebug() << "Check";
+            statusBar()->showMessage("Check");
+            //return;
+        }
+
+        // Is in Checkmate?
+        if (isMate.IsCheckmate(basemodel.board.onMove)) {
+            qDebug() << "Checkmate";
+            statusBar()->showMessage("Checkmate");
+            //return;
+        }
+
+        // Give move to engine
+        engine.MovePiece(from, to);
+        addMoveToList();
+        addMoveToHistory();
+        basemodel.board.toggleOnMove();
+        //basemodel.board.onMove = color::Black;
+        engine.engineGo();
+    } else if (kind.contains("engine")) {
+        //qDebug() << "onMove == Black";
+        basemodel.board.movePiece(from.row, from.col, to.row, to.col);
+        //boardview->MovePiece(from, to);
+        basemodel.fromUCI = from;
+        basemodel.toUCI = to;
+        basemodel.board.toggleOnMove();
+        addMoveToHistory();
+        addMoveToList();
+    } else {
+        qDebug() << "Error in game loop ToMove()";
+    }
+        repaint();
+}
+/*
+void MainWindow::blackToMove(position from, position to)
+{
+    qDebug() << "blackToMove";
+
+    //if (basemodel.board.onMove == color::Black) {
+    //qDebug() << "onMove == Black";
+
+    basemodel.board.movePiece(from.row, from.col, to.row, to.col);
+    //boardview->MovePiece(from, to);
+    basemodel.fromHuman = from;
+    basemodel.toHuman = to;
+    basemodel.fromUCI = from;
+    basemodel.toUCI = to;
+    //basemodel.board.toggleOnMove();
+    basemodel.board.onMove = color::Red;
+    addMoveToHistory();
+    addMoveToList();
+    /*} else {
+        qDebug() << "onMove == Red";
+
         GenMove isMate(basemodel.board.pieces, basemodel.board.onMove);
 
         // Is in Check?
@@ -574,62 +690,10 @@ void MainWindow::redToMove(position from, position to)
         addMoveToHistory();
         basemodel.board.toggleOnMove();
         engine.engineGo();
-
-    } /* else {
-        uci.MovePiece(from, to);
-
-        uci.engineGo();
-
-        basemodel.fromUCI = from;
-        basemodel.toUCI = to;
-        addMoveToList();
-        addMoveToHistory();
-
-        basemodel.board.toggleOnMove();
-    }*/
+    }
     repaint();
 }
-
-void MainWindow::blackToMove(position from, position to)
-{
-    qDebug() << "blackToMove";
-
-    if (basemodel.board.onMove == color::Black) {
-        basemodel.board.movePiece(from.row, from.col, to.row, to.col);
-        //boardview->MovePiece(from, to);
-        basemodel.fromUCI = from;
-        basemodel.toUCI = to;
-        basemodel.board.toggleOnMove();
-        addMoveToHistory();
-        addMoveToList();
-        //row++;
-    } /*else {
-        GenMove isMate(basemodel.board.pieces, basemodel.board.onMove);
-
-        // Is in Check?
-        if (isMate.isCheck(basemodel.board.onMove)) {
-            qDebug() << "Check";
-            statusBar()->showMessage("Check");
-            return;
-        }
-
-        // Is in Checkmate?
-        if (isMate.isCheckmate(basemodel.board.onMove)) {
-            qDebug() << "Checkmate";
-            statusBar()->showMessage("Checkmate");
-            return;
-        }
-
-        boardview->MovePiece(from, to);
-        basemodel.fromUCI = from;
-        basemodel.toUCI = to;
-        basemodel.board.toggleOnMove();
-        addMoveToHistory();
-        addMoveToList();
-    }*/
-    repaint();
-}
-
+*/
 void MainWindow::addMoveToHistory()
 {
     basemodel.moveHistory.append(basemodel.board);
@@ -643,15 +707,15 @@ void MainWindow::addMoveToList()
     QTreeWidgetItem *item = new QTreeWidgetItem();
     item->setText(0, mv);
     if (isTableClicked) {
-        qDebug() << isTableClicked << "isTableClicked";
-        qDebug() << table->topLevelItemCount() << "table->topLevelItemCount()";
-        if (table->topLevelItemCount() == isTableClicked + 1) {
+            //qDebug() << isTableClicked << "isTableClicked";
+            //qDebug() << table->topLevelItemCount() << "table->topLevelItemCount()";
+            if (table->topLevelItemCount() == isTableClicked + 1) {
             table->addTopLevelItem(item);
-        } else {
+            } else {
             table->currentItem()->addChild(item);
-        }
+            }
     } else {
-        table->addTopLevelItem(item);
+            table->addTopLevelItem(item);
     }
     /*    if (column % 2 == 0) {
         model->setItem(column / 2, 0, item);

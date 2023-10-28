@@ -22,6 +22,9 @@
 #include <QDebug>
 #include <QObject>
 
+//#include <utility>
+//#include <vector>
+
 #include "board.h"
 #include "types.h"
 
@@ -29,7 +32,11 @@ class BaseModel : public QObject
 {
     Q_OBJECT
 public:
-    explicit BaseModel(QObject *parent = nullptr){};
+    explicit BaseModel(QObject *parent = nullptr)
+    {
+        moveHistory.append(board);
+        currentMove++;
+    };
 
     static const short BoardRows = ROWS;
     static const short BoardCols = COLS;
@@ -45,6 +52,7 @@ public:
     QString engineName = "native";
     QList<Board> moveHistory;
 
+    QList<QPair<position, position>> currentMoves;
     position fromHuman = {-1, -1};
     position toHuman = {-1, -1};
     position fromUCI = {-1, -1};
@@ -57,7 +65,7 @@ public:
     // legt fest welche Farbe der Mensch spielt
     color humanColor = color::Red;
 
-    QString engine = "chameleon";
+    //QString engine = "chameleon";
 };
 
 #endif // BASEMODEL_H

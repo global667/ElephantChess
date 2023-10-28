@@ -458,7 +458,7 @@ void BoardView::DrawSelectedPieces(QPainter *p)
     p->setPen(pen);
     p->setOpacity(0.7);
 
-    qDebug() << basemodel.toUCI.col;
+    //qDebug() << basemodel.toUCI.col;
     p->drawLine((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutpWidth)),
                 (50 + ((9 - basemodel.fromUCI.row)) * (h - 50 - 100) / cutpHeight),
 
@@ -565,8 +565,8 @@ void BoardView::mousePressEvent(QMouseEvent *event)
             if ((move.first.row == 10 - fromRow) && (move.first.col == fromCol - 1)
                 && (move.second.row == 10 - toRow) && (move.second.col == toCol - 1)) {
                 basemodel.board.movePiece(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1);
-
-                emit updateView({10 - fromRow, fromCol - 1}, {10 - toRow, toCol - 1});
+                emit updateView({10 - fromRow, fromCol - 1}, {10 - toRow, toCol - 1}, "human");
+                //emit updateView(Human());
                 break;
             }
         }
@@ -658,7 +658,7 @@ QPoint BoardView::CalcBoardCoords(QPoint r)
     float x = p.x();
     float y = p.y();
 
-    qDebug() << x << y << "x und y";
+    //qDebug() << x << y << "x und y";
 
     float squareCol = (w - 2.0 * 50.0) / BaseModel::BoardColPoints;
     float squareRow = (h - 50.0 - 100.0) / BaseModel::BoardRowPoints;

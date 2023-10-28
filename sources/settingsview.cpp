@@ -16,15 +16,18 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <QVBoxLayout>
+
 #include "settingsview.h"
-#include "qboxlayout.h"
+
+extern BaseModel basemodel;
 
 SettingsView::SettingsView(QWidget *parent)
     : QDialog{parent}
 {
     enginesComboBox = new QComboBox{this};
-    enginesComboBox->addItem("eleeye");
-    enginesComboBox->addItem("chameleon");
+    //enginesComboBox->addItem("eleeye");
+    //enginesComboBox->addItem("chameleon");
 
     styleButton = new QPushButton{"Choose notation style", this};
     engineButton = new QPushButton{"Choose engine", this};
@@ -40,7 +43,7 @@ SettingsView::SettingsView(QWidget *parent)
     connect(engineButton, &QPushButton::clicked, this, &SettingsView::ChooseEngine);
     connect(styleButton, &QPushButton::clicked, this, &SettingsView::ChooseStyle);
     connect(boardStyleButton, &QPushButton::clicked, this, &SettingsView::ChooseBoardStyle);
-    engineName = enginesComboBox->currentText();
+    basemodel.engineName = enginesComboBox->currentText();
     connect(enginesComboBox,
             &QComboBox::currentIndexChanged,
             this,
@@ -74,7 +77,7 @@ void SettingsView::ChooseBoardStyle()
     items << tr("Traditionel") << tr("Traditionel/PNG") << tr("Western simplified");
 
     bool ok;
-    QString item = QInputDialog::getItem(this, tr("Figuren"), tr("Figuren"), items, 0, false, &ok);
+    QString item = QInputDialog::getItem(this, tr("Pieces"), tr("Pieces"), items, 0, false, &ok);
     if (ok && !item.isEmpty()) {
         if (item == tr("Traditionel")) {
             model->board.viewStyleModeVar = viewStyleMode::traditional_native;
@@ -98,8 +101,8 @@ void SettingsView::ChooseStyle()
 
     bool ok;
     QString item = QInputDialog::getItem(this,
-                                         tr("Notation und Figuren"),
-                                         tr("Notaion + Figuren"),
+                                         tr("Notation + Pieces"),
+                                         tr("Notation + Pieces"),
                                          items,
                                          0,
                                          false,
@@ -115,10 +118,12 @@ void SettingsView::ChooseEngine()
                                                     "Choose engine",
                                                     QDir::homePath(),
                                                     nullptr);
-    if (filename.isEmpty())
+    if (filename.isEmpty()) {
+        filename = "native";
+        basemodel.engineName = filename;
         return;
+    }
     enginesComboBox->addItem(filename);
     enginesComboBox->show();
-
-    //parent()->setEngine(filename);
+    basemodel.engineName = filename;
 }

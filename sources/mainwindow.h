@@ -79,7 +79,7 @@ private:
     //QTableView *table;
     QTreeWidget *table;
 
-    QWidget *toolbar;
+    QToolBar *toolbar;
     QAction *openbutton, *savebutton, *settingsbutton, *enginestartsbutton, *exitbutton,
         *newgamebutton;
     QMenuBar *menubar;
@@ -113,9 +113,9 @@ public slots:
     void settings();
     void toggleEngineStatus();
     void newgame();
-    //void exit();
+    void playNow();
     void toggleGameView();
-    void togglePlayer();
+    //void togglePlayer();
     void giveTipp();
     void About();
     void Help();
@@ -130,7 +130,7 @@ public slots:
     void itemClicked(QTreeWidgetItem *, int);
 
 public slots:
-    void redToMove(position from, position to);
-    void blackToMove(position from, position to);
+    void ToMove(position from, position to, QString kind);
+    //void blackToMove(position from, position to);
 };
 #endif // MAINWINDOW_H

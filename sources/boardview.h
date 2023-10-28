@@ -85,7 +85,7 @@ private:
 
 signals:
     // signals to the controller
-    void updateView(position from, position to);
+    void updateView(position from, position to, QString kind);
 };
 
 #endif // BOARDVIEW_H
