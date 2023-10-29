@@ -29,7 +29,7 @@ UCI::UCI()
             SIGNAL(errorOccurred(QProcess::ProcessError)),
             SLOT(anError(QProcess::ProcessError)));
 
-    //basemodel.engineName = "/home/wsk/Chameleon/Chameleon";
+    //basemodel.engineName = "Chameleon";
 
     // Set the program for the engine
     engine.setProgram(basemodel.engineName);

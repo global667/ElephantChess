@@ -27,7 +27,7 @@ SettingsView::SettingsView(QWidget *parent)
 {
     enginesComboBox = new QComboBox{this};
     enginesComboBox->addItem("built-in");
-    enginesComboBox->addItem("chameleon");
+    //enginesComboBox->addItem("chameleon");
     enginesComboBox->setCurrentIndex(0);
 
     styleButton = new QPushButton{"Choose notation style", this};
@@ -52,11 +52,11 @@ SettingsView::SettingsView(QWidget *parent)
 
 void SettingsView::comboBoxSetEngineName()
 {
-    if (enginesComboBox->currentText().contains("chameleon")) {
-        basemodel.engineName = "/home/wsk/Chameleon/Chameleon";
-    } else {
-        basemodel.engineName = enginesComboBox->currentText();
-    }
+    //if (enginesComboBox->currentText().contains("chameleon")) {
+    //    basemodel.engineName = "./Chameleon";
+    //} else {
+    basemodel.engineName = enginesComboBox->currentText();
+    //}
 }
 
 SettingsView::~SettingsView()

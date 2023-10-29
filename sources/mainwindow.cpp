@@ -21,6 +21,7 @@
 //#ifdef TEST
 //#include "config.h"
 //#endif
+#include <QDesktopServices>
 #include "genmove.h"
 
 extern BaseModel basemodel;
@@ -246,60 +247,71 @@ void MainWindow::InitWidgets()
     //QIcon icon = style()->standardIcon(QStyle::SP_ArrowBack);
 
     //QAction *new_action = new QAction();
-    toolbar->addAction(QIcon(style()->standardIcon(QStyle::SP_DialogApplyButton)),
-                       tr("New game"),
-                       this,
-                       SLOT(newgame()));
-    toolbar->addAction(QIcon(style()->standardIcon(QStyle::SP_DialogOpenButton)),
-                       tr("Open"),
-                       this,
-                       SLOT(open()));
-    toolbar->addAction(QIcon(style()->standardIcon(QStyle::SP_DialogSaveButton)),
-                       tr("Save"),
-                       this,
-                       SLOT(save()));
+    toolbar
+        ->addAction(QIcon(style()->standardIcon(QStyle::SP_DialogApplyButton)),
+                    tr("New game"),
+                    this,
+                    SLOT(newgame()))
+        ->setToolTip("Starts a new game with the given engine");
+    toolbar
+        ->addAction(QIcon(style()->standardIcon(QStyle::SP_DialogOpenButton)),
+                    tr("Open"),
+                    this,
+                    SLOT(open()))
+        ->setToolTip("Open a PGN-file and load it");
+    ;
+    toolbar
+        ->addAction(QIcon(style()->standardIcon(QStyle::SP_DialogSaveButton)),
+                    tr("Save"),
+                    this,
+                    SLOT(save()))
+        ->setToolTip("Save a PGN-file");
     toolbar->addSeparator();
 
-    //    toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_BrowserReload))),
-    //                       tr("Toggle player"),
-    //                       this,
-    //                       SLOT(togglePlayer()));
-
-    toolbar->addAction(QIcon(":res/play-now.png"), tr("Play now!"), this, SLOT(playNow()));
+    toolbar->addAction(QIcon(":res/play-now.png"), tr("Play now!"), this, SLOT(playNow()))
+        ->setToolTip("Let's the engine makes a move now (changes the color you play)");
 
     toolbar->addSeparator();
 
-    toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_BrowserReload))),
-                       tr("Toggle view"),
-                       this,
-                       SLOT(toggleGameView()));
+    toolbar
+        ->addAction(QIcon(style()->standardIcon((QStyle::SP_BrowserReload))),
+                    tr("Toggle view"),
+                    this,
+                    SLOT(toggleGameView()))
+        ->setToolTip("Set the color that's above to the bottom");
     toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_MessageBoxInformation))),
                        tr("Tipp"),
                        this,
                        SLOT(giveTipp()));
-    toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_MessageBoxCritical))),
-                       tr("Give up"),
-                       this,
-                       SLOT(giveUpGame()));
+    toolbar
+        ->addAction(QIcon(style()->standardIcon((QStyle::SP_MessageBoxCritical))),
+                    tr("Give up"),
+                    this,
+                    SLOT(giveUpGame()))
+        ->setToolTip("Give the game up. You will loose.");
     toolbar->addSeparator();
     toolbar->addAction(QIcon(":res/settings.png"), //style()->standardIcon(QStyle::SP_ComputerIcon)),
                        tr("Options"),
                        this,
                        SLOT(settings()));
-    toolbar->addAction(QIcon(style()->standardIcon(
-                           (QStyle::SP_DialogHelpButton))), //SP_TitleBarContextHelpButton))),
-                       tr("Help"),
-                       this,
-                       SLOT(Help()));
+    toolbar
+        ->addAction(QIcon(style()->standardIcon(
+                        (QStyle::SP_DialogHelpButton))), //SP_TitleBarContextHelpButton))),
+                    tr("Help"),
+                    this,
+                    SLOT(Help()))
+        ->setToolTip("Starts the help system");
     QAction *about_action = new QAction(QIcon(
                                             style()->standardIcon((QStyle::SP_TitleBarMenuButton))),
                                         tr("About"),
                                         this);
     toolbar->addAction(about_action);
-    toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_DialogCloseButton))),
-                       tr("Close"),
-                       QCoreApplication::instance(),
-                       &QCoreApplication::quit);
+    toolbar
+        ->addAction(QIcon(style()->standardIcon((QStyle::SP_DialogCloseButton))),
+                    tr("Exit"),
+                    QCoreApplication::instance(),
+                    &QCoreApplication::quit)
+        ->setToolTip("Exit the application");
 
     dialog = new SettingsView(this);
 }
@@ -315,7 +327,7 @@ void MainWindow::itemClicked(QTreeWidgetItem *item, int column)
 
 void MainWindow::giveUpGame()
 {
-    QMessageBox::information(this, "Information", "Noch nicht implementiert");
+    QMessageBox::information(this, "Information", "You have decided to give up, you lose...");
 }
 
 void MainWindow::toggleGameView()
@@ -350,7 +362,10 @@ void MainWindow::About()
 }
 void MainWindow::Help()
 {
-    QMessageBox::information(this, "Information", "Noch nicht implementiert");
+    //QMessageBox::information(this, "Information", "Noch nicht implementiert");
+    QDesktopServices::openUrl(
+        QUrl("https://github.com/global667/ElephantChess/blob/main/README.md"));
+    statusBar()->showMessage(tr("Have open URL in browser"));
 }
 
 void MainWindow::playNow()
