@@ -22,16 +22,19 @@ for Europe Chess (with the commercial "Fritz" in mind).
 ## Installation
 ### Use QtCreator
 - Go to https://www.qt.io/download-open-source and login
-- Download Qt6.6 for Linux with "Qt Online Installer"
+- Download Qt6.x for Linux with "Qt Online Installer"
 - Import repo in QtCreator or use
-`git clone https://github.com/global667/ElephantChess.git`
+
+    ```git clone https://github.com/global667/ElephantChess.git```
+
 - Run `CMakeLists.txt` on QtCreator
 ### Use Debian package
-```
-$ wget https://github.com/global667/ElephantChess/releases/download/v0.4.0/elephantchess-0.4.0.deb
-$ sudo apt install ./elephantchess-0.4.0.deb
-$ /usr/share/elephantchess/ElephantChess
-```
+```wget https://github.com/global667/ElephantChess/releases/download/v0.4.0/elephantchess-0.4.0.deb```
+
+```sudo apt install ./elephantchess-0.4.0.deb```
+
+```/usr/share/elephantchess/ElephantChess```
+
 ## Usage
 Coming soon...
 
