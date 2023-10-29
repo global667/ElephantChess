@@ -300,12 +300,11 @@ void MainWindow::InitWidgets()
                     tr("Help"),
                     this,
                     SLOT(Help()))
-        ->setToolTip("Starts the help system");
-    QAction *about_action = new QAction(QIcon(
-                                            style()->standardIcon((QStyle::SP_TitleBarMenuButton))),
-                                        tr("About"),
-                                        this);
-    toolbar->addAction(about_action);
+        ->setToolTip("Starts the help in a browser");
+    toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_TitleBarMenuButton))),
+                       tr("About"),
+                       this,
+                       SLOT(About()));
     toolbar
         ->addAction(QIcon(style()->standardIcon((QStyle::SP_DialogCloseButton))),
                     tr("Exit"),
@@ -358,7 +357,7 @@ void MainWindow::giveTipp()
 }
 void MainWindow::About()
 {
-    QMessageBox::information(this, "Information", "Noch nicht implementiert");
+    QMessageBox::aboutQt(this, "Information");
 }
 void MainWindow::Help()
 {
