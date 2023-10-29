@@ -245,7 +245,6 @@ MainWindow::MainWindow(QWidget *parent)
                        &QCoreApplication::quit);
 
     dialog = new SettingsView(this);
-    dialog->SetModel(&basemodel);
 
     statusBar()->showMessage(tr("Ready"));
     //Q_ASSERT(&uci);
@@ -255,7 +254,38 @@ MainWindow::MainWindow(QWidget *parent)
     //uci.start();
     //uciThread.start();
 
-    connect(&engine,
+    //    basemodel.kind = "uci";
+    //    uci = new UCI();
+    //    //disconnect(engine, SIGNAL(updateView(position, position, QString)), nullptr, nullptr);
+    //    connect(uci,
+    //            SIGNAL(updateView(position, position, QString)),
+    //            SLOT(ToMove(position, position, QString)));
+    //    opp2->setPlaceholderText(basemodel.engineName);
+
+    //uciThread.quit();
+    //uciThread.wait();
+    //uci.engineName =
+    //basemodel.engine = dialog->engineName;
+    //Q_ASSERT(&uci);
+    //Q_ASSERT(&uciThread);
+    //uci.moveToThread(&uciThread);
+
+    /*
+    qDebug() << "Starting uci engine (" + basemodel.engineName + ") in extra thread";
+    //uci.start();
+    //uciThread.start();
+    opp2->setPlaceholderText(basemodel.engineName);
+    Q_ASSERT(&uci);
+    Q_ASSERT(&uciThread);
+    uci->moveToThread(&uciThread);
+    qDebug() << "Starting uci engine in extra thread";
+    uci->start();
+    uciThread.start();
+*/
+    engine = new Engine();
+    basemodel.kind = "engine";
+
+    connect(engine,
             SIGNAL(updateView(position, position, QString)),
             SLOT(ToMove(position, position, QString)));
     connect(boardview,
@@ -298,34 +328,6 @@ void MainWindow::toggleGameView()
     repaint();
 }
 
-//void MainWindow::togglePlayer()
-//{
-//    //disconnect(&uci, SIGNAL(updateView(Position, Position)), nullptr, nullptr);
-//    //disconnect(boardview, SIGNAL(updateView(Position, Position)), nullptr, nullptr);
-
-//    if (basemodel.humanColor == color::Red) {
-//        basemodel.humanColor = color::Black;
-
-//        /* connect(&uci, SIGNAL(updateView(Position, Position)), SLOT(redToMove(Position, Position)));
-//        connect(boardview,
-//                SIGNAL(updateView(Position, Position)),
-//                SLOT(blackToMove(Position, Position)));
-//*/
-//        engine.engineGo();
-//    }
-
-//    else {
-//        basemodel.humanColor = color::Red;
-//        /*
-//        connect(&uci, SIGNAL(updateView(Position, Position)), SLOT(blackToMove(Position, Position)));
-//        connect(boardview,
-//                SIGNAL(updateView(Position, Position)),
-//                SLOT(redToMove(Position, Position)));
-
-//*/
-//    }
-//}
-
 void MainWindow::giveTipp()
 {
     QMessageBox::information(this, "Information", "Noch nicht implementiert");
@@ -341,30 +343,10 @@ void MainWindow::Help()
 
 void MainWindow::playNow()
 {
-    /*if (disconnect(&engine, SIGNAL(updateView(position, position)), nullptr, nullptr)
-        && disconnect(boardview, SIGNAL(updateView(position, position)), nullptr, nullptr)) {
-        if (basemodel.board.onMove == color::Black) {
-            connect(boardview,
-                    SIGNAL(updateView(position, position)),
-                    SLOT(blackToMove(position, position)));
-            connect(&engine,
-                    SIGNAL(updateView(position, position)),
-                    SLOT(redToMove(position, position)));
-        } else {
-            connect(&engine,
-                    SIGNAL(updateView(position, position)),
-                    SLOT(blackToMove(position, position)));
-            connect(boardview,
-                    SIGNAL(updateView(position, position)),
-                    SLOT(redToMove(position, position)));
-        }
-
-        engine.engineGo();
-        //basemodel.board.toggleOnMove();
-    } else {
-        qDebug() << "Error in play Now !";
-    }*/
-    engine.engineGo();
+    if (basemodel.kind == "engine")
+        engine->engineGo();
+    else
+        uci->engineGo();
 }
 
 void MainWindow::open()
@@ -496,26 +478,43 @@ void MainWindow::settings()
 
 void MainWindow::updateSettings()
 {
-    //uciThread.quit();
-    //uciThread.wait();
-    //uci.engineName =
-    //basemodel.engine = dialog->engineName;
-    //Q_ASSERT(&uci);
-    //Q_ASSERT(&uciThread);
-    //uci.moveToThread(&uciThread);
-    qDebug() << "Starting uci engine (" + basemodel.engineName + ") in extra thread";
-    //uci.start();
-    //uciThread.start();
-    opp2->setPlaceholderText(basemodel.engineName);
+    qDebug() << basemodel.engineName;
+    if (basemodel.engineName == "built-in") {
+        engine = new Engine();
+        basemodel.kind = "engine";
+        disconnect(uci, SIGNAL(updateView(position, position, QString)), nullptr, nullptr);
+        connect(engine,
+                SIGNAL(updateView(position, position, QString)),
+                SLOT(ToMove(position, position, QString)));
+        opp2->setPlaceholderText(basemodel.engineName);
+        delete uci;
+    }
+    if (basemodel.engineName == "/home/wsk/Chameleon/Chameleon") {
+        basemodel.kind = "uci";
+        uci = new UCI();
+        disconnect(engine, SIGNAL(updateView(position, position, QString)), nullptr, nullptr);
+        connect(uci,
+                SIGNAL(updateView(position, position, QString)),
+                SLOT(ToMove(position, position, QString)));
+        opp2->setPlaceholderText(basemodel.engineName);
+        Q_ASSERT(&uci);
+        Q_ASSERT(&uciThread);
+        uci->moveToThread(&uciThread);
+        qDebug() << "Starting uci engine (" + basemodel.engineName + "in extra thread";
+        uci->start();
+        uciThread.start();
+    }
 }
 
 void MainWindow::toggleEngineStatus()
 {
-    //    if (uciThread.isRunning()) {
-    //        uciThread.quit();
-    //    } else {
-    //        uciThread.start();
-    //    }
+    if (uci)
+        return;
+    if (uciThread.isRunning()) {
+        uciThread.quit();
+    } else {
+        uciThread.start();
+    }
 }
 
 // Startet ein neues Spiel
@@ -608,8 +607,9 @@ void MainWindow::ToMove(position from, position to, QString kind)
     qDebug() << "ToMove";
     basemodel.currentMoves.push_back({from, to});
     //if (basemodel.board.onMove == color::Red) {
-    // qDebug() << "onMove == Red";
+
     if (kind.contains("human")) {
+        qDebug() << "Human";
         GenMove isMate(basemodel.board.pieces, basemodel.board.onMove);
 
         // Is in Check?
@@ -627,73 +627,57 @@ void MainWindow::ToMove(position from, position to, QString kind)
         }
 
         // Give move to engine
-        engine.MovePiece(from, to);
+        engine->MovePiece(from.col, from.row, to.col, to.row);
         addMoveToList();
         addMoveToHistory();
         basemodel.board.toggleOnMove();
         //basemodel.board.onMove = color::Black;
-        engine.engineGo();
+        engine->engineGo();
     } else if (kind.contains("engine")) {
-        //qDebug() << "onMove == Black";
+        qDebug() << "engine";
         basemodel.board.movePiece(from.row, from.col, to.row, to.col);
         //boardview->MovePiece(from, to);
-        basemodel.fromUCI = from;
-        basemodel.toUCI = to;
+        if (basemodel.board.onMove == color::Black) {
+            basemodel.fromUCI = from;
+            basemodel.toUCI = to;
+        } else {
+            basemodel.fromHuman = from;
+            basemodel.toHuman = to;
+        }
         basemodel.board.toggleOnMove();
         addMoveToHistory();
         addMoveToList();
+    } else if (kind.contains("uci")) {
+        qDebug() << "uci";
+        GenMove isMate(basemodel.board.pieces, basemodel.board.onMove);
+
+        // Is in Check?
+        if (isMate.IsCheck(basemodel.board.onMove)) {
+            qDebug() << "Check";
+            statusBar()->showMessage("Check");
+            //return;
+        }
+
+        // Is in Checkmate?
+        if (isMate.IsCheckmate(basemodel.board.onMove)) {
+            qDebug() << "Checkmate";
+            statusBar()->showMessage("Checkmate");
+            //return;
+        }
+
+        // Give move to engine
+        uci->MovePiece(from.col, from.row, to.col, to.row);
+        addMoveToList();
+        addMoveToHistory();
+        basemodel.board.toggleOnMove();
+        //basemodel.board.onMove = color::Black;
+        uci->engineGo();
     } else {
         qDebug() << "Error in game loop ToMove()";
     }
         repaint();
 }
-/*
-void MainWindow::blackToMove(position from, position to)
-{
-    qDebug() << "blackToMove";
 
-    //if (basemodel.board.onMove == color::Black) {
-    //qDebug() << "onMove == Black";
-
-    basemodel.board.movePiece(from.row, from.col, to.row, to.col);
-    //boardview->MovePiece(from, to);
-    basemodel.fromHuman = from;
-    basemodel.toHuman = to;
-    basemodel.fromUCI = from;
-    basemodel.toUCI = to;
-    //basemodel.board.toggleOnMove();
-    basemodel.board.onMove = color::Red;
-    addMoveToHistory();
-    addMoveToList();
-    /*} else {
-        qDebug() << "onMove == Red";
-
-        GenMove isMate(basemodel.board.pieces, basemodel.board.onMove);
-
-        // Is in Check?
-        if (isMate.IsCheck(basemodel.board.onMove)) {
-            qDebug() << "Check";
-            statusBar()->showMessage("Check");
-            return;
-        }
-
-        // Is in Checkmate?
-        if (isMate.IsCheckmate(basemodel.board.onMove)) {
-            qDebug() << "Checkmate";
-            statusBar()->showMessage("Checkmate");
-            return;
-        }
-
-        // Give move to engine
-        engine.MovePiece(from, to);
-        addMoveToList();
-        addMoveToHistory();
-        basemodel.board.toggleOnMove();
-        engine.engineGo();
-    }
-    repaint();
-}
-*/
 void MainWindow::addMoveToHistory()
 {
     basemodel.moveHistory.append(basemodel.board);
@@ -702,6 +686,8 @@ void MainWindow::addMoveToHistory()
 
 void MainWindow::addMoveToList()
 {
+    if (basemodel.moves.isEmpty())
+        return;
     QString mv = QString(basemodel.moves.last());
 
     QTreeWidgetItem *item = new QTreeWidgetItem();
@@ -732,6 +718,6 @@ void MainWindow::addMoveToList()
 
 MainWindow::~MainWindow()
 {
-    //uciThread.quit();
-    //uciThread.wait();
+    uciThread.quit();
+    uciThread.wait();
 }

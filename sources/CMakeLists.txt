@@ -20,6 +20,7 @@ qt_add_resources(RESOURCES res.qrc)
 
 add_executable(ElephantChess ${PROJECT_CPP} ${RESOURCES}
     contexmenu.h contexmenu.cpp
+    maschines.h
 
 )
 target_link_libraries(ElephantChess PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Test)

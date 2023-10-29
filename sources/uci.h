@@ -28,6 +28,8 @@
 #include <QStringList>
 #include <QThread>
 
+#include "basemodel.h"
+#include "maschines.h"
 #include "types.h"
 
 class UCI : public QObject
@@ -45,7 +47,7 @@ public:
     void engineGo();
     QStringList moves;
 
-    QString engineName = "chameleon";
+    //QString engineName = "chameleon";
 
 private:
     QByteArray buffer;
@@ -55,7 +57,7 @@ private:
     QByteArray posToken(int fromX, int fromY, int toX, int toY);
     QByteArray posToken(QByteArray token);
 signals:
-    void updateView(position from, position to);
+    void updateView(position from, position to, QString kind);
     void boardChanged(int fromX, int fromY, int toX, int toY);
 
 public slots:

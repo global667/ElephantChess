@@ -34,13 +34,7 @@ class SettingsView : public QDialog
 public:
     explicit SettingsView(QWidget *parent = nullptr);
     ~SettingsView();
-
-    void SetModel(BaseModel *newModel);
-
-    QString engineName;
-
 private:
-    BaseModel *model;
     QComboBox *enginesComboBox;
     QPushButton *engineButton;
     QPushButton *styleButton;

@@ -34,6 +34,7 @@ class BaseModel : public QObject
 public:
     explicit BaseModel(QObject *parent = nullptr)
     {
+        engineName = "built-in";
         moveHistory.append(board);
         currentMove++;
     };
@@ -49,8 +50,9 @@ public:
 
     int currentMove = 0;
     QStringList moves;
-    QString engineName = "native";
+    QString engineName = "built-in";
     QList<Board> moveHistory;
+    QString kind = "uci";
 
     QList<QPair<position, position>> currentMoves;
     position fromHuman = {-1, -1};

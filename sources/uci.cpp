@@ -18,27 +18,31 @@
 
 #include "uci.h"
 
+extern BaseModel basemodel;
+
 UCI::UCI()
     : waitForReadyOK(true)
     , newGame(true)
 {
-    //connect(&engine, SIGNAL(readyRead()), SLOT(readData()));
-    //connect(&engine,
-    //        SIGNAL(errorOccurred(QProcess::ProcessError)),
-    //        SLOT(anError(QProcess::ProcessError)));
+    connect(&engine, SIGNAL(readyRead()), SLOT(readData()));
+    connect(&engine,
+            SIGNAL(errorOccurred(QProcess::ProcessError)),
+            SLOT(anError(QProcess::ProcessError)));
+
+    //basemodel.engineName = "/home/wsk/Chameleon/Chameleon";
 
     // Set the program for the engine
-    //engine.setProgram("/" + engineName + ".exe");
-    //qDebug() << "Starting uci engine:" << engineName;
-    //engine.setReadChannel(QProcess::StandardOutput);
+    engine.setProgram(basemodel.engineName);
+    qDebug() << "Starting uci engine:" << basemodel.engineName;
+    engine.setReadChannel(QProcess::StandardOutput);
 
-    //engine.start(QIODevice::Text | QIODevice::ReadWrite);
-    //engine.waitForStarted();
+    engine.start(QIODevice::Text | QIODevice::ReadWrite);
+    engine.waitForStarted();
 
     // Wait for the engine to be ready
-    //writeDatas("uci");
-    //writeDatas("isready");
-    //engine.waitForReadyRead();
+    writeDatas("uci");
+    writeDatas("isready");
+    engine.waitForReadyRead();
 }
 
 void UCI::start()
@@ -76,7 +80,7 @@ void UCI::readData()
                 auto tx = (mv.at(2) - 'a');
                 auto ty = (mv.at(3) - '0');
                 // Ruft game auf
-                emit updateView({fy, fx}, {ty, tx});
+                emit updateView({fy, fx}, {ty, tx}, "engine");
                 //qDebug() << c << ", send new move " << c.split(' ').at(1) << " as " << fx << fy
                 //         << tx << ty;
             } else {
@@ -125,7 +129,7 @@ void UCI::engineGo()
 {
     // Start the engine
     writeDatas("position startpos moves " + moves.join(" ").toUtf8());
-    writeDatas("go depth 2");
+    writeDatas("go");
     writeDatas("isready");
     /*class Engine eng;
     std::pair<position, position> ownEngineMove;

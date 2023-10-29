@@ -26,8 +26,9 @@ SettingsView::SettingsView(QWidget *parent)
     : QDialog{parent}
 {
     enginesComboBox = new QComboBox{this};
-    //enginesComboBox->addItem("eleeye");
-    //enginesComboBox->addItem("chameleon");
+    enginesComboBox->addItem("built-in");
+    enginesComboBox->addItem("chameleon");
+    enginesComboBox->setCurrentIndex(0);
 
     styleButton = new QPushButton{"Choose notation style", this};
     engineButton = new QPushButton{"Choose engine", this};
@@ -43,7 +44,7 @@ SettingsView::SettingsView(QWidget *parent)
     connect(engineButton, &QPushButton::clicked, this, &SettingsView::ChooseEngine);
     connect(styleButton, &QPushButton::clicked, this, &SettingsView::ChooseStyle);
     connect(boardStyleButton, &QPushButton::clicked, this, &SettingsView::ChooseBoardStyle);
-    basemodel.engineName = enginesComboBox->currentText();
+    //basemodel.engineName = enginesComboBox->currentText();
     connect(enginesComboBox,
             &QComboBox::currentIndexChanged,
             this,
@@ -52,7 +53,11 @@ SettingsView::SettingsView(QWidget *parent)
 
 void SettingsView::comboBoxSetEngineName()
 {
-    engineName = enginesComboBox->currentText();
+    if (enginesComboBox->currentText().contains("chameleon")) {
+        basemodel.engineName = "/home/wsk/Chameleon/Chameleon";
+    } else {
+        basemodel.engineName = enginesComboBox->currentText();
+    }
 }
 
 SettingsView::~SettingsView()
@@ -61,11 +66,6 @@ SettingsView::~SettingsView()
     delete engineButton;
     delete styleButton;
     delete boardStyleButton;
-}
-
-void SettingsView::SetModel(BaseModel *newModel)
-{
-    model = newModel;
 }
 
 void SettingsView::ChooseBoardStyle()
@@ -80,11 +80,11 @@ void SettingsView::ChooseBoardStyle()
     QString item = QInputDialog::getItem(this, tr("Pieces"), tr("Pieces"), items, 0, false, &ok);
     if (ok && !item.isEmpty()) {
         if (item == tr("Traditionel")) {
-            model->board.viewStyleModeVar = viewStyleMode::traditional_native;
+            basemodel.board.viewStyleModeVar = viewStyleMode::traditional_native;
         } else if (item == tr("Traditionel/PNG")) {
-            model->board.viewStyleModeVar = viewStyleMode::traditional_png;
+            basemodel.board.viewStyleModeVar = viewStyleMode::traditional_png;
         } else if (item == tr("Western simplified")) {
-            model->board.viewStyleModeVar = viewStyleMode::western_png;
+            basemodel.board.viewStyleModeVar = viewStyleMode::western_png;
         }
         emit boardStyleChanged();
     }
@@ -119,7 +119,7 @@ void SettingsView::ChooseEngine()
                                                     QDir::homePath(),
                                                     nullptr);
     if (filename.isEmpty()) {
-        filename = "native";
+        filename = "built-in";
         basemodel.engineName = filename;
         return;
     }

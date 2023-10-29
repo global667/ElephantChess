@@ -22,10 +22,11 @@
 #include <QRandomGenerator>
 #include "basemodel.h"
 #include "genmove.h"
+#include "maschines.h"
 #include "types.h"
 
 // chinese chess engine
-class Engine : public QObject //, public Players
+class Engine : public Maschines
 {
     Q_OBJECT
 public:
@@ -48,7 +49,7 @@ public:
 
     // For Players
     void MovePiece(int fromX, int fromY, int toX, int toY);
-    QString Kind() { return "Engine"; };
+    void start(){};
 
 private:
     QByteArray posToken(int fromX, int fromY, int toX, int toY);
