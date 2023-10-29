@@ -34,28 +34,13 @@ std::pair<position, position> Engine::GetBestMove(color color)
         for (int j = 0; j < 9; j++)
     {
             if (generatedMoves.GetColor({i, j}) == color) {
-                pos = generatedMoves.IsValidPieceMove(
-                    position{i, j}); //generateLegalMoves(Color::Black);
+                pos = generatedMoves.IsValidPieceMove(position{i, j});
                 for (std::pair<position, position> p : pos) {
                     posAll.push_back(p);
                     //qDebug() << p.first.row << p.first.col;
                 }
             }
         }
-
-    // Is in Check?
-    if (generatedMoves.IsCheck(color)) {
-        qDebug() << "Check";
-        //statusBar()->showMessage("Check");
-        //return;
-    }
-
-    // Is in Checkmate?
-    if (generatedMoves.IsCheckmate(color)) {
-        qDebug() << "Checkmate";
-        //statusBar()->showMessage("Checkmate");
-        //return;
-    }
 
     int sizeOfPosAll = posAll.size();
 

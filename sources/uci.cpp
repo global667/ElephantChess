@@ -74,7 +74,7 @@ void UCI::readData()
                 waitForReadyOK = true;
             } else if (c.contains("bestmove")) {
                 // Received a move from the engine
-                QByteArray mv = basemodel.board.posToken(c);
+                QByteArray mv = basemodel.posToken(c);
                 auto fx = (mv.at(0) - 'a');
                 auto fy = (mv.at(1) - '0');
                 auto tx = (mv.at(2) - 'a');

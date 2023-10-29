@@ -22,9 +22,6 @@
 #include <QDebug>
 #include <QObject>
 
-//#include <utility>
-//#include <vector>
-
 #include "board.h"
 #include "types.h"
 
@@ -48,6 +45,8 @@ public:
     Board board;
     Board boardCopy;
 
+    viewStyleMode viewStyleModeVar = viewStyleMode::traditional_native;
+
     int currentMove = 0;
     QStringList moves;
     QString engineName = "built-in";
@@ -67,7 +66,40 @@ public:
     // legt fest welche Farbe der Mensch spielt
     color humanColor = color::Red;
 
-    //QString engine = "chameleon";
+    // .:Helper functions:.
+    // Gibt das Brett in der Konsole aus
+    void printBoard()
+    {
+        for (int i = 0; i < ROWS; i++) {
+            QString line = "";
+            for (int j = 0; j < COLS; j++) {
+                line += QString::number((int) board.pieces[i][j].type);
+                line += " ";
+            }
+            qDebug() << line;
+        }
+    };
+
+    QByteArray posToken(QByteArray token)
+    {
+        QByteArray t = token.split(' ').at(1);
+        return t;
+    }
+
+    QByteArray posToken(int fromX, int fromY, int toX, int toY)
+    {
+        QByteArray m;
+        char c1 = fromX + 'a';
+        char c2 = (fromY) + '0';
+        char c3 = toX + 'a';
+        char c4 = (toY) + '0';
+        m.clear();
+        m.append(c1);
+        m.append(c2);
+        m.append(c3);
+        m.append(c4);
+        return m;
+    }
 };
 
 #endif // BASEMODEL_H

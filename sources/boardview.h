@@ -49,7 +49,7 @@ private:
     void PaintBoard(QPainter *p);
     void PaintPieces(QPainter *p);
     QPixmap *PaintNativePiece(QPainter *p, int row, int col);
-    void DrawSelectedPieces(QPainter *p);
+    void PaintSelectedPieces(QPainter *p);
 
 protected:
     void paintEvent(QPaintEvent *event) override;

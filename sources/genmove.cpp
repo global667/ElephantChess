@@ -27,7 +27,7 @@ GenMove::GenMove() //QObject *parent)
 GenMove::GenMove(const Piece p[ROWS][COLS], color onMove)
 {
     copyBoard(pieces, p);
-    this->onMove = onMove;
+    this->playerOnMove = onMove;
 }
 
 // Array der Spielsteine kopieren
@@ -44,7 +44,7 @@ void GenMove::copyBoard(Piece pieces[ROWS][COLS], const Piece other[ROWS][COLS])
 GenMove::GenMove(const GenMove &other)
 {
     copyBoard(pieces, other.pieces);
-    onMove = other.onMove;
+    playerOnMove = other.playerOnMove;
 }
 
 bool GenMove::IsLegalMove(int fromRow, int fromCol, int toRow, int toCol)

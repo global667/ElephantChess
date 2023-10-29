@@ -60,7 +60,7 @@ void BoardView::paintEvent(QPaintEvent *event)
     painter.setRenderHint(QPainter::Antialiasing, true);
     PaintBoard(&painter);
     PaintPieces(&painter);
-    DrawSelectedPieces(&painter);
+    PaintSelectedPieces(&painter);
     PaintMarker(&painter);
 }
 
@@ -206,23 +206,23 @@ void BoardView::PaintPieces(QPainter *p)
             QPixmap pixm;
             QPixmap pixm2;
             if (basemodel.board.pieces[j][8 - i].colr == color::Red) {
-                if (basemodel.board.viewStyleModeVar == viewStyleMode::western_png) {
+                if (basemodel.viewStyleModeVar == viewStyleMode::western_png) {
                     pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
                     pixm2 = pixm.copy(100, 0, 100, 100);
-                } else if (basemodel.board.viewStyleModeVar == viewStyleMode::traditional_png) {
+                } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_png) {
                     pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
                     pixm2 = pixm.copy(0, 0, 100, 100);
-                } else if (basemodel.board.viewStyleModeVar == viewStyleMode::traditional_native) {
+                } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_native) {
                     pixm2 = *PaintNativePiece(p, j, i);
                 }
             } else {
-                if (basemodel.board.viewStyleModeVar == viewStyleMode::western_png) {
+                if (basemodel.viewStyleModeVar == viewStyleMode::western_png) {
                     pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
                     pixm2 = pixm.copy(300, 0, 100, 100);
-                } else if (basemodel.board.viewStyleModeVar == viewStyleMode::traditional_png) {
+                } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_png) {
                     pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
                     pixm2 = pixm.copy(200, 0, 100, 100);
-                } else if (basemodel.board.viewStyleModeVar == viewStyleMode::traditional_native) {
+                } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_native) {
                     pixm2 = *PaintNativePiece(p, j, i);
                 }
             }
@@ -396,7 +396,7 @@ void BoardView::PaintBoard(QPainter *p)
     p->setPen(pn);
 }
 
-void BoardView::DrawSelectedPieces(QPainter *p)
+void BoardView::PaintSelectedPieces(QPainter *p)
 {
     Q_ASSERT(p);
 
@@ -561,59 +561,59 @@ void BoardView::SetEditorPieces()
         coords.setY(tmp.x() - 1);
         switch (piece.second) {
         case completePieceType::GeneralRot:
-            basemodel.board.placePiece(
+            basemodel.board.InitPiece(
                 Piece(color::Red, pieceType::General, {coords.x(), coords.y()}, "帥"));
             break;
         case completePieceType::GeneralSchwarz:
-            basemodel.board.placePiece(
+            basemodel.board.InitPiece(
                 Piece(color::Black, pieceType::General, {coords.x(), coords.y()}, "將"));
             break;
         case completePieceType::AdvisorRot:
-            basemodel.board.placePiece(
+            basemodel.board.InitPiece(
                 Piece(color::Red, pieceType::Advisor, {coords.x(), coords.y()}, "仕"));
             break;
         case completePieceType::AdvisorSchwarz:
-            basemodel.board.placePiece(
+            basemodel.board.InitPiece(
                 Piece(color::Black, pieceType::Advisor, {coords.x(), coords.y()}, "士"));
             break;
         case completePieceType::ElephantRot:
-            basemodel.board.placePiece(
+            basemodel.board.InitPiece(
                 Piece(color::Red, pieceType::Elephant, {coords.x(), coords.y()}, "相"));
             break;
         case completePieceType::ElephantSchwarz:
-            basemodel.board.placePiece(
+            basemodel.board.InitPiece(
                 Piece(color::Black, pieceType::Elephant, {coords.x(), coords.y()}, "象"));
             break;
         case completePieceType::HorseRot:
-            basemodel.board.placePiece(
+            basemodel.board.InitPiece(
                 Piece(color::Red, pieceType::Horse, {coords.x(), coords.y()}, "傌"));
             break;
         case completePieceType::HorseSchwarz:
-            basemodel.board.placePiece(
+            basemodel.board.InitPiece(
                 Piece(color::Black, pieceType::Horse, {coords.x(), coords.y()}, "馬"));
             break;
         case completePieceType::ChariotRot:
-            basemodel.board.placePiece(
+            basemodel.board.InitPiece(
                 Piece(color::Red, pieceType::Chariot, {coords.x(), coords.y()}, "俥"));
             break;
         case completePieceType::ChariotSchwarz:
-            basemodel.board.placePiece(
+            basemodel.board.InitPiece(
                 Piece(color::Black, pieceType::Chariot, {coords.x(), coords.y()}, "車"));
             break;
         case completePieceType::CannonRot:
-            basemodel.board.placePiece(
+            basemodel.board.InitPiece(
                 Piece(color::Red, pieceType::Cannon, {coords.x(), coords.y()}, "炮"));
             break;
         case completePieceType::CannonSchwarz:
-            basemodel.board.placePiece(
+            basemodel.board.InitPiece(
                 Piece(color::Black, pieceType::Cannon, {coords.x(), coords.y()}, "砲"));
             break;
         case completePieceType::SoldierRot:
-            basemodel.board.placePiece(
+            basemodel.board.InitPiece(
                 Piece(color::Red, pieceType::Soldier, {coords.x(), coords.y()}, "兵"));
             break;
         case completePieceType::SoldierSchwarz:
-            basemodel.board.placePiece(
+            basemodel.board.InitPiece(
                 Piece(color::Black, pieceType::Soldier, {coords.x(), coords.y()}, "卒"));
             break;
         default:
@@ -651,9 +651,4 @@ QPoint BoardView::CalcBoardCoords(QPoint r)
     col = static_cast<int>(floor((boardCursorCol) / squareCol) + 1);
     row = static_cast<int>(floor((boardCursorRow) / squareRow) + 1);
     return QPoint(col, row);
-}
-
-void BoardView::MovePiece(position from, position to)
-{
-    basemodel.board.movePiece(from.row, from.col, to.row, to.col);
 }

@@ -39,6 +39,7 @@
 #include <QPushButton>
 #include <QStandardItemModel>
 #include <QStatusBar>
+#include <QString>
 #include <QStringList>
 #include <QTabWidget>
 #include <QTableView>
@@ -104,7 +105,8 @@ private:
 
     SettingsView *dialog;
 
-    int row = 0, column = 0;
+    //int row = 0,
+    int column = 0;
     void addMoveToList();
     void addMoveToHistory();
 

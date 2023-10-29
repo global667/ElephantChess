@@ -332,7 +332,17 @@ void MainWindow::toggleGameView()
 
 void MainWindow::giveTipp()
 {
-    QMessageBox::information(this, "Information", "Noch nicht implementiert");
+    std::pair<position, position> move = engine->GetBestMove(basemodel.board.onMove);
+    position from = move.first;
+    position to = move.second;
+    QString c;
+    if (basemodel.board.onMove == color::Red)
+        c = "Red";
+    else
+        c = "Black";
+    QString token = basemodel.posToken(from.col, from.row, to.col, to.row);
+    QString bestMoveWouldBe = QString("The best move for %1 would be %2").arg(c).arg(token);
+    QMessageBox::information(this, "Engine says:", bestMoveWouldBe);
 }
 void MainWindow::About()
 {
@@ -502,7 +512,7 @@ void MainWindow::updateSettings()
         Q_ASSERT(&uci);
         Q_ASSERT(&uciThread);
         uci->moveToThread(&uciThread);
-        qDebug() << "Starting uci engine (" + basemodel.engineName + "in extra thread";
+        qDebug() << "Starting uci engine (" + basemodel.engineName + " in extra thread";
         uci->start();
         uciThread.start();
     }
@@ -525,7 +535,8 @@ void MainWindow::newgame()
     basemodel.board.initBoard();
     basemodel.moveHistory.clear();
     model->clear();
-    row = 0, column = 0;
+    //row = 0,
+    column = 0;
     basemodel.currentMove = 0;
     basemodel.fromHuman = {-1, -1};
     basemodel.toHuman = {-1, -1};
@@ -604,70 +615,23 @@ void MainWindow::ResetToHistory()
 // TODO: putting human and uci together
 void MainWindow::ToMove(position from, position to, QString kind)
 {
-    qDebug() << "ToMove";
-    //qDebug() << from.col << from.row;
     basemodel.currentMoves.push_back({from, to});
-
+    basemodel.board.movePiece(from.row, from.col, to.row, to.col);
+    if (basemodel.board.onMove == color::Black) {
+        basemodel.fromUCI = from;
+        basemodel.toUCI = to;
+    } else {
+        basemodel.fromHuman = from;
+        basemodel.toHuman = to;
+    }
+    basemodel.board.toggleOnMove();
+    addMoveToHistory();
+    addMoveToList();
     if (kind.contains("human")) {
-        qDebug() << "Human";
-        qDebug() << from.col << from.row;
-
-        basemodel.board.movePiece(from.row, from.col, to.row, to.col);
-        GenMove isMate(basemodel.board.pieces, basemodel.board.onMove);
-        // Is in Check?
-        if (isMate.IsCheck(basemodel.board.onMove)) {
-            qDebug() << "Check";
-            statusBar()->showMessage("Check");
-            //return;
-        }
-        // Is in Checkmate?
-        if (isMate.IsCheckmate(basemodel.board.onMove)) {
-            qDebug() << "Checkmate";
-            statusBar()->showMessage("Checkmate");
-            //return;
-        }
-        // Give move to engine
-
-        addMoveToList();
-        addMoveToHistory();
-        basemodel.board.toggleOnMove();
         engine->engineGo();
-    } else if (kind.contains("engine")) {
-        qDebug() << "engine";
-        qDebug() << from.col << from.row;
-
-        basemodel.board.movePiece(from.row, from.col, to.row, to.col);
-        if (basemodel.board.onMove == color::Black) {
-            basemodel.fromUCI = from;
-            basemodel.toUCI = to;
-        } else {
-            basemodel.fromHuman = from;
-            basemodel.toHuman = to;
-        }
-        basemodel.board.toggleOnMove();
-        addMoveToHistory();
-        addMoveToList();
     } else if (kind.contains("uci")) {
-        qDebug() << "uci";
-
-        basemodel.board.movePiece(from.row, from.col, to.row, to.col);
-        GenMove isMate(basemodel.board.pieces, basemodel.board.onMove);
-        // Is in Check?
-        if (isMate.IsCheck(basemodel.board.onMove)) {
-            qDebug() << "Check";
-            statusBar()->showMessage("Check");
-            //return;
-        }
-        // Is in Checkmate?
-        if (isMate.IsCheckmate(basemodel.board.onMove)) {
-            qDebug() << "Checkmate";
-            statusBar()->showMessage("Checkmate");
-            //return;
-        }
-        addMoveToList();
-        addMoveToHistory();
-        basemodel.board.toggleOnMove();
         uci->engineGo();
+    } else if (kind.contains("engine")) {
     } else {
         qDebug() << "Error in game loop ToMove()";
     }
@@ -689,8 +653,6 @@ void MainWindow::addMoveToList()
     QTreeWidgetItem *item = new QTreeWidgetItem();
     item->setText(0, mv);
     if (isTableClicked) {
-            //qDebug() << isTableClicked << "isTableClicked";
-            //qDebug() << table->topLevelItemCount() << "table->topLevelItemCount()";
             if (table->topLevelItemCount() == isTableClicked + 1) {
             table->addTopLevelItem(item);
             } else {
@@ -699,16 +661,9 @@ void MainWindow::addMoveToList()
     } else {
             table->addTopLevelItem(item);
     }
-    /*    if (column % 2 == 0) {
-        model->setItem(column / 2, 0, item);
-    }
-    if (column % 2 == 1) {
-        model->setItem(column / 2, 1, item);
-    }
-*/
     item = nullptr;
     mv = nullptr;
-    column++;
+    //column++;
 }
 
 MainWindow::~MainWindow()

@@ -62,7 +62,7 @@ public:
     std::vector<std::pair<position, position>> IsValidPieceMove(const position from);
 
     Piece pieces[ROWS][COLS];
-    color onMove;
+    color playerOnMove;
 };
 
 #endif // GENMOVE_H
