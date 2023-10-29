@@ -53,6 +53,7 @@
 #include "boardview.h"
 #include "engine.h"
 #include "settingsview.h"
+#include "types.h"
 #include "uci.h"
 //#include "uci.h"
 
@@ -103,11 +104,11 @@ private:
     QLineEdit *opp1, *opp2, *loca, *round, *date;
     QHBoxLayout *location;
 
-    SettingsView *dialog;
+    SettingsView *settings;
 
     //int row = 0,
     int column = 0;
-    void addMoveToList();
+    void addMoveToList(QString p);
     void addMoveToHistory();
 
     QPushButton button;
@@ -115,10 +116,13 @@ private:
     int isTableClicked = 0;
 
     void ResetToHistory();
+    QFile *loadPGNFile();
+    void PutPGNOnBoard();
+    void ReadPGNData(QString data);
 public slots:
     void open();
     void save();
-    void settings();
+    void OpenSettings();
     void toggleEngineStatus();
     void newgame();
     void playNow();

@@ -58,24 +58,27 @@ class Piece
 {
 public:
     Piece() {}
-    Piece(color colr, pieceType type, position pos, QImage img)
+    Piece(color colr, pieceType type, position pos, QImage img, QString name)
         : colr(colr)
         , type(type)
         , pos(pos)
+        , img(img)
+        , name(name)
     {
         //if (img.isNull())
         //    qDebug() << "Piece(): img is null";
-        this->img = QImage(img);
+        //this->img = QImage(img);
     }
 
     Piece(color colr, pieceType type, position pos, QString name)
         : colr(colr)
         , type(type)
         , pos(pos)
+        , name(name)
     {
         //if (img.isNull())
         //    qDebug() << "Piece(): img is null";
-        this->name = name;
+        //this->name = name;
     }
 
     virtual ~Piece() {}

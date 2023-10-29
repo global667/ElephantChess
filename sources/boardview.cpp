@@ -40,8 +40,7 @@ BoardView::BoardView(QWidget *parent)
 void BoardView::contextMenuEvent(QContextMenuEvent *event)
 {
     //Q_UNUSED(event);
-    qDebug() << "contextMenuEvent";
-
+    //qDebug() << "contextMenuEvent";
     contextMenu->contextMenuX = event->pos().x();
     contextMenu->contextMenuY = event->pos().y();
     contextMenu->exec(QCursor::pos());
@@ -137,7 +136,7 @@ void BoardView::PaintMarker(QPainter *p)
 }
 
 // Draws the pieces on the board (native)
-QPixmap *BoardView::PaintNativePiece(QPainter *p, int row, int col)
+QPixmap *BoardView::PrepareNativePiece(QPainter *p, int row, int col)
 {
     //QPainter *p;
     Q_ASSERT(p);
@@ -213,7 +212,7 @@ void BoardView::PaintPieces(QPainter *p)
                     pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
                     pixm2 = pixm.copy(0, 0, 100, 100);
                 } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_native) {
-                    pixm2 = *PaintNativePiece(p, j, i);
+                    pixm2 = *PrepareNativePiece(p, j, i);
                 }
             } else {
                 if (basemodel.viewStyleModeVar == viewStyleMode::western_png) {
@@ -223,7 +222,7 @@ void BoardView::PaintPieces(QPainter *p)
                     pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
                     pixm2 = pixm.copy(200, 0, 100, 100);
                 } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_native) {
-                    pixm2 = *PaintNativePiece(p, j, i);
+                    pixm2 = *PrepareNativePiece(p, j, i);
                 }
             }
             p->drawPixmap(QRect((50 + ((8 - i) * (w - 2 * 50) / cutpWidth))

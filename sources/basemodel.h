@@ -100,6 +100,8 @@ public:
         m.append(c4);
         return m;
     }
+
+    QByteArray ToUnicodeSym(Piece p) { return QByteArray(p.name.toUtf8()); }
 };
 
 #endif // BASEMODEL_H

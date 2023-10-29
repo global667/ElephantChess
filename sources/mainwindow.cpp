@@ -39,41 +39,6 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::InitEngine()
 {
-    //Q_ASSERT(&uci);
-    //Q_ASSERT(&uciThread);
-    //uci.moveToThread(&uciThread);
-    //qDebug() << "Starting uci engine in extra thread";
-    //uci.start();
-    //uciThread.start();
-
-    //    basemodel.kind = "uci";
-    //    uci = new UCI();
-    //    //disconnect(engine, SIGNAL(updateView(position, position, QString)), nullptr, nullptr);
-    //    connect(uci,
-    //            SIGNAL(updateView(position, position, QString)),
-    //            SLOT(ToMove(position, position, QString)));
-    //    opp2->setPlaceholderText(basemodel.engineName);
-
-    //uciThread.quit();
-    //uciThread.wait();
-    //uci.engineName =
-    //basemodel.engine = dialog->engineName;
-    //Q_ASSERT(&uci);
-    //Q_ASSERT(&uciThread);
-    //uci.moveToThread(&uciThread);
-
-    /*
-    qDebug() << "Starting uci engine (" + basemodel.engineName + ") in extra thread";
-    //uci.start();
-    //uciThread.start();
-    opp2->setPlaceholderText(basemodel.engineName);
-    Q_ASSERT(&uci);
-    Q_ASSERT(&uciThread);
-    uci->moveToThread(&uciThread);
-    qDebug() << "Starting uci engine in extra thread";
-    uci->start();
-    uciThread.start();
-*/
     engine = new Engine();
     basemodel.kind = "engine";
 }
@@ -88,7 +53,7 @@ void MainWindow::InitConnections()
             SIGNAL(updateView(position, position, QString)),
             SLOT(ToMove(position, position, QString)));
 
-    connect(dialog, SIGNAL(boardStyleChanged()), this, SLOT(newgame()));
+    connect(settings, SIGNAL(boardStyleChanged()), SLOT(newgame()));
 
     connect(table,
             SIGNAL(itemClicked(QTreeWidgetItem *, int)),
@@ -97,6 +62,8 @@ void MainWindow::InitConnections()
 
 void MainWindow::InitWidgets()
 {
+    settings = new SettingsView(this);
+
     tabview = new QTabWidget(this);
     tabwidget1 = new QWidget(tabview);
     tabwidget2 = new QWidget(tabview);
@@ -107,10 +74,15 @@ void MainWindow::InitWidgets()
     navigationview = new QWidget(navigationwidget);
 
     // navigation buttons
-    right = new QPushButton(QIcon(style()->standardIcon(QStyle::SP_MediaSeekForward)), "");
-    rright = new QPushButton(QIcon(style()->standardIcon(QStyle::SP_MediaSkipForward)), "");
-    left = new QPushButton(QIcon(style()->standardIcon(QStyle::SP_MediaSeekBackward)), "");
-    lleft = new QPushButton(QIcon(style()->standardIcon(QStyle::SP_MediaSkipBackward)), "");
+    right = new QPushButton(QIcon(style()->standardIcon(QStyle::SP_MediaSeekForward)), "Forward");
+    rright = new QPushButton(QIcon(style()->standardIcon(QStyle::SP_MediaSkipForward)), "End");
+    left = new QPushButton(QIcon(style()->standardIcon(QStyle::SP_MediaSeekBackward)), "Back");
+    lleft = new QPushButton(QIcon(style()->standardIcon(QStyle::SP_MediaSkipBackward)), "Begin");
+    right->setToolTip("Goes on move for");
+    rright->setToolTip("Goes to the end of the game");
+    left->setToolTip("Goes one move back");
+    lleft->setToolTip("Goes to the begining of the game");
+
     connect(lleft, SIGNAL(pressed()), SLOT(lleftPressed()));
     connect(left, SIGNAL(pressed()), SLOT(leftPressed()));
     connect(right, SIGNAL(pressed()), SLOT(rightPressed()));
@@ -128,47 +100,6 @@ void MainWindow::InitWidgets()
     table->setColumnCount(1);
     table->setHeaderLabels(QStringList() << "Moves");
 
-    /*   // menu buttons
-    openbutton = new QAction(QIcon(":/res/icons/open.png"), tr("Laden"), menubar);
-    //openbutton->setIcon();
-    //openbutton->setShortcuts(QKeySequence::New);
-    //openbutton->setStatusTip(tr("Create a new file"));
-    connect(openbutton, &QAction::triggered, this, &MainWindow::open);
-
-    savebutton = new QAction(tr("Speichern"), menubar);
-    //openbutton->setShortcuts(QKeySequence::New);
-    //openbutton->setStatusTip(tr("Create a new file"));
-    connect(savebutton, &QAction::triggered, this, &MainWindow::save);
-
-    enginestartsbutton = new QAction(tr("Enginestatus wechseln"), menubar);
-    //openbutton->setShortcuts(QKeySequence::New);
-    //openbutton->setStatusTip(tr("Create a new file"));
-    connect(enginestartsbutton, &QAction::triggered, this, &MainWindow::toggleEngineStatus);
-
-    settingsbutton = new QAction(tr("Optionen"), menubar);
-    //openbutton->setShortcuts(QKeySequence::New);
-    //openbutton->setStatusTip(tr("Create a new file"));
-    connect(settingsbutton, &QAction::triggered, this, &MainWindow::settings);
-
-    newgamebutton = new QAction(tr("Neues Spiel"), menubar);
-    //openbutton->setShortcuts(QKeySequence::New);
-    //openbutton->setStatusTip(tr("Create a new file"));
-    connect(newgamebutton, &QAction::triggered, this, &MainWindow::newgame);
-
-    exitbutton = new QAction(tr("Exit"), menubar);
-    //openbutton->setShortcuts(QKeySequence::New);
-    //openbutton->setStatusTip(tr("Create a new file"));
-    connect(exitbutton, &QAction::triggered, this, &MainWindow::close);
-
-    setMenuBar(menubar);
-    menu1 = menuBar()->addMenu("Datei");
-    menu1->addAction(openbutton);
-    menu1->addAction(savebutton);
-    menu1->addAction(settingsbutton);
-    menu1->addAction(enginestartsbutton);
-    menu1->addAction(newgamebutton);
-    menu1->addAction(exitbutton);
-*/
     // tabwidget1 layout
     QHBoxLayout *tab1layout = new QHBoxLayout;
     tab1layout->addWidget(table);
@@ -188,6 +119,7 @@ void MainWindow::InitWidgets()
     navibuttonslayout->addWidget(rright);
     navigationview->setLayout(navibuttonslayout);
 
+    // gameinfos
     gameinfoswidget = new QWidget();
     gameinfosh = new QVBoxLayout;
     opponents = new QHBoxLayout;
@@ -196,9 +128,7 @@ void MainWindow::InitWidgets()
     opponents->addWidget(opp1);
     opp2 = new QLineEdit();
     opp2->setPlaceholderText(basemodel.engineName);
-    opponents->addWidget(opp2);
-
-    // TODO: set the placeholder text with setPlaceholderText(...); [ok]
+    opponents->addWidget(opp2);    
     location = new QHBoxLayout;
     loca = new QLineEdit();
     loca->setPlaceholderText("beijin masters");
@@ -226,6 +156,7 @@ void MainWindow::InitWidgets()
 
     navigationwidget->setLayout(naviwidlayout);
 
+    // hole Dock
     dockWidget = new QDockWidget(tr("Dock"), this);
     dockWidget->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
     dockWidget->setWidget(navigationwidget);
@@ -233,7 +164,7 @@ void MainWindow::InitWidgets()
     dockWidget->setFeatures(QDockWidget::NoDockWidgetFeatures);
     addDockWidget(Qt::RightDockWidgetArea, dockWidget);
 
-    // Add toolbar
+    // Toolbar
     toolbar = new QToolBar(this);
     toolbar->setObjectName("toolbar");
     toolbar->setAllowedAreas(Qt::TopToolBarArea | Qt::BottomToolBarArea);
@@ -244,9 +175,8 @@ void MainWindow::InitWidgets()
     toolbar->setForegroundRole(QPalette::Light);
     toolbar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
     addToolBar(Qt::TopToolBarArea, toolbar);
-    //QIcon icon = style()->standardIcon(QStyle::SP_ArrowBack);
 
-    //QAction *new_action = new QAction();
+    // TODO: Add shortcuts
     toolbar
         ->addAction(QIcon(style()->standardIcon(QStyle::SP_DialogApplyButton)),
                     tr("New game"),
@@ -291,9 +221,9 @@ void MainWindow::InitWidgets()
         ->setToolTip("Give the game up. You will loose.");
     toolbar->addSeparator();
     toolbar->addAction(QIcon(":res/settings.png"), //style()->standardIcon(QStyle::SP_ComputerIcon)),
-                       tr("Options"),
+                       tr("Settings"),
                        this,
-                       SLOT(settings()));
+                       SLOT(OpenSettings()));
     toolbar
         ->addAction(QIcon(style()->standardIcon(
                         (QStyle::SP_DialogHelpButton))), //SP_TitleBarContextHelpButton))),
@@ -311,91 +241,50 @@ void MainWindow::InitWidgets()
                     QCoreApplication::instance(),
                     &QCoreApplication::quit)
         ->setToolTip("Exit the application");
-
-    dialog = new SettingsView(this);
 }
 
-void MainWindow::itemClicked(QTreeWidgetItem *item, int column)
+QFile *MainWindow::loadPGNFile()
 {
-    qDebug() << "item clicked";
-    int row = table->indexFromItem(item).row();
-    basemodel.board = basemodel.moveHistory[row];
-    isTableClicked = row;
-    repaint();
-}
+    auto openFile = QFileDialog::getOpenFileName(this, tr("Open file"), QDir::homePath());
 
-void MainWindow::giveUpGame()
-{
-    QMessageBox::information(this, "Information", "You have decided to give up, you lose...");
-}
-
-void MainWindow::toggleGameView()
-{
-    if (basemodel.gameView == color::Red) {
-        basemodel.gameView = color::Black;
-        statusBar()->showMessage("Black on bottom now");
-    } else {
-        basemodel.gameView = color::Red;
-        statusBar()->showMessage("Red on bottom now");
-    }
-    repaint();
-}
-
-void MainWindow::giveTipp()
-{
-    std::pair<position, position> move = engine->GetBestMove(basemodel.board.onMove);
-    position from = move.first;
-    position to = move.second;
-    QString c;
-    if (basemodel.board.onMove == color::Red)
-        c = "Red";
-    else
-        c = "Black";
-    QString token = basemodel.posToken(from.col, from.row, to.col, to.row);
-    QString bestMoveWouldBe = QString("The best move for %1 would be %2").arg(c).arg(token);
-    QMessageBox::information(this, "Engine says:", bestMoveWouldBe);
-}
-void MainWindow::About()
-{
-    QMessageBox::aboutQt(this, "Information");
-}
-void MainWindow::Help()
-{
-    //QMessageBox::information(this, "Information", "Noch nicht implementiert");
-    QDesktopServices::openUrl(
-        QUrl("https://github.com/global667/ElephantChess/blob/main/README.md"));
-    statusBar()->showMessage(tr("Have open URL in browser"));
-}
-
-void MainWindow::playNow()
-{
-    if (basemodel.kind == "engine")
-        engine->engineGo();
-    else
-        uci->engineGo();
-}
-
-void MainWindow::open()
-{
-    auto openFile = QFileDialog::getOpenFileName(this, tr("Open file"));
-    statusBar()->showMessage(tr("Open file: ") + openFile);
-    //QMessageBox::information(this, "Information", "Noch nicht implementiert");
+    statusBar()->showMessage(tr("Try to load file ") + openFile);
 
     if (openFile.isNull()) {
         statusBar()->showMessage(tr("Open file error"));
-        return;
+        return nullptr;
     }
-    QFile opfile(openFile);
-    if (!opfile.open(QIODeviceBase::ReadOnly | QIODeviceBase::Text)) {
+    QFile *opfile = new QFile(openFile);
+    if (!opfile->open(QIODeviceBase::ReadOnly | QIODeviceBase::Text)) {
         statusBar()->showMessage(tr("Open file error"));
+        return nullptr;
+    }
+    statusBar()->showMessage(tr("Open file: ") + openFile);
+    return opfile;
+}
+
+// TODO: Add data to history
+// Toolbar slots
+void MainWindow::open()
+{
+    QFile *opfile = loadPGNFile();
+    if (opfile == nullptr) {
+        QMessageBox::critical(this, "Error", "Error while open file");
         return;
     }
+    QTextStream textstream(opfile);
 
-    statusBar()->showMessage(tr("Load file ") + openFile);
+    ReadPGNData(textstream.readAll());
 
-    QTextStream textstream(&opfile);
-    auto str = textstream.readAll();
-    for (auto &s : str.split('\n')) {
+    qDebug() << basemodel.moves;
+
+    opfile->close();
+
+    PutPGNOnBoard();
+}
+
+void MainWindow::ReadPGNData(QString data)
+{
+    for (auto &s : data.split('\n')) {
         if (s.contains("[Event ")) {
             loca->setText(s.split("\"").at(1));
         } else {
@@ -424,13 +313,12 @@ void MainWindow::open()
             }
         }
     }
+}
 
-    qDebug() << basemodel.moves;
-
-    opfile.close();
+void MainWindow::PutPGNOnBoard()
+{
     int c = 0;
     basemodel.board.initBoard();
-    update();
 
     QStandardItem *item;
     for (QString &item1 : basemodel.moves) {
@@ -448,7 +336,7 @@ void MainWindow::open()
         basemodel.board.movePiece(9 - fy, 8 - fx, 9 - ty, 8 - tx);
     }
     column = c;
-    update();
+    repaint();
 }
 
 void MainWindow::save()
@@ -495,13 +383,66 @@ void MainWindow::save()
     statusBar()->showMessage(tr("Save file: ") + saveFile);
 }
 
-void MainWindow::settings()
+void MainWindow::giveUpGame()
 {
-    dialog->setModal(true);
-    connect(dialog, SIGNAL(finished(int)), this, SLOT(updateSettings()));
-    dialog->open();
+    QMessageBox::information(this, "Information", "You have decided to give up, you lose...");
 }
 
+void MainWindow::toggleGameView()
+{
+    if (basemodel.gameView == color::Red) {
+        basemodel.gameView = color::Black;
+        statusBar()->showMessage("Black on bottom now");
+    } else {
+        basemodel.gameView = color::Red;
+        statusBar()->showMessage("Red on bottom now");
+    }
+    repaint();
+}
+
+void MainWindow::giveTipp()
+{
+    std::pair<position, position> move = engine->GetBestMove(basemodel.board.onMove);
+    position from = move.first;
+    position to = move.second;
+    QString c;
+    if (basemodel.board.onMove == color::Red)
+        c = "Red";
+    else
+        c = "Black";
+    QString token = basemodel.posToken(from.col, from.row, to.col, to.row);
+    QString bestMoveWouldBe = QString("The best move for %1 would be %2").arg(c).arg(token);
+    QMessageBox::information(this, "Engine says:", bestMoveWouldBe);
+}
+
+void MainWindow::About()
+{
+    QMessageBox::aboutQt(this, "Information");
+}
+
+void MainWindow::Help()
+{
+    QDesktopServices::openUrl(
+        QUrl("https://github.com/global667/ElephantChess/blob/main/README.md"));
+    statusBar()->showMessage(tr("Have open URL in browser"));
+}
+
+void MainWindow::playNow()
+{
+    if (basemodel.kind == "engine")
+        engine->engineGo();
+    else
+        uci->engineGo();
+}
+
+void MainWindow::OpenSettings()
+{
+    settings->setModal(true);
+    connect(settings, SIGNAL(finished(int)), this, SLOT(updateSettings()));
+    settings->open();
+}
+
+// called after OpenSettings()
 void MainWindow::updateSettings()
 {
     qDebug() << basemodel.engineName;
@@ -514,8 +455,7 @@ void MainWindow::updateSettings()
                 SLOT(ToMove(position, position, QString)));
         opp2->setPlaceholderText(basemodel.engineName);
         delete uci;
-    }
-    if (basemodel.engineName == "/home/wsk/Chameleon/Chameleon") {
+    } else {
         basemodel.kind = "uci";
         uci = new UCI();
         disconnect(engine, SIGNAL(updateView(position, position, QString)), nullptr, nullptr);
@@ -528,17 +468,6 @@ void MainWindow::updateSettings()
         uci->moveToThread(&uciThread);
         qDebug() << "Starting uci engine (" + basemodel.engineName + " in extra thread";
         uci->start();
-        uciThread.start();
-    }
-}
-
-void MainWindow::toggleEngineStatus()
-{
-    if (uci)
-        return;
-    if (uciThread.isRunning()) {
-        uciThread.quit();
-    } else {
         uciThread.start();
     }
 }
@@ -566,6 +495,9 @@ void MainWindow::newgame()
     repaint();
 }
 
+// End Toolbar slots
+
+// Navigation arrows
 void MainWindow::lleftPressed()
 {
     basemodel.currentMove = 0;
@@ -574,7 +506,6 @@ void MainWindow::lleftPressed()
     //if (uciThread.isRunning()) {
     //    uciThread.quit();
     //}
-    repaint();
 }
 
 void MainWindow::leftPressed()
@@ -588,7 +519,6 @@ void MainWindow::leftPressed()
     //if (uciThread.isRunning()) {
     //    uciThread.quit();
     //}
-    repaint();
 }
 
 void MainWindow::rightPressed()
@@ -602,7 +532,6 @@ void MainWindow::rightPressed()
     //    uciThread.quit();
     //}
 
-    repaint();
 }
 
 void MainWindow::rrightPressed()
@@ -612,7 +541,6 @@ void MainWindow::rrightPressed()
     //if (uciThread.isRunning()) {
     //    uciThread.quit();
     //}
-    repaint();
 }
 
 void MainWindow::ResetToHistory()
@@ -624,12 +552,21 @@ void MainWindow::ResetToHistory()
     basemodel.toUCI = {-1, -1};
     boardview->fromHuman = {-1, -1};
     boardview->toHuman = {-1, -1};
+    repaint();
 }
 
-// TODO: putting human and uci together
 void MainWindow::ToMove(position from, position to, QString kind)
 {
-    basemodel.currentMoves.push_back({from, to});
+    // not used at the moment
+    //basemodel.currentMoves.push_back({from, to});
+
+    QString name = basemodel.board.pieces[from.row][from.col].name;
+    QString beaten;
+    if (basemodel.board.GetPiece({to.row, to.col}).type != pieceType::Empty)
+        beaten = "x";
+    else
+        beaten = "-";
+
     basemodel.board.movePiece(from.row, from.col, to.row, to.col);
     if (basemodel.board.onMove == color::Black) {
         basemodel.fromUCI = from;
@@ -638,9 +575,15 @@ void MainWindow::ToMove(position from, position to, QString kind)
         basemodel.fromHuman = from;
         basemodel.toHuman = to;
     }
-    basemodel.board.toggleOnMove();
     addMoveToHistory();
-    addMoveToList();
+
+    QStringList mv;
+    mv << name << QString(basemodel.moves.last().at(0)) << QString(basemodel.moves.last().at(1))
+       << beaten << QString(basemodel.moves.last().at(2)) << QString(basemodel.moves.last().at(3));
+    addMoveToList(mv.join(""));
+
+    basemodel.board.toggleOnMove();
+
     if (kind.contains("human")) {
         engine->engineGo();
     } else if (kind.contains("uci")) {
@@ -658,14 +601,11 @@ void MainWindow::addMoveToHistory()
     basemodel.moveHistory.append(basemodel.board);
 }
 
-void MainWindow::addMoveToList()
+void MainWindow::addMoveToList(QString move)
 {
-    if (basemodel.moves.isEmpty())
-        return;
-    QString mv = QString(basemodel.moves.last());
-
+    qDebug() << move;
     QTreeWidgetItem *item = new QTreeWidgetItem();
-    item->setText(0, mv);
+    item->setText(0, move);
     if (isTableClicked) {
             if (table->topLevelItemCount() == isTableClicked + 1) {
             table->addTopLevelItem(item);
@@ -676,8 +616,27 @@ void MainWindow::addMoveToList()
             table->addTopLevelItem(item);
     }
     item = nullptr;
-    mv = nullptr;
     //column++;
+}
+
+void MainWindow::itemClicked(QTreeWidgetItem *item, int column)
+{
+    //qDebug() << "item clicked";
+    int row = table->indexFromItem(item).row();
+    basemodel.board = basemodel.moveHistory[row];
+    isTableClicked = row;
+    repaint();
+}
+
+void MainWindow::toggleEngineStatus()
+{
+    if (uci)
+            return;
+    if (uciThread.isRunning()) {
+            uciThread.quit();
+    } else {
+            uciThread.start();
+    }
 }
 
 MainWindow::~MainWindow()

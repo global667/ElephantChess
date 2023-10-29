@@ -409,7 +409,8 @@ bool GenMove::PerformMove(position from, position to, color currentPlayerColor)
     pieces[from.row][from.col] = Piece(color::Red,
                                        pieceType::Empty,
                                        {from.row, from.col},
-                                       QImage(nullptr));
+                                       QImage(nullptr),
+                                       "");
 
     // Set the previous position to empty
 

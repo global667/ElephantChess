@@ -52,7 +52,6 @@ Board &Board::operator=(const Board &other)
 
 void Board::InitPiece(Piece piece)
 {
-    //Piece p = Piece(piece.color, piece.type, piece.pos, piece.img);
     pieces[piece.pos.row][piece.pos.col] = piece;
 };
 
@@ -63,11 +62,13 @@ void Board::movePiece(int fromRow, int fromCol, int toRow, int toCol)
     pieces[fromRow][fromCol] = Piece(GetColor({fromRow, fromCol}),
                                      pieceType::Empty,
                                      {fromRow, fromCol},
-                                     QImage());
+                                     QImage(),
+                                     "");
     piece.pos.row = toRow;
     piece.pos.col = toCol;
     pieces[toRow][toCol] = piece;
     basemodel.moves.append(basemodel.posToken(fromCol, fromRow, toCol, toRow));
+    //basemodel.currentMoves.push_back({{fromCol, fromRow}, {toCol, toRow}});
 };
 
 // Wechselt die Farbe des Spielers, der am Zug ist
@@ -124,126 +125,170 @@ void Board::initBoard()
     } else {
         for (int row = 0; row < ROWS; ++row) {
             for (int col = 0; col < COLS; ++col) {
-                pieces[row][col] = Piece(color::Red, pieceType::Empty, {row, col}, QImage());
+                pieces[row][col] = Piece(color::Red, pieceType::Empty, {row, col}, QImage(), "");
             }
         }
 
         InitPiece(Piece(color::Red,
                         pieceType::Chariot,
                         {0, 0},
-                        QImage(":/res/Xiangqi_Chariot_(Trad).png")));
-        InitPiece(
-            Piece(color::Red, pieceType::Horse, {0, 1}, QImage(":/res/Xiangqi_Horse_(Trad).png")));
+                        QImage(":/res/Xiangqi_Chariot_(Trad).png"),
+                        "\u8ECA"));
+        InitPiece(Piece(color::Red,
+                        pieceType::Horse,
+                        {0, 1},
+                        QImage(":/res/Xiangqi_Horse_(Trad).png"),
+                        "\u99AC"));
         InitPiece(Piece(color::Red,
                         pieceType::Elephant,
                         {0, 2},
-                        QImage(":/res/Xiangqi_Elephant_(Trad).png")));
+                        QImage(":/res/Xiangqi_Elephant_(Trad).png"),
+                        "\u76f8"));
         InitPiece(Piece(color::Red,
                         pieceType::Advisor,
                         {0, 3},
-                        QImage(":/res/Xiangqi_Advisor_(Trad).png")));
+                        QImage(":/res/Xiangqi_Advisor_(Trad).png"),
+                        "\u4ed5"));
         InitPiece(Piece(color::Red,
                         pieceType::General,
                         {0, 4},
-                        QImage(":/res/Xiangqi_General_(Trad).png")));
+                        QImage(":/res/Xiangqi_General_(Trad).png"),
+                        "\u5e25"));
         InitPiece(Piece(color::Red,
                         pieceType::Advisor,
                         {0, 5},
-                        QImage(":/res/Xiangqi_Advisor_(Trad).png")));
+                        QImage(":/res/Xiangqi_Advisor_(Trad).png"),
+                        "\u4ed5"));
         InitPiece(Piece(color::Red,
                         pieceType::Elephant,
                         {0, 6},
-                        QImage(":/res/Xiangqi_Elephant_(Trad).png")));
-        InitPiece(
-            Piece(color::Red, pieceType::Horse, {0, 7}, QImage(":/res/Xiangqi_Horse_(Trad).png")));
+                        QImage(":/res/Xiangqi_Elephant_(Trad).png"),
+                        "\u76f8"));
+        InitPiece(Piece(color::Red,
+                        pieceType::Horse,
+                        {0, 7},
+                        QImage(":/res/Xiangqi_Horse_(Trad).png"),
+                        "\u99AC"));
         InitPiece(Piece(color::Red,
                         pieceType::Chariot,
                         {0, 8},
-                        QImage(":/res/Xiangqi_Chariot_(Trad).png")));
-        InitPiece(
-            Piece(color::Red, pieceType::Cannon, {2, 1}, QImage(":/res/Xiangqi_Cannon_(Trad).png")));
-        InitPiece(
-            Piece(color::Red, pieceType::Cannon, {2, 7}, QImage(":/res/Xiangqi_Cannon_(Trad).png")));
+                        QImage(":/res/Xiangqi_Chariot_(Trad).png"),
+                        "\u8ECA"));
+        InitPiece(Piece(color::Red,
+                        pieceType::Cannon,
+                        {2, 1},
+                        QImage(":/res/Xiangqi_Cannon_(Trad).png"),
+                        "\u70ae"));
+        InitPiece(Piece(color::Red,
+                        pieceType::Cannon,
+                        {2, 7},
+                        QImage(":/res/Xiangqi_Cannon_(Trad).png"),
+                        "\u70ae"));
         InitPiece(Piece(color::Red,
                         pieceType::Soldier,
                         {3, 0},
-                        QImage(":/res/Xiangqi_Soldier_(Trad).png")));
+                        QImage(":/res/Xiangqi_Soldier_(Trad).png"),
+                        "\u5175"));
         InitPiece(Piece(color::Red,
                         pieceType::Soldier,
                         {3, 2},
-                        QImage(":/res/Xiangqi_Soldier_(Trad).png")));
+                        QImage(":/res/Xiangqi_Soldier_(Trad).png"),
+                        "\u5175"));
         InitPiece(Piece(color::Red,
                         pieceType::Soldier,
                         {3, 4},
-                        QImage(":/res/Xiangqi_Soldier_(Trad).png")));
+                        QImage(":/res/Xiangqi_Soldier_(Trad).png"),
+                        "\u5175"));
         InitPiece(Piece(color::Red,
                         pieceType::Soldier,
                         {3, 6},
-                        QImage(":/res/Xiangqi_Soldier_(Trad).png")));
+                        QImage(":/res/Xiangqi_Soldier_(Trad).png"),
+                        "\u5175"));
         InitPiece(Piece(color::Red,
                         pieceType::Soldier,
                         {3, 8},
-                        QImage(":/res/Xiangqi_Soldier_(Trad).png")));
+                        QImage(":/res/Xiangqi_Soldier_(Trad).png"),
+                        "\u5175"));
 
         InitPiece(Piece(color::Black,
                         pieceType::Chariot,
                         {9, 0},
-                        QImage(":/res/Xiangqi_Chariot_(Trad).png")));
-        InitPiece(
-            Piece(color::Black, pieceType::Horse, {9, 1}, QImage(":/res/Xiangqi_Horse_(Trad).png")));
+                        QImage(":/res/Xiangqi_Chariot_(Trad).png"),
+                        "\u8ECA"));
+        InitPiece(Piece(color::Black,
+                        pieceType::Horse,
+                        {9, 1},
+                        QImage(":/res/Xiangqi_Horse_(Trad).png"),
+                        "\u99AC"));
         InitPiece(Piece(color::Black,
                         pieceType::Elephant,
                         {9, 2},
-                        QImage(":/res/Xiangqi_Elephant_(Trad).png")));
+                        QImage(":/res/Xiangqi_Elephant_(Trad).png"),
+                        "\u8c61"));
         InitPiece(Piece(color::Black,
                         pieceType::Advisor,
                         {9, 3},
-                        QImage(":/res/Xiangqi_Advisor_(Trad).png")));
+                        QImage(":/res/Xiangqi_Advisor_(Trad).png"),
+                        "\u58eb"));
         InitPiece(Piece(color::Black,
                         pieceType::General,
                         {9, 4},
-                        QImage(":/res/Xiangqi_General_(Trad).png")));
+                        QImage(":/res/Xiangqi_General_(Trad).png"),
+                        "\u5c07"));
         InitPiece(Piece(color::Black,
                         pieceType::Advisor,
                         {9, 5},
-                        QImage(":/res/Xiangqi_Advisor_(Trad).png")));
+                        QImage(":/res/Xiangqi_Advisor_(Trad).png"),
+                        "\u58eb"));
         InitPiece(Piece(color::Black,
                         pieceType::Elephant,
                         {9, 6},
-                        QImage(":/res/Xiangqi_Elephant_(Trad).png")));
-        InitPiece(
-            Piece(color::Black, pieceType::Horse, {9, 7}, QImage(":/res/Xiangqi_Horse_(Trad).png")));
+                        QImage(":/res/Xiangqi_Elephant_(Trad).png"),
+                        "\u8c61"));
+        InitPiece(Piece(color::Black,
+                        pieceType::Horse,
+                        {9, 7},
+                        QImage(":/res/Xiangqi_Horse_(Trad).png"),
+                        "\u99AC"));
         InitPiece(Piece(color::Black,
                         pieceType::Chariot,
                         {9, 8},
-                        QImage(":/res/Xiangqi_Chariot_(Trad).png")));
+                        QImage(":/res/Xiangqi_Chariot_(Trad).png"),
+                        "\u8ECA"));
         InitPiece(Piece(color::Black,
                         pieceType::Cannon,
                         {7, 1},
-                        QImage(":/res/Xiangqi_Cannon_(Trad).png")));
+                        QImage(":/res/Xiangqi_Cannon_(Trad).png"),
+                        "\u7832"));
         InitPiece(Piece(color::Black,
                         pieceType::Cannon,
                         {7, 7},
-                        QImage(":/res/Xiangqi_Cannon_(Trad).png")));
+                        QImage(":/res/Xiangqi_Cannon_(Trad).png"),
+                        "\u7832"));
         InitPiece(Piece(color::Black,
                         pieceType::Soldier,
                         {6, 0},
-                        QImage(":/res/Xiangqi_Soldier_(Trad).png")));
+                        QImage(":/res/Xiangqi_Soldier_(Trad).png"),
+                        "\u5352"));
         InitPiece(Piece(color::Black,
                         pieceType::Soldier,
                         {6, 2},
-                        QImage(":/res/Xiangqi_Soldier_(Trad).png")));
+                        QImage(":/res/Xiangqi_Soldier_(Trad).png"),
+                        "\u5352"));
         InitPiece(Piece(color::Black,
                         pieceType::Soldier,
                         {6, 4},
-                        QImage(":/res/Xiangqi_Soldier_(Trad).png")));
+                        QImage(":/res/Xiangqi_Soldier_(Trad).png"),
+                        "\u5352"));
         InitPiece(Piece(color::Black,
                         pieceType::Soldier,
                         {6, 6},
-                        QImage(":/res/Xiangqi_Soldier_(Trad).png")));
+                        QImage(":/res/Xiangqi_Soldier_(Trad).png"),
+                        "\u5352"));
         InitPiece(Piece(color::Black,
                         pieceType::Soldier,
                         {6, 8},
-                        QImage(":/res/Xiangqi_Soldier_(Trad).png")));
+                        QImage(":/res/Xiangqi_Soldier_(Trad).png"),
+                        "\u5352"));
     }
 };
