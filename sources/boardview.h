@@ -40,11 +40,15 @@ public:
 
     void MovePiece(position from, position to);
 
+    // temp for graphics
+    position fromHuman = {-1, -1};
+    position toHuman = {-1, -1};
+
 private:
     void PaintMarker(QPainter *p);
     void PaintBoard(QPainter *p);
     void PaintPieces(QPainter *p);
-    QPixmap *PaintPiecesRaw(QPainter *p, int row, int col);
+    QPixmap *PaintNativePiece(QPainter *p, int row, int col);
     void DrawSelectedPieces(QPainter *p);
 
 protected:
@@ -59,12 +63,6 @@ private:
 
     // controls the mouse input
     bool pressed = false;
-    // Board coordinates from to for the 2-dim array
-    int fromCol;
-    int fromRow;
-    int toCol;
-    int toRow;
-    std::vector<std::pair<position, position>> allPreviewMoves;
 
     // Cutting points of the board
     const int cutpWidth = BaseModel::BoardColPoints;  //8;

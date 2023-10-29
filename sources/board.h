@@ -60,6 +60,27 @@ public:
     // Brett des Spiels
     Piece pieces[ROWS][COLS];
     viewStyleMode viewStyleModeVar = viewStyleMode::traditional_native;
+
+    QByteArray posToken(QByteArray token)
+    {
+        QByteArray t = token.split(' ').at(1);
+        return t;
+    }
+
+    QByteArray posToken(int fromX, int fromY, int toX, int toY)
+    {
+        QByteArray m;
+        char c1 = fromX + 'a';
+        char c2 = (fromY) + '0';
+        char c3 = toX + 'a';
+        char c4 = (toY) + '0';
+        m.clear();
+        m.append(c1);
+        m.append(c2);
+        m.append(c3);
+        m.append(c4);
+        return m;
+    }
 };
 
 #endif // BOARD_H

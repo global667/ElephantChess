@@ -29,7 +29,6 @@
 #include <QThread>
 
 #include "basemodel.h"
-#include "maschines.h"
 #include "types.h"
 
 class UCI : public QObject
@@ -40,22 +39,16 @@ public:
     ~UCI();
 
     void writeDatas(QByteArray d);
-    void MovePiece(position from, position to); // override; //
-    void MovePiece(int fromX, int fromY, int toX, int toY);
 
     QProcess engine;
     void engineGo();
     QStringList moves;
-
-    //QString engineName = "chameleon";
 
 private:
     QByteArray buffer;
     bool waitForReadyOK;
     bool newGame;
 
-    QByteArray posToken(int fromX, int fromY, int toX, int toY);
-    QByteArray posToken(QByteArray token);
 signals:
     void updateView(position from, position to, QString kind);
     void boardChanged(int fromX, int fromY, int toX, int toY);

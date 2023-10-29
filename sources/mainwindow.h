@@ -65,12 +65,16 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    // The engine, as exe and its thread
+    // The engine, and its thread
     UCI *uci;
     QThread uciThread;
     Engine *engine;
 
 private:
+    void InitWidgets();
+    void InitConnections();
+    void InitEngine();
+
     BoardView *boardview;
     QTabWidget *tabview;
     QWidget *tabwidget1;
@@ -108,6 +112,7 @@ private:
 
     int isTableClicked = 0;
 
+    void ResetToHistory();
 public slots:
     void open();
     void save();
@@ -132,6 +137,5 @@ public slots:
 
 public slots:
     void ToMove(position from, position to, QString kind);
-    //void blackToMove(position from, position to);
 };
 #endif // MAINWINDOW_H

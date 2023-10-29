@@ -137,7 +137,7 @@ void BoardView::PaintMarker(QPainter *p)
 }
 
 // Draws the pieces on the board (native)
-QPixmap *BoardView::PaintPiecesRaw(QPainter *p, int row, int col)
+QPixmap *BoardView::PaintNativePiece(QPainter *p, int row, int col)
 {
     //QPainter *p;
     Q_ASSERT(p);
@@ -150,13 +150,11 @@ QPixmap *BoardView::PaintPiecesRaw(QPainter *p, int row, int col)
     pen.setWidth(3);
     p->setPen(pen);
 
-    QFont font; //"BabelStoneHan", 30, 75);//"Songti");//"YaHei Consolas Hybrid", 30, 75);    font.setStretch(150);
+    QFont font;
     font.setPointSize(30);
     font.setWeight(QFont::DemiBold);
     p->setFont(font);
     // Draws all pieces
-    //for (int j = 0; j < 10; j++) {
-    // for (int i = 0; i < 9; i++) {
     if (basemodel.board.pieces[row][8 - col].name != "") {
         if (basemodel.board.pieces[row][8 - col].colr == color::Red) {
             // Draw red
@@ -190,8 +188,6 @@ QPixmap *BoardView::PaintPiecesRaw(QPainter *p, int row, int col)
                     basemodel.board.pieces[row][8 - col].name);
         p->drawPixmap(0, 0, pix);
     }
-    //}
-    //}
     return &pix;
 }
 
@@ -217,7 +213,7 @@ void BoardView::PaintPieces(QPainter *p)
                     pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
                     pixm2 = pixm.copy(0, 0, 100, 100);
                 } else if (basemodel.board.viewStyleModeVar == viewStyleMode::traditional_native) {
-                    pixm2 = *PaintPiecesRaw(p, j, i);
+                    pixm2 = *PaintNativePiece(p, j, i);
                 }
             } else {
                 if (basemodel.board.viewStyleModeVar == viewStyleMode::western_png) {
@@ -227,7 +223,7 @@ void BoardView::PaintPieces(QPainter *p)
                     pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
                     pixm2 = pixm.copy(200, 0, 100, 100);
                 } else if (basemodel.board.viewStyleModeVar == viewStyleMode::traditional_native) {
-                    pixm2 = *PaintPiecesRaw(p, j, i);
+                    pixm2 = *PaintNativePiece(p, j, i);
                 }
             }
             p->drawPixmap(QRect((50 + ((8 - i) * (w - 2 * 50) / cutpWidth))
@@ -255,11 +251,6 @@ void BoardView::PaintBoard(QPainter *p)
     pn.setWidth(2);
     p->setPen(pn);
 
-    /*QFont font;
-    font.setBold(true);
-    font.setPointSize(10);
-    p->setFont(font);
-*/
     // Palaeste
     p->drawLine(50 + (3 * (width() - 2 * 50) / cutpWidth),
                 50 + 0 * (height() - 50 - 100) / cutpHeight,
@@ -411,145 +402,120 @@ void BoardView::DrawSelectedPieces(QPainter *p)
 
     auto w = p->viewport().width();  //p->viewport().width();
     auto h = p->viewport().height(); //p->viewport().height();
-
-    // Draws selected piece
-    p->setBrush(Qt::transparent);
-    //if (basemodel.board.onMove == color::Black) { // pressed) {
     QPen pen;
+    p->setBrush(Qt::transparent);
     pen.setColor(Qt::green);
     pen.setWidth(5);
     p->setPen(pen);
-    p->drawEllipse(QRect((50 + (((basemodel.fromHuman.col)) * (w - 2 * 50) / cutpWidth))
-                             - w / cutpWidth / 2 / 1.5,
-                         (50 + (9 - (basemodel.fromHuman.row)) * (h - 50 - 100) / cutpHeight)
-                             - h / cutpWidth / 2 / 1.5,
-                         w / (cutpWidth) / 1.5,
-                         h / cutpWidth / 1.5));
 
-    // draws legal moves as dots
-    //QPen pen;
-    pen.setColor(Qt::red);
-    pen.setWidth(5);
-    p->setPen(pen);
-    //qDebug() << "legalPieceMovesVar.size()" << legalPieceMovesVar.size();
-    for (auto move : allPreviewMoves) {
-        for (int j = 0; j < 10; j++) {
-            for (int i = 0; i < 9; i++) {
-                if (move.second.col == i && move.second.row == j) {
-                    p->drawEllipse(QRect((50 + ((move.second.col) * (w - 2 * 50) / cutpWidth))
-                                             - w / cutpWidth / 2 / 1.5,
-                                         (50 + (9 - move.second.row) * (h - 50 - 100) / cutpHeight)
-                                             - h / cutpWidth / 2 / 1.5,
-                                         w / (cutpWidth) / 1.5,
-                                         h / cutpWidth / 1.5));
+    if (fromHuman.col != -1) {
+        // Draws selected piece
+        p->setBrush(Qt::transparent);
+        pen.setColor(Qt::green);
+        pen.setWidth(5);
+        p->setPen(pen);
+        p->drawEllipse(
+            QRect((50 + (((fromHuman.col)) * (w - 2 * 50) / cutpWidth)) - w / cutpWidth / 2 / 1.5,
+                  (50 + (9 - (fromHuman.row)) * (h - 50 - 100) / cutpHeight)
+                      - h / cutpWidth / 2 / 1.5,
+                  w / (cutpWidth) / 1.5,
+                  h / cutpWidth / 1.5));
+
+        // draws legal moves as dots
+        pen.setColor(Qt::red);
+        pen.setWidth(5);
+        p->setPen(pen);
+
+        GenMove legalMoves(basemodel.board.pieces, basemodel.board.onMove);
+        std::vector<std::pair<position, position>> allPreviewMoves;
+        allPreviewMoves = legalMoves.IsValidPieceMove(fromHuman);
+        for (auto move : allPreviewMoves) {
+            for (int j = 0; j < 10; j++) {
+                for (int i = 0; i < 9; i++) {
+                    if (move.second.col == i && move.second.row == j) {
+                        p->drawEllipse(
+                            QRect((50 + ((move.second.col) * (w - 2 * 50) / cutpWidth))
+                                      - w / cutpWidth / 2 / 1.5,
+                                  (50 + (9 - move.second.row) * (h - 50 - 100) / cutpHeight)
+                                      - h / cutpWidth / 2 / 1.5,
+                                  w / (cutpWidth) / 1.5,
+                                  h / cutpWidth / 1.5));
+                    }
                 }
             }
         }
     }
 
-    //if (basemodel.board.onMove
-    //    == color::Black) { //basemodel.fromUCI.col != -1 && basemodel.fromUCI.row != -1) {
-    //QPen pen;
+    if (basemodel.fromUCI.col != -1) {
+        // draws the last moved line
+        pen.setColor(Qt::black);
 
-    // draws the last moved line
-    pen.setColor(Qt::black);
+        pen.setWidth(4);
+        p->setPen(pen);
+        p->setOpacity(0.7);
 
-    pen.setWidth(4);
-    p->setPen(pen);
-    p->setOpacity(0.7);
+        //qDebug() << basemodel.toUCI.col;
+        p->drawLine((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutpWidth)),
+                    (50 + ((9 - basemodel.fromUCI.row)) * (h - 50 - 100) / cutpHeight),
 
-    //qDebug() << basemodel.toUCI.col;
-    p->drawLine((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutpWidth)),
-                (50 + ((9 - basemodel.fromUCI.row)) * (h - 50 - 100) / cutpHeight),
+                    (50 + (((basemodel.toUCI.col)) * (w - 2 * 50) / cutpWidth)),
+                    (50 + ((9 - basemodel.toUCI.row)) * (h - 50 - 100) / cutpHeight));
 
-                (50 + (((basemodel.toUCI.col)) * (w - 2 * 50) / cutpWidth)),
-                (50 + ((9 - basemodel.toUCI.row)) * (h - 50 - 100) / cutpHeight));
+        pen.setWidth(25);
+        p->setPen(pen);
 
-    pen.setWidth(25);
-    p->setPen(pen);
+        p->drawPoint((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutpWidth)),
+                     (50 + ((9 - basemodel.fromUCI.row)) * (h - 50 - 100) / cutpHeight));
 
-    p->drawPoint((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutpWidth)),
-                 (50 + ((9 - basemodel.fromUCI.row)) * (h - 50 - 100) / cutpHeight));
+        pen.setWidth(18);
+        p->setPen(pen);
+        p->drawPoint((50 + (((basemodel.toUCI.col)) * (w - 2 * 50) / cutpWidth)),
+                     (50 + ((9 - basemodel.toUCI.row)) * (h - 50 - 100) / cutpHeight));
 
-    pen.setWidth(18);
-    p->setPen(pen);
-    p->drawPoint((50 + (((basemodel.toUCI.col)) * (w - 2 * 50) / cutpWidth)),
-                 (50 + ((9 - basemodel.toUCI.row)) * (h - 50 - 100) / cutpHeight));
+        pen.setWidth(5);
+        p->setPen(pen);
+        p->setOpacity(1);
 
-    pen.setWidth(5);
-    p->setPen(pen);
-    p->setOpacity(1);
+        pen.setColor(Qt::black);
+        pen.setWidth(5);
+        p->setPen(pen);
+        p->drawEllipse(QRect((50 + (((basemodel.toUCI.col)) * (w - 2 * 50) / cutpWidth))
+                                 - w / cutpWidth / 2 / 1.5,
+                             (50 + (9 - (basemodel.toUCI.row)) * (h - 50 - 100) / cutpHeight)
+                                 - h / cutpWidth / 2 / 1.5,
+                             w / (cutpWidth) / 1.5,
+                             h / cutpWidth / 1.5));
 
-    pen.setColor(Qt::black);
-    pen.setWidth(5);
-    p->setPen(pen);
-    p->drawEllipse(
-        QRect((50 + (((basemodel.toUCI.col)) * (w - 2 * 50) / cutpWidth)) - w / cutpWidth / 2 / 1.5,
-              (50 + (9 - (basemodel.toUCI.row)) * (h - 50 - 100) / cutpHeight)
-                  - h / cutpWidth / 2 / 1.5,
-              w / (cutpWidth) / 1.5,
-              h / cutpWidth / 1.5));
-
-    p->drawEllipse(QRect((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutpWidth))
-                             - w / cutpWidth / 2 / 1.5,
-                         (50 + (9 - (basemodel.fromUCI.row)) * (h - 50 - 100) / cutpHeight)
-                             - h / cutpWidth / 2 / 1.5,
-                         w / (cutpWidth) / 1.5,
-                         h / cutpWidth / 1.5));
-    // }
+        p->drawEllipse(QRect((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutpWidth))
+                                 - w / cutpWidth / 2 / 1.5,
+                             (50 + (9 - (basemodel.fromUCI.row)) * (h - 50 - 100) / cutpHeight)
+                                 - h / cutpWidth / 2 / 1.5,
+                             w / (cutpWidth) / 1.5,
+                             h / cutpWidth / 1.5));
+    }
 }
 
 void BoardView::mousePressEvent(QMouseEvent *event)
 {
     //qDebug() << "mousePressEvent";
-
-    /*   float w = width();
-    float h = height();
-
-    float squareCol = floor((w - 2.0 * 50.0) / BaseModel::BoardColPoints);
-    float squareRow = floor((h - 50.0 - 100.0) / BaseModel::BoardRowPoints);
-    float boardCursorCol;
-    float boardCursorRow;
-    if (basemodel.gameView == Color::Red) {
-        boardCursorCol = event->pos().x();
-        boardCursorRow = event->pos().y();
-    } else {
-        boardCursorCol = width() - event->pos().x();
-        boardCursorRow = height() - event->pos().y();
-    }
-*/
     QPoint p = CalcBoardCoords({event->pos().x(), event->pos().y()});
-
     if (!pressed) {
-        //fromCol = static_cast<int>(floor(((boardCursorCol) / squareCol)) + 1);
-        //fromRow = static_cast<int>(floor(((boardCursorRow) / squareRow)) + 1);
-        fromCol = p.x();
-        fromRow = p.y();
+        fromHuman.col = p.x() - 1;
+        fromHuman.row = 10 - p.y();
         pressed = true;
 
-        if (basemodel.board.pieces[10 - fromRow][fromCol - 1].type == pieceType::Empty) {
+        if (basemodel.board.pieces[fromHuman.row][fromHuman.col].type == pieceType::Empty) {
             pressed = false;
             return;
         }
-        if (basemodel.board.pieces[10 - fromRow][fromCol - 1].colr != basemodel.board.onMove) {
+        if (basemodel.board.pieces[fromHuman.row][fromHuman.col].colr != basemodel.board.onMove) {
             pressed = false;
             return;
         }
-
-        basemodel.fromHuman.col = fromCol - 1;
-        basemodel.fromHuman.row = 10 - fromRow;
-
-        qDebug() << basemodel.fromHuman.col << basemodel.fromHuman.row;
-
-        GenMove legalMoves(basemodel.board.pieces, basemodel.board.onMove);
-        allPreviewMoves = legalMoves.IsValidPieceMove(basemodel.fromHuman);
-
+        //qDebug() << basemodel.fromHuman.col << basemodel.fromHuman.row;
     } else if (pressed) {
-        //toCol = static_cast<int>(floor(((boardCursorCol) / squareCol)) + 1);
-        //toRow = static_cast<int>(floor(((boardCursorRow) / squareRow)) + 1);
-
-        toCol = p.x();
-        toRow = p.y();
+        toHuman.col = p.x() - 1;
+        toHuman.row = 10 - p.y();
 
         GenMove mate(basemodel.board.pieces, basemodel.board.onMove);
 
@@ -558,27 +524,32 @@ void BoardView::mousePressEvent(QMouseEvent *event)
             qDebug() << "Checkmate";
             return;
         }
-
         pressed = false;
-
+        GenMove legalMoves(basemodel.board.pieces, basemodel.board.onMove);
+        std::vector<std::pair<position, position>> allPreviewMoves;
+        allPreviewMoves = legalMoves.IsValidPieceMove(fromHuman);
         for (auto move : allPreviewMoves) {
-            if ((move.first.row == 10 - fromRow) && (move.first.col == fromCol - 1)
-                && (move.second.row == 10 - toRow) && (move.second.col == toCol - 1)) {
-                basemodel.board.movePiece(10 - fromRow, fromCol - 1, 10 - toRow, toCol - 1);
+            if ((move.first.row == fromHuman.row) && (move.first.col == fromHuman.col)
+                && (move.second.row == toHuman.row) && (move.second.col == toHuman.col)) {
                 if (basemodel.kind.contains("uci")) {
-                    emit updateView({10 - fromRow, fromCol - 1}, {10 - toRow, toCol - 1}, "uci");
+                    emit updateView({fromHuman.row, fromHuman.col},
+                                    {toHuman.row, toHuman.col},
+                                    "uci");
                 } else {
-                    emit updateView({10 - fromRow, fromCol - 1}, {10 - toRow, toCol - 1}, "human");
-                } //emit updateView(Human());
+                    emit updateView({fromHuman.row, fromHuman.col},
+                                    {toHuman.row, toHuman.col},
+                                    "human");
+                }
                 break;
             }
         }
-        allPreviewMoves.clear();
+        fromHuman = {-1, -1};
     }
 
     repaint();
 }
 
+//TODO: exchange hanzi with unicode
 // Sets the selected pieces on the (clean) board
 void BoardView::SetEditorPieces()
 {

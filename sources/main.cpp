@@ -39,6 +39,14 @@ int main(int argc, char *argv[])
         }
     }
     MainWindow w;
+    w.setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint
+                     | Qt::WindowCloseButtonHint | Qt::WindowMinimizeButtonHint);
+    w.setFixedSize(1200, 900);
+    w.setMaximumSize(1200, 900);
+    w.setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+    w.setWindowIcon(QIcon(":/res/generalRed.png"));
+    // setWindowTitle("ElephantChess v" + QString("%1.%2").arg(ElephantChess_VERSION_MAJOR).arg(ElephantChess_VERSION_MINOR));
+    w.setWindowTitle("ElephantChess");
     w.show();
     return a.exec();
 }

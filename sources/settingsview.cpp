@@ -44,7 +44,6 @@ SettingsView::SettingsView(QWidget *parent)
     connect(engineButton, &QPushButton::clicked, this, &SettingsView::ChooseEngine);
     connect(styleButton, &QPushButton::clicked, this, &SettingsView::ChooseStyle);
     connect(boardStyleButton, &QPushButton::clicked, this, &SettingsView::ChooseBoardStyle);
-    //basemodel.engineName = enginesComboBox->currentText();
     connect(enginesComboBox,
             &QComboBox::currentIndexChanged,
             this,
@@ -71,9 +70,6 @@ SettingsView::~SettingsView()
 void SettingsView::ChooseBoardStyle()
 {
     QStringList items;
-    //QFont font;
-    //font.setFamily("YaHei");
-
     items << tr("Traditionel") << tr("Traditionel/PNG") << tr("Western simplified");
 
     bool ok;
@@ -94,9 +90,6 @@ void SettingsView::ChooseStyle()
 {
     // see Wikipedia: https://de.wikipedia.org/wiki/Xiangqi
     QStringList items;
-    //QFont font;
-    //font.setFamily("YaHei");
-
     items << tr("Algebraic") << tr("Classical") << tr("Numeric");
 
     bool ok;

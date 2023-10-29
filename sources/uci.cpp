@@ -74,7 +74,7 @@ void UCI::readData()
                 waitForReadyOK = true;
             } else if (c.contains("bestmove")) {
                 // Received a move from the engine
-                QByteArray mv = posToken(c);
+                QByteArray mv = basemodel.board.posToken(c);
                 auto fx = (mv.at(0) - 'a');
                 auto fy = (mv.at(1) - '0');
                 auto tx = (mv.at(2) - 'a');
@@ -91,53 +91,12 @@ void UCI::readData()
     }
 }
 
-QByteArray UCI::posToken(QByteArray token)
-{
-    QByteArray t = token.split(' ').at(1);
-    moves.append(t);
-    return t;
-}
-
-QByteArray UCI::posToken(int fromX, int fromY, int toX, int toY)
-{
-    QByteArray m;
-    char c1 = fromX + 'a';
-    char c2 = (fromY) + '0';
-    char c3 = toX + 'a';
-    char c4 = (toY) + '0';
-    m.clear();
-    m.append(c1);
-    m.append(c2);
-    m.append(c3);
-    m.append(c4);
-    if (moves.isEmpty())
-        moves = QStringList();
-    return m;
-}
-
-void UCI::MovePiece(int fromX, int fromY, int toX, int toY)
-{
-    moves.append(posToken(fromX, fromY, toX, toY));
-}
-
-void UCI::MovePiece(position from, position to)
-{
-    MovePiece(from.col, from.row, to.col, to.row);
-}
-
 void UCI::engineGo()
 {
-    // Start the engine
-    writeDatas("position startpos moves " + moves.join(" ").toUtf8());
+    // get a move
+    writeDatas("position startpos moves " + basemodel.moves.join(" ").toUtf8());
     writeDatas("go");
     writeDatas("isready");
-    /*class Engine eng;
-    std::pair<position, position> ownEngineMove;
-    ownEngineMove = eng.GetBestMove(color::Black);
-    QByteArray mv = posToken(ownEngineMove.first.col, ownEngineMove.first.row, ownEngineMove.second.col, ownEngineMove.second.row);
-    moves.append(mv);
-    emit updateView(ownEngineMove.first, ownEngineMove.second);
-*/
 }
 
 void UCI::writeDatas(QByteArray d)

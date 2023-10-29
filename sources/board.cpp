@@ -71,10 +71,12 @@ void Board::movePiece(int fromRow, int fromCol, int toRow, int toCol)
     // basemodel.fromHuman = {fromRow, fromCol};
     // basemodel.toHuman = {toRow, toCol};
 
-    // basemodel.fromUCI = {fromRow, fromCol};
-    // basemodel.toUCI = {toRow, toCol};
+    basemodel.fromUCI = {fromRow, fromCol};
+    basemodel.toUCI = {toRow, toCol};
 
     pieces[toRow][toCol] = piece;
+
+    basemodel.moves.append(basemodel.board.posToken(fromCol, fromRow, toCol, toRow));
 
     //qDebug() << "Moved piece from " << fromRow << "," << fromCol << " to " << toRow << "," << toCol;
 };
