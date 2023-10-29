@@ -14,7 +14,7 @@ for Europe Chess (with the commercial "Fritz" in mind).
 - Go to https://www.qt.io/download-open-source and login
 - Download Qt6.6 for Linux with "Qt Online Installer"
 - Import repo in QtCreator or use
-> `git clone https://github.com/global667/XiangQi.Qt.git`
+> `git clone https://github.com/global667/ElephantChess.git`
 - Run `CMakeLists.txt` on QtCreator
  
 ## Issues
