@@ -19,7 +19,9 @@ for Europe Chess (with the commercial "Fritz" in mind).
 - Run `CMakeLists.txt` on QtCreator
 ### Use Debian package
 > `wget https://github.com/global667/ElephantChess/releases/download/v0.4.0/elephantchess-0.4.0.deb`
+
 > `sudo apt install ./elephantchess-0.4.0.deb`
+
 > run `/usr/share/elephantchess/ElephantChess`
 
 ## Issues
