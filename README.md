@@ -1,4 +1,7 @@
 # ElephantChess
+
+![A Screenshot](html/Screenshot.jpg)
+
 Chinese chess GUI with randombot and in pre alpha stadium...
 
 The aim is to play and analyse games for Chinese Chess like with "Arena" 
@@ -11,8 +14,8 @@ for Europe Chess (with the commercial "Fritz" in mind).
 - Go to https://www.qt.io/download-open-source and login
 - Download Qt6.6 for Linux with "Qt Online Installer"
 - Import repo in QtCreator or use
-> git clone https://github.com/global667/XiangQi.Qt.git
-- Run CMakeLists.txt on QtCreator
+> `git clone https://github.com/global667/XiangQi.Qt.git`
+- Run `CMakeLists.txt` on QtCreator
  
 ## Issues
 - Should run on Windows and macOS too
