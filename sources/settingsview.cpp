@@ -73,11 +73,7 @@ SettingsView::SettingsView(QWidget *parent)
 
 void SettingsView::comboBoxSetEngineName()
 {
-    //if (enginesComboBox->currentText().contains("chameleon")) {
-    //    basemodel.engineName = "./Chameleon";
-    //} else {
     basemodel.engineName = enginesComboBox->currentText();
-    //}
 }
 
 SettingsView::~SettingsView()

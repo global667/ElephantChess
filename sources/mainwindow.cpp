@@ -443,21 +443,34 @@ void MainWindow::updateSettings()
 {
     qDebug() << basemodel.engineName;
     if (basemodel.engineName == "built-in") {
-        engine = new Engine();
-        basemodel.kind = "engine";
-        disconnect(uci, SIGNAL(updateView(position, position, QString)), nullptr, nullptr);
-        connect(engine,
-                SIGNAL(updateView(position, position, QString)),
-                SLOT(ToMove(position, position, QString)));
-        opp2->setPlaceholderText(basemodel.engineName);
-        delete uci;
+        if (!engine) {
+            engine = new Engine();
+            basemodel.kind = "engine";
+            disconnect(uci, SIGNAL(updateView(position, position, QString)), nullptr, nullptr);
+            connect(engine,
+                    SIGNAL(updateView(position, position, QString)),
+                    SLOT(ToMove(position, position, QString)));
+            opp2->setPlaceholderText(basemodel.engineName);
+            if (!uci)
+                delete uci;
+        }
     } else {
         basemodel.kind = "uci";
-        uci = new UCI();
-        disconnect(engine, SIGNAL(updateView(position, position, QString)), nullptr, nullptr);
-        connect(uci,
-                SIGNAL(updateView(position, position, QString)),
-                SLOT(ToMove(position, position, QString)));
+        if (!uci) {
+            qDebug() << "!uci";
+            uci = new UCI();
+            disconnect(engine, SIGNAL(updateView(position, position, QString)), nullptr, nullptr);
+            connect(uci,
+                    SIGNAL(updateView(position, position, QString)),
+                    SLOT(ToMove(position, position, QString)));
+        } else {
+            qDebug() << "uci";
+            uciThread.quit();
+            uci = new UCI();
+            connect(uci,
+                    SIGNAL(updateView(position, position, QString)),
+                    SLOT(ToMove(position, position, QString)));
+        }
         opp2->setPlaceholderText(basemodel.engineName);
         Q_ASSERT(&uci);
         Q_ASSERT(&uciThread);
