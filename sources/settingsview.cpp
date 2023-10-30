@@ -23,24 +23,45 @@
 extern BaseModel basemodel;
 
 SettingsView::SettingsView(QWidget *parent)
-    : QDialog{parent}
+    : QFrame{parent}
 {
+    //setFixedSize(200, 200);
+    setGeometry(100, 100, 200, 200);
+
     enginesComboBox = new QComboBox{this};
     enginesComboBox->addItem("built-in");
     //enginesComboBox->addItem("chameleon");
     enginesComboBox->setCurrentIndex(0);
 
-    styleButton = new QPushButton{"Choose notation style", this};
-    engineButton = new QPushButton{"Choose engine", this};
-    boardStyleButton = new QPushButton{"Choose board style", this};
+    styleButton = new QPushButton{"Notation", this};
+    engineButton = new QPushButton{"Add", this};
+    boardStyleButton = new QPushButton{"Board", this};
+
+    saveButton = new QPushButton("Save", this);
 
     QVBoxLayout *layout = new QVBoxLayout{this};
+    QVBoxLayout *layout2 = new QVBoxLayout{this};
+
+    QVBoxLayout *layout3 = new QVBoxLayout{this};
+
+    QGroupBox *groupBox = new QGroupBox(tr("Engines"));
+    QGroupBox *groupBox2 = new QGroupBox(tr("Styles"));
+
     layout->addWidget(enginesComboBox);
     layout->addWidget(engineButton);
-    layout->addWidget(styleButton);
-    layout->addWidget(boardStyleButton);
-    setLayout(layout);
+    groupBox->setLayout(layout);
 
+    layout2->addWidget(styleButton);
+    layout2->addWidget(boardStyleButton);
+    groupBox2->setLayout(layout2);
+
+    layout3->addWidget(groupBox);
+    layout3->addWidget(groupBox2);
+    layout3->addWidget(saveButton);
+
+    setLayout(layout3);
+
+    connect(saveButton, &QPushButton::clicked, this, &SettingsView::save);
     connect(engineButton, &QPushButton::clicked, this, &SettingsView::ChooseEngine);
     connect(styleButton, &QPushButton::clicked, this, &SettingsView::ChooseStyle);
     connect(boardStyleButton, &QPushButton::clicked, this, &SettingsView::ChooseBoardStyle);
@@ -86,6 +107,13 @@ void SettingsView::ChooseBoardStyle()
     }
 }
 
+void SettingsView::save()
+{
+    //
+    close();
+    emit finished();
+}
+
 void SettingsView::ChooseStyle()
 {
     // see Wikipedia: https://de.wikipedia.org/wiki/Xiangqi
@@ -117,6 +145,7 @@ void SettingsView::ChooseEngine()
         return;
     }
     enginesComboBox->addItem(filename);
-    enginesComboBox->show();
+    enginesComboBox->setCurrentText(filename);
+    //enginesComboBox->show();
     basemodel.engineName = filename;
 }

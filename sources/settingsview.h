@@ -22,13 +22,14 @@
 #include <QComboBox>
 #include <QDialog>
 #include <QFileDialog>
+#include <QGroupBox>
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QPushButton>
 
 #include "basemodel.h"
 
-class SettingsView : public QDialog
+class SettingsView : public QFrame
 {
     Q_OBJECT
 public:
@@ -44,11 +45,14 @@ private:
     void ChooseStyle();
     void ChooseBoardStyle();
 
+    QPushButton *saveButton;
+    void save();
 public slots:
     void comboBoxSetEngineName();
 
 signals:
     void boardStyleChanged();
+    void finished();
 };
 
 #endif // SETTINGSVIEW_H

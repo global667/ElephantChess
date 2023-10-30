@@ -62,7 +62,7 @@ void MainWindow::InitConnections()
 
 void MainWindow::InitWidgets()
 {
-    settings = new SettingsView(this);
+    settings = new SettingsView();
 
     tabview = new QTabWidget(this);
     tabwidget1 = new QWidget(tabview);
@@ -220,13 +220,9 @@ void MainWindow::InitWidgets()
                     SLOT(giveUpGame()))
         ->setToolTip("Give the game up. You will loose.");
     toolbar->addSeparator();
-    toolbar->addAction(QIcon(":res/settings.png"), //style()->standardIcon(QStyle::SP_ComputerIcon)),
-                       tr("Settings"),
-                       this,
-                       SLOT(OpenSettings()));
+    toolbar->addAction(QIcon(":res/settings.png"), tr("Settings"), this, SLOT(OpenSettings()));
     toolbar
-        ->addAction(QIcon(style()->standardIcon(
-                        (QStyle::SP_DialogHelpButton))), //SP_TitleBarContextHelpButton))),
+        ->addAction(QIcon(style()->standardIcon((QStyle::SP_DialogHelpButton))),
                     tr("Help"),
                     this,
                     SLOT(Help()))
@@ -437,9 +433,9 @@ void MainWindow::playNow()
 
 void MainWindow::OpenSettings()
 {
-    settings->setModal(true);
-    connect(settings, SIGNAL(finished(int)), this, SLOT(updateSettings()));
-    settings->open();
+    connect(settings, SIGNAL(finished()), this, SLOT(updateSettings()));
+    qDebug() << "OpenSettings()";
+    settings->show();
 }
 
 // called after OpenSettings()
