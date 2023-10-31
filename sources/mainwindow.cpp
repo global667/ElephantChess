@@ -19,7 +19,6 @@
 #include "mainwindow.h"
 
 //#ifdef TEST
-//#include "config.h"
 //#endif
 #include <QDesktopServices>
 #include "genmove.h"

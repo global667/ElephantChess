@@ -1,3 +1,10 @@
-// the configured options and settings for Tutorial
-#cmakedef ElephantChess_VERSION_MAJOR @ElephantChess_VERSION_MAJOR@
-#cmakedef ElephantChess_VERSION_MINOR @ElephantChess_VERSION_MINOR@
+
+// #cmakedefine ElephantChess_VERSION_MAJOR "@ElephantChess_VERSION_MAJOR@"
+// #cmakedefine ElephantChess_VERSION_MINOR "@ElephantChess_VERSION_MINOR@"
+
+#cmakedefine PROJECT_DESC "@PROJECT_DESC@"
+
+#define ElephantChess_VERSION_MAJOR @ElephantChess_VERSION_MAJOR@
+#define ElephantChess_VERSION_MINOR @ElephantChess_VERSION_MINOR@
+#define ElephantChess_VERSION_PATCH @ElephantChess_VERSION_PATCH@
+

@@ -23,6 +23,8 @@
 #include <QStyleFactory>
 #include <QTranslator>
 
+#include "config.h"
+
 int main(int argc, char *argv[])
 {
     QApplication::setStyle(QStyleFactory::create("Fusion"));
@@ -45,8 +47,11 @@ int main(int argc, char *argv[])
     w.setMaximumSize(1200, 900);
     w.setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
     w.setWindowIcon(QIcon(":/res/generalRed.png"));
-    // setWindowTitle("ElephantChess v" + QString("%1.%2").arg(ElephantChess_VERSION_MAJOR).arg(ElephantChess_VERSION_MINOR));
-    w.setWindowTitle("ElephantChess");
+    w.setWindowTitle(
+        "ElephantChess v"
+        + QString("%1.%2").arg(ElephantChess_VERSION_MAJOR).arg(ElephantChess_VERSION_MINOR)
+        + QString(PROJECT_DESC));
+    // w.setWindowTitle("ElephantChess " + QString(PROJECT_VERSION));
     w.show();
     return a.exec();
 }

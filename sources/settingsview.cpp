@@ -105,9 +105,8 @@ void SettingsView::ChooseBoardStyle()
 
 void SettingsView::save()
 {
-    //
-    close();
     emit finished();
+    close();
 }
 
 void SettingsView::ChooseStyle()

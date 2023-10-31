@@ -209,7 +209,8 @@ void BoardView::PaintPieces(QPainter *p)
                     pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
                     pixm2 = pixm.copy(100, 0, 100, 100);
                 } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_png) {
-                    pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
+                    pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img,
+                                              Qt::PreferDither);
                     pixm2 = pixm.copy(0, 0, 100, 100);
                 } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_native) {
                     pixm2 = *PrepareNativePiece(p, j, i);
@@ -219,7 +220,8 @@ void BoardView::PaintPieces(QPainter *p)
                     pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
                     pixm2 = pixm.copy(300, 0, 100, 100);
                 } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_png) {
-                    pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
+                    pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img,
+                                              Qt::PreferDither);
                     pixm2 = pixm.copy(200, 0, 100, 100);
                 } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_native) {
                     pixm2 = *PrepareNativePiece(p, j, i);

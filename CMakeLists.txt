@@ -1,8 +1,21 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(ElephantChess VERSION 0.4 LANGUAGES CXX)
+find_package(Git REQUIRED)
+
+# Get the latest commit hash
+execute_process(
+    COMMAND git rev-parse --short HEAD
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    OUTPUT_VARIABLE GIT_COMMIT_HASH
+    OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+project(ElephantChess VERSION 0.4.0 DESCRIPTION "${COMMIT_ID}" LANGUAGES CXX HOMEPAGE_URL "https/www.elephant-chess.com")
+
+set(PROJECT_DESC "-alpha (commit ${GIT_COMMIT_HASH})")
 
 #enable_testing(true)
+
+configure_file(./sources/config.h.in ./sources/config.h)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)

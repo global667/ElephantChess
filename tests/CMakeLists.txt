@@ -37,5 +37,3 @@ target_link_libraries(mytest PRIVATE Qt6::Core
     Qt6::Gui
     Qt6::Test
     Qt6::Widgets)
-
-
