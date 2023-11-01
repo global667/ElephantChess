@@ -51,8 +51,7 @@ struct position
     int col;
 };
 
-//extern Position glfrom, glto;
-
+// Exchange to QPoint (subclassing)
 // class Piece
 class Piece
 {

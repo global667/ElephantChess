@@ -35,7 +35,7 @@ public:
     int contextMenuX;
     int contextMenuY;
 
-    // TODO: Use Pattern
+    // TODO: Use Pattern (Flyweigth?)
 public slots:
     void Kreuz();
     void Kreis();

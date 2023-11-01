@@ -48,8 +48,9 @@ protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
 
 private:
-    void PaintMarker(QPainter *p);
     void PaintBoard(QPainter *p);
+    // Put in a Abstract Factory
+    void PaintMarker(QPainter *p);
     void PaintPieces(QPainter *p);
     QPixmap *PrepareNativePiece(QPainter *p, int row, int col);
     void PaintSelectedPieces(QPainter *p);
