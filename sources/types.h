@@ -46,18 +46,6 @@ enum class pieceType { Empty, General, Advisor, Elephant, Horse, Chariot, Cannon
 
 enum class color { Red, Black };
 
-//class position : QPoint
-//{
-//public:
-//    position(){};
-//    position(int x, int y) {};
-//    int row;
-//    int x() { return row; };
-//    int col;
-//    int y() { return col; };
-//};
-
-// Exchange to QPoint (subclassing)
 // class Piece
 class Piece
 {
@@ -70,9 +58,6 @@ public:
         , img(img)
         , name(name)
     {
-        //if (img.isNull())
-        //    qDebug() << "Piece(): img is null";
-        //this->img = QImage(img);
     }
 
     Piece(color colr, pieceType type, QPoint pos, QString name)
@@ -81,9 +66,6 @@ public:
         , pos(pos)
         , name(name)
     {
-        //if (img.isNull())
-        //    qDebug() << "Piece(): img is null";
-        //this->name = name;
     }
 
     virtual ~Piece() {}

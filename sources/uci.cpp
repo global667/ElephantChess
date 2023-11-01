@@ -80,7 +80,7 @@ void UCI::readData()
                 auto tx = (mv.at(2) - 'a');
                 auto ty = (mv.at(3) - '0');
                 // Ruft game auf
-                emit updateView({fy, fx}, {ty, tx}, "engine");
+                emit updateView(QPoint(fy, fx), QPoint(ty, tx), "engine");
                 //qDebug() << c << ", send new move " << c.split(' ').at(1) << " as " << fx << fy
                 //         << tx << ty;
             } else {

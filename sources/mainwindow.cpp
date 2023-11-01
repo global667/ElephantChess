@@ -458,17 +458,17 @@ void MainWindow::updateSettings()
         if (!uci) {
             qDebug() << "!uci";
             uci = new UCI();
-            disconnect(engine, SIGNAL(updateView(position, position, QString)), nullptr, nullptr);
+            disconnect(engine, SIGNAL(updateView(QPoint, QPoint, QString)), nullptr, nullptr);
             connect(uci,
-                    SIGNAL(updateView(position, position, QString)),
-                    SLOT(ToMove(position, position, QString)));
+                    SIGNAL(updateView(QPoint, QPoint, QString)),
+                    SLOT(ToMove(QPoint, QPoint, QString)));
         } else {
             qDebug() << "uci";
             uciThread.quit();
             uci = new UCI();
             connect(uci,
-                    SIGNAL(updateView(position, position, QString)),
-                    SLOT(ToMove(position, position, QString)));
+                    SIGNAL(updateView(QPoint, QPoint, QString)),
+                    SLOT(ToMove(QPoint, QPoint, QString)));
         }
         opp2->setPlaceholderText(basemodel.engineName);
         Q_ASSERT(&uci);
