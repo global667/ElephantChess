@@ -409,15 +409,15 @@ void BoardView::PaintSelectedPieces(QPainter *p)
     pen.setWidth(5);
     p->setPen(pen);
 
-    if (fromHuman.col != -1) {
+    if (fromHuman.y() != -1) {
         // Draws selected piece
         p->setBrush(Qt::transparent);
         pen.setColor(Qt::green);
         pen.setWidth(5);
         p->setPen(pen);
         p->drawEllipse(
-            QRect((50 + (((fromHuman.col)) * (w - 2 * 50) / cutpWidth)) - w / cutpWidth / 2 / 1.5,
-                  (50 + (9 - (fromHuman.row)) * (h - 50 - 100) / cutpHeight)
+            QRect((50 + (((fromHuman.y())) * (w - 2 * 50) / cutpWidth)) - w / cutpWidth / 2 / 1.5,
+                  (50 + (9 - (fromHuman.x())) * (h - 50 - 100) / cutpHeight)
                       - h / cutpWidth / 2 / 1.5,
                   w / (cutpWidth) / 1.5,
                   h / cutpWidth / 1.5));
@@ -428,16 +428,16 @@ void BoardView::PaintSelectedPieces(QPainter *p)
         p->setPen(pen);
 
         GenMove legalMoves(basemodel.board.pieces, basemodel.board.onMove);
-        std::vector<std::pair<position, position>> allPreviewMoves;
+        std::vector<std::pair<QPoint, QPoint>> allPreviewMoves;
         allPreviewMoves = legalMoves.IsValidPieceMove(fromHuman);
         for (auto move : allPreviewMoves) {
             for (int j = 0; j < 10; j++) {
                 for (int i = 0; i < 9; i++) {
-                    if (move.second.col == i && move.second.row == j) {
+                    if (move.second.y() == i && move.second.x() == j) {
                         p->drawEllipse(
-                            QRect((50 + ((move.second.col) * (w - 2 * 50) / cutpWidth))
+                            QRect((50 + ((move.second.y()) * (w - 2 * 50) / cutpWidth))
                                       - w / cutpWidth / 2 / 1.5,
-                                  (50 + (9 - move.second.row) * (h - 50 - 100) / cutpHeight)
+                                  (50 + (9 - move.second.x()) * (h - 50 - 100) / cutpHeight)
                                       - h / cutpWidth / 2 / 1.5,
                                   w / (cutpWidth) / 1.5,
                                   h / cutpWidth / 1.5));
@@ -447,7 +447,7 @@ void BoardView::PaintSelectedPieces(QPainter *p)
         }
     }
 
-    if (basemodel.fromUCI.col != -1) {
+    if (basemodel.fromUCI.y() != -1) {
         // draws the last moved line
         pen.setColor(Qt::black);
 
@@ -455,23 +455,23 @@ void BoardView::PaintSelectedPieces(QPainter *p)
         p->setPen(pen);
         p->setOpacity(0.7);
 
-        //qDebug() << basemodel.toUCI.col;
-        p->drawLine((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutpWidth)),
-                    (50 + ((9 - basemodel.fromUCI.row)) * (h - 50 - 100) / cutpHeight),
+        //qDebug() << basemodel.toUCI.y();
+        p->drawLine((50 + (((basemodel.fromUCI.y())) * (w - 2 * 50) / cutpWidth)),
+                    (50 + ((9 - basemodel.fromUCI.x())) * (h - 50 - 100) / cutpHeight),
 
-                    (50 + (((basemodel.toUCI.col)) * (w - 2 * 50) / cutpWidth)),
-                    (50 + ((9 - basemodel.toUCI.row)) * (h - 50 - 100) / cutpHeight));
+                    (50 + (((basemodel.toUCI.y())) * (w - 2 * 50) / cutpWidth)),
+                    (50 + ((9 - basemodel.toUCI.x())) * (h - 50 - 100) / cutpHeight));
 
         pen.setWidth(25);
         p->setPen(pen);
 
-        p->drawPoint((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutpWidth)),
-                     (50 + ((9 - basemodel.fromUCI.row)) * (h - 50 - 100) / cutpHeight));
+        p->drawPoint((50 + (((basemodel.fromUCI.y())) * (w - 2 * 50) / cutpWidth)),
+                     (50 + ((9 - basemodel.fromUCI.x())) * (h - 50 - 100) / cutpHeight));
 
         pen.setWidth(18);
         p->setPen(pen);
-        p->drawPoint((50 + (((basemodel.toUCI.col)) * (w - 2 * 50) / cutpWidth)),
-                     (50 + ((9 - basemodel.toUCI.row)) * (h - 50 - 100) / cutpHeight));
+        p->drawPoint((50 + (((basemodel.toUCI.y())) * (w - 2 * 50) / cutpWidth)),
+                     (50 + ((9 - basemodel.toUCI.x())) * (h - 50 - 100) / cutpHeight));
 
         pen.setWidth(5);
         p->setPen(pen);
@@ -480,16 +480,16 @@ void BoardView::PaintSelectedPieces(QPainter *p)
         pen.setColor(Qt::black);
         pen.setWidth(5);
         p->setPen(pen);
-        p->drawEllipse(QRect((50 + (((basemodel.toUCI.col)) * (w - 2 * 50) / cutpWidth))
+        p->drawEllipse(QRect((50 + (((basemodel.toUCI.y())) * (w - 2 * 50) / cutpWidth))
                                  - w / cutpWidth / 2 / 1.5,
-                             (50 + (9 - (basemodel.toUCI.row)) * (h - 50 - 100) / cutpHeight)
+                             (50 + (9 - (basemodel.toUCI.x())) * (h - 50 - 100) / cutpHeight)
                                  - h / cutpWidth / 2 / 1.5,
                              w / (cutpWidth) / 1.5,
                              h / cutpWidth / 1.5));
 
-        p->drawEllipse(QRect((50 + (((basemodel.fromUCI.col)) * (w - 2 * 50) / cutpWidth))
+        p->drawEllipse(QRect((50 + (((basemodel.fromUCI.y())) * (w - 2 * 50) / cutpWidth))
                                  - w / cutpWidth / 2 / 1.5,
-                             (50 + (9 - (basemodel.fromUCI.row)) * (h - 50 - 100) / cutpHeight)
+                             (50 + (9 - (basemodel.fromUCI.x())) * (h - 50 - 100) / cutpHeight)
                                  - h / cutpWidth / 2 / 1.5,
                              w / (cutpWidth) / 1.5,
                              h / cutpWidth / 1.5));
@@ -501,22 +501,22 @@ void BoardView::mousePressEvent(QMouseEvent *event)
     //qDebug() << "mousePressEvent";
     QPoint p = CalcBoardCoords({event->pos().x(), event->pos().y()});
     if (!pressed) {
-        fromHuman.col = p.x() - 1;
-        fromHuman.row = 10 - p.y();
+        fromHuman.setY(p.x() - 1);
+        fromHuman.setX(10 - p.y());
         pressed = true;
 
-        if (basemodel.board.pieces[fromHuman.row][fromHuman.col].type == pieceType::Empty) {
+        if (basemodel.board.pieces[fromHuman.x()][fromHuman.y()].type == pieceType::Empty) {
             pressed = false;
             return;
         }
-        if (basemodel.board.pieces[fromHuman.row][fromHuman.col].colr != basemodel.board.onMove) {
+        if (basemodel.board.pieces[fromHuman.x()][fromHuman.y()].colr != basemodel.board.onMove) {
             pressed = false;
             return;
         }
-        //qDebug() << basemodel.fromHuman.col << basemodel.fromHuman.row;
+        //qDebug() << basemodel.fromHuman.y()<< basemodel.fromHuman.x();
     } else if (pressed) {
-        toHuman.col = p.x() - 1;
-        toHuman.row = 10 - p.y();
+        toHuman.setY(p.x() - 1);
+        toHuman.setX(10 - p.y());
 
         GenMove mate(basemodel.board.pieces, basemodel.board.onMove);
 
@@ -527,18 +527,18 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         }
         pressed = false;
         GenMove legalMoves(basemodel.board.pieces, basemodel.board.onMove);
-        std::vector<std::pair<position, position>> allPreviewMoves;
+        std::vector<std::pair<QPoint, QPoint>> allPreviewMoves;
         allPreviewMoves = legalMoves.IsValidPieceMove(fromHuman);
         for (auto move : allPreviewMoves) {
-            if ((move.first.row == fromHuman.row) && (move.first.col == fromHuman.col)
-                && (move.second.row == toHuman.row) && (move.second.col == toHuman.col)) {
+            if ((move.first.x() == fromHuman.x()) && (move.first.y() == fromHuman.y())
+                && (move.second.x() == toHuman.x()) && (move.second.y() == toHuman.y())) {
                 if (basemodel.kind.contains("uci")) {
-                    emit updateView({fromHuman.row, fromHuman.col},
-                                    {toHuman.row, toHuman.col},
+                    emit updateView({fromHuman.x(), fromHuman.y()},
+                                    {toHuman.x(), toHuman.y()},
                                     "uci");
                 } else {
-                    emit updateView({fromHuman.row, fromHuman.col},
-                                    {toHuman.row, toHuman.col},
+                    emit updateView({fromHuman.x(), fromHuman.y()},
+                                    {toHuman.x(), toHuman.y()},
                                     "human");
                 }
                 break;

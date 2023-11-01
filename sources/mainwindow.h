@@ -142,6 +142,6 @@ public slots:
     void itemClicked(QTreeWidgetItem *, int);
 
 public slots:
-    void ToMove(position from, position to, QString kind);
+    void ToMove(QPoint from, QPoint to, QString kind);
 };
 #endif // MAINWINDOW_H

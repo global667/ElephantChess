@@ -36,9 +36,9 @@ public:
 
     virtual ~Board() {}// Q_CLEANUP_RESOURCE(res); }
 
-    color GetColor(position p) { return pieces[p.row][p.col].colr; }
+    color GetColor(QPoint p) { return pieces[p.x()][p.y()].colr; }
 
-    Piece GetPiece(position p) { return pieces[p.row][p.col]; }
+    Piece GetPiece(QPoint p) { return pieces[p.x()][p.y()]; }
 
     // Initialisiert das Spielbrett
     void initBoard();

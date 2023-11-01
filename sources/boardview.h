@@ -39,8 +39,8 @@ public:
     explicit BoardView(QWidget *parent = nullptr);
 
     // temp for graphics
-    position fromHuman = {-1, -1};
-    position toHuman = {-1, -1};
+    QPoint fromHuman = {-1, -1};
+    QPoint toHuman = {-1, -1};
 
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -82,7 +82,7 @@ private:
 
 signals:
     // signals to the controller
-    void updateView(position from, position to, QString kind);
+    void updateView(QPoint from, QPoint to, QString kind);
 };
 
 #endif // BOARDVIEW_H

@@ -22,20 +22,20 @@ extern BaseModel basemodel;
 
 Engine::Engine() {}
 
-std::pair<position, position> Engine::GetBestMove(color color)
+std::pair<QPoint, QPoint> Engine::GetBestMove(color color)
 {
     GenMove generatedMoves(basemodel.board.pieces, color);
 
-    std::vector<std::pair<position, position>> pos;
-    std::vector<std::pair<position, position>> posAll;
+    std::vector<std::pair<QPoint, QPoint>> pos;
+    std::vector<std::pair<QPoint, QPoint>> posAll;
 
     // all valid moves
     for (int i = 0; i < 10; i++)
         for (int j = 0; j < 9; j++)
     {
             if (generatedMoves.GetColor({i, j}) == color) {
-                pos = generatedMoves.IsValidPieceMove(position{i, j});
-                for (std::pair<position, position> p : pos) {
+                pos = generatedMoves.IsValidPieceMove(QPoint{i, j});
+                for (std::pair<QPoint, QPoint> p : pos) {
                     posAll.push_back(p);
                     //qDebug() << p.first.row << p.first.col;
                 }
@@ -49,19 +49,19 @@ std::pair<position, position> Engine::GetBestMove(color color)
     return posAll.at(random);
 }
 
-QList<position> Engine::GetPossibleMoves(Piece *piece)
+QList<QPoint> Engine::GetPossibleMoves(Piece *piece)
 {
-    return QList<position>();
+    return QList<QPoint>();
 }
 
-QList<position> Engine::GetPossibleMoves(color color)
+QList<QPoint> Engine::GetPossibleMoves(color color)
 {
-    return QList<position>();
+    return QList<QPoint>();
 }
 
 void Engine::engineGo()
 {
-    std::pair<position, position> ownEngineMove;
+    std::pair<QPoint, QPoint> ownEngineMove;
     ownEngineMove = GetBestMove(basemodel.board.onMove);
     basemodel.currentMoves.push_back(ownEngineMove);
     emit updateView(ownEngineMove.first, ownEngineMove.second, "engine");

@@ -42,24 +42,24 @@ public:
 
     bool IsValidPosition(int row, int col);
     bool IsVacantOrOpponent(int row, int col, color color);
-    bool IsValidSoldierMove(position from, position to, color color);
-    bool IsValidCannonMove(position from, position to, color color);
-    bool IsValidHorseMove(position from, position to, color color);
-    bool IsValidElephantMove(position from, position to, color color);
-    bool IsValidAdvisorMove(position from, position to, color color);
-    bool IsValidGeneralMove(position from, position to, color color);
-    bool IsValidChariotMove(position from, position to, color color);
-    std::vector<std::pair<position, position>> GenerateLegalMoves(color currentPlayerColor);
+    bool IsValidSoldierMove(QPoint from, QPoint to, color color);
+    bool IsValidCannonMove(QPoint from, QPoint to, color color);
+    bool IsValidHorseMove(QPoint from, QPoint to, color color);
+    bool IsValidElephantMove(QPoint from, QPoint to, color color);
+    bool IsValidAdvisorMove(QPoint from, QPoint to, color color);
+    bool IsValidGeneralMove(QPoint from, QPoint to, color color);
+    bool IsValidChariotMove(QPoint from, QPoint to, color color);
+    std::vector<std::pair<QPoint, QPoint>> GenerateLegalMoves(color currentPlayerColor);
     bool IsCheck(color currentPlayerColor);
     bool IsCheckmate(color currentPlayerColor);
     //bool isStaleMate(Color currentPlayerColor);
-    bool PerformMove(position from, position to, color currentPlayerColor);
-    color GetColor(position p);
-    Piece GetPiece(position p);
-    position FindGeneralPosition(color currentPlayerColor);
+    bool PerformMove(QPoint from, QPoint to, color currentPlayerColor);
+    color GetColor(QPoint p);
+    Piece GetPiece(QPoint p);
+    QPoint FindGeneralPosition(color currentPlayerColor);
     void PlacePiece(int row, int col, pieceType type, color color);
-    bool IsValidMove(position from, position to, color currentPlayerColor);
-    std::vector<std::pair<position, position>> IsValidPieceMove(const position from);
+    bool IsValidMove(QPoint from, QPoint to, color currentPlayerColor);
+    std::vector<std::pair<QPoint, QPoint>> IsValidPieceMove(const QPoint from);
 
     Piece pieces[ROWS][COLS];
     color playerOnMove;

@@ -45,12 +45,12 @@ void MainWindow::InitConnections()
 {
     // engine moves
     connect(engine,
-            SIGNAL(updateView(position, position, QString)),
-            SLOT(ToMove(position, position, QString)));
+            SIGNAL(updateView(QPoint, QPoint, QString)),
+            SLOT(ToMove(QPoint, QPoint, QString)));
     // mouse clicked moves (human)
     connect(boardview,
-            SIGNAL(updateView(position, position, QString)),
-            SLOT(ToMove(position, position, QString)));
+            SIGNAL(updateView(QPoint, QPoint, QString)),
+            SLOT(ToMove(QPoint, QPoint, QString)));
 
     connect(settings, SIGNAL(boardStyleChanged()), SLOT(newgame()));
 
@@ -397,15 +397,15 @@ void MainWindow::toggleGameView()
 
 void MainWindow::giveTipp()
 {
-    std::pair<position, position> move = engine->GetBestMove(basemodel.board.onMove);
-    position from = move.first;
-    position to = move.second;
+    std::pair<QPoint, QPoint> move = engine->GetBestMove(basemodel.board.onMove);
+    QPoint from = move.first;
+    QPoint to = move.second;
     QString c;
     if (basemodel.board.onMove == color::Red)
         c = "Red";
     else
         c = "Black";
-    QString token = basemodel.posToken(from.col, from.row, to.col, to.row);
+    QString token = basemodel.posToken(from.y(), from.x(), to.y(), to.x());
     QString bestMoveWouldBe = QString("The best move for %1 would be %2").arg(c).arg(token);
     QMessageBox::information(this, "Engine says:", bestMoveWouldBe);
 }
@@ -563,19 +563,19 @@ void MainWindow::ResetToHistory()
     repaint();
 }
 
-void MainWindow::ToMove(position from, position to, QString kind)
+void MainWindow::ToMove(QPoint from, QPoint to, QString kind)
 {
     // not used at the moment
     //basemodel.currentMoves.push_back({from, to});
 
-    QString name = basemodel.board.pieces[from.row][from.col].name;
+    QString name = basemodel.board.pieces[from.x()][from.y()].name;
     QString beaten;
-    if (basemodel.board.GetPiece({to.row, to.col}).type != pieceType::Empty)
+    if (basemodel.board.GetPiece({to.x(), to.y()}).type != pieceType::Empty)
         beaten = "x";
     else
         beaten = "-";
 
-    basemodel.board.movePiece(from.row, from.col, to.row, to.col);
+    basemodel.board.movePiece(from.x(), from.y(), to.x(), to.y());
     if (basemodel.board.onMove == color::Black) {
         basemodel.fromUCI = from;
         basemodel.toUCI = to;

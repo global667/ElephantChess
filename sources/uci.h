@@ -50,7 +50,7 @@ private:
     bool newGame;
 
 signals:
-    void updateView(position from, position to, QString kind);
+    void updateView(QPoint from, QPoint to, QString kind);
     void boardChanged(int fromX, int fromY, int toX, int toY);
 
 public slots:

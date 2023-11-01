@@ -52,7 +52,7 @@ Board &Board::operator=(const Board &other)
 
 void Board::InitPiece(Piece piece)
 {
-    pieces[piece.pos.row][piece.pos.col] = piece;
+    pieces[piece.pos.x()][piece.pos.y()] = piece;
 };
 
 // Macht einen Zug auf dem Brett
@@ -64,8 +64,8 @@ void Board::movePiece(int fromRow, int fromCol, int toRow, int toCol)
                                      {fromRow, fromCol},
                                      QImage(),
                                      "");
-    piece.pos.row = toRow;
-    piece.pos.col = toCol;
+    piece.pos.setX(toRow);
+    piece.pos.setY(toCol);
     pieces[toRow][toCol] = piece;
     basemodel.moves.append(basemodel.posToken(fromCol, fromRow, toCol, toRow));
     //basemodel.currentMoves.push_back({{fromCol, fromRow}, {toCol, toRow}});
@@ -89,7 +89,7 @@ void Board::initBoard()
                 pieces[row][col] = Piece(color::Red, pieceType::Empty, {row, col}, "");
             }
         }
-        InitPiece(Piece(color::Red, pieceType::Chariot, {0, 0}, "\u8ECA"));        //"車"));
+        InitPiece(Piece(color::Red, pieceType::Chariot, QPoint(0, 0), "\u8ECA"));  //"車"));
         InitPiece(Piece(color::Red, pieceType::Horse, {0, 1}, QString("\u99AC"))); //"馬"));
         InitPiece(Piece(color::Red, pieceType::Elephant, {0, 2}, "\u76f8"));       //"相"));
         InitPiece(Piece(color::Red, pieceType::Advisor, {0, 3}, "\u4ed5"));        //"仕"));

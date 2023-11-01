@@ -53,11 +53,11 @@ public:
     QList<Board> moveHistory;
     QString kind = "uci";
 
-    QList<QPair<position, position>> currentMoves;
-    position fromHuman = {-1, -1};
-    position toHuman = {-1, -1};
-    position fromUCI = {-1, -1};
-    position toUCI = {-1, -1};
+    QList<QPair<QPoint, QPoint>> currentMoves;
+    QPoint fromHuman = {-1, -1};
+    QPoint toHuman = {-1, -1};
+    QPoint fromUCI = {-1, -1};
+    QPoint toUCI = {-1, -1};
 
     // legt fest welche Farbe unten ist und welche oben,
     // die genannte ist unten

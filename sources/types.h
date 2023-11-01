@@ -20,6 +20,7 @@
 #define TYPES_H
 
 #include <QImage>
+#include <QPoint>
 
 // A chinese chess board in ascii
 //    a b c d e f g h i
@@ -45,11 +46,16 @@ enum class pieceType { Empty, General, Advisor, Elephant, Horse, Chariot, Cannon
 
 enum class color { Red, Black };
 
-struct position
-{
-    int row;
-    int col;
-};
+//class position : QPoint
+//{
+//public:
+//    position(){};
+//    position(int x, int y) {};
+//    int row;
+//    int x() { return row; };
+//    int col;
+//    int y() { return col; };
+//};
 
 // Exchange to QPoint (subclassing)
 // class Piece
@@ -57,7 +63,7 @@ class Piece
 {
 public:
     Piece() {}
-    Piece(color colr, pieceType type, position pos, QImage img, QString name)
+    Piece(color colr, pieceType type, QPoint pos, QImage img, QString name)
         : colr(colr)
         , type(type)
         , pos(pos)
@@ -69,7 +75,7 @@ public:
         //this->img = QImage(img);
     }
 
-    Piece(color colr, pieceType type, position pos, QString name)
+    Piece(color colr, pieceType type, QPoint pos, QString name)
         : colr(colr)
         , type(type)
         , pos(pos)
@@ -85,7 +91,7 @@ public:
     QImage img;
     color colr;
     pieceType type;
-    position pos;
+    QPoint pos;
     QString name;
 };
 

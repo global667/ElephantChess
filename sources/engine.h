@@ -33,15 +33,15 @@ public:
     Engine();
     ~Engine(){};
 
-    std::pair<position, position> GetBestMove(color color);
+    std::pair<QPoint, QPoint> GetBestMove(color color);
 
     // get all possible moves for a piece
     // return a list of positions
-    QList<position> GetPossibleMoves(Piece *piece);
+    QList<QPoint> GetPossibleMoves(Piece *piece);
 
     // get all possible moves for a color
     // return a list of positions
-    QList<position> GetPossibleMoves(color color);
+    QList<QPoint> GetPossibleMoves(color color);
 
     void engineGo();
 
@@ -55,7 +55,7 @@ private:
     //QByteArray posToken(int fromX, int fromY, int toX, int toY);
 
 signals:
-    void updateView(position from, position to, QString kind);
+    void updateView(QPoint from, QPoint to, QString kind);
 };
 
 #endif // ENGINE_H
