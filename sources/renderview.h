@@ -16,12 +16,17 @@
 #include <QTextureMaterial>
 #include <Qt3DExtras/QSphereMesh>
 //#include <Qt3DExtras/QTorusMesh>
+#include <QPaintedTextureImage>
 #include <QTextureImage>
 #include <Qt3DExtras/QCuboidMesh>
 #include <Qt3DExtras/Qt3DWindow>
 #include <Qt3DRender/QGeometryRenderer>
 #include <Qt3DRender/QRenderAspect>
 #include <Qt3DRender/QTexture>
+
+#include <QPainter>
+
+#include "basemodel.h"
 
 class RenderView : public Qt3DExtras::Qt3DWindow
 {
@@ -40,9 +45,35 @@ public:
     Qt3DCore::QTransform *lightTransform;
     Qt3DRender::QPointLight *light;
     Qt3DRender::QTextureRectangle *texture;
-    Qt3DRender::QTextureImage *textureImage;
+    Qt3DRender::QPaintedTextureImage *textureImage;
 
 signals:
+};
+
+class PaintedTextureImage : public Qt3DRender::QPaintedTextureImage
+{
+    //Es befindet sich auf der Seite des Brettes, die dem Spieler mit den roten Figuren gehört.
+    QString redRiver = QString(
+        "\u695a"
+        "\u6cb3"); //"楚 河"; // (Chǔ hé) - Dieser Schriftzug bedeutet "Fluss von Chu".
+
+    //Es befindet sich auf der Seite des Brettes, die dem Spieler mit den schwarzen Figuren gehört.
+    QString blackRiver = QString(
+        "\u6f22"
+        "\u754c"); //"漢 界"; //  (Hàn jiè) - Dieser Schriftzug bedeutet "Grenze von Han".
+
+public:
+    PaintedTextureImage()
+    {
+        setHeight(900);
+        setWidth(900);
+    };
+
+protected:
+    void paint(QPainter *p);
+
+private:
+    void paintBoard(QPainter *p);
 };
 
 #endif // RENDERVIEW_H
