@@ -89,6 +89,7 @@ RenderView::RenderView()
 void PaintedTextureImage::paint(QPainter *p)
 {
     paintBoard(p);
+    PaintPieces(p);
 }
 
 void PaintedTextureImage::paintBoard(QPainter *p)
@@ -249,4 +250,115 @@ void PaintedTextureImage::paintBoard(QPainter *p)
 
     pn.setWidth(2);
     p->setPen(pn);
+}
+// Draws the pieces on the board (native)
+QPixmap *PaintedTextureImage::PrepareNativePiece(QPainter *p, int row, int col)
+{
+    //QPainter *p;
+    Q_ASSERT(p);
+
+    auto w = 900;
+    //p->viewport().width(); //p->viewport().width();
+    auto h = 900;
+    //p->viewport().height(); //p->viewport().height();
+
+    QPen pen;
+    pen.setColor(Qt::red);
+    pen.setWidth(3);
+    p->setPen(pen);
+
+    QFont font;
+    font.setPointSize(30);
+    font.setWeight(QFont::DemiBold);
+    p->setFont(font);
+    // Draws all pieces
+    if (basemodel.board.pieces[row][8 - col].name != "") {
+        if (basemodel.board.pieces[row][8 - col].colr == color::Red) {
+            // Draw red
+            pen.setColor(Qt::red);
+            p->setPen(pen);
+        } else {
+            // Draw black
+            pen.setColor(Qt::black);
+            p->setPen(pen);
+        }
+        QRadialGradient
+            gradient1(QPointF(50.0 + (((8 - col)) * (w - 2.0 * 50.0) / BaseModel::BoardColPoints),
+                              50 + (9 - row) * (h - 2 * 50) / BaseModel::BoardRowPoints),
+                      50);
+        gradient1.setColorAt(1, QColor::fromRgb(222, 91, 16, 255));
+        gradient1.setColorAt(0, QColor::fromRgb(255, 255, 255, 255));
+
+        QBrush brush1(gradient1);
+        p->setBrush(brush1);
+
+        p->drawChord(QRect((50 + (((8 - col)) * (w - 2 * 50) / BaseModel::BoardColPoints))
+                               - w / BaseModel::BoardColPoints / 2 / 1.5,
+                           (50 + (9 - row) * (h - 50 - 100) / BaseModel::BoardRowPoints)
+                               - h / BaseModel::BoardColPoints / 2 / 1.5,
+                           w / (BaseModel::BoardColPoints) / 1.5,
+                           h / BaseModel::BoardColPoints / 1.5),
+                     0,
+                     5760);
+
+        p->drawText(QRect((50 + (((8 - col)) * (w - 2 * 50) / BaseModel::BoardColPoints))
+                              - w / BaseModel::BoardColPoints / 2 / 1.8,
+                          (50 + (9 - row) * (h - 50 - 100) / BaseModel::BoardRowPoints)
+                              - h / BaseModel::BoardColPoints / 2 / 2,
+                          w / (BaseModel::BoardColPoints),
+                          h / BaseModel::BoardColPoints),
+                    basemodel.board.pieces[row][8 - col].name);
+        p->drawPixmap(0, 0, pix);
+    }
+    return &pix;
+}
+
+// Painted from upper left!
+void PaintedTextureImage::PaintPieces(QPainter *p)
+{
+    Q_ASSERT(p);
+
+    auto w = 900;
+    //p->window().width(); //p->viewport().width();
+    auto h = 900;
+    //p->window().height(); //p->viewport().height();
+
+    // Draws all pieces
+
+    for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < 9; i++) {
+            QPixmap pixm;
+            QPixmap pixm2;
+            if (basemodel.board.pieces[j][8 - i].colr == color::Red) {
+                if (basemodel.viewStyleModeVar == viewStyleMode::western_png) {
+                    pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
+                    pixm2 = pixm.copy(100, 0, 100, 100);
+                } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_png) {
+                    pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img,
+                                              Qt::PreferDither);
+                    pixm2 = pixm.copy(0, 0, 100, 100);
+                } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_native) {
+                    pixm2 = *PrepareNativePiece(p, j, i);
+                }
+            } else {
+                if (basemodel.viewStyleModeVar == viewStyleMode::western_png) {
+                    pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
+                    pixm2 = pixm.copy(300, 0, 100, 100);
+                } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_png) {
+                    pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img,
+                                              Qt::PreferDither);
+                    pixm2 = pixm.copy(200, 0, 100, 100);
+                } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_native) {
+                    pixm2 = *PrepareNativePiece(p, j, i);
+                }
+            }
+            p->drawPixmap(QRect((50 + ((8 - i) * (w - 2 * 50) / BaseModel::BoardColPoints))
+                                    - w / BaseModel::BoardColPoints / 2 / 1.5,
+                                (50 + (9 - j) * (h - 50 - 100) / BaseModel::BoardRowPoints)
+                                    - h / BaseModel::BoardColPoints / 2 / 1.5,
+                                w / (BaseModel::BoardColPoints) / 1.5,
+                                h / BaseModel::BoardColPoints / 1.5),
+                          pixm2);
+        }
+    }
 }

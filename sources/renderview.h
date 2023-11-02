@@ -61,6 +61,7 @@ class PaintedTextureImage : public Qt3DRender::QPaintedTextureImage
     QString blackRiver = QString(
         "\u6f22"
         "\u754c"); //"漢 界"; //  (Hàn jiè) - Dieser Schriftzug bedeutet "Grenze von Han".
+    QPixmap pix;
 
 public:
     PaintedTextureImage()
@@ -74,6 +75,8 @@ protected:
 
 private:
     void paintBoard(QPainter *p);
+    void PaintPieces(QPainter *p);
+    QPixmap *PrepareNativePiece(QPainter *p, int row, int col);
 };
 
 #endif // RENDERVIEW_H
