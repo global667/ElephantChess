@@ -36,9 +36,14 @@ qt_add_resources(RESOURCES res.qrc)
 #qt_add_translation(QM_FILES ${TS_FILES})
 
 add_executable(ElephantChess ${PROJECT_CPP} ${RESOURCES}
+    renderview.h renderview.cpp
 
 )
-target_link_libraries(ElephantChess PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Test)
+target_link_libraries(ElephantChess PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Test     Qt6::3DCore
+    Qt6::3DRender
+    Qt6::3DLogic
+    Qt6::3DExtras
+    Qt6::3DAnimation)
 
 set_target_properties(ElephantChess PROPERTIES
     ${BUNDLE_ID_OPTION}

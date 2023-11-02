@@ -49,9 +49,41 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
+#include <Qt3DCore/qentity.h>
+#include <Qt3DRender/qcamera.h>
+#include <Qt3DRender/qcameralens.h>
+
+#include <QtGui/QScreen>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QCommandLinkButton>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QWidget>
+
+#include <Qt3DExtras/qtorusmesh.h>
+#include <Qt3DRender/qeffect.h>
+#include <Qt3DRender/qmaterial.h>
+#include <Qt3DRender/qmesh.h>
+#include <Qt3DRender/qpointlight.h>
+#include <Qt3DRender/qrenderpass.h>
+#include <Qt3DRender/qsceneloader.h>
+#include <Qt3DRender/qtechnique.h>
+#include <Qt3DRender/qtexture.h>
+
+#include <Qt3DCore/qaspectengine.h>
+#include <Qt3DCore/qtransform.h>
+
+#include <Qt3DExtras/qforwardrenderer.h>
+#include <Qt3DRender/qrenderaspect.h>
+
+#include <Qt3DExtras/qfirstpersoncameracontroller.h>
+#include <Qt3DExtras/qt3dwindow.h>
+
 #include "basemodel.h"
 #include "boardview.h"
 #include "engine.h"
+#include "genmove.h"
+#include "renderview.h"
 #include "settingsview.h"
 #include "types.h"
 #include "uci.h"
@@ -78,6 +110,10 @@ private:
     void InitEngine();
 
     BoardView *boardview;
+
+    QWidget *view;
+    Qt3DExtras::Qt3DWindow *renderView;
+
     QTabWidget *tabview;
     QWidget *tabwidget1;
     QWidget *tabwidget2;

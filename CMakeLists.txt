@@ -26,6 +26,21 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets)# LinguistTools)
 find_package(Qt6 REQUIRED COMPONENTS Widgets Test)# LinguistTools)
+find_package(Qt6 REQUIRED COMPONENTS
+    3DCore
+    3DRender
+    3DInput
+    3DLogic
+    3DExtras
+    3DAnimation
+)
+#target_link_libraries(ElephantChess PRIVATE
+#    Qt6::3DCore
+#    Qt6::3DRender
+#    Qt6::3DLogic
+#    Qt6::3DExtras
+#    Qt6::3DAnimation
+#)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 #add_test(NAME ElephantChess COMMAND ElephantChess)

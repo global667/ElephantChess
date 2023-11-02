@@ -17,19 +17,26 @@
 */
 
 #include "mainwindow.h"
-
+#define THREE_D_VIEW
 //#ifdef TEST
 //#endif
 #include <QDesktopServices>
-#include "genmove.h"
 
 extern BaseModel basemodel;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
+#ifdef THREE_D_VIEW
+    renderView = new RenderView();
+    renderView->defaultFrameGraph()->setClearColor(QColor(QRgb(0x4d4d4f)));
+    view = QWidget::createWindowContainer(renderView);
+    setCentralWidget(view);
+    renderView->show();
+#else
     boardview = new BoardView(this);
-    setCentralWidget(boardview);
+#endif
+
     InitWidgets();
     InitEngine();
     InitConnections();
@@ -48,10 +55,12 @@ void MainWindow::InitConnections()
             SIGNAL(updateView(QPoint, QPoint, QString)),
             SLOT(ToMove(QPoint, QPoint, QString)));
     // mouse clicked moves (human)
+#ifdef THREE_D_VIEW
+#else
     connect(boardview,
             SIGNAL(updateView(QPoint, QPoint, QString)),
             SLOT(ToMove(QPoint, QPoint, QString)));
-
+#endif
     connect(settings, SIGNAL(boardStyleChanged()), SLOT(newgame()));
 
     connect(table,
