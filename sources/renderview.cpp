@@ -5,6 +5,13 @@ extern BaseModel basemodel;
 
 RenderView::RenderView()
 {
+    PickingSettings.setPickMethod(Qt3DRender::QPickingSettings::BoundingVolumePicking);
+    objectPicker = new Qt3DRender::QObjectPicker();
+    connect(objectPicker,
+            SIGNAL(clicked(Qt3DRender::QPickEvent *)),
+            this,
+            SLOT(clicked(Qt3DRender::QPickEvent *)));
+
     // Root entity
     rootEntity = new Qt3DCore::QEntity();
 
@@ -78,6 +85,7 @@ RenderView::RenderView()
     m_torusEntity = new Qt3DCore::QEntity(rootEntity); //m_rootEntity);
     m_torusEntity->addComponent(m_torus);
     m_torusEntity->addComponent(torusMaterial);
+    m_torusEntity->addComponent(objectPicker);
     m_torusEntity->addComponent(torusTransform);
     //! [3]
     /*   //}
@@ -85,6 +93,18 @@ RenderView::RenderView()
     // Set root object of the scene
     setRootEntity(rootEntity);
 }
+
+void RenderView::clicked(Qt3DRender::QPickEvent *pick)
+{
+    qDebug() << "Picking!";
+    pick->entity();
+}
+
+//void RenderView::mousePressEvent(QMouseEvent *ev)
+//{
+//    qDebug() << "Mousebutton pressed";
+//    //Qt3DCore::QEntity *ent = PickingSettings.entity();
+//}
 
 void PaintedTextureImage::paint(QPainter *p)
 {
@@ -324,7 +344,7 @@ void PaintedTextureImage::PaintPieces(QPainter *p)
     //p->window().height(); //p->viewport().height();
 
     // Draws all pieces
-
+    //basemodel.viewStyleModeVar = viewStyleMode::western_png;
     for (int j = 0; j < 10; j++) {
         for (int i = 0; i < 9; i++) {
             QPixmap pixm;

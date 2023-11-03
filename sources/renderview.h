@@ -16,15 +16,17 @@
 #include <QTextureMaterial>
 #include <Qt3DExtras/QSphereMesh>
 //#include <Qt3DExtras/QTorusMesh>
+#include <QObjectPicker>
 #include <QPaintedTextureImage>
+#include <QPainter>
+#include <QPickEvent>
+#include <QPickingSettings>
 #include <QTextureImage>
 #include <Qt3DExtras/QCuboidMesh>
 #include <Qt3DExtras/Qt3DWindow>
 #include <Qt3DRender/QGeometryRenderer>
 #include <Qt3DRender/QRenderAspect>
 #include <Qt3DRender/QTexture>
-
-#include <QPainter>
 
 #include "basemodel.h"
 
@@ -46,6 +48,15 @@ public:
     Qt3DRender::QPointLight *light;
     Qt3DRender::QTextureRectangle *texture;
     Qt3DRender::QPaintedTextureImage *textureImage;
+
+    Qt3DRender::QPickingSettings PickingSettings;
+    Qt3DRender::QObjectPicker *objectPicker;
+
+public slots:
+    void clicked(Qt3DRender::QPickEvent *pick);
+
+protected:
+    //    void mousePressEvent(QMouseEvent *ev) override;
 
 signals:
 };
