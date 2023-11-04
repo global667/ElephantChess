@@ -42,6 +42,11 @@ RenderView::RenderView()
     // Torus shape data
     //! [0]
     m_torus = new Qt3DExtras::QCuboidMesh();
+    pieceCylinderMesh = new Qt3DRender::QMesh();
+
+    pieceCylinderMesh->setSource(
+        QUrl(QUrl::fromLocalFile("/home/wsk/ElephantChess/res/wooden-piece-3d.obj")));
+    //pieceCylinderMesh->setSlices(400);
     //m_torus->setRadius(1.0f);
     //m_torus->setMinorRadius(0.4f);
     //m_torus->setRings(100);
@@ -54,49 +59,59 @@ RenderView::RenderView()
     torusTransform->setScale(5.8f);
     //torusTransform->setRotation(QQuaternion::fromAxisAndAngle(QVector3D(0.0f, 1.0f, 0.0f), 25.0f));
     //torusTransform->setTranslation(QVector3D(5.0f, 4.0f, 0.0f));
+
+    cylinderTransform = new Qt3DCore::QTransform();
+    cylinderTransform->setScale(5.8f);
+    cylinderTransform->setRotation(
+        QQuaternion::fromAxisAndAngle(QVector3D(1.0f, 0.0f, 0.0f), 45.0f));
+
     torusTransform->setTranslation(QVector3D(0.0f, 0.0f, 10.0f));
-
-    //! [1]
-
-    //! [2]
-    //torusMaterial = new Qt3DExtras::QDiffuseSpecularMaterial();
     torusMaterial = new Qt3DExtras::QTextureMaterial();
-    texture = new Qt3DRender::QTextureRectangle();
-    qDebug() << texture;
-    if (!texture)
-        qDebug() << "Error with 'texture'";
-    //    QUrl url = QUrl::fromLocalFile("/home/wsk/OIP.jpg");
-    //    qDebug() << url.isValid();
-    //    if (!url.isValid())
-    //        qDebug() << "Error in url";
-    textureImage = new PaintedTextureImage();
-    //textureImage->setSource(url);
-    qDebug() << textureImage;
-    //if (textureImage->status() == Qt3DRender::QTextureImage::Error)
-    //    qDebug() << "Error in 'textreImage'";
+    texture = new Qt3DRender::QTexture2D(); //QTextureRectangle();
+    //    textureWrapMode = new Qt3DRender::QTextureWrapMode(Qt3DRender::QTextureWrapMode::ClampToEdge);
+    //    textureWrapMode->x()
+    //    texture->setWrapMode();
+
+    textureImage = new Qt3DRender::QTextureImage();
+    textureImage->setSource(QUrl(
+        QUrl::fromLocalFile("/home/wsk/ElephantChess/res/Xiangqi_Advisor_(Trad)+ wooden.png")));
     texture->addTextureImage(textureImage);
     torusMaterial->setTexture(texture);
-    //torusMaterial->setDiffuse(QColor(QRgb(0xfcaf3e)));
-    //! [2]
+    //torusMaterial->setTextureTransform(QVector3D(0.0f, 0.4f, 0.0f));
 
-    //{
-    // Torus
-    //! [3]
-    m_torusEntity = new Qt3DCore::QEntity(rootEntity); //m_rootEntity);
-    m_torusEntity->addComponent(m_torus);
-    m_torusEntity->addComponent(torusMaterial);
-    m_torusEntity->addComponent(objectPicker);
-    m_torusEntity->addComponent(torusTransform);
-    //! [3]
-    /*   //}
-*/
+    //    m_torusEntity = new Qt3DCore::QEntity(rootEntity); //m_rootEntity);
+    //    m_torusEntity->addComponent(m_torus);
+    //    m_torusEntity->addComponent(torusMaterial);
+    //    m_torusEntity->addComponent(objectPicker);
+    //    m_torusEntity->addComponent(torusTransform);
+
+    cylinderEntity = new Qt3DCore::QEntity(rootEntity); //m_torusEntity);
+
+    // Create a new QPhongMaterial object and assign the QDiffuseSpecularMaterial object to it
+    //Qt3DExtras::QDiffuseSpecularMaterial *phongMaterial = new Qt3DExtras::QDiffuseSpecularMaterial();
+    //phongMaterial->setDiffuseMaterial(torusMaterial);
+
+    //pieceCylinderMesh->setMaterial(torusMaterial);
+
+    cylinderEntity->addComponent(pieceCylinderMesh);
+    cylinderEntity->addComponent(cylinderTransform);
+    cylinderEntity->addComponent(torusMaterial);
+    cylinderEntity->addComponent(objectPicker);
+
     // Set root object of the scene
     setRootEntity(rootEntity);
 }
 
 void RenderView::clicked(Qt3DRender::QPickEvent *pick)
 {
-    qDebug() << "Picking!";
+    qDebug() << "Picking!" << transl;
+    if (pick->button() == Qt3DRender::QPickEvent::RightButton)
+        transl = transl - 5.0;
+    if (pick->button() == Qt3DRender::QPickEvent::LeftButton)
+        transl = transl + 5.0;
+    cylinderTransform->setTranslation(QVector3D(0.0f, 0.0f, 0.0f));
+    cylinderTransform->setRotation(
+        QQuaternion::fromAxisAndAngle(QVector3D(1.0f, 0.0f, 0.0f), 45.0f + transl));
     pick->entity();
 }
 

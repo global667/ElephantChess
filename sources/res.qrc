@@ -21,5 +21,7 @@
         <file>../res/license_short.txt</file>
         <file>../res/settings.png</file>
         <file>../res/play-now.png</file>
+        <file>../res/wooden-piece-3d.obj</file>
+        <file>../res/Xiangqi_Advisor_(Trad)+ wooden.png</file>
     </qresource>
 </RCC>
