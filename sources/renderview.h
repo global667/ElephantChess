@@ -24,6 +24,7 @@
 #include <QPainter>
 #include <QPickEvent>
 #include <QPickingSettings>
+#include <QSceneLoader>
 #include <QTextureImage>
 #include <QTextureWrapMode>
 #include <QVector2D>
@@ -33,6 +34,10 @@
 #include <Qt3DRender/QMesh>
 #include <Qt3DRender/QRenderAspect>
 #include <Qt3DRender/QTexture>
+#include "qtexturematerial.h"
+
+#include <QAttribute>
+#include <QDirectionalLight>
 
 #include "basemodel.h"
 #include "qmesh.h"
@@ -53,18 +58,21 @@ public:
     Qt3DExtras::QTextureMaterial *torusMaterial;
     Qt3DExtras::QFirstPersonCameraController *camController;
     Qt3DCore::QTransform *lightTransform;
-    Qt3DRender::QPointLight *light;
+    Qt3DRender::QDirectionalLight *dirlight;
     Qt3DRender::QTexture2D *texture;
     Qt3DRender::QTextureImage *textureImage;
 
     Qt3DRender::QMesh *pieceCylinderMesh;
-    Qt3DCore::QEntity *cylinderEntity;
+    Qt3DCore::QEntity *boardSurfaceEntity, *boardEntity;
     Qt3DRender::QTextureWrapMode *textureWrapMode;
 
     Qt3DRender::QPickingSettings PickingSettings;
     Qt3DRender::QObjectPicker *objectPicker;
 
+    Qt3DRender::QSceneLoader *loader;
+
     float transl = 0.0;
+    QStringList entityList;
 
 public slots:
     void clicked(Qt3DRender::QPickEvent *pick);
@@ -73,6 +81,10 @@ protected:
     //    void mousePressEvent(QMouseEvent *ev) override;
 
 signals:
+private:
+    Qt3DCore::QTransform *camtrans;
+    Qt3DRender::QMesh *makeMesh(QString name);
+    Qt3DExtras::QTextureMaterial *makeTex(QString name);
 };
 
 class PaintedTextureImage : public Qt3DRender::QPaintedTextureImage
@@ -102,6 +114,37 @@ private:
     void paintBoard(QPainter *p);
     void PaintPieces(QPainter *p);
     QPixmap *PrepareNativePiece(QPainter *p, int row, int col);
+};
+
+class LoadScene : public QObject
+{
+    Qt3DRender::QMesh *mesh = new Qt3DRender::QMesh();
+
+public:
+    LoadScene()
+    {
+        mesh->setSource(QUrl(QUrl::fromLocalFile("/home/wsk/ElephantChess/res/chinese-chess.obj")));
+    };
+
+    Qt3DRender::QMesh *makeMesh(QString name)
+    {
+        mesh->setMeshName(name);
+
+        return mesh;
+    }
+
+    Qt3DExtras::QTextureMaterial *makeTex(QString name)
+    {
+        Qt3DRender::QTextureImage *textureImage = new Qt3DRender::QTextureImage();
+        textureImage->setSource(QUrl(QUrl::fromLocalFile(
+            "/home/wsk/ElephantChess/res/"
+            + name))); // Xiangqi_Advisor_(Trad)+ wooden.png"))); //wooden.png")));
+        Qt3DRender::QTexture2D *texture = new Qt3DRender::QTexture2D();
+        texture->addTextureImage(textureImage);
+        Qt3DExtras::QTextureMaterial *material = new Qt3DExtras::QTextureMaterial();
+        material->setTexture(texture);
+        return material;
+    }
 };
 
 #endif // RENDERVIEW_H

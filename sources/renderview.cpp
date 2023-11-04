@@ -1,5 +1,4 @@
 #include "renderview.h"
-#include "qtexturematerial.h"
 
 extern BaseModel basemodel;
 
@@ -24,12 +23,12 @@ RenderView::RenderView()
     cameraEntity->setViewCenter(QVector3D(0, 0, 0));
 
     lightEntity = new Qt3DCore::QEntity(rootEntity);
-    light = new Qt3DRender::QPointLight(lightEntity);
-    light->setColor("white");
-    light->setIntensity(1);
-    lightEntity->addComponent(light);
+    dirlight = new Qt3DRender::QDirectionalLight(lightEntity);
+    dirlight->setColor("white");
+    dirlight->setIntensity(1);
+    lightEntity->addComponent(dirlight);
     lightTransform = new Qt3DCore::QTransform(lightEntity);
-    lightTransform->setTranslation(cameraEntity->position());
+    //lightTransform->setTranslation(cameraEntity->position());
     lightEntity->addComponent(lightTransform);
 
     // For camera controls
@@ -41,11 +40,16 @@ RenderView::RenderView()
 
     // Torus shape data
     //! [0]
-    m_torus = new Qt3DExtras::QCuboidMesh();
-    pieceCylinderMesh = new Qt3DRender::QMesh();
+    //m_torus = new Qt3DExtras::QCuboidMesh();
+    //pieceCylinderMesh = makeMesh("QiPan_13_-_Default_0");
 
+    /*new Qt3DRender::QMesh();
+    pieceCylinderMesh->setMeshName("QiPan_13_-_Default_0");
     pieceCylinderMesh->setSource(
-        QUrl(QUrl::fromLocalFile("/home/wsk/ElephantChess/res/wooden-piece-3d.obj")));
+        QUrl(QUrl::fromLocalFile("/home/wsk/ElephantChess/res/chinese-chess.obj")));*/
+
+    //qDebug() << pieceCylinderMesh;
+
     //pieceCylinderMesh->setSlices(400);
     //m_torus->setRadius(1.0f);
     //m_torus->setMinorRadius(0.4f);
@@ -55,64 +59,97 @@ RenderView::RenderView()
 
     // TorusMesh Transform
     //! [1]
-    torusTransform = new Qt3DCore::QTransform();
-    torusTransform->setScale(5.8f);
-    //torusTransform->setRotation(QQuaternion::fromAxisAndAngle(QVector3D(0.0f, 1.0f, 0.0f), 25.0f));
-    //torusTransform->setTranslation(QVector3D(5.0f, 4.0f, 0.0f));
+    //    torusTransform = new Qt3DCore::QTransform();
+    //    torusTransform->setScale(5.8f);
+    //    //torusTransform->setRotation(QQuaternion::fromAxisAndAngle(QVector3D(0.0f, 1.0f, 0.0f), 25.0f));
+    //    //torusTransform->setTranslation(QVector3D(5.0f, 4.0f, 0.0f));
 
-    cylinderTransform = new Qt3DCore::QTransform();
-    cylinderTransform->setScale(5.8f);
-    cylinderTransform->setRotation(
-        QQuaternion::fromAxisAndAngle(QVector3D(1.0f, 0.0f, 0.0f), 45.0f));
+    //    cylinderTransform = new Qt3DCore::QTransform();
+    //    cylinderTransform->setScale(5.8f);
+    //    cylinderTransform->setRotation(
+    //        QQuaternion::fromAxisAndAngle(QVector3D(1.0f, 0.0f, 0.0f), 45.0f));
 
-    torusTransform->setTranslation(QVector3D(0.0f, 0.0f, 10.0f));
-    torusMaterial = new Qt3DExtras::QTextureMaterial();
+    //    torusTransform->setTranslation(QVector3D(0.0f, 0.0f, 10.0f));
+    /*        torusMaterial = new Qt3DExtras::QTextureMaterial();
     texture = new Qt3DRender::QTexture2D(); //QTextureRectangle();
     //    textureWrapMode = new Qt3DRender::QTextureWrapMode(Qt3DRender::QTextureWrapMode::ClampToEdge);
     //    textureWrapMode->x()
     //    texture->setWrapMode();
 
+    loader = new Qt3DRender::QSceneLoader();
+
+    //loader->setSource(QUrl(QUrl::fromLocalFile("/home/wsk/ElephantChess/res/ChineseChess.obj")));
+    // m_torusEntity = loader->entity("Cube");
     textureImage = new Qt3DRender::QTextureImage();
-    textureImage->setSource(QUrl(
-        QUrl::fromLocalFile("/home/wsk/ElephantChess/res/Xiangqi_Advisor_(Trad)+ wooden.png")));
+    textureImage->setSource(QUrl(QUrl::fromLocalFile(
+        "/home/wsk/ElephantChess/res/textures/Image_0.jpg"))); // Xiangqi_Advisor_(Trad)+  wooden.png"))); //wooden.png")));
     texture->addTextureImage(textureImage);
-    torusMaterial->setTexture(texture);
+    torusMaterial->setTexture(texture);*/
     //torusMaterial->setTextureTransform(QVector3D(0.0f, 0.4f, 0.0f));
 
+    //loader = new Qt3DRender::QSceneLoader();
+    //loader->setSource(QUrl(QUrl::fromLocalFile("/home/wsk/ElephantChess/res/wooden-piece-3d.obj")));
+    //m_torusEntity =
+    //qDebug() << loader->entity("Cube");
+    //entityList =
+    //qDebug() << loader->entityNames().join("");
+    //<< m_torusEntity;
     //    m_torusEntity = new Qt3DCore::QEntity(rootEntity); //m_rootEntity);
     //    m_torusEntity->addComponent(m_torus);
     //    m_torusEntity->addComponent(torusMaterial);
     //    m_torusEntity->addComponent(objectPicker);
     //    m_torusEntity->addComponent(torusTransform);
+#define SCENELOADER
+#ifdef SCENELOADER
+    LoadScene scene;
 
-    cylinderEntity = new Qt3DCore::QEntity(rootEntity); //m_torusEntity);
+    Qt3DRender::QMesh *mesh = new Qt3DRender::QMesh();
+    mesh->setSource(QUrl(QUrl::fromLocalFile("/home/wsk/ElephantChess/res/chinese-chess.obj")));
 
-    // Create a new QPhongMaterial object and assign the QDiffuseSpecularMaterial object to it
-    //Qt3DExtras::QDiffuseSpecularMaterial *phongMaterial = new Qt3DExtras::QDiffuseSpecularMaterial();
-    //phongMaterial->setDiffuseMaterial(torusMaterial);
+    mesh->setMeshName("13_-_Default");
+    //Qt3DRender::QMesh *mesh = new Qt3DRender::QMesh[10]();
+    boardSurfaceEntity = new Qt3DCore::QEntity(rootEntity);
+    boardSurfaceEntity->addComponent(mesh);
+    //cylinderEntity->addComponent(cylinderTransform);
+    boardSurfaceEntity->addComponent(scene.makeTex("Image_0.jpg"));
+    boardSurfaceEntity->addComponent(objectPicker);
 
-    //pieceCylinderMesh->setMaterial(torusMaterial);
-
-    cylinderEntity->addComponent(pieceCylinderMesh);
-    cylinderEntity->addComponent(cylinderTransform);
-    cylinderEntity->addComponent(torusMaterial);
+    mesh->setMeshName("12_-_Default");
+    boardEntity = new Qt3DCore::QEntity(rootEntity);
+    boardEntity->addComponent(mesh);
+    //cylinderEntity->addComponent(cylinderTransform);
+    boardEntity->addComponent(scene.makeTex("Image_2.jpg"));
+    //boardEntity->addComponent(objectPicker);
+#else
+    loader = new Qt3DRender::QSceneLoader();
+    loader->setSource(QUrl(QUrl::fromLocalFile("/home/wsk/ElephantChess/res/wooden-piece-3d.mtl")));
+    //cylinderEntity->addComponent(loader);
     cylinderEntity->addComponent(objectPicker);
-
+#endif
     // Set root object of the scene
     setRootEntity(rootEntity);
 }
 
 void RenderView::clicked(Qt3DRender::QPickEvent *pick)
 {
-    qDebug() << "Picking!" << transl;
+    //qDebug() << "Picking!" << transl;
+    //Qt3DCore::QEntity *name = new Qt3DCore::QEntity();
+    //QString n = name->name();
+    //qDebug() << entityList.join("");
+    //if (pick->entity() == cylinderEntity) {
     if (pick->button() == Qt3DRender::QPickEvent::RightButton)
-        transl = transl - 5.0;
+        transl = transl - 1.0;
     if (pick->button() == Qt3DRender::QPickEvent::LeftButton)
-        transl = transl + 5.0;
-    cylinderTransform->setTranslation(QVector3D(0.0f, 0.0f, 0.0f));
-    cylinderTransform->setRotation(
-        QQuaternion::fromAxisAndAngle(QVector3D(1.0f, 0.0f, 0.0f), 45.0f + transl));
+        transl = transl + 1.0;
+    //cylinderTransform->setTranslation(QVector3D(0.0f, 0.0f, 0.0f));
+    //cylinderTransform->setRotation(
+    //    QQuaternion::fromAxisAndAngle(QVector3D(1.0f, 0.0f, 0.0f), 45.0f + transl));
+    //camtrans = cameraEntity->transform(); //);
+    cameraEntity->rotate(QQuaternion::fromAxisAndAngle(QVector3D(0.1f, 0.0f, 0.0f), 45.0f + transl));
+    //cameraEntity->setPosition(QVector3D(0, 0, 20.0f + transl));
+    cameraEntity->viewAll();
     pick->entity();
+    //}
 }
 
 //void RenderView::mousePressEvent(QMouseEvent *ev)

@@ -17,7 +17,7 @@
 */
 
 #include "mainwindow.h"
-#define THREE_D_VIEW
+//#define THREE_D_VIEW
 //#ifdef TEST
 //#endif
 #include <QDesktopServices>
@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
     renderView->show();
 #else
     boardview = new BoardView(this);
+    setCentralWidget(boardview);
 #endif
 
     InitWidgets();
