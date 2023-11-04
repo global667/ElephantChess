@@ -4,7 +4,8 @@ extern BaseModel basemodel;
 
 RenderView::RenderView()
 {
-    PickingSettings.setPickMethod(Qt3DRender::QPickingSettings::BoundingVolumePicking);
+    PickingSettings.setPickMethod(Qt3DRender::QPickingSettings::PrimitivePicking);
+    PickingSettings.setFaceOrientationPickingMode(Qt3DRender::QPickingSettings::FrontAndBackFace);
     objectPicker = new Qt3DRender::QObjectPicker();
     connect(objectPicker,
             SIGNAL(clicked(Qt3DRender::QPickEvent *)),
@@ -21,6 +22,7 @@ RenderView::RenderView()
     cameraEntity->setPosition(QVector3D(0, 0, 20.0f));
     cameraEntity->setUpVector(QVector3D(0, 1, 0));
     cameraEntity->setViewCenter(QVector3D(0, 0, 0));
+    cameraEntity->viewAll();
 
     lightEntity = new Qt3DCore::QEntity(rootEntity);
     dirlight = new Qt3DRender::QDirectionalLight(lightEntity);
@@ -103,23 +105,40 @@ RenderView::RenderView()
 #ifdef SCENELOADER
     LoadScene scene;
 
-    Qt3DRender::QMesh *mesh = new Qt3DRender::QMesh();
-    mesh->setSource(QUrl(QUrl::fromLocalFile("/home/wsk/ElephantChess/res/chinese-chess.obj")));
-
     mesh->setMeshName("13_-_Default");
+    mesh->setSource(QUrl(QUrl::fromLocalFile("/home/wsk/ElephantChess/res/chinese-chess.obj")));
     //Qt3DRender::QMesh *mesh = new Qt3DRender::QMesh[10]();
-    boardSurfaceEntity = new Qt3DCore::QEntity(rootEntity);
-    boardSurfaceEntity->addComponent(mesh);
-    //cylinderEntity->addComponent(cylinderTransform);
-    boardSurfaceEntity->addComponent(scene.makeTex("Image_0.jpg"));
-    boardSurfaceEntity->addComponent(objectPicker);
+    entity1 = new Qt3DCore::QEntity(rootEntity);
+    entity1->addComponent(mesh);
+    entity1->addComponent(scene.makeTex("Image_0.jpg"));
+    entity1->addComponent(objectPicker);
 
-    mesh->setMeshName("12_-_Default");
-    boardEntity = new Qt3DCore::QEntity(rootEntity);
-    boardEntity->addComponent(mesh);
+    mesh2->setMeshName("12_-_Default");
+    mesh2->setSource(QUrl(QUrl::fromLocalFile("/home/wsk/ElephantChess/res/chinese-chess.obj")));
+    entity2 = new Qt3DCore::QEntity(rootEntity);
+    entity2->addComponent(mesh2);
     //cylinderEntity->addComponent(cylinderTransform);
-    boardEntity->addComponent(scene.makeTex("Image_2.jpg"));
-    //boardEntity->addComponent(objectPicker);
+    entity2->addComponent(scene.makeTex("Image_2.jpg"));
+
+    mesh3->setMeshName("Black-jiang-diffuse");
+    mesh3->setSource(QUrl(QUrl::fromLocalFile("/home/wsk/ElephantChess/res/chinese-chess.obj")));
+    entity3 = new Qt3DCore::QEntity(rootEntity);
+    entity3->addComponent(mesh3);
+    //cylinderEntity->addComponent(cylinderTransform);
+    entity3->addComponent(scene.makeTex("Image_3.png"));
+
+    mesh3->setMeshName("Black-jiang-diffuse");
+    mesh3->setSource(QUrl(QUrl::fromLocalFile("/home/wsk/ElephantChess/res/chinese-chess.obj")));
+    entity3 = new Qt3DCore::QEntity(rootEntity);
+    entity3->addComponent(mesh3);
+
+    Qt3DCore::QTransform *transform = new Qt3DCore::QTransform();
+    transform->setTranslation(QVector3D(-20.0, 0.0, 20.0));
+    entity3->addComponent(transform);
+
+    //cylinderEntity->addComponent(cylinderTransform);
+    entity3->addComponent(scene.makeTex("Image_5.png"));
+
 #else
     loader = new Qt3DRender::QSceneLoader();
     loader->setSource(QUrl(QUrl::fromLocalFile("/home/wsk/ElephantChess/res/wooden-piece-3d.mtl")));
@@ -132,26 +151,28 @@ RenderView::RenderView()
 
 void RenderView::clicked(Qt3DRender::QPickEvent *pick)
 {
+    cameraEntity->viewAll();
     //qDebug() << "Picking!" << transl;
     //Qt3DCore::QEntity *name = new Qt3DCore::QEntity();
     //QString n = name->name();
-    //qDebug() << entityList.join("");
-    //if (pick->entity() == cylinderEntity) {
-    if (pick->button() == Qt3DRender::QPickEvent::RightButton)
-        transl = transl - 1.0;
-    if (pick->button() == Qt3DRender::QPickEvent::LeftButton)
-        transl = transl + 1.0;
-    //cylinderTransform->setTranslation(QVector3D(0.0f, 0.0f, 0.0f));
-    //cylinderTransform->setRotation(
-    //    QQuaternion::fromAxisAndAngle(QVector3D(1.0f, 0.0f, 0.0f), 45.0f + transl));
-    //camtrans = cameraEntity->transform(); //);
-    cameraEntity->rotate(QQuaternion::fromAxisAndAngle(QVector3D(0.1f, 0.0f, 0.0f), 45.0f + transl));
-    //cameraEntity->setPosition(QVector3D(0, 0, 20.0f + transl));
-    cameraEntity->viewAll();
-    pick->entity();
-    //}
-}
+    qDebug() << pick->entity() << entity3;
+    if (pick->entity() == entity3) {
+        if (pick->button() == Qt3DRender::QPickEvent::RightButton)
+            transl = transl - 1.0;
+        if (pick->button() == Qt3DRender::QPickEvent::LeftButton)
+            transl = transl + 1.0;
+        //cylinderTransform->setTranslation(QVector3D(0.0f, 0.0f, 0.0f));
+        //cylinderTransform->setRotation(
+        //    QQuaternion::fromAxisAndAngle(QVector3D(1.0f, 0.0f, 0.0f), 45.0f + transl));
+        //camtrans = cameraEntity->transform(); //);
+        cameraEntity->rotate(
+            QQuaternion::fromAxisAndAngle(QVector3D(0.1f, 0.0f, 0.0f), 45.0f + transl));
+        //cameraEntity->setPosition(QVector3D(0, 0, 20.0f + transl));
 
+        pick->entity();
+        //}
+    }
+}
 //void RenderView::mousePressEvent(QMouseEvent *ev)
 //{
 //    qDebug() << "Mousebutton pressed";

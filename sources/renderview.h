@@ -85,6 +85,14 @@ private:
     Qt3DCore::QTransform *camtrans;
     Qt3DRender::QMesh *makeMesh(QString name);
     Qt3DExtras::QTextureMaterial *makeTex(QString name);
+
+    Qt3DRender::QMesh *mesh = new Qt3DRender::QMesh();
+    Qt3DRender::QMesh *mesh2 = new Qt3DRender::QMesh();
+    Qt3DRender::QMesh *mesh3 = new Qt3DRender::QMesh();
+
+    Qt3DCore::QEntity *entity1 = new Qt3DCore::QEntity();
+    Qt3DCore::QEntity *entity2 = new Qt3DCore::QEntity();
+    Qt3DCore::QEntity *entity3 = new Qt3DCore::QEntity();
 };
 
 class PaintedTextureImage : public Qt3DRender::QPaintedTextureImage

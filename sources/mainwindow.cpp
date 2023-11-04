@@ -17,7 +17,7 @@
 */
 
 #include "mainwindow.h"
-//#define THREE_D_VIEW
+#define THREE_D_VIEW
 //#ifdef TEST
 //#endif
 #include <QDesktopServices>
