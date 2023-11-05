@@ -89,10 +89,12 @@ private:
     Qt3DRender::QMesh *mesh = new Qt3DRender::QMesh();
     Qt3DRender::QMesh *mesh2 = new Qt3DRender::QMesh();
     Qt3DRender::QMesh *mesh3 = new Qt3DRender::QMesh();
+    Qt3DRender::QMesh *mesh4 = new Qt3DRender::QMesh();
 
     Qt3DCore::QEntity *entity1 = new Qt3DCore::QEntity();
     Qt3DCore::QEntity *entity2 = new Qt3DCore::QEntity();
     Qt3DCore::QEntity *entity3 = new Qt3DCore::QEntity();
+    Qt3DCore::QEntity *entity4 = new Qt3DCore::QEntity();
 };
 
 class PaintedTextureImage : public Qt3DRender::QPaintedTextureImage

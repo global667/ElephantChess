@@ -24,5 +24,6 @@
         <file>../res/wooden-piece-3d.obj</file>
         <file>../res/Xiangqi_Advisor_(Trad)+ wooden.png</file>
         <file>CREDITS</file>
+        <file>renderview3d.qml</file>
     </qresource>
 </RCC>

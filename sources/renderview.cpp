@@ -19,10 +19,9 @@ RenderView::RenderView()
     cameraEntity = camera();
 
     cameraEntity->lens()->setPerspectiveProjection(45.0f, 16.0f / 9.0f, 0.1f, 1000.0f);
-    cameraEntity->setPosition(QVector3D(0, 0, 20.0f));
+    cameraEntity->setPosition(QVector3D(150, 150, 50.0f));
     cameraEntity->setUpVector(QVector3D(0, 1, 0));
     cameraEntity->setViewCenter(QVector3D(0, 0, 0));
-    cameraEntity->viewAll();
 
     lightEntity = new Qt3DCore::QEntity(rootEntity);
     dirlight = new Qt3DRender::QDirectionalLight(lightEntity);
@@ -30,7 +29,7 @@ RenderView::RenderView()
     dirlight->setIntensity(1);
     lightEntity->addComponent(dirlight);
     lightTransform = new Qt3DCore::QTransform(lightEntity);
-    //lightTransform->setTranslation(cameraEntity->position());
+    lightTransform->setTranslation(cameraEntity->position());
     lightEntity->addComponent(lightTransform);
 
     // For camera controls
@@ -127,17 +126,17 @@ RenderView::RenderView()
     //cylinderEntity->addComponent(cylinderTransform);
     entity3->addComponent(scene.makeTex("Image_3.png"));
 
-    mesh3->setMeshName("Black-jiang-diffuse");
-    mesh3->setSource(QUrl(QUrl::fromLocalFile("/home/wsk/ElephantChess/res/chinese-chess.obj")));
-    entity3 = new Qt3DCore::QEntity(rootEntity);
-    entity3->addComponent(mesh3);
+    mesh4->setMeshName("Black-jiang-diffuse");
+    mesh4->setSource(QUrl(QUrl::fromLocalFile("/home/wsk/ElephantChess/res/chinese-chess.obj")));
+    entity4 = new Qt3DCore::QEntity(rootEntity);
+    entity4->addComponent(mesh3);
 
     Qt3DCore::QTransform *transform = new Qt3DCore::QTransform();
-    transform->setTranslation(QVector3D(-20.0, 0.0, 20.0));
-    entity3->addComponent(transform);
+    transform->setTranslation(QVector3D(-20.0, 0.1, 20.0));
+    entity4->addComponent(transform);
 
     //cylinderEntity->addComponent(cylinderTransform);
-    entity3->addComponent(scene.makeTex("Image_5.png"));
+    entity4->addComponent(scene.makeTex("Image_5.png"));
 
 #else
     loader = new Qt3DRender::QSceneLoader();
@@ -147,20 +146,23 @@ RenderView::RenderView()
 #endif
     // Set root object of the scene
     setRootEntity(rootEntity);
+
+    //cameraEntity->rotate(QQuaternion::fromAxisAndAngle(QVector3D(0.1f, 0.0f, 0.0f), 45.0f));
+    //cameraEntity->viewAll();
 }
 
 void RenderView::clicked(Qt3DRender::QPickEvent *pick)
 {
-    cameraEntity->viewAll();
+    //cameraEntity->viewAll();
     //qDebug() << "Picking!" << transl;
     //Qt3DCore::QEntity *name = new Qt3DCore::QEntity();
     //QString n = name->name();
-    qDebug() << pick->entity() << entity3;
+    //qDebug() << pick->entity() << entity3 << pick->sender();
     if (pick->entity() == entity3) {
         if (pick->button() == Qt3DRender::QPickEvent::RightButton)
-            transl = transl - 1.0;
+            transl = transl - 10.0;
         if (pick->button() == Qt3DRender::QPickEvent::LeftButton)
-            transl = transl + 1.0;
+            transl = transl + 10.0;
         //cylinderTransform->setTranslation(QVector3D(0.0f, 0.0f, 0.0f));
         //cylinderTransform->setRotation(
         //    QQuaternion::fromAxisAndAngle(QVector3D(1.0f, 0.0f, 0.0f), 45.0f + transl));
