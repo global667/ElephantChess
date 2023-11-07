@@ -53,7 +53,7 @@ Board &Board::operator=(const Board &other)
 void Board::InitPiece(Piece piece)
 {
     pieces[piece.pos.x()][piece.pos.y()] = piece;
-};
+}
 
 // Macht einen Zug auf dem Brett
 void Board::movePiece(int fromRow, int fromCol, int toRow, int toCol)
@@ -69,7 +69,7 @@ void Board::movePiece(int fromRow, int fromCol, int toRow, int toCol)
     pieces[toRow][toCol] = piece;
     basemodel.moves.append(basemodel.posToken(fromCol, fromRow, toCol, toRow));
     //basemodel.currentMoves.push_back({{fromCol, fromRow}, {toCol, toRow}});
-};
+}
 
 // Wechselt die Farbe des Spielers, der am Zug ist
 void Board::toggleOnMove()
@@ -79,7 +79,7 @@ void Board::toggleOnMove()
     } else {
         onMove = color::Red;
     }
-};
+}
 
 void Board::initBoard()
 {
@@ -291,4 +291,4 @@ void Board::initBoard()
                         QImage(":/res/Xiangqi_Soldier_(Trad).png"),
                         "\u5352"));
     }
-};
+}

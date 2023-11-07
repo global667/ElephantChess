@@ -34,7 +34,7 @@ std::pair<QPoint, QPoint> Engine::GetBestMove(color color)
         for (int j = 0; j < 9; j++)
     {
             if (generatedMoves.GetColor({i, j}) == color) {
-                pos = generatedMoves.IsValidPieceMove(QPoint{i, j});
+                pos = generatedMoves.AllValidMoves(QPoint{i, j});
                 for (std::pair<QPoint, QPoint> p : pos) {
                     posAll.push_back(p);
                     //qDebug() << p.first.row << p.first.col;

@@ -187,7 +187,7 @@ void MainWindow::InitWidgets()
     opp1->setPlaceholderText("Player One");
     opponents->addWidget(opp1);
     opp2 = new QLineEdit();
-    opp2->setPlaceholderText(basemodel.engineName);
+    opp2->setPlaceholderText(basemodel.engineName + "-Engine");
     opponents->addWidget(opp2);    
     location = new QHBoxLayout;
     loca = new QLineEdit();

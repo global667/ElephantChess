@@ -20,25 +20,29 @@
 #define GENMOVE_H
 
 #include <QDebug>
-#include <vector>
-//#include <QObject>
+#include <QObject>
 #include "types.h"
+#include <vector>
 
-class GenMove //: public QObject
+class GenMove : public QObject
 {
-    //Q_OBJECT
+    Q_OBJECT
 public:
-    explicit GenMove(); //QObject *parent = nullptr);
-    ~GenMove(){};
-    GenMove(const Piece p[ROWS][COLS], color onMove);
-    // Array der Spielsteine kopieren
-    void copyBoard(Piece pieces[ROWS][COLS], const Piece other[ROWS][COLS]);
-
+    GenMove() {}
+    GenMove(QObject *parent = nullptr) {}
     // Copy-Konstruktor
     GenMove(const GenMove &other);
+    GenMove(const Piece p[ROWS][COLS], color onMove);
+    GenMove &operator=(const GenMove &other)
+    {
+        copyBoard(this->pieces, other.pieces);
+        this->playerOnMove = other.playerOnMove;
+        return *this;
+    }
 
-    // Gibt zurück, ob ein Zug gülig ist
-    bool IsLegalMove(int fromRow, int fromCol, int toRow, int toCol);
+    ~GenMove() {}
+    // Array der Spielsteine kopieren
+    void copyBoard(Piece pieces[ROWS][COLS], const Piece other[ROWS][COLS]);
 
     bool IsValidPosition(int row, int col);
     bool IsVacantOrOpponent(int row, int col, color color);
@@ -49,6 +53,7 @@ public:
     bool IsValidAdvisorMove(QPoint from, QPoint to, color color);
     bool IsValidGeneralMove(QPoint from, QPoint to, color color);
     bool IsValidChariotMove(QPoint from, QPoint to, color color);
+
     std::vector<std::pair<QPoint, QPoint>> GenerateLegalMoves(color currentPlayerColor);
     bool IsCheck(color currentPlayerColor);
     bool IsCheckmate(color currentPlayerColor);
@@ -58,8 +63,10 @@ public:
     Piece GetPiece(QPoint p);
     QPoint FindGeneralPosition(color currentPlayerColor);
     void PlacePiece(int row, int col, pieceType type, color color);
+
+    // Gibt zurück, ob ein Zug gülig ist
     bool IsValidMove(QPoint from, QPoint to, color currentPlayerColor);
-    std::vector<std::pair<QPoint, QPoint>> IsValidPieceMove(const QPoint from);
+    std::vector<std::pair<QPoint, QPoint>> AllValidMoves(const QPoint from);
 
     Piece pieces[ROWS][COLS];
     color playerOnMove;

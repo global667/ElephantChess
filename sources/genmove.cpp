@@ -18,11 +18,11 @@
 
 #include "genmove.h"
 
-GenMove::GenMove() //QObject *parent)
-    //: QObject{parent}
-{
+//GenMove::GenMove(QObject *parent)
+//    : QObject{parent}
+//{
 
-}
+//}
 
 GenMove::GenMove(const Piece p[ROWS][COLS], color onMove)
 {
@@ -45,11 +45,6 @@ GenMove::GenMove(const GenMove &other)
 {
     copyBoard(pieces, other.pieces);
     playerOnMove = other.playerOnMove;
-}
-
-bool GenMove::IsLegalMove(int fromRow, int fromCol, int toRow, int toCol)
-{
-    return IsValidMove({fromRow, fromCol}, {toRow, toCol}, GetColor({fromRow, fromCol}));
 }
 
 // Check if the QPoint is within the board boundaries
@@ -471,7 +466,7 @@ bool GenMove::IsValidMove(QPoint from, QPoint to, color currentPlayerColor)
     //return false;
 }
 
-std::vector<std::pair<QPoint, QPoint>> GenMove::IsValidPieceMove(const QPoint fromPos)
+std::vector<std::pair<QPoint, QPoint>> GenMove::AllValidMoves(const QPoint fromPos)
 {
     pieceType pieceType = pieces[fromPos.x()][fromPos.y()].type;
     color currentPlayerColor = pieces[fromPos.x()][fromPos.y()].colr;

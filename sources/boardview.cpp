@@ -33,7 +33,7 @@ BoardView::BoardView(QWidget *parent)
     : QWidget{parent}
 {
     setMouseTracking(false);
-    setFocusPolicy(Qt::StrongFocus);
+    //setFocusPolicy(Qt::StrongFocus);
     contextMenu = new ContexMenu(this);
 }
 
@@ -429,7 +429,7 @@ void BoardView::PaintSelectedPieces(QPainter *p)
 
         GenMove legalMoves(basemodel.board.pieces, basemodel.board.onMove);
         std::vector<std::pair<QPoint, QPoint>> allPreviewMoves;
-        allPreviewMoves = legalMoves.IsValidPieceMove(fromHuman);
+        allPreviewMoves = legalMoves.AllValidMoves(fromHuman);
         for (auto move : allPreviewMoves) {
             for (int j = 0; j < 10; j++) {
                 for (int i = 0; i < 9; i++) {
@@ -528,7 +528,7 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         pressed = false;
         GenMove legalMoves(basemodel.board.pieces, basemodel.board.onMove);
         std::vector<std::pair<QPoint, QPoint>> allPreviewMoves;
-        allPreviewMoves = legalMoves.IsValidPieceMove(fromHuman);
+        allPreviewMoves = legalMoves.AllValidMoves(fromHuman);
         for (auto move : allPreviewMoves) {
             if ((move.first.x() == fromHuman.x()) && (move.first.y() == fromHuman.y())
                 && (move.second.x() == toHuman.x()) && (move.second.y() == toHuman.y())) {
