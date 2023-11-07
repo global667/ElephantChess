@@ -115,39 +115,39 @@ private:
 
     //int row = 0,
     int column = 0;
-    void addMoveToList(QString p);
-    void addMoveToHistory();
+    void AddMoveToList(QString p);
+    void AddMoveToHistory();
 
     QPushButton button;
 
     int isTableClicked = 0;
 
     void ResetToHistory();
-    QFile *loadPGNFile();
+    QFile *LoadPGNFile();
     void PutPGNOnBoard();
     void ReadPGNData(QString data);
     QTextEdit *loggingTextView;
 public slots:
-    void open();
-    void save();
+    void Open();
+    void Save();
     void OpenSettings();
-    void toggleEngineStatus();
-    void newgame();
-    void playNow();
-    void toggleGameView();
+    void ToggleEngineStatus();
+    void Newgame();
+    void PlayNow();
+    void ToggleGameView();
     //void togglePlayer();
-    void giveTipp();
+    void GiveTipp();
     void About();
     void Help();
-    void giveUpGame();
+    void GiveUpGame();
 
-    void lleftPressed();
-    void leftPressed();
-    void rightPressed();
-    void rrightPressed();
+    void LleftPressed();
+    void LeftPressed();
+    void RightPressed();
+    void RrightPressed();
 
-    void updateSettings();
-    void itemClicked(QTreeWidgetItem *, int);
+    void UpdateSettings();
+    void ItemClicked(QTreeWidgetItem *, int);
 
 public slots:
     void ToMove(QPoint from, QPoint to, QString kind);

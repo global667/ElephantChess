@@ -61,17 +61,25 @@ SettingsView::SettingsView(QWidget *parent)
 
     setLayout(layout3);
 
-    QObject::connect(saveButton, &QPushButton::clicked, [=]() {
-        emit finished();
-        close();
-    }); //&SettingsView::save);
+    QObject::connect(
+        saveButton,
+        &QPushButton::clicked,
+        this,
+        [=]() {
+            emit finished();
+            close();
+        },
+        Qt::AutoConnection); //&SettingsView::save);
     connect(engineButton, &QPushButton::clicked, this, &SettingsView::ChooseEngine);
     connect(styleButton, &QPushButton::clicked, this, &SettingsView::ChooseStyle);
     connect(boardStyleButton, &QPushButton::clicked, this, &SettingsView::ChooseBoardStyle);
 
-    QObject::connect(enginesComboBox, &QComboBox::currentIndexChanged, [=]() {
-        basemodel.engineName = enginesComboBox->currentText();
-    });
+    QObject::connect(
+        enginesComboBox,
+        &QComboBox::currentIndexChanged,
+        this,
+        [=]() { basemodel.engineName = enginesComboBox->currentText(); },
+        Qt::AutoConnection);
     //this,
     //&SettingsView::comboBoxSetEngineName);
 }

@@ -62,11 +62,20 @@ void MainWindow::InitConnections()
             SIGNAL(updateView(QPoint, QPoint, QString)),
             SLOT(ToMove(QPoint, QPoint, QString)));
 #endif
-    connect(settings, SIGNAL(boardStyleChanged()), SLOT(newgame()));
+    connect(settings, SIGNAL(boardStyleChanged()), SLOT(Newgame()));
 
-    connect(table,
-            SIGNAL(itemClicked(QTreeWidgetItem *, int)),
-            SLOT(itemClicked(QTreeWidgetItem *, int)));
+    connect(
+        table,
+        &QTreeWidget::itemClicked,
+        this,
+        [=](QTreeWidgetItem *item, int col) {
+            int row = table->indexFromItem(item).row();
+            basemodel.board = basemodel.moveHistory[row];
+            isTableClicked = row;
+            repaint();
+        },
+        Qt::AutoConnection);
+    //SLOT(ItemClicked(QTreeWidgetItem *, int)));
 }
 
 void MainWindow::InitWidgets()
@@ -91,11 +100,48 @@ void MainWindow::InitWidgets()
     rright->setToolTip("Goes to the end of the game");
     left->setToolTip("Goes one move back");
     lleft->setToolTip("Goes to the begining of the game");
-
-    connect(lleft, SIGNAL(pressed()), SLOT(lleftPressed()));
-    connect(left, SIGNAL(pressed()), SLOT(leftPressed()));
-    connect(right, SIGNAL(pressed()), SLOT(rightPressed()));
-    connect(rright, SIGNAL(pressed()), SLOT(rrightPressed()));
+    connect(
+        lleft,
+        &QPushButton::pressed,
+        this,
+        [=]() {
+            basemodel.currentMove = 0;
+            ResetToHistory();
+        },
+        Qt::AutoConnection);
+    connect(
+        left,
+        &QPushButton::pressed,
+        this,
+        [=]() {
+            basemodel.currentMove--;
+            if (basemodel.currentMove <= 0) {
+                basemodel.currentMove = 0;
+            }
+            ResetToHistory();
+        },
+        Qt::AutoConnection);
+    connect(
+        right,
+        &QPushButton::pressed,
+        this,
+        [=]() {
+            basemodel.currentMove++;
+            if (basemodel.currentMove >= basemodel.moveHistory.size() - 1) {
+                basemodel.currentMove = basemodel.moveHistory.size() - 1;
+            }
+            ResetToHistory();
+        },
+        Qt::AutoConnection);
+    connect(
+        rright,
+        &QPushButton::pressed,
+        this,
+        [=]() {
+            basemodel.currentMove = basemodel.moveHistory.size() - 1;
+            ResetToHistory();
+        },
+        Qt::AutoConnection);
 
     // move listing
     model = new QStandardItemModel(0, 2);
@@ -194,24 +240,24 @@ void MainWindow::InitWidgets()
         ->addAction(QIcon(style()->standardIcon(QStyle::SP_DialogApplyButton)),
                     tr("New game"),
                     this,
-                    SLOT(newgame()))
+                    SLOT(Newgame()))
         ->setToolTip("Starts a new game with the given engine");
     toolbar
         ->addAction(QIcon(style()->standardIcon(QStyle::SP_DialogOpenButton)),
                     tr("Open"),
                     this,
-                    SLOT(open()))
+                    SLOT(Open()))
         ->setToolTip("Open a PGN-file and load it");
     ;
     toolbar
         ->addAction(QIcon(style()->standardIcon(QStyle::SP_DialogSaveButton)),
                     tr("Save"),
                     this,
-                    SLOT(save()))
+                    SLOT(Save()))
         ->setToolTip("Save a PGN-file");
     toolbar->addSeparator();
 
-    toolbar->addAction(QIcon(":res/play-now.png"), tr("Play now!"), this, SLOT(playNow()))
+    toolbar->addAction(QIcon(":res/play-now.png"), tr("Play now!"), this, SLOT(PlayNow()))
         ->setToolTip("Let's the engine makes a move now (changes the color you play)");
 
     toolbar->addSeparator();
@@ -220,17 +266,17 @@ void MainWindow::InitWidgets()
         ->addAction(QIcon(style()->standardIcon((QStyle::SP_BrowserReload))),
                     tr("Toggle view"),
                     this,
-                    SLOT(toggleGameView()))
+                    SLOT(ToggleGameView()))
         ->setToolTip("Set the color that's above to the bottom");
     toolbar->addAction(QIcon(style()->standardIcon((QStyle::SP_MessageBoxInformation))),
                        tr("Tipp"),
                        this,
-                       SLOT(giveTipp()));
+                       SLOT(GiveTipp()));
     toolbar
         ->addAction(QIcon(style()->standardIcon((QStyle::SP_MessageBoxCritical))),
                     tr("Give up"),
                     this,
-                    SLOT(giveUpGame()))
+                    SLOT(GiveUpGame()))
         ->setToolTip("Give the game up. You will loose.");
     toolbar->addSeparator();
     toolbar->addAction(QIcon(":res/settings.png"), tr("Settings"), this, SLOT(OpenSettings()));
@@ -265,7 +311,7 @@ void MainWindow::Debug()
     loggingTextView->insertPlainText("Test,test,test");
 }
 
-QFile *MainWindow::loadPGNFile()
+QFile *MainWindow::LoadPGNFile()
 {
     auto openFile = QFileDialog::getOpenFileName(this, tr("Open file"), QDir::homePath());
 
@@ -286,9 +332,9 @@ QFile *MainWindow::loadPGNFile()
 
 // TODO: Add data to history
 // Toolbar slots
-void MainWindow::open()
+void MainWindow::Open()
 {
-    QFile *opfile = loadPGNFile();
+    QFile *opfile = LoadPGNFile();
     if (opfile == nullptr) {
         QMessageBox::critical(this, "Error", "Error while open file");
         return;
@@ -361,7 +407,7 @@ void MainWindow::PutPGNOnBoard()
     repaint();
 }
 
-void MainWindow::save()
+void MainWindow::Save()
 {
     auto saveFile = QFileDialog::getSaveFileName(this,
                                                  tr("Save file "),
@@ -405,12 +451,12 @@ void MainWindow::save()
     statusBar()->showMessage(tr("Save file: ") + saveFile);
 }
 
-void MainWindow::giveUpGame()
+void MainWindow::GiveUpGame()
 {
     QMessageBox::information(this, "Information", "You have decided to give up, you lose...");
 }
 
-void MainWindow::toggleGameView()
+void MainWindow::ToggleGameView()
 {
     if (basemodel.gameView == color::Red) {
         basemodel.gameView = color::Black;
@@ -422,7 +468,7 @@ void MainWindow::toggleGameView()
     repaint();
 }
 
-void MainWindow::giveTipp()
+void MainWindow::GiveTipp()
 {
     std::pair<QPoint, QPoint> move = engine->GetBestMove(basemodel.board.onMove);
     QPoint from = move.first;
@@ -450,7 +496,7 @@ void MainWindow::Help()
     statusBar()->showMessage(tr("Have open URL in browser"));
 }
 
-void MainWindow::playNow()
+void MainWindow::PlayNow()
 {
     if (basemodel.kind == "engine")
         engine->engineGo();
@@ -460,13 +506,13 @@ void MainWindow::playNow()
 
 void MainWindow::OpenSettings()
 {
-    connect(settings, SIGNAL(finished()), this, SLOT(updateSettings()));
+    connect(settings, SIGNAL(finished()), this, SLOT(UpdateSettings()));
     qDebug() << "OpenSettings()";
     settings->show();
 }
 
 // called after OpenSettings()
-void MainWindow::updateSettings()
+void MainWindow::UpdateSettings()
 {
     qDebug() << basemodel.engineName;
     if (basemodel.engineName == "built-in") {
@@ -509,7 +555,7 @@ void MainWindow::updateSettings()
 }
 
 // Startet ein neues Spiel
-void MainWindow::newgame()
+void MainWindow::Newgame()
 {
     basemodel.board.initBoard();
     basemodel.moveHistory.clear();
@@ -533,51 +579,6 @@ void MainWindow::newgame()
 
 // End Toolbar slots
 
-// Navigation arrows
-void MainWindow::lleftPressed()
-{
-    basemodel.currentMove = 0;
-    ResetToHistory();
-
-    //if (uciThread.isRunning()) {
-    //    uciThread.quit();
-    //}
-}
-
-void MainWindow::leftPressed()
-{
-    basemodel.currentMove--;
-    if (basemodel.currentMove <= 0) {
-        basemodel.currentMove = 0;
-    }
-    ResetToHistory();
-
-    //if (uciThread.isRunning()) {
-    //    uciThread.quit();
-    //}
-}
-
-void MainWindow::rightPressed()
-{
-    basemodel.currentMove++;
-    if (basemodel.currentMove >= basemodel.moveHistory.size() - 1) {
-        basemodel.currentMove = basemodel.moveHistory.size() - 1;
-    }
-    ResetToHistory();
-    //if (uciThread.isRunning()) {
-    //    uciThread.quit();
-    //}
-
-}
-
-void MainWindow::rrightPressed()
-{
-    basemodel.currentMove = basemodel.moveHistory.size() - 1;
-    ResetToHistory();
-    //if (uciThread.isRunning()) {
-    //    uciThread.quit();
-    //}
-}
 
 void MainWindow::ResetToHistory()
 {
@@ -611,12 +612,12 @@ void MainWindow::ToMove(QPoint from, QPoint to, QString kind)
         basemodel.fromHuman = from;
         basemodel.toHuman = to;
     }
-    addMoveToHistory();
+    AddMoveToHistory();
 
     QStringList mv;
     mv << name << QString(basemodel.moves.last().at(0)) << QString(basemodel.moves.last().at(1))
        << beaten << QString(basemodel.moves.last().at(2)) << QString(basemodel.moves.last().at(3));
-    addMoveToList(mv.join(""));
+    AddMoveToList(mv.join(""));
 
     basemodel.board.toggleOnMove();
 
@@ -631,13 +632,13 @@ void MainWindow::ToMove(QPoint from, QPoint to, QString kind)
     repaint();
 }
 
-void MainWindow::addMoveToHistory()
+void MainWindow::AddMoveToHistory()
 {
     basemodel.currentMove++;
     basemodel.moveHistory.append(basemodel.board);
 }
 
-void MainWindow::addMoveToList(QString move)
+void MainWindow::AddMoveToList(QString move)
 {
     qDebug() << move;
     QTreeWidgetItem *item = new QTreeWidgetItem();
@@ -655,16 +656,16 @@ void MainWindow::addMoveToList(QString move)
     //column++;
 }
 
-void MainWindow::itemClicked(QTreeWidgetItem *item, int column)
+void MainWindow::ItemClicked(QTreeWidgetItem *item, int column)
 {
     //qDebug() << "item clicked";
-    int row = table->indexFromItem(item).row();
-    basemodel.board = basemodel.moveHistory[row];
-    isTableClicked = row;
-    repaint();
+    //    int row = table->indexFromItem(item).row();
+    //    basemodel.board = basemodel.moveHistory[row];
+    //    isTableClicked = row;
+    //    repaint();
 }
 
-void MainWindow::toggleEngineStatus()
+void MainWindow::ToggleEngineStatus()
 {
     if (uci)
             return;
