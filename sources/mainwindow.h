@@ -43,42 +43,14 @@
 #include <QStringList>
 #include <QTabWidget>
 #include <QTableView>
+#include <QTextEdit>
 #include <QTextStream>
 #include <QToolBar>
 #include <QTreeWidget>
 #include <QVBoxLayout>
 #include <QWidget>
 
-#include <Qt3DCore/qentity.h>
-#include <Qt3DRender/qcamera.h>
-#include <Qt3DRender/qcameralens.h>
-
-#include <QtGui/QScreen>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QCheckBox>
-#include <QtWidgets/QCommandLinkButton>
-#include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QWidget>
-
-#include <Qt3DExtras/qtorusmesh.h>
-#include <Qt3DRender/qeffect.h>
-#include <Qt3DRender/qmaterial.h>
-#include <Qt3DRender/qmesh.h>
-#include <Qt3DRender/qpointlight.h>
-#include <Qt3DRender/qrenderpass.h>
-#include <Qt3DRender/qsceneloader.h>
-#include <Qt3DRender/qtechnique.h>
-#include <Qt3DRender/qtexture.h>
-
-#include <Qt3DCore/qaspectengine.h>
-#include <Qt3DCore/qtransform.h>
-
-#include <Qt3DExtras/qforwardrenderer.h>
-#include <Qt3DRender/qrenderaspect.h>
-
-#include <Qt3DExtras/qfirstpersoncameracontroller.h>
-#include <Qt3DExtras/qt3dwindow.h>
-
+#include "aboutview.h"
 #include "basemodel.h"
 #include "boardview.h"
 #include "engine.h"
@@ -87,9 +59,6 @@
 #include "settingsview.h"
 #include "types.h"
 #include "uci.h"
-//#include "uci.h"
-
-//extern BaseModel basemodel;
 
 class MainWindow : public QMainWindow
 {
@@ -142,6 +111,8 @@ private:
 
     SettingsView *settings;
 
+    AboutView *about;
+
     //int row = 0,
     int column = 0;
     void addMoveToList(QString p);
@@ -155,6 +126,7 @@ private:
     QFile *loadPGNFile();
     void PutPGNOnBoard();
     void ReadPGNData(QString data);
+    QTextEdit *loggingTextView;
 public slots:
     void open();
     void save();
@@ -179,5 +151,7 @@ public slots:
 
 public slots:
     void ToMove(QPoint from, QPoint to, QString kind);
+private slots:
+    void Debug();
 };
 #endif // MAINWINDOW_H

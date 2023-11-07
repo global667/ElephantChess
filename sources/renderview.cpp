@@ -4,16 +4,22 @@ extern BaseModel basemodel;
 
 RenderView::RenderView()
 {
-    PickingSettings.setPickMethod(Qt3DRender::QPickingSettings::PrimitivePicking);
-    PickingSettings.setFaceOrientationPickingMode(Qt3DRender::QPickingSettings::FrontAndBackFace);
-    objectPicker = new Qt3DRender::QObjectPicker();
-    connect(objectPicker,
-            SIGNAL(clicked(Qt3DRender::QPickEvent *)),
-            this,
-            SLOT(clicked(Qt3DRender::QPickEvent *)));
-
     // Root entity
     rootEntity = new Qt3DCore::QEntity();
+
+    //auto renderSettings = new Qt3DRender::QRenderSettings(rootEntity);
+
+    //    renderSettings->pickingSettings()->setPickMethod(
+    //        Qt3DRender::QPickingSettings::BoundingVolumePicking);
+    //    renderSettings->pickingSettings()->setFaceOrientationPickingMode(
+    //        Qt3DRender::QPickingSettings::FrontAndBackFace);
+    //    renderSettings->pickingSettings()->setPickResultMode(
+    //        Qt3DRender::QPickingSettings::NearestPriorityPick);
+    //    renderSettings->pickingSettings()->setWorldSpaceTolerance(10.0f);
+    //    qDebug() << PickingSettings.worldSpaceTolerance();
+    //frameGraphNode = new Qt3DRender::QFrameGraphNode;
+    //renderSettings->setActiveFrameGraph(rootEntity);
+    //rootEntity->addComponent(renderSettings);
 
     // Camera
     cameraEntity = camera();
@@ -100,32 +106,84 @@ RenderView::RenderView()
     //    m_torusEntity->addComponent(torusMaterial);
     //    m_torusEntity->addComponent(objectPicker);
     //    m_torusEntity->addComponent(torusTransform);
-#define SCENELOADER
-#ifdef SCENELOADER
+
+    // Erstellen eines neuen Pickers
+    //    Qt3DRender::QObjectPicker *picker = new Qt3DRender::QObjectPicker(rootEntity);
+    //    picker->setHoverEnabled(false);
+    //    picker->setEnabled(true);
+    //    picker->setPickMethod(Qt3DRender::QPickingSettings::TrianglePicking);
+    //    picker->setDragEnabled(false);
+    //    picker->setObjectName(QStringLiteral("picker"));
+    //    picker->setWorldSpacePicker(true);
+    //    picker->setIntersectionThreshold(0.0001f);
+
+#define BYHAND
+#ifdef BYHAND
     LoadScene scene;
 
+    board = new Qt3DExtras::QCuboidMesh();
+    cuboidTransform = new Qt3DCore::QTransform();
+    cuboidTransform->setScale(90);
+
+    pieces = new QList<Qt3DExtras::QCylinderMesh *>();
+
+    entity1 = new Qt3DCore::QEntity(rootEntity);
+    entity1->addComponent(scene.makeTex("Image_0.jpg"));
+    entity1->addComponent(board);
+    entity1->addComponent(cuboidTransform);
+    cameraEntity->viewAll();
+
+#elif NO_SCENELOADER
+    LoadScene scene;
+
+    //Mesh 1: Boardsurface
+    objectPicker1 = new Qt3DRender::QObjectPicker();
     mesh->setMeshName("13_-_Default");
     mesh->setSource(QUrl(QUrl::fromLocalFile("/home/wsk/ElephantChess/res/chinese-chess.obj")));
     //Qt3DRender::QMesh *mesh = new Qt3DRender::QMesh[10]();
     entity1 = new Qt3DCore::QEntity(rootEntity);
     entity1->addComponent(mesh);
     entity1->addComponent(scene.makeTex("Image_0.jpg"));
-    entity1->addComponent(objectPicker);
+    objectPicker1->setObjectName("Mesh1");
+    entity1->addComponent(objectPicker1);
+    connect(objectPicker1,
+            SIGNAL(pressed(Qt3DRender::QPickEvent *)),
+            this,
+            SLOT(clicked(Qt3DRender::QPickEvent *)));
 
+    // Mesh 2: Board
+    objectPicker2 = new Qt3DRender::QObjectPicker();
     mesh2->setMeshName("12_-_Default");
     mesh2->setSource(QUrl(QUrl::fromLocalFile("/home/wsk/ElephantChess/res/chinese-chess.obj")));
     entity2 = new Qt3DCore::QEntity(rootEntity);
     entity2->addComponent(mesh2);
     //cylinderEntity->addComponent(cylinderTransform);
     entity2->addComponent(scene.makeTex("Image_2.jpg"));
+    objectPicker2->setObjectName(QStringLiteral("Mesh2"));
+    entity2->addComponent(objectPicker2);
+    connect(objectPicker2,
+            SIGNAL(pressed(Qt3DRender::QPickEvent *)),
+            this,
+            SLOT(clicked(Qt3DRender::QPickEvent *)));
 
+    // Mesh 3: First Piece
+    objectPicker3 = new Qt3DRender::QObjectPicker();
+    mesh3->setPrimitiveType(Qt3DRender::QGeometryRenderer::Triangles);
     mesh3->setMeshName("Black-jiang-diffuse");
     mesh3->setSource(QUrl(QUrl::fromLocalFile("/home/wsk/ElephantChess/res/chinese-chess.obj")));
     entity3 = new Qt3DCore::QEntity(rootEntity);
     entity3->addComponent(mesh3);
     //cylinderEntity->addComponent(cylinderTransform);
     entity3->addComponent(scene.makeTex("Image_3.png"));
+    objectPicker3->setObjectName("Mesh3");
+    entity3->addComponent(objectPicker3);
+    connect(objectPicker3,
+            SIGNAL(pressed(Qt3DRender::QPickEvent *)),
+            this,
+            SLOT(clicked(Qt3DRender::QPickEvent *)));
 
+    // Mesh 4: Second Piece
+    objectPicker4 = new Qt3DRender::QObjectPicker();
     mesh4->setMeshName("Black-jiang-diffuse");
     mesh4->setSource(QUrl(QUrl::fromLocalFile("/home/wsk/ElephantChess/res/chinese-chess.obj")));
     entity4 = new Qt3DCore::QEntity(rootEntity);
@@ -137,18 +195,24 @@ RenderView::RenderView()
 
     //cylinderEntity->addComponent(cylinderTransform);
     entity4->addComponent(scene.makeTex("Image_5.png"));
+    objectPicker4->setObjectName("Mesh4");
+
+    entity4->addComponent(objectPicker4);
+    connect(objectPicker4,
+            SIGNAL(pressed(Qt3DRender::QPickEvent *)),
+            this,
+            SLOT(clicked(Qt3DRender::QPickEvent *)));
 
 #else
     loader = new Qt3DRender::QSceneLoader();
-    loader->setSource(QUrl(QUrl::fromLocalFile("/home/wsk/ElephantChess/res/wooden-piece-3d.mtl")));
-    //cylinderEntity->addComponent(loader);
-    cylinderEntity->addComponent(objectPicker);
+    loader->setSource(
+        QUrl(QUrl::fromLocalFile("/home/wsk/ElephantChess/res/chinese-chess-sceneloader.obj")));
+    entity1 = new Qt3DCore::QEntity(rootEntity);
+    entity1->addComponent(loader);
+    //cylinderEntity->addComponent(objectPicker);
 #endif
-    // Set root object of the scene
-    setRootEntity(rootEntity);
-
-    //cameraEntity->rotate(QQuaternion::fromAxisAndAngle(QVector3D(0.1f, 0.0f, 0.0f), 45.0f));
-    //cameraEntity->viewAll();
+        // Set root object of the scene
+        setRootEntity(rootEntity);
 }
 
 void RenderView::clicked(Qt3DRender::QPickEvent *pick)
@@ -157,7 +221,8 @@ void RenderView::clicked(Qt3DRender::QPickEvent *pick)
     //qDebug() << "Picking!" << transl;
     //Qt3DCore::QEntity *name = new Qt3DCore::QEntity();
     //QString n = name->name();
-    //qDebug() << pick->entity() << entity3 << pick->sender();
+    qDebug() << pick->entity() << entity4 << entity3 << entity2 << entity1;
+    qDebug() << pick->objectName();
     if (pick->entity() == entity3) {
         if (pick->button() == Qt3DRender::QPickEvent::RightButton)
             transl = transl - 10.0;

@@ -37,6 +37,7 @@ qt_add_resources(RESOURCES res.qrc)
 
 add_executable(ElephantChess ${PROJECT_CPP} ${RESOURCES}
     renderview.h renderview.cpp
+    aboutview.h aboutview.cpp
 
 )
 target_link_libraries(ElephantChess PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Test     Qt6::3DCore

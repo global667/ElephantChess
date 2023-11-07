@@ -17,7 +17,7 @@
 */
 
 #include "mainwindow.h"
-#define THREE_D_VIEW
+//#define THREE_D_VIEW
 //#ifdef TEST
 //#endif
 #include <QDesktopServices>
@@ -115,6 +115,10 @@ void MainWindow::InitWidgets()
     tabwidget1->setLayout(tab1layout);
 
     // tabwidget2 layout
+    loggingTextView = new QTextEdit();
+    QHBoxLayout *tabwidget2layout = new QHBoxLayout;
+    tabwidget2layout->addWidget(loggingTextView);
+    tabwidget2->setLayout(tabwidget2layout);
 
     // tabview
     tabview->addTab(tabwidget1, "Move list");
@@ -246,6 +250,19 @@ void MainWindow::InitWidgets()
                     QCoreApplication::instance(),
                     &QCoreApplication::quit)
         ->setToolTip("Exit the application");
+    toolbar->addSeparator();
+
+    toolbar
+        ->addAction(QIcon(style()->standardIcon((QStyle::SP_DialogCloseButton))),
+                    tr("EvalDebug"),
+                    this,
+                    SLOT(Debug()))
+        ->setToolTip("Evaluate and comment a position");
+}
+
+void MainWindow::Debug()
+{
+    loggingTextView->insertPlainText("Test,test,test");
 }
 
 QFile *MainWindow::loadPGNFile()
@@ -422,7 +439,8 @@ void MainWindow::giveTipp()
 
 void MainWindow::About()
 {
-    QMessageBox::aboutQt(this, "Information");
+    about = new AboutView();
+    about->show();
 }
 
 void MainWindow::Help()

@@ -48,7 +48,7 @@ private:
     QPushButton *saveButton;
     void save();
 public slots:
-    void comboBoxSetEngineName();
+    //void comboBoxSetEngineName();
 
 signals:
     void boardStyleChanged();

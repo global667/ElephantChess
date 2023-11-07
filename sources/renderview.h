@@ -1,46 +1,11 @@
 #ifndef RENDERVIEW_H
 #define RENDERVIEW_H
 
-#include <QFirstPersonCameraController>
-#include <QQuaternion>
-#include <Qt3DCore/QAspectEngine>
-#include <Qt3DCore/QEntity>
-#include <Qt3DCore/QTransform>
-#include <Qt3DRender/QCamera>
-#include <Qt3DRender/QCameraLens>
-#include <Qt3DRender/QPointLight>
-
-#include <Qt3DInput/QInputAspect>
-
-#include <Qt3DExtras/QForwardRenderer>
-//#include <Qt3DExtras/QPhongMaterial>
-#include <QTextureMaterial>
-#include <Qt3DExtras/QSphereMesh>
-//#include <Qt3DExtras/QTorusMesh>
-#include <QCylinderMesh>
-#include <QDiffuseSpecularMaterial>
-#include <QObjectPicker>
-#include <QPaintedTextureImage>
-#include <QPainter>
-#include <QPickEvent>
-#include <QPickingSettings>
-#include <QSceneLoader>
-#include <QTextureImage>
-#include <QTextureWrapMode>
-#include <QVector2D>
-#include <Qt3DExtras/QCuboidMesh>
-#include <Qt3DExtras/Qt3DWindow>
-#include <Qt3DRender/QGeometryRenderer>
-#include <Qt3DRender/QMesh>
-#include <Qt3DRender/QRenderAspect>
-#include <Qt3DRender/QTexture>
-#include "qtexturematerial.h"
-
-#include <QAttribute>
-#include <QDirectionalLight>
+#include <Qt3DExtras>
+#include <Qt3DInput>
+#include <Qt3DRender>
 
 #include "basemodel.h"
-#include "qmesh.h"
 
 class RenderView : public Qt3DExtras::Qt3DWindow
 {
@@ -53,7 +18,7 @@ public:
     Qt3DCore::QEntity *lightEntity;
     Qt3DExtras::QCuboidMesh *m_torus;
     Qt3DCore::QEntity *m_torusEntity;
-    Qt3DCore::QTransform *torusTransform;
+    Qt3DCore::QTransform *cuboidTransform;
     Qt3DCore::QTransform *cylinderTransform;
     Qt3DExtras::QTextureMaterial *torusMaterial;
     Qt3DExtras::QFirstPersonCameraController *camController;
@@ -62,12 +27,18 @@ public:
     Qt3DRender::QTexture2D *texture;
     Qt3DRender::QTextureImage *textureImage;
 
+    //Qt3DRender::QFrameGraphNode *frameGraphNode;
+
+    Qt3DExtras::QCuboidMesh *board;
+    QList<Qt3DExtras::QCylinderMesh *> *pieces;
+
     Qt3DRender::QMesh *pieceCylinderMesh;
     Qt3DCore::QEntity *boardSurfaceEntity, *boardEntity;
     Qt3DRender::QTextureWrapMode *textureWrapMode;
 
+    Qt3DRender::QRenderSettings *renderSettings;
     Qt3DRender::QPickingSettings PickingSettings;
-    Qt3DRender::QObjectPicker *objectPicker;
+    Qt3DRender::QObjectPicker *objectPicker1, *objectPicker2, *objectPicker3, *objectPicker4;
 
     Qt3DRender::QSceneLoader *loader;
 

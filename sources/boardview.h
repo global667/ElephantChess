@@ -29,7 +29,7 @@
 #include "basemodel.h"
 #include "types.h"
 
-// This class is the view of the board. It is a QWidget and draws the board and the pieces.
+// This class is the 2D-view of the board. It is a QWidget and draws the board and the pieces.
 // Handles the mouse input and the context menu.
 
 class BoardView : public QWidget

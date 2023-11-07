@@ -85,6 +85,21 @@ void ContexMenu::clearBoard()
             basemodel.board.pieces[row][col] = Piece(color::Red, pieceType::Empty, {row, col}, "");
         }
     }
+
+    basemodel.moveHistory.clear();
+    //model->clear();
+    //column = 0;
+    basemodel.currentMove = 0;
+    basemodel.fromHuman = {-1, -1};
+    basemodel.toHuman = {-1, -1};
+    basemodel.fromUCI = {-1, -1};
+    basemodel.toUCI = {-1, -1};
+    basemodel.board.onMove = color::Red;
+
+    basemodel.moves.clear();
+    //basemodel.moveHistory.append(basemodel.board);
+    basemodel.currentMove++;
+
     repaint();
 }
 
