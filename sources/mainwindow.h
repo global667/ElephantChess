@@ -141,11 +141,6 @@ public slots:
     void Help();
     void GiveUpGame();
 
-    void LleftPressed();
-    void LeftPressed();
-    void RightPressed();
-    void RrightPressed();
-
     void UpdateSettings();
     void ItemClicked(QTreeWidgetItem *, int);
 

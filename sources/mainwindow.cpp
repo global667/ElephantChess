@@ -76,30 +76,7 @@ void MainWindow::InitConnections()
         },
         Qt::AutoConnection);
     //SLOT(ItemClicked(QTreeWidgetItem *, int)));
-}
 
-void MainWindow::InitWidgets()
-{
-    settings = new SettingsView();
-
-    tabview = new QTabWidget(this);
-    tabwidget1 = new QWidget(tabview);
-    tabwidget2 = new QWidget(tabview);
-    menubar = new QMenuBar(this);
-    menu1 = new QMenu(menubar);
-    //table = new QTableView(tabwidget1);
-    navigationwidget = new QWidget(this);
-    navigationview = new QWidget(navigationwidget);
-
-    // navigation buttons
-    right = new QPushButton(QIcon(style()->standardIcon(QStyle::SP_MediaSeekForward)), "Forward");
-    rright = new QPushButton(QIcon(style()->standardIcon(QStyle::SP_MediaSkipForward)), "End");
-    left = new QPushButton(QIcon(style()->standardIcon(QStyle::SP_MediaSeekBackward)), "Back");
-    lleft = new QPushButton(QIcon(style()->standardIcon(QStyle::SP_MediaSkipBackward)), "Begin");
-    right->setToolTip("Goes on move for");
-    rright->setToolTip("Goes to the end of the game");
-    left->setToolTip("Goes one move back");
-    lleft->setToolTip("Goes to the begining of the game");
     connect(
         lleft,
         &QPushButton::pressed,
@@ -142,6 +119,30 @@ void MainWindow::InitWidgets()
             ResetToHistory();
         },
         Qt::AutoConnection);
+}
+
+void MainWindow::InitWidgets()
+{
+    settings = new SettingsView();
+
+    tabview = new QTabWidget(this);
+    tabwidget1 = new QWidget(tabview);
+    tabwidget2 = new QWidget(tabview);
+    menubar = new QMenuBar(this);
+    menu1 = new QMenu(menubar);
+    //table = new QTableView(tabwidget1);
+    navigationwidget = new QWidget(this);
+    navigationview = new QWidget(navigationwidget);
+
+    // navigation buttons
+    right = new QPushButton(QIcon(style()->standardIcon(QStyle::SP_MediaSeekForward)), "Forward");
+    rright = new QPushButton(QIcon(style()->standardIcon(QStyle::SP_MediaSkipForward)), "End");
+    left = new QPushButton(QIcon(style()->standardIcon(QStyle::SP_MediaSeekBackward)), "Back");
+    lleft = new QPushButton(QIcon(style()->standardIcon(QStyle::SP_MediaSkipBackward)), "Begin");
+    right->setToolTip("Goes on move for");
+    rright->setToolTip("Goes to the end of the game");
+    left->setToolTip("Goes one move back");
+    lleft->setToolTip("Goes to the begining of the game");
 
     // move listing
     model = new QStandardItemModel(0, 2);
