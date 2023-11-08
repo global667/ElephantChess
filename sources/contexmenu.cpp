@@ -25,15 +25,15 @@ extern BaseModel basemodel;
 ContexMenu::ContexMenu(QWidget *parent)
     : QMenu(parent)
 {
-    QAction *a0 = addAction("Kläre Brett");
-    QMenu *redPiecesMenu = new QMenu("Figuren (Rot)");
+    QAction *a0 = addAction("Clear board");
+    QMenu *redPiecesMenu = new QMenu("Pieces (Red)");
     QAction *a11 = redPiecesMenu->addAction("General");
-    QAction *a12 = redPiecesMenu->addAction("Berater");
-    QAction *a13 = redPiecesMenu->addAction("Elefant");
-    QAction *a14 = redPiecesMenu->addAction("Pferd");
-    QAction *a15 = redPiecesMenu->addAction("Kanone");
-    QAction *a16 = redPiecesMenu->addAction("Soldat");
-    QAction *a17 = redPiecesMenu->addAction("Turm");
+    QAction *a12 = redPiecesMenu->addAction("Advisor");
+    QAction *a13 = redPiecesMenu->addAction("Elephant");
+    QAction *a14 = redPiecesMenu->addAction("Horse");
+    QAction *a15 = redPiecesMenu->addAction("Cannon");
+    QAction *a16 = redPiecesMenu->addAction("Soldier");
+    QAction *a17 = redPiecesMenu->addAction("Chariot");
     connect(a11, &QAction::triggered, this, &ContexMenu::GeneralRot);
     connect(a12, &QAction::triggered, this, &ContexMenu::BeraterRot);
     connect(a13, &QAction::triggered, this, &ContexMenu::ElefantRot);
@@ -41,14 +41,14 @@ ContexMenu::ContexMenu(QWidget *parent)
     connect(a15, &QAction::triggered, this, &ContexMenu::KanoneRot);
     connect(a16, &QAction::triggered, this, &ContexMenu::SoldatRot);
     connect(a17, &QAction::triggered, this, &ContexMenu::TurmRot);
-    QMenu *blackPiecesMenu = new QMenu("Figuren (Schwarz)");
+    QMenu *blackPiecesMenu = new QMenu("Pieces (Black)");
     QAction *a21 = blackPiecesMenu->addAction("General");
-    QAction *a22 = blackPiecesMenu->addAction("Berater");
-    QAction *a23 = blackPiecesMenu->addAction("Elefant");
-    QAction *a24 = blackPiecesMenu->addAction("Pferd");
-    QAction *a25 = blackPiecesMenu->addAction("Kanone");
-    QAction *a26 = blackPiecesMenu->addAction("Soldat");
-    QAction *a27 = blackPiecesMenu->addAction("Turm");
+    QAction *a22 = blackPiecesMenu->addAction("Advisor");
+    QAction *a23 = blackPiecesMenu->addAction("Elephant");
+    QAction *a24 = blackPiecesMenu->addAction("Horse");
+    QAction *a25 = blackPiecesMenu->addAction("Cannon");
+    QAction *a26 = blackPiecesMenu->addAction("Soldier");
+    QAction *a27 = blackPiecesMenu->addAction("Chariot");
     connect(a21, &QAction::triggered, this, &ContexMenu::GeneralSchwarz);
     connect(a22, &QAction::triggered, this, &ContexMenu::BeraterSchwarz);
     connect(a23, &QAction::triggered, this, &ContexMenu::ElefantSchwarz);
@@ -59,12 +59,12 @@ ContexMenu::ContexMenu(QWidget *parent)
     addMenu(blackPiecesMenu);
     addMenu(redPiecesMenu);
     //QAction *action = contextMenu->addAction("Kreuz");
-    QAction *action2 = addAction("Kreis");
+    QAction *action2 = addAction("Circle");
     //QAction *action3 = contextMenu->addAction("Dreieck");
-    QAction *action4 = addAction("Viereck");
-    QAction *action5 = addAction("Linie");
-    QAction *action6 = addAction("Linienende");
-    QAction *action7 = addAction("Kläre Symbole");
+    QAction *action4 = addAction("Quad");
+    QAction *action5 = addAction("Line");
+    QAction *action6 = addAction("Line end");
+    QAction *action7 = addAction("Clear symbols");
 
     connect(a0, &QAction::triggered, this, &ContexMenu::clearBoard);
     //connect(action, &QAction::triggered, this, &BoardView::Kreuz);
