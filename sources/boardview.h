@@ -35,6 +35,7 @@
 class BoardView : public QWidget
 {
     Q_OBJECT
+
 public:
     explicit BoardView(QWidget *parent = nullptr);
 
@@ -47,9 +48,8 @@ protected:
     void mousePressEvent(QMouseEvent *event) override;
     void contextMenuEvent(QContextMenuEvent *event) override;
 
-private:
-    void PaintBoard(QPainter *p);
-    // Put in a Abstract Factory
+private: // Put in a Memento Pattern?
+    void PaintBoard(QPainter *p);    
     void PaintMarker(QPainter *p);
     void PaintPieces(QPainter *p);
     QPixmap *PrepareNativePiece(QPainter *p, int row, int col);

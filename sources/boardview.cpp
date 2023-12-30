@@ -32,6 +32,7 @@ extern BaseModel basemodel;
 BoardView::BoardView(QWidget *parent)
     : QWidget{parent}
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     setMouseTracking(false);
     //setFocusPolicy(Qt::StrongFocus);
     contextMenu = new ContexMenu(this);
@@ -39,6 +40,7 @@ BoardView::BoardView(QWidget *parent)
 
 void BoardView::contextMenuEvent(QContextMenuEvent *event)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     //Q_UNUSED(event);
     //qDebug() << "contextMenuEvent";
     contextMenu->contextMenuX = event->pos().x();
@@ -48,6 +50,7 @@ void BoardView::contextMenuEvent(QContextMenuEvent *event)
 
 void BoardView::paintEvent(QPaintEvent *event)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     QPainter painter(this);
 
     SetEditorPieces();
@@ -65,6 +68,7 @@ void BoardView::paintEvent(QPaintEvent *event)
 
 void BoardView::PaintMarker(QPainter *p)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     Q_ASSERT(p);
 
     auto w = p->viewport().width();  //p->viewport().width();
@@ -138,8 +142,11 @@ void BoardView::PaintMarker(QPainter *p)
 // Draws the pieces on the board (native)
 QPixmap *BoardView::PrepareNativePiece(QPainter *p, int row, int col)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     //QPainter *p;
     Q_ASSERT(p);
+    //if (basemodel.pieces[row][col].type == pieceType::Empty)
+    //    return
 
     auto w = p->viewport().width();  //p->viewport().width();
     auto h = p->viewport().height(); //p->viewport().height();
@@ -193,6 +200,7 @@ QPixmap *BoardView::PrepareNativePiece(QPainter *p, int row, int col)
 // Painted from upper left!
 void BoardView::PaintPieces(QPainter *p)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     Q_ASSERT(p);
 
     auto w = p->window().width();  //p->viewport().width();
@@ -204,42 +212,44 @@ void BoardView::PaintPieces(QPainter *p)
         for (int i = 0; i < 9; i++) {
             QPixmap pixm;
             QPixmap pixm2;
-            if (basemodel.board.pieces[j][8 - i].colr == color::Red) {
-                if (basemodel.viewStyleModeVar == viewStyleMode::western_png) {
-                    pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
-                    pixm2 = pixm.copy(100, 0, 100, 100);
-                } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_png) {
-                    pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img,
-                                              Qt::PreferDither);
-                    pixm2 = pixm.copy(0, 0, 100, 100);
-                } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_native) {
-                    pixm2 = *PrepareNativePiece(p, j, i);
+            Piece piece = basemodel.board.pieces[j][8 - i];
+                if (basemodel.board.pieces[j][8 - i].colr == color::Red) {
+                    if (basemodel.viewStyleModeVar == viewStyleMode::western_png) {
+                        pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
+                        pixm2 = pixm.copy(100, 0, 100, 100);
+                    } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_png) {
+                        pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img,
+                                                  Qt::PreferDither);
+                        pixm2 = pixm.copy(0, 0, 100, 100);
+                    } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_native) {
+                        pixm2 = *PrepareNativePiece(p, j, i);
+                    }
+                } else {
+                    if (basemodel.viewStyleModeVar == viewStyleMode::western_png) {
+                        pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
+                        pixm2 = pixm.copy(300, 0, 100, 100);
+                    } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_png) {
+                        pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img,
+                                                  Qt::PreferDither);
+                        pixm2 = pixm.copy(200, 0, 100, 100);
+                    } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_native) {
+                        pixm2 = *PrepareNativePiece(p, j, i);
+                    }
                 }
-            } else {
-                if (basemodel.viewStyleModeVar == viewStyleMode::western_png) {
-                    pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
-                    pixm2 = pixm.copy(300, 0, 100, 100);
-                } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_png) {
-                    pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img,
-                                              Qt::PreferDither);
-                    pixm2 = pixm.copy(200, 0, 100, 100);
-                } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_native) {
-                    pixm2 = *PrepareNativePiece(p, j, i);
-                }
-            }
-            p->drawPixmap(QRect((50 + ((8 - i) * (w - 2 * 50) / cutpWidth))
-                                    - w / cutpWidth / 2 / 1.5,
-                                (50 + (9 - j) * (h - 50 - 100) / cutpHeight)
-                                    - h / cutpWidth / 2 / 1.5,
-                                w / (cutpWidth) / 1.5,
-                                h / cutpWidth / 1.5),
-                          pixm2);
+                p->drawPixmap(QRect((50 + ((8 - i) * (w - 2 * 50) / cutpWidth))
+                                        - w / cutpWidth / 2 / 1.5,
+                                    (50 + (9 - j) * (h - 50 - 100) / cutpHeight)
+                                        - h / cutpWidth / 2 / 1.5,
+                                    w / (cutpWidth) / 1.5,
+                                    h / cutpWidth / 1.5),
+                              pixm2);
         }
     }
-}
+    }
 
 void BoardView::PaintBoard(QPainter *p)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     Q_ASSERT(p);
 
     const QColor background(252, 175, 62);
@@ -399,6 +409,7 @@ void BoardView::PaintBoard(QPainter *p)
 
 void BoardView::PaintSelectedPieces(QPainter *p)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     Q_ASSERT(p);
 
     auto w = p->viewport().width();  //p->viewport().width();
@@ -498,6 +509,7 @@ void BoardView::PaintSelectedPieces(QPainter *p)
 
 void BoardView::mousePressEvent(QMouseEvent *event)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     //qDebug() << "mousePressEvent";
     QPoint p = CalcBoardCoords({event->pos().x(), event->pos().y()});
     if (!pressed) {
@@ -527,9 +539,8 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         }
         pressed = false;
         GenMove legalMoves(basemodel.board.pieces, basemodel.board.onMove);
-        std::vector<std::pair<QPoint, QPoint>> allPreviewMoves;
-        allPreviewMoves = legalMoves.AllValidMoves(fromHuman);
-        for (auto move : allPreviewMoves) {
+
+        for (auto move : legalMoves.AllValidMoves(fromHuman)) {
             if ((move.first.x() == fromHuman.x()) && (move.first.y() == fromHuman.y())
                 && (move.second.x() == toHuman.x()) && (move.second.y() == toHuman.y())) {
                 if (basemodel.kind.contains("uci")) {
@@ -554,6 +565,7 @@ void BoardView::mousePressEvent(QMouseEvent *event)
 // Sets the selected pieces on the (clean) board
 void BoardView::SetEditorPieces()
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     QPoint coords;
     for (auto piece : contextMenu->pieces) {
         coords = CalcBoardCoords(piece.first);
@@ -626,6 +638,7 @@ void BoardView::SetEditorPieces()
 
 QPoint BoardView::CalcBoardCoords(QPoint r)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     float w = width();
     float h = height();
     QPoint p = r;

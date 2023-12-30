@@ -31,10 +31,11 @@ class BaseModel : public QObject
 public:
     explicit BaseModel(QObject *parent = nullptr)
     {
-        engineName = "built-in";
+        engineName
+            = "F:/source/XiangQi/build-Dumbo-Desktop_Qt_6_6_1_MinGW_64_bit-Debug/Dumbo"; //"/home/wsk/.vs/Dumbo/out/build/linux-debug/Dumbo"; //"built-in";
         moveHistory.append(board);
         currentMove++;
-    };
+    }
 
     static const short BoardRows = ROWS;
     static const short BoardCols = COLS;

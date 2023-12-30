@@ -31,7 +31,7 @@ class Engine : public QObject
     Q_OBJECT
 public:
     Engine();
-    ~Engine(){};
+    ~Engine() {}
 
     std::pair<QPoint, QPoint> GetBestMove(color color);
 

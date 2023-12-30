@@ -38,11 +38,10 @@ UCI::UCI()
 
     engine.start(QIODevice::Text | QIODevice::ReadWrite);
     engine.waitForStarted();
-
+    engine.waitForReadyRead();
     // Wait for the engine to be ready
     writeDatas("uci");
     writeDatas("isready");
-    engine.waitForReadyRead();
 }
 
 void UCI::start()
@@ -57,7 +56,7 @@ void UCI::readData()
         data = engine.readAll();
         qDebug() << "Data read: " << data;
         for (const auto &c : data.split('\n')) {
-            if (c.contains("readyok") && waitForReadyOK) {
+            /*if (c.contains("readyok") && waitForReadyOK) {
                 if (newGame) {
                     // Start a new game
                     writeDatas("ucinewgame");
@@ -68,10 +67,14 @@ void UCI::readData()
                     //writeDatas("stop");
                     waitForReadyOK = false;
                 }
-            } else if (c.contains("uciok")) {
+            } */
+            if (c.contains("uciok")) {
                 // The engine is ready
-                writeDatas("isready");
-                waitForReadyOK = true;
+                //writeDatas("isready");
+                //waitForReadyOK = true;
+
+                writeDatas("ucinewgame");
+                writeDatas("position startpos");
             } else if (c.contains("bestmove")) {
                 // Received a move from the engine
                 QByteArray mv = basemodel.posToken(c);
@@ -83,9 +86,12 @@ void UCI::readData()
                 emit updateView(QPoint(fy, fx), QPoint(ty, tx), "engine");
                 //qDebug() << c << ", send new move " << c.split(' ').at(1) << " as " << fx << fy
                 //         << tx << ty;
+            } else if (c.contains("info")) {
+                qDebug() << c;
             } else {
                 // Handle other cases (if necessary)
-                Q_ASSERT(1);
+                qDebug() << "Error in readData: " << c;
+                //Q_ASSERT(1);
             }
         }
     }

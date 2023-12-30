@@ -57,6 +57,7 @@ public:
     std::vector<std::pair<QPoint, QPoint>> GenerateLegalMoves(color currentPlayerColor);
     bool IsCheck(color currentPlayerColor);
     bool IsCheckmate(color currentPlayerColor);
+    bool IsEvilGlare(color color);
     //bool isStaleMate(Color currentPlayerColor);
     bool PerformMove(QPoint from, QPoint to, color currentPlayerColor);
     color GetColor(QPoint p);

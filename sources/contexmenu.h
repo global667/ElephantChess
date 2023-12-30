@@ -34,7 +34,7 @@ public:
     QList<QPair<QPoint, completePieceType>> pieces;
     int contextMenuX;
     int contextMenuY;
-
+    QWidget *parent;
     // TODO: Use Pattern (Flyweigth?)
 public slots:
     void Kreuz();

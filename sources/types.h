@@ -19,6 +19,7 @@
 #ifndef TYPES_H
 #define TYPES_H
 
+#include <QDebug>
 #include <QImage>
 #include <QPoint>
 
@@ -58,6 +59,7 @@ public:
         , img(img)
         , name(name)
     {
+        //qDebug() << __PRETTY_FUNCTION__;
     }
 
     Piece(color colr, pieceType type, QPoint pos, QString name)

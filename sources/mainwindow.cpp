@@ -21,6 +21,7 @@
 //#ifdef TEST
 //#endif
 #include <QDesktopServices>
+#include <iostream>
 
 extern BaseModel basemodel;
 
@@ -46,15 +47,19 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::InitEngine()
 {
-    engine = new Engine();
-    basemodel.kind = "engine";
+    //engine = new Engine();
+    //basemodel.kind = "engine";
+    basemodel.kind = "uci";
+    uci = new UCI();
+    connect(uci, SIGNAL(updateView(QPoint, QPoint, QString)), SLOT(ToMove(QPoint, QPoint, QString)));
+    uci->start();
 }
 void MainWindow::InitConnections()
 {
     // engine moves
-    connect(engine,
-            SIGNAL(updateView(QPoint, QPoint, QString)),
-            SLOT(ToMove(QPoint, QPoint, QString)));
+    //connect(engine,
+    //        SIGNAL(updateView(QPoint, QPoint, QString)),
+    //        SLOT(ToMove(QPoint, QPoint, QString)));
     // mouse clicked moves (human)
 #ifdef THREE_D_VIEW
 #else
@@ -62,6 +67,7 @@ void MainWindow::InitConnections()
             SIGNAL(updateView(QPoint, QPoint, QString)),
             SLOT(ToMove(QPoint, QPoint, QString)));
 #endif
+    // TODO: let board unchanged (at the moment it will reseted)
     connect(settings, SIGNAL(boardStyleChanged()), SLOT(Newgame()));
 
     connect(
@@ -548,10 +554,10 @@ void MainWindow::UpdateSettings()
         opp2->setPlaceholderText(basemodel.engineName);
         Q_ASSERT(&uci);
         Q_ASSERT(&uciThread);
-        uci->moveToThread(&uciThread);
+        //uci->moveToThread(&uciThread);
         qDebug() << "Starting uci engine (" + basemodel.engineName + " in extra thread";
+        //uciThread.start();
         uci->start();
-        uciThread.start();
     }
 }
 
@@ -679,6 +685,7 @@ void MainWindow::ToggleEngineStatus()
 
 MainWindow::~MainWindow()
 {
+    std::cout << "quit\n";
     uciThread.quit();
     uciThread.wait();
 }

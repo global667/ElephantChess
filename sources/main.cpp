@@ -22,16 +22,18 @@
 #include <QLocale>
 #include <QStyleFactory>
 #include <QTranslator>
+#include <QtGlobal>
 
 #include "config.h"
 
 int main(int argc, char *argv[])
 {
     QApplication::setStyle(QStyleFactory::create("Fusion"));
+    //qputenv("QT_QPA_PLATFORM", "wayland:darkmode=2");
 
     QApplication a(argc, argv);
 
-    QTranslator translator;
+    /*QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
     for (const QString &locale : uiLanguages) {
         const QString baseName = "ElephantChess_" + QLocale(locale).name();
@@ -40,6 +42,7 @@ int main(int argc, char *argv[])
             break;
         }
     }
+    */
     MainWindow w;
     w.setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint
                      | Qt::WindowCloseButtonHint | Qt::WindowMinimizeButtonHint);

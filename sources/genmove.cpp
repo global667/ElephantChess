@@ -26,6 +26,7 @@
 
 GenMove::GenMove(const Piece p[ROWS][COLS], color onMove)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     copyBoard(pieces, p);
     this->playerOnMove = onMove;
 }
@@ -33,6 +34,7 @@ GenMove::GenMove(const Piece p[ROWS][COLS], color onMove)
 // Array der Spielsteine kopieren
 void GenMove::copyBoard(Piece pieces[ROWS][COLS], const Piece other[ROWS][COLS])
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     for (int rows = 0; rows < ROWS; ++rows) {
         for (int col = 0; col < COLS; ++col) {
             pieces[rows][col] = other[rows][col]; // Tiefenkopie der Piece-Objekte
@@ -43,6 +45,7 @@ void GenMove::copyBoard(Piece pieces[ROWS][COLS], const Piece other[ROWS][COLS])
 // Copy-Konstruktor
 GenMove::GenMove(const GenMove &other)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     copyBoard(pieces, other.pieces);
     playerOnMove = other.playerOnMove;
 }
@@ -50,12 +53,14 @@ GenMove::GenMove(const GenMove &other)
 // Check if the QPoint is within the board boundaries
 bool GenMove::IsValidPosition(int row, int col)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     return (row >= 0 && row < ROWS && col >= 0 && col < COLS);
 }
 
 // Check if the QPoint is empty or occupied by an opponent's piece
 bool GenMove::IsVacantOrOpponent(int row, int col, color colr)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     if (!IsValidPosition(row, col))
         return false;
     return (pieces[row][col].type == pieceType::Empty || pieces[row][col].colr != colr);
@@ -64,6 +69,7 @@ bool GenMove::IsVacantOrOpponent(int row, int col, color colr)
 // Check if the General can move to the target QPoint
 bool GenMove::IsValidGeneralMove(QPoint from, QPoint to, color colr)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     // Implement the move validation logic for the General here...
     int dx = to.x() - from.x();
     int dy = to.y() - from.y();
@@ -93,6 +99,7 @@ bool GenMove::IsValidGeneralMove(QPoint from, QPoint to, color colr)
 // Check if the Chariot can move to the target QPoint
 bool GenMove::IsValidChariotMove(QPoint from, QPoint to, color color)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     if (to.x() == from.x() && to.y() == from.y()) {
         return false;
     }
@@ -166,6 +173,7 @@ bool GenMove::IsValidChariotMove(QPoint from, QPoint to, color color)
 // Check if the Horse can move to the target QPoint
 bool GenMove::IsValidHorseMove(QPoint from, QPoint to, color color)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     int dx = to.x() - from.x();
     int dy = to.y() - from.y();
     // qDebug() << "(dx * dx + dy * dy) = " << (dx * dx + dy * dy);
@@ -205,6 +213,7 @@ bool Board::isValidElephantMove(QPoint from, QPoint to, Color color)
 */
 bool GenMove::IsValidElephantMove(QPoint from, QPoint to, color color)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     //qDebug() << "Elephant: from to: " << from.x() << fromy()<< to.x() << to.col;
 
     int dx = to.x() - from.x();
@@ -225,6 +234,7 @@ bool GenMove::IsValidElephantMove(QPoint from, QPoint to, color color)
 // Check if the Advisor can move to the target QPoint
 bool GenMove::IsValidAdvisorMove(QPoint from, QPoint to, color color)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     int dx = to.x() - from.x();
     int dy = to.y() - from.y();
 
@@ -240,6 +250,7 @@ bool GenMove::IsValidAdvisorMove(QPoint from, QPoint to, color color)
 // Check if the Cannon can move to the target QPoint
 bool GenMove::IsValidCannonMove(QPoint from, QPoint to, color color)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     // Implement the move validation logic for the Cannon here...
     // Check if the Cannon moves horizontally or vertically
     if (from.x() == to.x()) {
@@ -281,6 +292,7 @@ bool GenMove::IsValidCannonMove(QPoint from, QPoint to, color color)
 // Check if the Soldier can move to the target QPoint
 bool GenMove::IsValidSoldierMove(QPoint from, QPoint to, color color)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     // Implement the move validation logic for the Soldier here...
     int dx = to.x() - from.x();
     int dy = to.y() - from.y();
@@ -303,11 +315,12 @@ bool GenMove::IsValidSoldierMove(QPoint from, QPoint to, color color)
         }
     }
     return false;
-};
+}
 // TODO: Boeser Blick
 // Generate all legal moves for the current player from the given board QPoint
 std::vector<std::pair<QPoint, QPoint>> GenMove::GenerateLegalMoves(color currentPlayerColor)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     std::vector<std::pair<QPoint, QPoint>> legalMoves;
 
     // Iterate over all squares on the board
@@ -338,6 +351,7 @@ std::vector<std::pair<QPoint, QPoint>> GenMove::GenerateLegalMoves(color current
 // Check if a player is in check
 bool GenMove::IsCheck(color currentPlayerColor)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     color c;
     if (currentPlayerColor == color::Red) {
         c = color::Black;
@@ -373,6 +387,7 @@ bool GenMove::IsCheck(color currentPlayerColor)
 // Check if a player is in checkmate
 bool GenMove::IsCheckmate(color currentPlayerColor)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     // Generate all legal moves for the currentPlayerColor
     std::vector<std::pair<QPoint, QPoint>> legalMoves = GenerateLegalMoves(currentPlayerColor);
 
@@ -394,6 +409,7 @@ bool GenMove::IsCheckmate(color currentPlayerColor)
 // Perform a move on the board and update the board state
 bool GenMove::PerformMove(QPoint from, QPoint to, color currentPlayerColor)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     // Check if the move is valid
     if (!IsValidMove(from, to, currentPlayerColor)) {
         return false;
@@ -414,6 +430,7 @@ bool GenMove::PerformMove(QPoint from, QPoint to, color currentPlayerColor)
 
 color GenMove::GetColor(QPoint p)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     return pieces[p.x()][p.y()].colr;
 }
 
@@ -427,6 +444,7 @@ Piece GenMove::GetPiece(QPoint p)
 // Helper function to find the QPoint of the General of the currentPlayerColor
 QPoint GenMove::FindGeneralPosition(color currentPlayerColor)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     for (int row = 0; row < ROWS; ++row) {
         for (int col = 0; col < COLS; ++col) {
             if (pieces[row][col].type == pieceType::General
@@ -441,6 +459,7 @@ QPoint GenMove::FindGeneralPosition(color currentPlayerColor)
 
 bool GenMove::IsValidMove(QPoint from, QPoint to, color currentPlayerColor)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     pieceType pieceType = pieces[from.x()][from.y()].type;
 
     switch (pieceType) {
@@ -468,6 +487,7 @@ bool GenMove::IsValidMove(QPoint from, QPoint to, color currentPlayerColor)
 
 std::vector<std::pair<QPoint, QPoint>> GenMove::AllValidMoves(const QPoint fromPos)
 {
+    //qDebug() << __PRETTY_FUNCTION__;
     pieceType pieceType = pieces[fromPos.x()][fromPos.y()].type;
     color currentPlayerColor = pieces[fromPos.x()][fromPos.y()].colr;
     std::vector<std::pair<QPoint, QPoint>> legalMoves = GenerateLegalMoves(currentPlayerColor);
@@ -489,7 +509,7 @@ std::vector<std::pair<QPoint, QPoint>> GenMove::AllValidMoves(const QPoint fromP
         if (fromPos.y() == from.y() && from.x() == fromPos.x()) {
             copy = copy2;
             copy.PerformMove(from, to, currentPlayerColor);
-            if (!copy.IsCheck(currentPlayerColor) && IsValidMove(from, to, currentPlayerColor)) {
+            if (!copy.IsCheck(currentPlayerColor)  && !copy.IsEvilGlare(currentPlayerColor)/*&& IsValidMove(from, to, currentPlayerColor)*/) {
                 legalPieceMoves.push_back({fromPos, {to.x(), to.y()}});
             }
         }
@@ -498,4 +518,38 @@ std::vector<std::pair<QPoint, QPoint>> GenMove::AllValidMoves(const QPoint fromP
         }*/
     }
     return legalPieceMoves;
+}
+
+bool GenMove::IsEvilGlare(color col)
+{
+
+    QPoint general = FindGeneralPosition(col);
+    color opp_col;
+
+    if (col == color::Red)
+        opp_col = color::Black;
+    else
+        opp_col = color::Red;
+
+    QPoint opp_general = FindGeneralPosition(opp_col);
+
+    if (opp_general.y() == general.y()) {
+        if (opp_general.x() < general.x()) {
+            for (size_t i = opp_general.x() + 1; i < general.x(); i++) {
+                //qDebug() << i << general.x();
+                if (pieces[i][general.y()].type != pieceType::Empty) {
+                    return false;
+                }
+            }
+        } else {
+            for (size_t i = general.x() + 1; i < opp_general.x(); i++) {
+                //qDebug() << i << general.x();
+                if (pieces[i][general.y()].type != pieceType::Empty) {
+                    return false;
+                }
+            }
+        }
+    }
+
+    return true;
 }
