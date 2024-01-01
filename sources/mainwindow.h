@@ -54,7 +54,8 @@
 #include "basemodel.h"
 #include "boardview.h"
 #include "engine.h"
-#include "genmove.h"
+//#include "genmove.h"
+#include <cchess_rules.h>
 #include "renderview.h"
 #include "settingsview.h"
 #include "types.h"
@@ -69,49 +70,49 @@ public:
     ~MainWindow();
 
     // The engine, and its thread
-    UCI *uci;
+    UCI *uci  = nullptr;
     QThread uciThread;
-    Engine *engine;
+    Engine *engine  = nullptr;
 
 private:
     void InitWidgets();
     void InitConnections();
     void InitEngine();
 
-    BoardView *boardview;
+    BoardView *boardview = nullptr;
 
-    QWidget *view;
-    Qt3DExtras::Qt3DWindow *renderView;
+    QWidget *view = nullptr;
+    Qt3DExtras::Qt3DWindow *renderView = nullptr;
 
-    QTabWidget *tabview;
-    QWidget *tabwidget1;
-    QWidget *tabwidget2;
-    QWidget *menu;
+    QTabWidget *tabview = nullptr;
+    QWidget *tabwidget1 = nullptr;
+    QWidget *tabwidget2 = nullptr;
+    QWidget *menu = nullptr;
 
     //QTableView *table;
-    QTreeWidget *table;
+    QTreeWidget *table = nullptr;
 
-    QToolBar *toolbar;
-    QAction *openbutton, *savebutton, *settingsbutton, *enginestartsbutton, *exitbutton,
-        *newgamebutton;
-    QMenuBar *menubar;
-    QMenu *menu1;
-    QDockWidget *dockWidget;
-    QStandardItemModel *model;
-    QHeaderView *headerview;
-    QWidget *navigationwidget;
-    QWidget *navigationview;
-    QPushButton *lleft, *left, *right, *rright;
+    QToolBar *toolbar = nullptr;
+    QAction *openbutton = nullptr, *savebutton = nullptr, *settingsbutton = nullptr, *enginestartsbutton = nullptr, *exitbutton = nullptr,
+        *newgamebutton = nullptr;
+    QMenuBar *menubar = nullptr;
+    QMenu *menu1 = nullptr;
+    QDockWidget *dockWidget = nullptr;
+    QStandardItemModel *model = nullptr;
+    QHeaderView *headerview = nullptr;
+    QWidget *navigationwidget = nullptr;
+    QWidget *navigationview = nullptr;
+    QPushButton *lleft = nullptr, *left = nullptr, *right = nullptr, *rright = nullptr;
 
-    QWidget *gameinfoswidget;
-    QVBoxLayout *gameinfosh;
-    QHBoxLayout *opponents;
-    QLineEdit *opp1, *opp2, *loca, *round, *date;
-    QHBoxLayout *location;
+    QWidget *gameinfoswidget = nullptr;
+    QVBoxLayout *gameinfosh = nullptr;
+    QHBoxLayout *opponents = nullptr;
+    QLineEdit *opp1 = nullptr, *opp2 = nullptr, *loca = nullptr, *round = nullptr, *date = nullptr;
+    QHBoxLayout *location = nullptr;
 
-    SettingsView *settings;
+    SettingsView *settings = nullptr;
 
-    AboutView *about;
+    AboutView *about = nullptr;
 
     //int row = 0,
     int column = 0;

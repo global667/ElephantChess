@@ -24,10 +24,9 @@
 #include <QPainter>
 #include <QWidget>
 #include "contexmenu.h"
-#include <vector>
 
 #include "basemodel.h"
-#include "types.h"
+#include <cchess_rules.h>
 
 // This class is the 2D-view of the board. It is a QWidget and draws the board and the pieces.
 // Handles the mouse input and the context menu.
@@ -62,6 +61,7 @@ private:
 
     // controls the mouse input
     bool pressed = false;
+    bool secondclick = false;
 
     // Cutting points of the board
     const int cutpWidth = BaseModel::BoardColPoints;  //8;

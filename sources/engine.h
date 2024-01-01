@@ -21,7 +21,7 @@
 
 #include <QRandomGenerator>
 #include "basemodel.h"
-#include "genmove.h"
+//#include "genmove.h"
 //#include "maschines.h"
 #include "types.h"
 

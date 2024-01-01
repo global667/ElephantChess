@@ -18,7 +18,6 @@
 
 #include "boardview.h"
 #include "basemodel.h"
-#include "genmove.h"
 
 #include <QImageReader>
 #include <QPainter>
@@ -26,6 +25,9 @@
 #include <QRadialGradient>
 #include <QTextItem>
 #include <QFontDatabase>
+#include <QObject>
+
+#include <cchess_rules.h>
 
 extern BaseModel basemodel;
 
@@ -62,8 +64,8 @@ void BoardView::paintEvent(QPaintEvent *event)
     painter.setRenderHint(QPainter::Antialiasing, true);
     PaintBoard(&painter);
     PaintPieces(&painter);
-    PaintSelectedPieces(&painter);
     PaintMarker(&painter);
+    PaintSelectedPieces(&painter);
 }
 
 void BoardView::PaintMarker(QPainter *p)
@@ -420,7 +422,8 @@ void BoardView::PaintSelectedPieces(QPainter *p)
     pen.setWidth(5);
     p->setPen(pen);
 
-    if (fromHuman.y() != -1) {
+    //if (fromHuman.y() != -1) {
+    if (secondclick == false) {
         // Draws selected piece
         p->setBrush(Qt::transparent);
         pen.setColor(Qt::green);
@@ -433,22 +436,20 @@ void BoardView::PaintSelectedPieces(QPainter *p)
                   w / (cutpWidth) / 1.5,
                   h / cutpWidth / 1.5));
 
-        // draws legal moves as dots
         pen.setColor(Qt::red);
         pen.setWidth(5);
         p->setPen(pen);
 
-        GenMove legalMoves(basemodel.board.pieces, basemodel.board.onMove);
-        std::vector<std::pair<QPoint, QPoint>> allPreviewMoves;
-        allPreviewMoves = legalMoves.AllValidMoves(fromHuman);
-        for (auto move : allPreviewMoves) {
+        // draws legal moves as circles
+        Position pos(basemodel.board.pieces, basemodel.board.onMove);
+        for (const auto& move : pos.generate_piece_moves(pos.board[fromHuman.x()][fromHuman.y()].piece->piece_type, fromHuman.y(), fromHuman.x())) {
             for (int j = 0; j < 10; j++) {
                 for (int i = 0; i < 9; i++) {
-                    if (move.second.y() == i && move.second.x() == j) {
+                    if (move.second == i && move.first == j) {
                         p->drawEllipse(
-                            QRect((50 + ((move.second.y()) * (w - 2 * 50) / cutpWidth))
+                            QRect((50 + ((move.first) * (w - 2 * 50) / cutpWidth))
                                       - w / cutpWidth / 2 / 1.5,
-                                  (50 + (9 - move.second.x()) * (h - 50 - 100) / cutpHeight)
+                                  (50 + (9 - move.second) * (h - 50 - 100) / cutpHeight)
                                       - h / cutpWidth / 2 / 1.5,
                                   w / (cutpWidth) / 1.5,
                                   h / cutpWidth / 1.5));
@@ -516,6 +517,7 @@ void BoardView::mousePressEvent(QMouseEvent *event)
         fromHuman.setY(p.x() - 1);
         fromHuman.setX(10 - p.y());
         pressed = true;
+        secondclick = false;
 
         if (basemodel.board.pieces[fromHuman.x()][fromHuman.y()].type == pieceType::Empty) {
             pressed = false;
@@ -525,24 +527,33 @@ void BoardView::mousePressEvent(QMouseEvent *event)
             pressed = false;
             return;
         }
-        //qDebug() << basemodel.fromHuman.y()<< basemodel.fromHuman.x();
     } else if (pressed) {
         toHuman.setY(p.x() - 1);
         toHuman.setX(10 - p.y());
 
-        GenMove mate(basemodel.board.pieces, basemodel.board.onMove);
+        //GenMove mate(basemodel.board.pieces, basemodel.board.onMove);
 
         // Is in Checkmate
-        if (mate.IsCheckmate(basemodel.board.onMove)) {
-            qDebug() << "Checkmate";
-            return;
-        }
+        //if (mate.IsCheckmate(basemodel.board.onMove)) {
+        //    qDebug() << "Checkmate";
+        //    return;
+        //}
         pressed = false;
-        GenMove legalMoves(basemodel.board.pieces, basemodel.board.onMove);
+        secondclick = true;
 
-        for (auto move : legalMoves.AllValidMoves(fromHuman)) {
-            if ((move.first.x() == fromHuman.x()) && (move.first.y() == fromHuman.y())
-                && (move.second.x() == toHuman.x()) && (move.second.y() == toHuman.y())) {
+        Position p(basemodel.board.pieces, basemodel.board.onMove);
+
+        std::vector<std::pair<QPoint, QPoint>> moves;
+        std::vector<std::pair<int, int>> all_moves_to;
+        std::vector<std::pair<int, int>> all_moves_from;
+
+        // find all possible moves
+        moves = p.generate_all_moves();
+
+        int i=0;
+        for(auto move : moves) {
+            if ((moves.at(i).first.x() == fromHuman.y()) && (moves.at(i).first.y() == fromHuman.x())
+                && (move.second.x() == toHuman.y()) && (move.second.y() == toHuman.x())) {
                 if (basemodel.kind.contains("uci")) {
                     emit updateView({fromHuman.x(), fromHuman.y()},
                                     {toHuman.x(), toHuman.y()},
@@ -554,14 +565,14 @@ void BoardView::mousePressEvent(QMouseEvent *event)
                 }
                 break;
             }
+            i++;
         }
         fromHuman = {-1, -1};
     }
-
     repaint();
 }
 
-//TODO: exchange hanzi with unicode
+//TODO: exchange hanzi with unicode [ok]
 // Sets the selected pieces on the (clean) board
 void BoardView::SetEditorPieces()
 {
@@ -575,62 +586,62 @@ void BoardView::SetEditorPieces()
         switch (piece.second) {
         case completePieceType::GeneralRot:
             basemodel.board.InitPiece(
-                Piece(color::Red, pieceType::General, {coords.x(), coords.y()}, "帥"));
+                Piece(color::Red, pieceType::General, {coords.x(), coords.y()}, "\u5e25" ));//"帥"));
             break;
         case completePieceType::GeneralSchwarz:
             basemodel.board.InitPiece(
-                Piece(color::Black, pieceType::General, {coords.x(), coords.y()}, "將"));
+                Piece(color::Black, pieceType::General, {coords.x(), coords.y()}, "\u5c07")); //"將"));
             break;
         case completePieceType::AdvisorRot:
             basemodel.board.InitPiece(
-                Piece(color::Red, pieceType::Advisor, {coords.x(), coords.y()}, "仕"));
+                Piece(color::Red, pieceType::Advisor, {coords.x(), coords.y()}, "\u4ed5" )); //"仕"));
             break;
         case completePieceType::AdvisorSchwarz:
             basemodel.board.InitPiece(
-                Piece(color::Black, pieceType::Advisor, {coords.x(), coords.y()}, "士"));
+                Piece(color::Black, pieceType::Advisor, {coords.x(), coords.y()}, "\u58eb" ));// "士"));
             break;
         case completePieceType::ElephantRot:
             basemodel.board.InitPiece(
-                Piece(color::Red, pieceType::Elephant, {coords.x(), coords.y()}, "相"));
+                Piece(color::Red, pieceType::Elephant, {coords.x(), coords.y()}, "\u76f8" )); //"相"));
             break;
         case completePieceType::ElephantSchwarz:
             basemodel.board.InitPiece(
-                Piece(color::Black, pieceType::Elephant, {coords.x(), coords.y()}, "象"));
+                Piece(color::Black, pieceType::Elephant, {coords.x(), coords.y()}, "\u8c61" )); //"象"));
             break;
         case completePieceType::HorseRot:
             basemodel.board.InitPiece(
-                Piece(color::Red, pieceType::Horse, {coords.x(), coords.y()}, "傌"));
+                Piece(color::Red, pieceType::Horse, {coords.x(), coords.y()}, "\u508c" )); //"傌"));
             break;
         case completePieceType::HorseSchwarz:
             basemodel.board.InitPiece(
-                Piece(color::Black, pieceType::Horse, {coords.x(), coords.y()}, "馬"));
+                Piece(color::Black, pieceType::Horse, {coords.x(), coords.y()}, "\u99ac" )); //"馬"));
             break;
         case completePieceType::ChariotRot:
             basemodel.board.InitPiece(
-                Piece(color::Red, pieceType::Chariot, {coords.x(), coords.y()}, "俥"));
+                Piece(color::Red, pieceType::Chariot, {coords.x(), coords.y()}, "\u4fe5" )); //"俥"));
             break;
         case completePieceType::ChariotSchwarz:
             basemodel.board.InitPiece(
-                Piece(color::Black, pieceType::Chariot, {coords.x(), coords.y()}, "車"));
+                Piece(color::Black, pieceType::Chariot, {coords.x(), coords.y()}, "\u8eca" )); //"車"));
             break;
         case completePieceType::CannonRot:
             basemodel.board.InitPiece(
-                Piece(color::Red, pieceType::Cannon, {coords.x(), coords.y()}, "炮"));
+                Piece(color::Red, pieceType::Cannon, {coords.x(), coords.y()},"\u70ae" )); // "炮"));
             break;
         case completePieceType::CannonSchwarz:
             basemodel.board.InitPiece(
-                Piece(color::Black, pieceType::Cannon, {coords.x(), coords.y()}, "砲"));
+                Piece(color::Black, pieceType::Cannon, {coords.x(), coords.y()},"\u7832" )); // "砲"));
             break;
         case completePieceType::SoldierRot:
             basemodel.board.InitPiece(
-                Piece(color::Red, pieceType::Soldier, {coords.x(), coords.y()}, "兵"));
+                Piece(color::Red, pieceType::Soldier, {coords.x(), coords.y()}, "\u5175" )); //"兵"));
             break;
         case completePieceType::SoldierSchwarz:
             basemodel.board.InitPiece(
-                Piece(color::Black, pieceType::Soldier, {coords.x(), coords.y()}, "卒"));
+                Piece(color::Black, pieceType::Soldier, {coords.x(), coords.y()}, "\u5352" )); //"卒"));
             break;
         default:
-            qDebug() << "Error in boarview";
+            qDebug() << "Error in boarview::SetEditorPieces";
             break;
         }
     }

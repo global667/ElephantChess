@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
 find_package(Git REQUIRED)
-
 # Get the latest commit hash
 execute_process(
     COMMAND git rev-parse --short HEAD
@@ -13,37 +12,46 @@ project(ElephantChess VERSION 0.4.0 DESCRIPTION "${COMMIT_ID}" LANGUAGES CXX HOM
 
 set(PROJECT_DESC "-alpha (commit ${GIT_COMMIT_HASH})")
 
-#enable_testing(true)
-
 configure_file(./sources/config.h.in ./sources/config.h)
+
+add_subdirectory(sources)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 REQUIRED COMPONENTS Widgets)# LinguistTools)
-find_package(Qt6 REQUIRED COMPONENTS Widgets Test)# LinguistTools)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+enable_language(C)
+enable_language(CXX)
+
 find_package(Qt6 REQUIRED COMPONENTS
+    Core
+    Widgets
     3DCore
     3DRender
     3DInput
     3DLogic
     3DExtras
     3DAnimation
+    #Test
+    #LinguistTools
+    HINTS "C:/Qt/6.6.1/mingw_64/"
 )
-#target_link_libraries(ElephantChess PRIVATE
-#    Qt6::3DCore
-#    Qt6::3DRender
-#    Qt6::3DLogic
-#    Qt6::3DExtras
-#    Qt6::3DAnimation
-#)
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-#add_test(NAME ElephantChess COMMAND ElephantChess)
+find_library(CCHESS_RULES_LIBRARY
+    NAMES "libcchess_rules.dll"
+    HINTS "f:/source/XiangQi/build-cchess_rules-Desktop_Qt_6_6_1_MinGW_64_bit-Debug/"
+)
+
+qt6_standard_project_setup()
+qt_add_resources(RESOURCES res.qrc)
+
 #set(TS_FILES i18n/XiangQi_de_DE.ts)
 
 set(MISC_SOURCES
@@ -70,29 +78,19 @@ set(PROJECT_WEBSITE "docs/lizenzen.html"
     "docs/links.html"
 )
 
-qt_standard_project_setup()
-
-add_subdirectory(sources)
-#add_subdirectory(tests)
-
 set(PROJECT_SOURCES
-#        main.cpp
-#        mainwindow.cpp
-#        mainwindow.h
-#        boardview.h boardview.cpp
-#        basemodel.h basemodel.cpp
-#        uci.cpp uci.h
-#        genmove.h genmove.cpp
-#        types.h
-#        engine.h engine.cpp
-#        settingsview.h settingsview.cpp
-#        board.h board.cpp
-       # ${PROJECT_CPP_SOURCES}
         res.qrc
         ${TS_FILES}
         ${PROJECT_WEBSITE}
         ${MISC_SOURCES}
 )
+
+target_include_directories(ElephantChess PUBLIC "../../cchess_rules/")
+
+
+#enable_testing(true)
+#add_subdirectory(tests)
+#add_test(NAME ElephantChess COMMAND ElephantChess)
 
 #if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 #    qt_add_executable(XiangQi
