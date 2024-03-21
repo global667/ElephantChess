@@ -33,17 +33,17 @@ public:
     Engine();
     ~Engine() {}
 
-    std::pair<QPoint, QPoint> GetBestMove(color color);
+    std::pair<QPoint, QPoint> GetBestMove(Color color);
 
     // get all possible moves for a piece
     // return a list of positions
-    QList<QPoint> GetPossibleMoves(Piece *piece);
+    QList<QPoint> GetPossibleMoves(PPiece *piece);
 
     // get all possible moves for a color
     // return a list of positions
-    QList<QPoint> GetPossibleMoves(color color);
+    QList<QPoint> GetPossibleMoves(Color color);
 
-    void engineGo();
+    std::pair<QPoint, QPoint> engineGo();
 
     //void MovePiece(position from, position to);
 

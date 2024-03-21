@@ -22,7 +22,7 @@
 #include <QDebug>
 #include <QObject>
 
-#include "board.h"
+#include <cchess_rules.h>
 #include "types.h"
 
 class BaseModel : public QObject
@@ -32,8 +32,9 @@ public:
     explicit BaseModel(QObject *parent = nullptr)
     {
         engineName
-            = "F:/source/XiangQi/build-Dumbo-Desktop_Qt_6_6_1_MinGW_64_bit-Debug/Dumbo"; //"/home/wsk/.vs/Dumbo/out/build/linux-debug/Dumbo"; //"built-in";
-        moveHistory.append(board);
+            = "built-in";//"F:/source/XiangQi/build-Dumbo-Desktop_Qt_6_6_1_MinGW_64_bit-Debug/Dumbo"; //"/home/wsk/.vs/Dumbo/out/build/linux-debug/Dumbo"; //
+        position.initBoard();
+        moveHistory.append(position);
         currentMove++;
     }
 
@@ -43,15 +44,16 @@ public:
     static const short BoardColPoints = BoardCols - 1;
 
     // a class that holds all board data
-    Board board;
-    Board boardCopy;
+    //Board board;
+    //Board boardCopy;
+    Position position;
 
     viewStyleMode viewStyleModeVar = viewStyleMode::traditional_native;
 
     int currentMove = 0;
     QStringList moves;
     QString engineName = "built-in";
-    QList<Board> moveHistory;
+    QList<Position> moveHistory;
     QString kind = "uci";
 
     QList<QPair<QPoint, QPoint>> currentMoves;
@@ -74,7 +76,7 @@ public:
         for (int i = 0; i < ROWS; i++) {
             QString line = "";
             for (int j = 0; j < COLS; j++) {
-                line += QString::number((int) board.pieces[i][j].type);
+                line += QString::number((int) position.board[i][j].piece->piece_type);
                 line += " ";
             }
             qDebug() << line;

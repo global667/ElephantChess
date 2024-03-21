@@ -24,13 +24,15 @@ extern BaseModel basemodel;
 
 Engine::Engine() {}
 
-std::pair<QPoint, QPoint> Engine::GetBestMove(color color)
+std::pair<QPoint, QPoint> Engine::GetBestMove(Color color)
 {
     //GenMove generatedMoves(basemodel.board.pieces, color);
-    Position position(basemodel.board.pieces, color);
- /*   std::vector<std::pair<QPoint, QPoint>> pos;
-    std::vector<std::pair<QPoint, QPoint>> posAll;
+    //Position position(basemodel.position.board, color);
+    std::vector<std::pair<QPoint, QPoint>> pos;
+    std::vector<std::pair<QPoint, QPoint>> posAll;// = basemodel.position.generate_all_moves();
 
+
+/*
     // all valid moves
     for (int i = 0; i < 10; i++)
         for (int j = 0; j < 9; j++)
@@ -43,13 +45,13 @@ std::pair<QPoint, QPoint> Engine::GetBestMove(color color)
                 }
             }
         }
-
-    int sizeOfPosAll = posAll.size();
+*/
+ /*   int sizeOfPosAll = posAll.size();
 
     int random = QRandomGenerator::global()->bounded(sizeOfPosAll);
 
-    return posAll.at(random);*/
-
+    return posAll.at(random);
+*/
     std::vector<std::pair<int, int>> moves;
     std::vector<std::pair<int, int>> all_moves_to;
     std::vector<std::pair<int, int>> all_moves_from;
@@ -59,11 +61,11 @@ std::pair<QPoint, QPoint> Engine::GetBestMove(color color)
     // find all possible moves
     for (int file1 = 0; file1 < 9; file1++) {
         for (int rank1 = 0; rank1 < 10; rank1++) {
-            if (position.board[rank1][file1].piece != nullptr)
-                if (position.board[rank1][file1].piece->color == position.players_color
-                    && position.is_inside_board(file1, rank1)) {
-                    PieceType piece_type = position.board[rank1][file1].piece->piece_type;
-                    moves = position.generate_piece_moves(piece_type, file1, rank1);
+            if (basemodel.position.board[rank1][file1].piece != nullptr)
+                if (basemodel.position.board[rank1][file1].piece->color == basemodel.position.players_color
+                    && basemodel.position.is_inside_board(file1, rank1)) {
+                    PieceType piece_type = basemodel.position.board[rank1][file1].piece->piece_type;
+                    moves = basemodel.position.generate_piece_moves(piece_type, file1, rank1);
                     for (auto m : moves) {
                         all_moves_from.push_back(std::make_pair(file1, rank1));
                         all_moves_to.push_back(m);
@@ -86,20 +88,23 @@ std::pair<QPoint, QPoint> Engine::GetBestMove(color color)
     return std::make_pair(QPoint(all_moves_from[move].first,all_moves_from[move].second), QPoint(all_moves_to[move].first,all_moves_to[move].second)); //bestmove;
 }
 
-QList<QPoint> Engine::GetPossibleMoves(Piece *piece)
+QList<QPoint> Engine::GetPossibleMoves(PPiece *piece)
 {
     return QList<QPoint>();
 }
 
-QList<QPoint> Engine::GetPossibleMoves(color color)
+QList<QPoint> Engine::GetPossibleMoves(Color color)
 {
     return QList<QPoint>();
 }
 
-void Engine::engineGo()
+std::pair<QPoint, QPoint> Engine::engineGo()
 {
     std::pair<QPoint, QPoint> ownEngineMove;
-    ownEngineMove = GetBestMove(basemodel.board.onMove);
+    ownEngineMove = GetBestMove(basemodel.position.players_color);
     basemodel.currentMoves.push_back(ownEngineMove);
-    emit updateView(ownEngineMove.first, ownEngineMove.second, "engine");
+    //emit updateView(ownEngineMove.first, ownEngineMove.second, "engine");
+    //basemodel.position.move_piece(ownEngineMove.first.x(),ownEngineMove.first.y(),ownEngineMove.second.x(), ownEngineMove.second.y());//from.x(), from.y(), to.x(), to.y());
+
+    return ownEngineMove;
 }

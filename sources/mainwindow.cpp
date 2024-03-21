@@ -43,19 +43,19 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 }
 
 void MainWindow::InitEngine() {
-  // engine = new Engine();
-  // basemodel.kind = "engine";
-  basemodel.kind = "uci";
-  uci = new UCI();
-  connect(uci, SIGNAL(updateView(QPoint, QPoint, QString)),
-          SLOT(ToMove(QPoint, QPoint, QString)));
-  uci->start();
+   engine = new Engine();
+   basemodel.kind = "engine";
+  //basemodel.kind = "uci";
+ // uci = new UCI();
+ // connect(uci, SIGNAL(updateView(QPoint, QPoint, QString)),
+ //         SLOT(ToMove(QPoint, QPoint, QString)));
+ // uci->start();
 }
 void MainWindow::InitConnections() {
   // engine moves
-  // connect(engine,
-  //        SIGNAL(updateView(QPoint, QPoint, QString)),
-  //        SLOT(ToMove(QPoint, QPoint, QString)));
+   connect(engine,
+          SIGNAL(updateView(QPoint, QPoint, QString)),
+          SLOT(ToMove(QPoint, QPoint, QString)));
   // mouse clicked moves (human)
 #ifdef THREE_D_VIEW
 #else
@@ -69,7 +69,7 @@ void MainWindow::InitConnections() {
       table, &QTreeWidget::itemClicked, this,
       [=](QTreeWidgetItem *item, int col) {
         int row = table->indexFromItem(item).row();
-        basemodel.board = basemodel.moveHistory[row];
+        basemodel.position = basemodel.moveHistory[row];
         isTableClicked = row;
         repaint();
       },
@@ -362,7 +362,7 @@ void MainWindow::ReadPGNData(QString data) {
 
 void MainWindow::PutPGNOnBoard() {
   int c = 0;
-  basemodel.board.initBoard();
+  basemodel.position.initBoard();
 
   QStandardItem *item;
   for (QString &item1 : basemodel.moves) {
@@ -377,7 +377,7 @@ void MainWindow::PutPGNOnBoard() {
     auto fy = 9 - (item1.at(1).digitValue());
     auto tx = ((char)item1.at(2).toLatin1()) - 'a';
     auto ty = 9 - (item1.at(3).digitValue());
-    basemodel.board.movePiece(9 - fy, 8 - fx, 9 - ty, 8 - tx);
+    basemodel.position.move_piece(9 - fy, 8 - fx, 9 - ty, 8 - tx);
   }
   column = c;
   repaint();
@@ -442,11 +442,11 @@ void MainWindow::ToggleGameView() {
 }
 
 void MainWindow::GiveTipp() {
-  std::pair<QPoint, QPoint> move = engine->GetBestMove(basemodel.board.onMove);
+  std::pair<QPoint, QPoint> move = engine->GetBestMove(basemodel.position.players_color);
   QPoint from = move.first;
   QPoint to = move.second;
   QString c;
-  if (basemodel.board.onMove == color::Red)
+  if (basemodel.position.players_color == Color::Red)
     c = "Red";
   else
     c = "Black";
@@ -524,7 +524,7 @@ void MainWindow::UpdateSettings() {
 
 // Startet ein neues Spiel
 void MainWindow::Newgame() {
-  basemodel.board.initBoard();
+  basemodel.position.initBoard();
   basemodel.moveHistory.clear();
   model->clear();
   // row = 0,
@@ -534,12 +534,12 @@ void MainWindow::Newgame() {
   basemodel.toHuman = {-1, -1};
   basemodel.fromUCI = {-1, -1};
   basemodel.toUCI = {-1, -1};
-  basemodel.board.onMove = color::Red;
+  basemodel.position.players_color = Color::Red;
   for (int i = basemodel.moves.size(); i >= 0; i--) {
     table->takeTopLevelItem(i);
   }
   basemodel.moves.clear();
-  basemodel.moveHistory.append(basemodel.board);
+  basemodel.moveHistory.append(basemodel.position);
   basemodel.currentMove++;
   repaint();
 }
@@ -547,7 +547,7 @@ void MainWindow::Newgame() {
 // End Toolbar slots
 
 void MainWindow::ResetToHistory() {
-  basemodel.board = basemodel.moveHistory[basemodel.currentMove];
+  basemodel.position = basemodel.moveHistory[basemodel.currentMove];
   basemodel.fromHuman = {-1, -1};
   basemodel.toHuman = {-1, -1};
   basemodel.fromUCI = {-1, -1};
@@ -561,21 +561,32 @@ void MainWindow::ToMove(QPoint from, QPoint to, QString kind) {
   // not used at the moment
   // basemodel.currentMoves.push_back({from, to});
 
-  QString name = basemodel.board.pieces[from.x()][from.y()].name;
+    if(!basemodel.position.board[from.x()][from.y()].piece){
+      qDebug() << "Error in ToMove" << from.x() << " " << from.y();
+        return;
+  }
+
+  QString name = basemodel.position.board[from.x()][from.y()].piece->name;
   QString beaten;
-  if (basemodel.board.GetPiece({to.x(), to.y()}).type != pieceType::Empty)
+    if (basemodel.position.board[to.y()][to.x()].piece != nullptr)
     beaten = "x";
   else
     beaten = "-";
 
-  basemodel.board.movePiece(from.x(), from.y(), to.x(), to.y());
-  if (basemodel.board.onMove == color::Black) {
-    basemodel.fromUCI = from;
-    basemodel.toUCI = to;
-  } else {
+  basemodel.position.move_piece(from.x(), from.y(), to.y(), to.x());
+  repaint();
+//  basemodel.position.add_piece(new PPiece{ PieceType::Soldier, Color::Red , QPoint(1, 3),"\u5175", QImage()},to.x(), to.y());
+  basemodel.moves.append(basemodel.posToken(from.y(), from.x(), to.x(), to.y()));
+
+
+//  if (basemodel.position.players_color == Color::Black) {
+//    basemodel.fromUCI = from;
+ //   basemodel.toUCI = to;
+//  } else {
     basemodel.fromHuman = from;
     basemodel.toHuman = to;
-  }
+//   }
+
   AddMoveToHistory();
 
   QStringList mv;
@@ -585,22 +596,40 @@ void MainWindow::ToMove(QPoint from, QPoint to, QString kind) {
      << QString(basemodel.moves.last().at(3));
   AddMoveToList(mv.join(""));
 
-  basemodel.board.toggleOnMove();
+  basemodel.position.toggleColor(&basemodel.position.players_color);
 
   if (kind.contains("human")) {
-    engine->engineGo();
+    std::pair<QPoint, QPoint> move = engine->engineGo();
+
+
+      basemodel.position.move_piece(move.first.y(),move.first.x(), move.second.y(), move.second.x());
+
+    repaint();
+
+      //if (basemodel.position.players_color == Color::Black) {
+          basemodel.fromUCI = move.first;
+          basemodel.toUCI = move.second;
+     // } else {
+          basemodel.fromHuman = from;
+          basemodel.toHuman = to;
+     // }
+
+      basemodel.position.toggleColor(&basemodel.position.players_color);
+
   } else if (kind.contains("uci")) {
     uci->engineGo();
+
   } else if (kind.contains("engine")) {
   } else {
     qDebug() << "Error in game loop ToMove()";
   }
+
   repaint();
 }
 
 void MainWindow::AddMoveToHistory() {
   basemodel.currentMove++;
-  basemodel.moveHistory.append(basemodel.board);
+  basemodel.moveHistory.append(basemodel.position);
 }
 
 void MainWindow::AddMoveToList(QString move) {

@@ -432,8 +432,8 @@ QPixmap *PaintedTextureImage::PrepareNativePiece(QPainter *p, int row, int col)
     font.setWeight(QFont::DemiBold);
     p->setFont(font);
     // Draws all pieces
-    if (basemodel.board.pieces[row][8 - col].name != "") {
-        if (basemodel.board.pieces[row][8 - col].colr == color::Red) {
+    if (basemodel.position.board[row][8 - col].piece->name != "") {
+        if (basemodel.position.board[row][8 - col].piece->color == Color::Red) {
             // Draw red
             pen.setColor(Qt::red);
             p->setPen(pen);
@@ -467,7 +467,7 @@ QPixmap *PaintedTextureImage::PrepareNativePiece(QPainter *p, int row, int col)
                               - h / BaseModel::BoardColPoints / 2 / 2,
                           w / (BaseModel::BoardColPoints),
                           h / BaseModel::BoardColPoints),
-                    basemodel.board.pieces[row][8 - col].name);
+                    basemodel.position.board[row][8 - col].piece->name);
         p->drawPixmap(0, 0, pix);
     }
     return &pix;
@@ -489,12 +489,12 @@ void PaintedTextureImage::PaintPieces(QPainter *p)
         for (int i = 0; i < 9; i++) {
             QPixmap pixm;
             QPixmap pixm2;
-            if (basemodel.board.pieces[j][8 - i].colr == color::Red) {
+            if (basemodel.position.board[j][8 - i].piece->color == Color::Red) {
                 if (basemodel.viewStyleModeVar == viewStyleMode::western_png) {
-                    pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
+                    pixm = QPixmap::fromImage(basemodel.position.board[j][8 - i].piece->img);
                     pixm2 = pixm.copy(100, 0, 100, 100);
                 } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_png) {
-                    pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img,
+                    pixm = QPixmap::fromImage(basemodel.position.board[j][8 - i].piece->img,
                                               Qt::PreferDither);
                     pixm2 = pixm.copy(0, 0, 100, 100);
                 } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_native) {
@@ -502,10 +502,10 @@ void PaintedTextureImage::PaintPieces(QPainter *p)
                 }
             } else {
                 if (basemodel.viewStyleModeVar == viewStyleMode::western_png) {
-                    pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img);
+                    pixm = QPixmap::fromImage(basemodel.position.board[j][8 - i].piece->img);
                     pixm2 = pixm.copy(300, 0, 100, 100);
                 } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_png) {
-                    pixm = QPixmap::fromImage(basemodel.board.pieces[j][8 - i].img,
+                    pixm = QPixmap::fromImage(basemodel.position.board[j][8 - i].piece->img,
                                               Qt::PreferDither);
                     pixm2 = pixm.copy(200, 0, 100, 100);
                 } else if (basemodel.viewStyleModeVar == viewStyleMode::traditional_native) {

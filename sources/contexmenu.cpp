@@ -87,7 +87,7 @@ void ContexMenu::clearBoard()
 
     for (int row = 0; row < ROWS; ++row) {
         for (int col = 0; col < COLS; ++col) {
-            basemodel.board.pieces[row][col] = Piece(color::Red, pieceType::Empty, {row, col}, "");
+            //basemodel.position.board[row][col].piece = new PPiece{ PieceType::Empty ,Color::Red, QImage()  , {row, col},""};
         }
     }
 
@@ -100,7 +100,7 @@ void ContexMenu::clearBoard()
     basemodel.toHuman = {-1, -1};
     basemodel.fromUCI = {-1, -1};
     basemodel.toUCI = {-1, -1};
-    basemodel.board.onMove = color::Red;
+    basemodel.position.players_color = Color::Red;
 
     //if (!&basemodel.moves)
     basemodel.moves.clear();

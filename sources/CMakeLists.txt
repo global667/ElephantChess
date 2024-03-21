@@ -21,11 +21,13 @@ find_package(Qt6 REQUIRED COMPONENTS
     3DAnimation
     #Test
     #LinguistTools
-    HINTS "C:/Qt/6.6.1/mingw_64/"
+    HINTS "C:/Qt/6.6.2/mingw_64/"
 )
-find_library(CCHESS_RULES_LIBRARY
-    NAMES libcchess_rules
-    HINTS "f:/source/XiangQi/build-cchess_rules-Desktop_Qt_6_6_1_MinGW_64_bit-Debug/"
+find_library(CCHESS_RULES_LIBRARY cchess_rules "F:/source/XiangQi/build-cchess_rules-Desktop_Qt_6_6_2_MSVC2019_64bit-Debug/"
+    #NAMES libcchess_rules
+    #HINTS "f:/source/XiangQi/build-cchess_rules-Desktop_Qt_6_6_1_MinGW_64_bit-Debug/"
+    #NAMES cchess_rules
+    #HINTS "F:/source/XiangQi/build-cchess_rules-Desktop_Qt_6_6_2_MSVC2019_64bit-Debug/"
 )
 
 set(PROJECT_CPP
@@ -37,7 +39,7 @@ set(PROJECT_CPP
         types.h
         engine.h engine.cpp
         settingsview.h settingsview.cpp
-        board.h board.cpp
+        #board.h board.cpp
         config.h contexmenu.h contexmenu.cpp
         renderview.h renderview.cpp
         aboutview.h aboutview.cpp
@@ -47,9 +49,8 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 add_executable(ElephantChess ${PROJECT_CPP} ${RESOURCES})
 
-target_link_libraries(ElephantChess PRIVATE
+target_link_libraries(ElephantChess PUBLIC
     Qt6::Core
-    #Qt::Gui
     Qt::Widgets
     #Qt::Test
     Qt::3DCore
@@ -61,6 +62,10 @@ target_link_libraries(ElephantChess PRIVATE
 )
 #qt_add_translation(QM_FILES ${TS_FILES})
 
-#target_link_directories(ElephantChess PUBLIC "F:/source/XiangQi/build-cchess_rules-Desktop_Qt_6_6_1_MinGW_64_bit-Debug/")
+#target_link_directories(ElephantChess PUBLIC "../../build-cchess_rules-Desktop_Qt_6_6_2_MSVC2019_64bit-Debug/")
 target_include_directories(ElephantChess PUBLIC "../../cchess_rules/")
+
+#add_library(cchess_rules SHARED "F:/source/XiangQi/build-cchess_rules-Desktop_Qt_6_6_2_MSVC2019_64bit-Debug/")
+
+#target_link_libraries(cchess_rules "F:/source/XiangQi/build-cchess_rules-Desktop_Qt_6_6_2_MSVC2019_64bit-Debug/cchess_rules")
 

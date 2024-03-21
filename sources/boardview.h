@@ -41,7 +41,9 @@ public:
     // temp for graphics
     QPoint fromHuman = {-1, -1};
     QPoint toHuman = {-1, -1};
-
+    // native values from the screen to the array
+    QPoint from = {-1, -1};
+    QPoint to = {-1, -1};
 protected:
     void paintEvent(QPaintEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
@@ -51,12 +53,13 @@ private: // Put in a Memento Pattern?
     void PaintBoard(QPainter *p);    
     void PaintMarker(QPainter *p);
     void PaintPieces(QPainter *p);
-    QPixmap *PrepareNativePiece(QPainter *p, int row, int col);
+    //QPixmap *PrepareNativePiece(QPainter *p, int row, int col);
+    void PrepareNativePiece(QPicture *p, int row, int col, int h, int w);
     void PaintSelectedPieces(QPainter *p);
 
 private:
     QPoint CalcBoardCoords(QPoint r);
-    QPixmap pix;
+    //QPixmap pix;
     void SetEditorPieces();
 
     // controls the mouse input
@@ -79,6 +82,8 @@ private:
 
     // Kontexmenue mit Figuren und Marker
     ContexMenu *contextMenu;
+
+    QPicture *pix;
 
 signals:
     // signals to the controller

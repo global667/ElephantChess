@@ -45,7 +45,7 @@ find_package(Qt6 REQUIRED COMPONENTS
 )
 
 find_library(CCHESS_RULES_LIBRARY
-    NAMES "libcchess_rules.dll"
+    NAMES "libcchess_rules"
     HINTS "f:/source/XiangQi/build-cchess_rules-Desktop_Qt_6_6_1_MinGW_64_bit-Debug/"
 )
 
