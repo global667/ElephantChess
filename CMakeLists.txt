@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.6)
 
 find_package(Git REQUIRED)
 # Get the latest commit hash
@@ -12,9 +12,9 @@ project(ElephantChess VERSION 0.4.0 DESCRIPTION "${COMMIT_ID}" LANGUAGES CXX HOM
 
 set(PROJECT_DESC "-alpha (commit ${GIT_COMMIT_HASH})")
 
-configure_file(./sources/config.h.in ./sources/config.h)
+configure_file(./config.h.in ./config.h)
 
-add_subdirectory(sources)
+#add_subdirectory(sources)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -41,13 +41,24 @@ find_package(Qt6 REQUIRED COMPONENTS
     3DAnimation
     #Test
     #LinguistTools
-    HINTS "C:/Qt/6.6.1/mingw_64/"
+    HINTS "C:/Qt/6.6.2/msvc2019_64"
 )
 
-find_library(CCHESS_RULES_LIBRARY
-    NAMES "libcchess_rules"
-    HINTS "f:/source/XiangQi/build-cchess_rules-Desktop_Qt_6_6_1_MinGW_64_bit-Debug/"
-)
+#find_library(CCHESS_RULES_LIBRARY NO_CACHE REQUIRED
+#    NAMES "cchess_rules"
+#    HINTS "F:/source/XiangQi/build-cchess_rules-Desktop_Qt_6_6_2_MSVC2019_64bit-Debug/"
+#)
+
+#add_library("cchess_rules" STATIC
+# "${CMAKE_SOURCE_DIR}../build-cchess_rules-Desktop_Qt_6_6_2_MinGW_64_bit-Debug/"
+#)
+
+#link_directories(BEFORE "${CMAKE_SOURCE_DIR}../../build-cchess_rules-Desktop_Qt_6_6_2_MSVC2019_64bit-Debug/")
+#add_library(cchess_rules STATIC IMPORTED) # or STATIC instead of SHARED
+#set_target_properties(cchess_rules PROPERTIES
+#  IMPORTED_LOCATION "F:/source/XiangQi/build-cchess_rules-Desktop_Qt_6_6_2_MSVC2019_64bit-Debug/cchess_rules.lib"
+#  INTERFACE_INCLUDE_DIRECTORIES "F:/source/XiangQi/cchess_rules"
+#)
 
 qt6_standard_project_setup()
 qt_add_resources(RESOURCES res.qrc)
@@ -78,14 +89,50 @@ set(PROJECT_WEBSITE "docs/lizenzen.html"
     "docs/links.html"
 )
 
+set(PROJECT_CPP
+        main.cpp
+        mainwindow.cpp mainwindow.h
+        boardview.h boardview.cpp
+        basemodel.h basemodel.cpp
+        uci.cpp uci.h
+        #types.h
+        engine.h engine.cpp
+        settingsview.h settingsview.cpp
+        #board.h board.cpp
+        config.h contexmenu.h contexmenu.cpp
+        renderview.h renderview.cpp
+        aboutview.h aboutview.cpp
+        #res.qrc
+        cchess_rules.h
+)
+
 set(PROJECT_SOURCES
         res.qrc
         ${TS_FILES}
         ${PROJECT_WEBSITE}
         ${MISC_SOURCES}
 )
+add_executable(ElephantChess WIN32 ${PROJECT_CPP} ${RESOURCES})
 
-target_include_directories(ElephantChess PUBLIC "../../cchess_rules/")
+target_link_libraries(ElephantChess PUBLIC
+    Qt6::Core
+    Qt::Widgets
+    #Qt::Test
+    Qt::3DCore
+    Qt::3DRender
+    Qt::3DLogic
+    Qt::3DExtras
+    Qt::3DAnimation
+    #${CCHESS_RULES_LIBRARY}
+    #cchess_rules
+)
+
+qt_finalize_executable(ElephantChess)
+
+
+#target_include_directories(ElephantChess PUBLIC "${CMAKE_SOURCE_DIR}../../cchess_rules"
+#)
+
 
 
 #enable_testing(true)
@@ -198,3 +245,4 @@ target_include_directories(ElephantChess PUBLIC "../../cchess_rules/")
 #    "${PROJECT_BINARY_DIR}")
 #                           #"${PROJECT_SOURCE_DIR}/pgnlib")
 #                           #"${PROJECT_SOURCE_DIR}/Chameleon")
+
