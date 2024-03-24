@@ -38,28 +38,20 @@ class BoardView : public QWidget
 public:
     explicit BoardView(QWidget *parent = nullptr);
 
-    // temp for graphics
-    QPoint fromHuman = {-1, -1};
-    QPoint toHuman = {-1, -1};
-    // native values from the screen to the array
-    QPoint from = {-1, -1};
-    QPoint to = {-1, -1};
 protected:
     void paintEvent(QPaintEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
     void contextMenuEvent(QContextMenuEvent *event) override;
 
-private: // Put in a Memento Pattern?
+private:
     void PaintBoard(QPainter *p);    
     void PaintMarker(QPainter *p);
     void PaintPieces(QPainter *p);
-    //QPixmap *PrepareNativePiece(QPainter *p, int row, int col);
     void PrepareNativePiece(QPicture *p, int row, int col, int h, int w);
     void PaintSelectedPieces(QPainter *p);
 
 private:
     QPoint CalcBoardCoords(QPoint r);
-    //QPixmap pix;
     void SetEditorPieces();
 
     // controls the mouse input
@@ -80,13 +72,13 @@ private:
         "\u6f22"
         "\u754c"); //"漢 界"; //  (Hàn jiè) - Dieser Schriftzug bedeutet "Grenze von Han".
 
-    // Kontexmenue mit Figuren und Marker
-    ContexMenu *contextMenu;
-
     QPicture *pix;
 
+    // Kontexmenue mit Figuren und Marker
+    ContexMenu *contextMenu;  
+
 signals:
-    // signals to the controller
+    // signal to the controller
     void updateView(QPoint from, QPoint to, QString kind);
 };
 

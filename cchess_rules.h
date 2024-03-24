@@ -35,34 +35,19 @@ enum class pieceType { Empty, General, Advisor, Elephant, Horse, Chariot, Cannon
 
 enum class markerType { Kreuz, Kreis, Dreieck, Linie, Linienende, Viereck };
 
-enum class completePieceType {
-    GeneralRot,
-    AdvisorRot,
-    ElephantRot,
-    HorseRot,
-    ChariotRot,
-    CannonRot,
-    SoldierRot,
-    GeneralSchwarz,
-    AdvisorSchwarz,
-    ElephantSchwarz,
-    HorseSchwarz,
-    ChariotSchwarz,
-    CannonSchwarz,
-    SoldierSchwarz
+enum class completePieceType { GeneralRot,AdvisorRot,ElephantRot,
+    HorseRot,ChariotRot,CannonRot,
+    SoldierRot,GeneralSchwarz,AdvisorSchwarz,
+    ElephantSchwarz,HorseSchwarz,ChariotSchwarz,
+    CannonSchwarz,SoldierSchwarz
 };
 
 enum class Color { Red, Black };
 
 enum class PieceType {
-    General,
-    Advisor,
-    Elephant,
-    Horse,
-    Chariot,
-    Cannon,
-    Soldier,
-    Empty
+    General,Advisor,Elephant,
+    Horse,Chariot,Cannon,
+    Soldier,Empty
 };
 
 struct PPiece {
@@ -85,14 +70,17 @@ public:
   Position() {
       for (int rank = 0; rank < 10; ++rank) {
           for (int file = 0; file < 9; ++file) {
-              board[rank][file].piece = nullptr;
+              add_piece(new PPiece{PieceType::Empty,Color::Red,QPoint(rank,file),"",QImage()},rank,file);
+              //board[rank][file].piece->piece_type = PieceType::Empty;
           }
       }
+      players_color = Color::Red;
   }
    void initBoard() {
       for (int rank = 0; rank < 10; ++rank) {
           for (int file = 0; file < 9; ++file) {
-              board[rank][file].piece = nullptr;
+              add_piece(new PPiece{PieceType::Empty,Color::Red,QPoint(file,rank),"",QImage()},rank,file);
+              //board[rank][file].piece->piece_type = PieceType::Empty;
           }
       }
       // Adding red pieces
@@ -186,13 +174,19 @@ public:
   }
 
    void move_piece(int file_from, int rank_from, int file_to, int rank_to) {
-      qDebug() << "move_piece...";
-      qDebug() << "from (rank-file): " << rank_from << file_from;
-      qDebug() << "to: " << rank_to << file_to;
+      //qDebug() << "move_piece...";
+      //qDebug() << "from (rank-file): " << rank_from << file_from;
+      //qDebug() << "to: " << rank_to << file_to;
+      printBoard();
+
       if (is_inside_board(rank_from, file_from) &&
           is_inside_board(rank_to, file_to)) {
-          board[file_to][rank_to].piece = board[file_from][rank_from].piece;
-          board[file_from][rank_from].piece = nullptr;
+          *board[file_to][rank_to].piece = *board[file_from][rank_from].piece;//new PPiece{PieceType::Cannon,Color::Red,QPoint(rank_from,file_from),"",QImage()};//
+
+          board[file_from][rank_from].piece->piece_type = PieceType::Empty;
+          board[file_from][rank_from].piece->color = Color::Red;
+          board[file_from][rank_from].piece->name = "";
+          //add_piece(new PPiece{PieceType::Empty,Color::Red,QPoint(rank_from,file_from),"",QImage()},rank_from,file_from);
       } else
           qDebug() << "Error in move_piece";
       printBoard();
@@ -229,40 +223,42 @@ public:
       std::vector<std::pair<int, int>> move;
 
       // clean from selfhitting pieces
-      for (auto m : moves) {
-          if (board[m.second][m.first].piece == nullptr
-              || board[m.second][m.first].piece->color != board[rank][file].piece->color
-              ||  board[rank][file].piece->piece_type == PieceType::Cannon)
+      for (auto m : moves)
+          if (&(board[m.second][m.first]) != &board[rank][file])
               move.push_back(m);
-      }
 
-      return move;
+
+      return moves;
   }
 
    std::vector<std::pair<int, int> > generate_valid_piece_moves(PieceType piece_type, int file, int rank)  {
       std::vector<std::pair<int, int>> moves, valMoves;
       moves = generate_piece_moves(piece_type, file, rank);
 
-      Square board_copy[10][9];
+      PPiece board_copy[10][9];
 
       for (int rank = 0; rank < 10; ++rank) {
           for (int file = 0; file < 9; ++file) {
-              board_copy[rank][file] = board[rank][file];
+              board_copy[rank][file] = *board[rank][file].piece;
           }
       }
 
       // clean from check and ckeckmate
       for (auto move : moves)
       {
-          PPiece *piece =
-              board_copy[rank][file].piece;
-          PPiece *captured_piece = board_copy[move.second][move.first].piece;
-          Color color = piece->color;
+          PPiece piece =
+              board_copy[rank][file];
+          PPiece captured_piece = board_copy[move.second][move.first];
+          Color color = piece.color;
 
-          bool is_really_evil_glare = is_evil_glare({file,rank}, {move.first,move.second}, color);
+          bool is_really_evil_glare = false; //is_evil_glare({file,rank}, {move.first,move.second}, color);
 
-          board_copy[move.second][move.first].piece = piece;
-          board_copy[file][rank].piece = nullptr;
+          board_copy[move.second][move.first] = piece;
+          board_copy[file][rank].piece_type = PieceType::Empty;
+          board_copy[file][rank].color = Color::Red;
+          board_copy[file][rank].name = "";
+          //add_piece_with_board(new PPiece{PieceType::Empty,Color::Red,QPoint(move.second,move.first),"",QImage()},move.second,move.first, &board_copy);
+
 
           // Check if the check is still present
           bool is_still_check = is_check(color);
@@ -272,8 +268,8 @@ public:
           }
 
           // Undo the move
-          board_copy[rank][file].piece = piece;;
-          board_copy[move.second][move.first].piece = captured_piece;
+          board_copy[rank][file] = piece;;
+          board_copy[move.second][move.first] = captured_piece;
       }
 
       return valMoves;
@@ -286,7 +282,7 @@ public:
       // find all possible moves
       for (int file1 = 0; file1 < 9; file1++) {
           for (int rank1 = 0; rank1 < 10; rank1++) {
-              if (board[rank1][file1].piece != nullptr)
+              if (board[rank1][file1].piece->piece_type != PieceType::Empty)
                   if (board[rank1][file1].piece->color == players_color &&
                       is_inside_board(file1, rank1)) {
                       PieceType piece_type = board[rank1][file1].piece->piece_type;
@@ -304,11 +300,11 @@ public:
   std::vector<std::pair<QPoint, QPoint> > generate_all_valid_moves() {
       // find all valid moves
 
-      Square board_copy[10][9];
+      PPiece board_copy[10][9];
 
       for (int rank = 0; rank < 10; ++rank) {
           for (int file = 0; file < 9; ++file) {
-              board_copy[rank][file] = board[rank][file];
+              board_copy[rank][file] = *board[rank][file].piece;
           }
       }
 
@@ -317,15 +313,19 @@ public:
       // clean from check and ckeckmate
       for (auto move : posAll)
       {
-          PPiece *captured_piece =
-              board_copy[move.second.y()][move.second.x()].piece;
-          PPiece *piece = board_copy[move.first.y()][move.first.x()].piece;
-          Color color = piece->color;
+          PPiece captured_piece =
+              board_copy[move.second.y()][move.second.x()];
+          PPiece piece = board_copy[move.first.y()][move.first.x()];
+          Color color = piece.color;
 
           bool is_really_evil_glare = is_evil_glare(move.first, move.second, color);
 
-          board_copy[move.second.y()][move.second.x()].piece = piece;
-          board_copy[move.first.y()][move.first.x()].piece = nullptr;
+          board_copy[move.second.y()][move.second.x()] = piece;
+          board_copy[move.first.y()][move.first.x()].piece_type = PieceType::Empty;
+          board_copy[move.first.y()][move.first.x()].color = Color::Red;
+          board_copy[move.first.y()][move.first.x()].name = "";
+          //add_piece(new PPiece{PieceType::Empty,Color::Red,QPoint(move.first.y(),move.first.x()),"",QImage()},move.first.y(),move.first.x());
+
 
           // Check if the check is still present
           bool is_still_check = is_check(color);
@@ -335,8 +335,8 @@ public:
           }
 
           // Undo the move
-          board_copy[move.first.y()][move.first.x()].piece = piece;;
-          board_copy[move.second.y()][move.second.x()].piece = captured_piece;
+          board_copy[move.first.y()][move.first.x()] = piece;
+          board_copy[move.second.y()][move.second.x()] = captured_piece;
       }
 
       return posVal;
@@ -350,7 +350,7 @@ public:
       for (int rank = 0; rank < 10; ++rank) {
           for (int file = 0; file < 9; ++file) {
               PPiece *piece = board[rank][file].piece;
-              if (piece != nullptr && piece->piece_type == PieceType::General &&
+              if (piece->piece_type == PieceType::General &&
                   piece->color == color) {
                   general_file = file;
                   general_rank = rank;
@@ -366,10 +366,9 @@ public:
       for (int rank = 0; rank < 10; ++rank) {
           for (int file = 0; file < 9; ++file) {
               PPiece *piece = board[rank][file].piece;
-              if (piece != nullptr && piece->color != color) {
+              if (piece->piece_type != PieceType::Empty && piece->color != color) {
                   std::vector<std::pair<int, int>> moves =
                       generate_piece_moves(piece->piece_type, file, rank);
-                  int i = 0;
                   for (const auto &move : moves) {
                       if (move.first == general_file && move.second == general_rank) {
                           return true;
@@ -382,17 +381,17 @@ public:
       return false;
   }
 
-  bool is_checkmate(Color color, std::vector<std::pair<int, int> > &moves) {
+/*  bool is_checkmate(Color color, std::vector<std::pair<int, int> > &moves) {
       // Check if the general is in check
       if (!is_check(color)) {
           return false;
-      }
+      }    
 
       // Try moving each of the player's pieces to see if the check can be escaped
       for (int rank = 0; rank < 10; ++rank) {
           for (int file = 0; file < 9; ++file) {
               PPiece *piece = board[rank][file].piece;
-              if (piece != nullptr && piece->color == color) {
+              if (piece->piece_type != PieceType::Empty && piece->color == color) {
                   std::vector<std::pair<int, int>> moves =
                       generate_piece_moves(piece->piece_type, file, rank);
                   for (const auto &move : moves) {
@@ -400,7 +399,7 @@ public:
                       PPiece *captured_piece =
                           board[move.second][move.first].piece;
                       board[move.second][move.first].piece = piece;
-                      board[rank][file].piece = nullptr;
+                      board[rank][file].piece->piece_type = PieceType::Empty;
 
                       // Check if the check is still present
                       bool is_still_check = is_check(color);
@@ -422,20 +421,20 @@ public:
       // Checkmate!
       return true;
   }
-
+*/
  bool is_evil_glare(QPoint from, QPoint to, Color color) const {
       // std::cout << "info is_evil_glase()" << std::endl;
 
-      Square board_copy[10][9];
+      PPiece board_copy[10][9];
 
       for (int rank = 0; rank < 10; ++rank) {
           for (int file = 0; file < 9; ++file) {
-              board_copy[rank][file] = board[rank][file];
+              board_copy[rank][file] = *board[rank][file].piece;
           }
       }
 
       board_copy[to.y()][to.x()] = board_copy[from.y()][from.x()];
-      board_copy[from.y()][from.x()].piece = nullptr;
+      board_copy[from.y()][from.x()].piece_type = PieceType::Empty;
 
       int general_file = -1;
       int general_rank = -1;
@@ -446,9 +445,9 @@ public:
       // Find the position of the general
       for (int rank = 0; rank < 10; ++rank) {
           for (int file = 0; file < 9; ++file) {
-              PPiece *piece = board_copy[rank][file].piece;
-              if (piece != nullptr && piece->piece_type == PieceType::General &&
-                  piece->color == color) {
+              PPiece piece = board_copy[rank][file];
+              if (piece.piece_type != PieceType::Empty && piece.piece_type == PieceType::General &&
+                  piece.color == color) {
                   general_file = file;
                   general_rank = rank;
                   break;
@@ -466,9 +465,9 @@ public:
       // Find the position of the opposite general
       for (int rank = 0; rank < 10; ++rank) {
           for (int file = 0; file < 9; ++file) {
-              PPiece *piece = board_copy[rank][file].piece;
-              if (piece != nullptr && piece->piece_type == PieceType::General &&
-                  piece->color != color) {
+              PPiece piece = board_copy[rank][file];
+              if (piece.piece_type != PieceType::Empty && piece.piece_type == PieceType::General &&
+                  piece.color != color) {
                   opp_general_file = file;
                   opp_general_rank = rank;
                   break;
@@ -482,13 +481,13 @@ public:
       if (opp_general_file == general_file) {
           if (opp_general_rank < general_rank) {
               for (size_t i = opp_general_rank + 1; i < general_rank; i++) {
-                  if (board_copy[i][general_file].piece != nullptr) {
+                  if (board_copy[i][general_file].piece_type != PieceType::Empty) {
                       return false;
                   }
               }
           } else {
               for (size_t i = general_rank + 1; i < opp_general_rank; i++) {
-                  if (board_copy[i][opp_general_file].piece != nullptr) {
+                  if (board_copy[i][opp_general_file].piece_type != PieceType::Empty) {
                       return false;
                   }
               }
@@ -533,9 +532,9 @@ public:
           int between_file = file + between_directions[i][0];
           int between_rank = rank + between_directions[i][1];
           if (is_inside_board(new_file, new_rank) &&
-              board[new_rank][new_file].piece == nullptr &&
+              board[new_rank][new_file].piece->piece_type == PieceType::Empty &&
               is_inside_board(between_file, between_rank) &&
-              board[between_rank][between_file].piece == nullptr) {
+              board[between_rank][between_file].piece->piece_type == PieceType::Empty) {
               add_move(new_file, new_rank, moves);
           }
       }
@@ -550,17 +549,17 @@ public:
           int between_file = file + dir[0] / 2;
           int between_rank = rank + dir[1] / 2;
           if (is_inside_board(new_file, new_rank) &&
-              (board[new_rank][new_file].piece == nullptr ||
+              (board[new_rank][new_file].piece->piece_type == PieceType::Empty ||
                board[new_rank][new_file].piece->color !=
                    board[rank][file].piece->color)) {
               if (dir[0] == -2 || dir[0] == 2) {
                   if (is_inside_board(between_file, rank) &&
-                      board[rank][between_file].piece == nullptr) {
+                      board[rank][between_file].piece->piece_type == PieceType::Empty) {
                       add_move(new_file, new_rank, moves);
                   }
               } else {
                   if (is_inside_board(file, between_rank) &&
-                      board[between_rank][file].piece == nullptr) {
+                      board[between_rank][file].piece->piece_type == PieceType::Empty) {
                       add_move(new_file, new_rank, moves);
                   }
               }
@@ -575,7 +574,7 @@ public:
           int new_rank = rank + dir[0];
           while (is_inside_board(new_rank, new_file)) {
               PPiece *piece = board[new_rank][new_file].piece;
-              if (piece == nullptr) {
+              if (piece->piece_type == PieceType::Empty) {
                   add_move(new_file, new_rank, moves);
               } else {
                   if (piece->color != board[rank][file].piece->color) {
@@ -597,7 +596,7 @@ public:
           bool found_piece = false;
           while (is_inside_board(new_file, new_rank)) {
               PPiece *piece = board[new_rank][new_file].piece;
-              if (piece == nullptr) {
+              if (piece->piece_type == PieceType::Empty) {
                   if (!found_piece) {
                       add_move(new_file, new_rank, moves);
                   }
@@ -648,7 +647,7 @@ public:
               // if (new_file == 4 && new_rank == 6)
               //     std::cout << "test" << std::endl;
 
-              if (piece == nullptr ||
+              if (piece->piece_type == PieceType::Empty ||
                   piece->color != board[rank][file].piece->color) {
 
                   add_move(new_file, new_rank, moves);
@@ -674,7 +673,7 @@ public:
       for (int i = 0; i < 10; i++) {
           QString line = "";
           for (int j = 0; j < 9; j++) {
-              if (board[i][j].piece == nullptr)
+              if (board[i][j].piece->piece_type == PieceType::Empty)
                   line += "0";
               else
                   line += QString::number((int)board[i][j].piece->piece_type + 1);

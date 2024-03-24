@@ -552,8 +552,8 @@ void MainWindow::ResetToHistory() {
     basemodel.toHuman = {-1, -1};
     basemodel.fromUCI = {-1, -1};
     basemodel.toUCI = {-1, -1};
-    boardview->fromHuman = {-1, -1};
-    boardview->toHuman = {-1, -1};
+    //boardview->fromHuman = {-1, -1};
+    //boardview->toHuman = {-1, -1};
     repaint();
 }
 
@@ -568,7 +568,7 @@ void MainWindow::ToMove(QPoint from, QPoint to, QString kind) {
 
     QString name = basemodel.position.board[from.x()][from.y()].piece->name;
     QString beaten;
-    if (basemodel.position.board[to.y()][to.x()].piece != nullptr)
+    if (basemodel.position.board[to.y()][to.x()].piece->piece_type != PieceType::Empty)
         beaten = "x";
     else
         beaten = "-";
@@ -595,7 +595,7 @@ void MainWindow::ToMove(QPoint from, QPoint to, QString kind) {
 
 
     if (kind.contains("human")) {
-        std::pair<QPoint, QPoint> move = engine->engineGo();
+        std::pair<QPoint, QPoint> move = engine->engineGo();//= std::make_pair(QPoint(1,1), QPoint(1,1));//
 
         if (move.first.x() == -1) {
             AddMoveToList("#");
@@ -626,8 +626,7 @@ void MainWindow::ToMove(QPoint from, QPoint to, QString kind) {
             QString name =
                 basemodel.position.board[move.first.y()][move.first.x()].piece->name;
             QString beaten;
-            if (basemodel.position.board[move.second.y()][move.second.x()].piece !=
-                nullptr)
+            if (basemodel.position.board[move.second.y()][move.second.x()].piece->piece_type != PieceType::Empty)
                 beaten = "x";
             else
                 beaten = "-";
@@ -661,6 +660,7 @@ void MainWindow::ToMove(QPoint from, QPoint to, QString kind) {
     } else {
         qDebug() << "Error in game loop ToMove()";
     }
+
     repaint();
 }
 

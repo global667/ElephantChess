@@ -62,9 +62,6 @@ public:
     // die genannte ist unten
     Color gameView = Color::Red;
 
-    // legt fest welche Farbe der Mensch spielt
-    //Color humanColor = Color::Red;
-
     QByteArray posToken(int fromX, int fromY, int toX, int toY)
     {
         QByteArray m;

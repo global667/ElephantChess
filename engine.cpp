@@ -43,8 +43,8 @@ std::pair<QPoint, QPoint> Engine::GetBestMove(Color color)
 
 std::pair<QPoint, QPoint> Engine::engineGo()
 {
-    std::pair<QPoint, QPoint> ownEngineMove;
+    std::pair<QPoint, QPoint> ownEngineMove = {};
     ownEngineMove = GetBestMove(basemodel.position.players_color);
-    basemodel.currentMoves.push_back(ownEngineMove);
+    //basemodel.currentMoves.push_back(ownEngineMove);
     return ownEngineMove;
 }
