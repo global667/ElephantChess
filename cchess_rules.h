@@ -53,11 +53,11 @@ enum class PieceType {
 };
 
 struct PPiece {
-	PieceType piece_type;
-	Color color;
-	QPoint pos;
-	QString name;
-	QImage img;
+	PieceType piece_type = PieceType::Empty;
+	Color color = Color::Red;
+	QPoint pos = QPoint(0,0);
+	QString name = QString();
+	QImage img = QImage();
 };
 
 class  Position {
@@ -310,7 +310,7 @@ public:
 						is_inside_board(file1, rank1)) {
 						PieceType piece_type = board[rank1][file1].piece->piece_type;
 						moves = generate_piece_moves_for(piece_type, file1, rank1);
-						for (auto m : moves) {
+						for (auto& m : moves) {
 							all_moves.push_back(std::make_pair(QPoint(rank1, file1),
 								QPoint(m.first, m.second)));
 						}
@@ -336,7 +336,7 @@ public:
 		std::vector<std::pair<QPoint, QPoint>> posVal;
 		std::vector<std::pair<QPoint, QPoint>> posAll = generate_piece_moves_for_all();
 		// clean from check and ckeckmate
-		for (auto move : posAll)
+		for (auto& move : posAll)
 		{
 			PPiece captured_piece =
 				board_copy[move.second.y()][move.second.x()];
@@ -357,7 +357,9 @@ public:
 
 			if (!is_still_check && !is_really_evil_glare) {
 				add_move(move.second, move.first, posVal);
-			}
+			} 
+			if (is_still_check) checks++;
+
 
 			// Undo the move
 			board_copy[move.first.y()][move.first.x()] = piece;
@@ -428,7 +430,7 @@ public:
 		resultString += QString("\n   Nodes : %1").arg(nodes);
 		resultString += QString("\n  Checks : %1").arg(checks);
 		resultString += QString("\nCaptures : %1").arg(captures);
-		resultString += QString("\n    Time : %1 ms\n").arg(QTime::currentTime().msec() - startTime.msec());
+		resultString += QString("\n    Time : %1 ms\n").arg(-QTime::currentTime().msecsTo(startTime));
 
 		//std::cout << resultString.toStdString();
 		return resultString;
@@ -474,14 +476,14 @@ public:
 		cboard[move.first.y()][move.first.x()].name = "";
 	}
 
-	void take_back(std::pair<QPoint, QPoint> move, PPiece cboard[10][9])
+	void take_back(std::pair<QPoint, QPoint> move, PPiece cboard[10][9]) const
 	{
 		// Undo the move
 		cboard[move.second.y()][move.second.x()] = piece;;
 		cboard[move.first.y()][move.first.x()] = captured_piece;
 	}
 
-	bool is_check(Color color) {
+	bool is_check(Color color) const {
 		int general_file = -1;
 		int general_rank = -1;
 
@@ -509,8 +511,7 @@ public:
 					std::vector<std::pair<int, int>> moves =
 						generate_piece_moves_for(piece->piece_type, file, rank);
 					for (const auto& move : moves) {
-						if (move.first == general_file && move.second == general_rank) {
-							checks++;
+						if (move.second == general_file && move.first == general_rank && piece->piece_type != PieceType::Empty && piece->color != color) {
 							return true;
 						}
 					}

@@ -139,7 +139,7 @@ public slots:
     //void togglePlayer();
     void GiveTipp();
     void About();
-    void Help();
+    void Help() const;
     void GiveUpGame();
 
     void UpdateSettings();

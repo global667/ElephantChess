@@ -32,7 +32,7 @@ UCI::UCI()
     //basemodel.engineName = "Chameleon";
 
     // Set the program for the engine
-    engine.setProgram(basemodel.engineName);
+    engine.setProgram("pikafish-ssse3.exe");//basemodel.engineName);
     qDebug() << "Starting uci engine:" << basemodel.engineName;
     engine.setReadChannel(QProcess::StandardOutput);
 
@@ -82,15 +82,17 @@ void UCI::readData()
                 auto fy = (mv.at(1) - '0');
                 auto tx = (mv.at(2) - 'a');
                 auto ty = (mv.at(3) - '0');
-                // Ruft game auf
-                emit updateView(QPoint(fy, fx), QPoint(ty, tx), "engine");
-                //qDebug() << c << ", send new move " << c.split(' ').at(1) << " as " << fx << fy
-                //         << tx << ty;
+                basemodel.fromUCI.setX(fx);
+                basemodel.fromUCI.setY(fy);
+                basemodel.toUCI.setX(tx);
+                basemodel.toUCI.setY(ty);
+                // Ruft gameloop auf
+                emit updateView(QPoint(fy, fx), QPoint(ty, tx), "human");
             } else if (c.contains("info")) {
                 qDebug() << c;
             } else {
                 // Handle other cases (if necessary)
-                qDebug() << "Error in readData: " << c;
+                qDebug() << "readData: " << c;
                 //Q_ASSERT(1);
             }
         }
@@ -101,7 +103,7 @@ void UCI::engineGo()
 {
     // get a move
     writeDatas("position startpos moves " + basemodel.moves.join(" ").toUtf8());
-    writeDatas("go");
+    writeDatas("go depth 3");
     writeDatas("isready");
 }
 
@@ -120,7 +122,7 @@ UCI::~UCI()
 {
     // Stop the engine and close the process
     writeDatas("quit");
-    engine.finished(0);
+    emit engine.finished(0);
     engine.waitForFinished();
     engine.close();
 }

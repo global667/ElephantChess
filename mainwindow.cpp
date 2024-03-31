@@ -43,22 +43,25 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     loggingTextView->insertPlainText(basemodel.position.perftTest(1));
     loggingTextView->insertPlainText(basemodel.position.perftTest(2));
     loggingTextView->insertPlainText(basemodel.position.perftTest(3));
+    //loggingTextView->insertPlainText(basemodel.position.perftTest(4));
+    //loggingTextView->insertPlainText(basemodel.position.perftTest(5));
+
 
 }
 
 void MainWindow::InitEngine() {
-    engine = new Engine();
-    basemodel.kind = "engine";
-    // basemodel.kind = "uci";
-    // uci = new UCI();
-    // connect(uci, SIGNAL(updateView(QPoint, QPoint, QString)),
-    //         SLOT(ToMove(QPoint, QPoint, QString)));
-    // uci->start();
+    //engine = new Engine();
+    //basemodel.kind = "engine";
+     basemodel.kind = "uci";
+     uci = new UCI();
+     connect(uci, SIGNAL(updateView(QPoint, QPoint, QString)),
+             SLOT(PlayNextTwoMoves(QPoint, QPoint, QString)));
+     uci->start();
 }
 void MainWindow::InitConnections() {
     // engine moves
-    connect(engine, SIGNAL(updateView(QPoint, QPoint, QString)),
-            SLOT(PlayNextTwoMoves(QPoint, QPoint, QString)));
+    //connect(engine, SIGNAL(updateView(QPoint, QPoint, QString)),
+     //       SLOT(PlayNextTwoMoves(QPoint, QPoint, QString)));
     // mouse clicked moves (human)
 #ifdef THREE_D_VIEW
 #else
@@ -522,7 +525,7 @@ void MainWindow::About() {
     about->show();
 }
 
-void MainWindow::Help() {
+void MainWindow::Help() const {
     QDesktopServices::openUrl(
         QUrl("https://github.com/global667/ElephantChess/blob/main/README.md"));
     statusBar()->showMessage(tr("Have open URL in browser"));
@@ -617,50 +620,58 @@ void MainWindow::ResetToHistory() {
 
     repaint();
 }
-
+// Play the next two moves begin with red as human and black as engine
 void MainWindow::PlayNextTwoMoves(QPoint from, QPoint to, QString kind) {
     // not used at the moment
     // basemodel.currentMoves.push_back({from, to});
+
+    repaint();
 
     if (!basemodel.position.board[from.x()][from.y()].piece) {
         qDebug() << "Error in ToMove" << from.x() << " " << from.y();
         return;
     }
+    
 
-    QString name = basemodel.position.board[from.x()][from.y()].piece->name;
-    QString beaten;
-    if (basemodel.position.board[to.x()][to.y()].piece->piece_type != PieceType::Empty)
-        beaten = "x";
-    else
-        beaten = "-";
+        QString name = basemodel.position.board[from.x()][from.y()].piece->name;
+        QString beaten;
+        if (basemodel.position.board[to.x()][to.y()].piece->piece_type != PieceType::Empty)
+            beaten = "x";
+        else
+            beaten = "-";
 
-    basemodel.position.move_piece(from.x(), from.y(), to.x(), to.y());
+        basemodel.position.move_piece(from.x(), from.y(), to.x(), to.y());
 
-    basemodel.moves.append(
-        basemodel.posToken(from.x(), from.y(), to.x(), to.y()));
+        basemodel.moves.append(
+            basemodel.posToken(from.x(), from.y(), to.x(), to.y()));
 
-    basemodel.fromHuman = from;
-    basemodel.toHuman = to;
+        basemodel.fromHuman = from;
+        basemodel.toHuman = to;
 
-    AddMoveToHistory();
-    basemodel.position.toggleColor(&basemodel.position.players_color);
+        AddMoveToHistory();
 
-    QStringList mv;
-    mv << name << QString(basemodel.moves.last().at(0))
-       << QString(basemodel.moves.last().at(1)) << beaten
-       << QString(basemodel.moves.last().at(2))
-       << QString(basemodel.moves.last().at(3))
-       << (!basemodel.position.is_check(basemodel.position.players_color) ? QString("") : QString("+"));
+        QStringList mv;
+        mv << name << QString(basemodel.moves.last().at(0))
+            << QString(basemodel.moves.last().at(1)) << beaten
+            << QString(basemodel.moves.last().at(2))
+            << QString(basemodel.moves.last().at(3))
+            << (!basemodel.position.is_check(basemodel.position.players_color) ? QString("") : QString("+"));
 
-    AddMoveToList(mv.join(""));
+        AddMoveToList(mv.join(""));
 
 
-    if (kind.contains("human")) {
+
+    if (kind.contains("engine")) {
         // moves and x and y are swaped in first and second!
         std::pair<QPoint, QPoint> move = engine->engineGo();//= std::make_pair(QPoint(1,1), QPoint(1,1));//
         QPoint tmp = move.first;
         move.first = move.second;
         move.second = tmp;
+
+        basemodel.fromUCI = move.first;
+        basemodel.toUCI = move.second;
+        basemodel.fromHuman = from;
+        basemodel.toHuman = to;
 /*
         int tp = move.first.x();
         move.first.setX(move.first.y());
@@ -713,10 +724,7 @@ void MainWindow::PlayNextTwoMoves(QPoint from, QPoint to, QString kind) {
                 move.first.x(), move.first.y(), move.second.x(), move.second.y());
             basemodel.moves.append(moveAsString);
 
-            basemodel.fromUCI = move.first;
-            basemodel.toUCI = move.second;
-            basemodel.fromHuman = from;
-            basemodel.toHuman = to;
+
 
             AddMoveToHistory();
             basemodel.position.toggleColor(&basemodel.position.players_color);
@@ -730,12 +738,12 @@ void MainWindow::PlayNextTwoMoves(QPoint from, QPoint to, QString kind) {
             AddMoveToList(mv.join(""));
         }
     } else if (kind.contains("uci")) {
+        //basemodel.position.toggleColor(&basemodel.position.players_color);
+        basemodel.position.players_color = Color::Black;
         uci->engineGo();
-    } else if (kind.contains("engine")) {
     } else {
         qDebug() << "Error in game loop ToMove()";
-    }
-
+    }        
     repaint();
 }
 

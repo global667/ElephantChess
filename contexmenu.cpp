@@ -96,10 +96,10 @@ void ContexMenu::clearBoard()
     //model->clear();
     //column = 0;
     basemodel.currentMove = 0;
-    basemodel.fromHuman = {-1, -1};
-    basemodel.toHuman = {-1, -1};
-    basemodel.fromUCI = {-1, -1};
-    basemodel.toUCI = {-1, -1};
+    //basemodel.fromHuman = {-1, -1};
+    //basemodel.toHuman = {-1, -1};
+    //basemodel.fromUCI = {-1, -1};
+    //basemodel.toUCI = {-1, -1};
     basemodel.position.players_color = Color::Red;
 
     //if (!&basemodel.moves)

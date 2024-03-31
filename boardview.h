@@ -30,7 +30,6 @@
 
 // This class is the 2D-view of the board. It is a QWidget and draws the board and the pieces.
 // Handles the mouse input and the context menu.
-
 class BoardView : public QWidget
 {
     Q_OBJECT
@@ -44,20 +43,11 @@ protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
 
 private:
-    void PaintBoard(QPainter *p);    
+    void PaintBoard(QPainter *p) const;    
     void PaintMarker(QPainter *p);
     void PrepareNativePiece(QPicture *p, int row, int col, int h, int w);
     void PaintSelectedPieces(QPainter *p) const;
 
-    void drawSelectedPiece(QPainter* p, double cellWidth, double cellHeight) const;
-
-    void drawLegalMoves(QPainter* p, double cellWidth, double cellHeight) const;
-
-    void drawLastMoveLine(QPainter* p, double cellWidth, double cellHeight) const;
-
-    QPair<int, int> calculatePosition(QPoint boardCoord, double cellWidth, double cellHeight) const;
-
-private:
     QPoint CalcBoardCoords(QPoint r);
     void SetEditorPieces();
 
@@ -70,16 +60,10 @@ private:
     const int cutpHeight = BaseModel::BoardRowPoints; //9;
 
     //Es befindet sich auf der Seite des Brettes, die dem Spieler mit den roten Figuren gehört.
-    QString redRiver = QString(
-        "\u695a"
-        "\u6cb3"); //"楚 河"; // (Chǔ hé) - Dieser Schriftzug bedeutet "Fluss von Chu".
+    QString redRiver = QString::fromUtf8("\u695a\u6cb3"); //"楚 河"; // (Chǔ hé) - Dieser Schriftzug bedeutet "Fluss von Chu".
 
     //Es befindet sich auf der Seite des Brettes, die dem Spieler mit den schwarzen Figuren gehört.
-    QString blackRiver = QString(
-        "\u6f22"
-        "\u754c"); //"漢 界"; //  (Hàn jiè) - Dieser Schriftzug bedeutet "Grenze von Han".
-
-    QPicture *pix;
+    QString blackRiver = QString::fromUtf8("\u6f22\u754c"); //"漢 界"; //  (Hàn jiè) - Dieser Schriftzug bedeutet "Grenze von Han".
 
     // Kontexmenue mit Figuren und Marker
     ContexMenu *contextMenu;  

@@ -31,7 +31,7 @@ public:
     BaseModel()//QObject *parent = nullptr)
     {
         engineName
-            = "built-in";//"F:/source/XiangQi/build-Dumbo-Desktop_Qt_6_6_1_MinGW_64_bit-Debug/Dumbo"; //"/home/wsk/.vs/Dumbo/out/build/linux-debug/Dumbo"; //
+            = "PikaFish";//"C:/Users/wolfk/Downloads/Pikafish.2024-03-10/Windows/pikafish-ssse3.exe";//"built-in";//"F:/source/XiangQi/build-Dumbo-Desktop_Qt_6_6_1_MinGW_64_bit-Debug/Dumbo"; //"/home/wsk/.vs/Dumbo/out/build/linux-debug/Dumbo"; //
         position.initBoard();
         moveHistory.append(position);
         currentMove++;
@@ -50,7 +50,7 @@ public:
     QStringList moves;
     QString engineName = "built-in";
     QList<Position> moveHistory;
-    QString kind = "uci";
+    QString kind = "human";
 
     QList<QPair<QPoint, QPoint>> currentMoves;
     QPoint fromHuman = {-1, -1};
@@ -65,10 +65,10 @@ public:
     QByteArray posToken(int fromX, int fromY, int toX, int toY)
     {
         char c[4];
-        c[0] = fromX + 'a';
-        c[1] = fromY + '0';
-        c[2] = toX + 'a';
-        c[3] = toY + '0';       
+        c[0] = fromY + 'a';
+        c[1] = fromX + '0';
+        c[2] = toY + 'a';
+        c[3] = toX + '0';
         return QByteArray(c,sizeof(c));
     }
 };

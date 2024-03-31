@@ -24,5 +24,14 @@
         <file>res/Xiangqi_Advisor_(Trad)+ wooden.png</file>
         <file>CREDITS</file>
         <file>renderview3d.qml</file>
+        <file>res/Windows/pikafish-avx2.exe</file>
+        <file>res/Windows/pikafish-avx512.exe</file>
+        <file>res/Windows/pikafish-avx512f.exe</file>
+        <file>res/Windows/pikafish-avxvnni.exe</file>
+        <file>res/Windows/pikafish-bmi2.exe</file>
+        <file>res/Windows/pikafish-sse41-popcnt.exe</file>
+        <file>res/Windows/pikafish-ssse3.exe</file>
+        <file>res/Windows/pikafish-vnni512.exe</file>
+        <file>res/Windows/pikafish.nnue</file>
     </qresource>
 </RCC>

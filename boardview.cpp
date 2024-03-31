@@ -15,11 +15,12 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include "cchess_rules.h"
 
 #include "boardview.h"
 #include "basemodel.h"
-#include "qpicture.h"
 
+#include "QPicture"
 #include <QFontDatabase>
 #include <QImageReader>
 #include <QObject>
@@ -28,16 +29,13 @@
 #include <QRadialGradient>
 #include <QTextItem>
 
-#include <cchess_rules.h>
 
 extern BaseModel basemodel;
 
 BoardView::BoardView(QWidget* parent) : QWidget{ parent } {
 	// qDebug() << __PRETTY_FUNCTION__;
 	setMouseTracking(false);
-	// setFocusPolicy(Qt::StrongFocus);
 	contextMenu = new ContexMenu(this);
-	pix = new QPicture();
 
 }
 
@@ -54,7 +52,7 @@ void BoardView::paintEvent(QPaintEvent* event) {
 	// qDebug() << __PRETTY_FUNCTION__;
 	QPainter painter(this);
 
-	// SetEditorPieces();
+	//SetEditorPieces();
 
 	if (basemodel.gameView == Color::Black) {
 		painter.rotate(180);
@@ -63,153 +61,80 @@ void BoardView::paintEvent(QPaintEvent* event) {
 	painter.setRenderHint(QPainter::Antialiasing, true);
 	PaintBoard(&painter);
 
-	auto w = painter.viewport().width();  // p->viewport().width();
-	auto h = painter.viewport().height(); // p->viewport().height();
+	auto width = this->width();
+	auto height = this->height();
+	auto marginLeft = width - 2 * 50;
+	auto marginRight = height - 50. - 100;
 
 	for (int j = 0; j < 10; j++) {
 		for (int i = 0; i < 9; i++) {
 			if (basemodel.position.board[j][i].piece->piece_type != PieceType::Empty)
 			{
-				PrepareNativePiece(pix, j, i, h, w);
-
-
-				painter.drawPicture((50 + ((i) * (w - 2 * 50) / cutpWidth)) -
-					w / cutpWidth / 2 / 1.5,
-					(50 + (9 - j) * (h - 50 - 100) / cutpHeight) -
-					h / cutpWidth / 2 / 1.5,
-					*pix);
+				QPicture* piecePicture = new QPicture();
+				PrepareNativePiece(piecePicture, j, i, height, width);
+				auto x = (50. + ((i)*marginLeft / cutpWidth)) - width / cutpWidth / 2 / 1.5;
+				auto y = (50. + (9 - j) * marginRight / cutpHeight) - height / cutpWidth / 2. / 1.5;
+				painter.drawPicture(x, y, *piecePicture);
+				delete piecePicture;
 			}
 		}
 	}
 	PaintSelectedPieces(&painter);
 }
 
-void BoardView::PaintMarker(QPainter* p) {
+constexpr int FONT_POINT_SIZE = 30;
+constexpr int PEN_WIDTH = 3;
+constexpr qreal PIECE_SCALE_FACTOR = 1.5; // Adjust based on your scaling needs
+
+void BoardView::PrepareNativePiece(QPicture* pix, int row, int col, int h, int w) {
+	const auto* piece = basemodel.position.board[row][col].piece;
+	// Check for null pointer and empty piece
+	if (!piece || piece->piece_type == PieceType::Empty)
+		return;
+
+	QPainter painter;
+	painter.begin(pix);
+
+	// Font setup
+	QFont font;
+	font.setPointSize(FONT_POINT_SIZE);
+	font.setWeight(QFont::DemiBold);
+	painter.setFont(font);
+
+	// Pen setup
+	QPen pen(piece->color == Color::Red ? Qt::red : Qt::black, PEN_WIDTH);
+	painter.setPen(pen);
+
+	// Gradient center and dimensions adjustment
+	QPointF center(w / (2.0 * PIECE_SCALE_FACTOR * cutpWidth), h / (2.0 * PIECE_SCALE_FACTOR * cutpHeight));
+	qreal radius = qMin(w, h) / (2.0 * PIECE_SCALE_FACTOR * qMax(cutpWidth, cutpHeight));
+
+	QRadialGradient gradient(center, radius);
+	gradient.setColorAt(0, QColor::fromRgb(255, 255, 255, 255));
+	gradient.setColorAt(1, QColor::fromRgb(222, 91, 16, 255));
+
+	painter.setBrush(gradient);
+
+	// Draw piece circle
+	painter.drawEllipse(center, radius, radius);
+
+	// Draw piece name
+	QRectF textRect(center - QPointF(radius, radius / 2), QSizeF(2 * radius, radius));
+	painter.drawText(textRect, Qt::AlignCenter, piece->name);
+
+	painter.end();
+}
+
+// Split in more smaller functions
+void BoardView::PaintBoard(QPainter* p) const {
 	// qDebug() << __PRETTY_FUNCTION__;
 	Q_ASSERT(p);
 
-	auto w = p->viewport().width();  // p->viewport().width();
-	auto h = p->viewport().height(); // p->viewport().height();
+	const auto width = this->width();
+	const auto height = this->height();
 
-	int lcol = 0;
-	int lrow = 0;
-
-	for (auto marker : contextMenu->markers) {
-		auto x = marker.first.x();
-		auto y = marker.first.y();
-
-		qDebug() << x << y << "x und y";
-
-		QPoint coords = CalcBoardCoords(marker.first);
-		int col = coords.x();
-		int row = coords.y();
-
-		switch (marker.second) {
-		case markerType::Kreuz:
-
-			break;
-		case markerType::Kreis:
-			p->setPen(QPen(Qt::green, 8));
-			p->drawChord(QRect((50 + (((col - 1)) * (w - 2 * 50) / cutpWidth)) -
-				w / cutpWidth / 2 / 1.5,
-				(50 + ((row - 1)) * (h - 50 - 100) / cutpHeight) -
-				h / cutpWidth / 2 / 1.5,
-				w / (cutpWidth) / 1.5, h / cutpWidth / 1.5),
-				0, 5760);
-
-			break;
-		case markerType::Dreieck:
-
-			break;
-		case markerType::Linie:
-			p->setPen(QPen(Qt::blue, 8));
-			p->drawPoint((50 + (((col - 1)) * (w - 2 * 50) /
-				cutpWidth)), // - w / cutp_width / 2 / 1.5,
-				(50 + ((row - 1)) * (h - 50 - 100) / cutpHeight));
-			//- h / cutp_width / 2 / 1.5);
-			lrow = row;
-			lcol = col;
-			break;
-		case markerType::Linienende:
-			p->setPen(QPen(Qt::blue, 8));
-
-			p->drawLine(50 + (((lcol - 1)) * (w - 2 * 50) /
-				cutpWidth), // - w / cutp_width / 2 / 1.5,
-				(50 + ((lrow - 1)) * (h - 50 - 100) / cutpHeight),
-				50 + (((col - 1)) * (w - 2 * 50) /
-					cutpWidth), // - w / cutp_width / 2 / 1.5,
-				(50 + ((row - 1)) * (h - 50 - 100) / cutpHeight));
-
-			break;
-		case markerType::Viereck:
-			p->setPen(QPen(Qt::yellow, 8));
-
-			p->drawRect(QRect((50 + (((col - 1)) * (w - 2 * 50) / cutpWidth)) -
-				w / cutpWidth / 2 / 1.5,
-				(50 + ((row - 1)) * (h - 50 - 100) / cutpHeight) -
-				h / cutpWidth / 2 / 1.5,
-				w / (cutpWidth) / 1.5, h / cutpWidth / 1.5));
-			break;
-		default:
-			break;
-		}
-	}
-}
-
-void BoardView::PrepareNativePiece(QPicture* pix, int row1, int col1, int h, int w) {
-	// Draws all pieces
-	int row = row1;
-	int col = col1;
-
-	if (basemodel.position.board[row][col].piece->piece_type != PieceType::Empty) {
-		QPen pen;
-		QFont font;
-		QPainter p;
-
-		p.begin(pix);
-		font.setPointSize(30);
-		font.setWeight(QFont::DemiBold);
-		p.setFont(font);
-		if (basemodel.position.board[row][col].piece->color == Color::Red) {
-			// Draw red
-			pen.setColor(Qt::red);
-		}
-		else {
-			// Draw black
-			pen.setColor(Qt::black);
-		}
-		pen.setWidth(3);
-		p.setPen(pen);
-
-		QRadialGradient gradient1(
-			QPointF(50.0 /*+ (((i_col)) * (100 - 2.0 * 50.0)*/ / cutpWidth,
-				50.0 /*+ (i_row) * (100 - 2 * 50)*/ / cutpHeight),
-			50);
-		gradient1.setColorAt(1, QColor::fromRgb(222, 91, 16, 255));
-		gradient1.setColorAt(0, QColor::fromRgb(255, 255, 255, 255));
-
-		QBrush brush1(gradient1);
-		p.setBrush(brush1);
-
-		p.drawChord(QRect(0, 0,
-			w / (cutpWidth) / 1.5, h / cutpHeight / 1.5),
-			0, 5760);
-
-		p.drawText(QRect(9, 0, w / (cutpWidth), h / cutpHeight),
-			basemodel.position.board[row][col].piece->name);
-		p.end();
-	}
-}
-
-void BoardView::PaintBoard(QPainter* p) {
-	// qDebug() << __PRETTY_FUNCTION__;
-	Q_ASSERT(p);
-
-	const int width = this->width();
-	const int height = this->height();
-
-	const double squareWidth = (width - 2. * 50.) / cutpWidth;
-	const double squareHeight = (height - 50. - 100.) / cutpHeight;
+	const auto squareWidth = (width - 2. * 50.) / cutpWidth;
+	const auto squareHeight = (height - 50. - 100.) / cutpHeight;
 
 	const QColor background(252, 175, 62);
 	const QColor sides(206, 92, 0);
@@ -347,107 +272,100 @@ void BoardView::PaintBoard(QPainter* p) {
 }
 
 // TODO: Optimize the function
-void BoardView::PaintSelectedPieces(QPainter* p) const {
+void BoardView::PaintSelectedPieces(QPainter* painter) const {
 	// qDebug() << __PRETTY_FUNCTION__;
-	Q_ASSERT(p);
+	Q_ASSERT(painter);
 
-	auto w = p->viewport().width();  // p->viewport().width();
-	auto h = p->viewport().height(); // p->viewport().height();
+	const auto width = this->width();  // p->viewport().width();
+	const auto height = this->height(); // p->viewport().height();
+	
 	QPen pen;
-	p->setBrush(Qt::transparent);
-	pen.setColor(Qt::green);
-	pen.setWidth(5);
-	p->setPen(pen);
-
-	if (basemodel.fromHuman.y() != -1) {
-
-		if (secondclick == false) {
+	
+	if (basemodel.position.players_color == Color::Red)
+	{
+		if (pressed == true && secondclick == false) {
 			// Draw selected piece
-			p->setBrush(Qt::transparent);
 			pen.setColor(Qt::green);
 			pen.setWidth(5);
-			p->setPen(pen);
 
-			int x = (50 + (((basemodel.fromHuman.y())) * (w - 2 * 50) / cutpWidth)) -
-				w / cutpWidth / 2 / 1.5;
-			int y = (50 + (9 - (basemodel.fromHuman.x())) * (h - 50 - 100) / cutpHeight) -
-				h / cutpWidth / 2 / 1.5;
-			int wght = w / (cutpWidth) / 1.5;
-			int hght = h / cutpHeight / 1.5;
-			p->drawEllipse(QRect(x, y, wght, hght));
+			painter->setPen(pen);
+			painter->setBrush(Qt::transparent);
+
+			const auto x = (50 + (((basemodel.fromHuman.y())) * (width - 2 * 50) / cutpWidth)) -
+				width / cutpWidth / 2 / 1.5;
+			const auto y = (50 + (9 - (basemodel.fromHuman.x())) * (height - 50 - 100) / cutpHeight) -
+				height / cutpWidth / 2 / 1.5;
+			const auto wght = width / (cutpWidth) / 1.5;
+			const auto hght = height / cutpHeight / 1.5;
+
+			painter->drawEllipse(QRect(x, y, wght, hght));
 
 			// Draw legal moves
 			pen.setColor(Qt::red);
 			pen.setWidth(5);
-			p->setPen(pen);
+			painter->setPen(pen);
 
-			std::vector<std::pair<int, int>> all_moves = basemodel.position.generate_piece_moves_for(
-				basemodel.position.board[basemodel.fromHuman.x()][basemodel.fromHuman.y()]
-				.piece->piece_type,
-				basemodel.fromHuman.y(), basemodel.fromHuman.x());
+			const auto fromX = basemodel.fromHuman.x();
+			const auto fromY = basemodel.fromHuman.y();
+			const auto pieceType = basemodel.position.board[fromX][fromY].piece->piece_type;
+
+			auto all_moves = basemodel.position.generate_piece_moves_for(pieceType, fromY, fromX);
 			for (const auto& move : all_moves) {
-				p->drawEllipse(
-					QRect((50 + ((move.first) * (w - 2 * 50) / cutpWidth)) -
-						w / cutpWidth / 2 / 1.5,
-						(50 + (9 - move.second) * (h - 50 - 100) / cutpHeight) -
-						h / cutpWidth / 2 / 1.5,
-						w / (cutpWidth) / 1.5, h / cutpHeight / 1.5));
+
+				auto x = (50 + ((move.first) * (width - 2 * 50) / cutpWidth)) -
+					width / cutpWidth / 2 / 1.5;
+				auto y = (50 + (9 - move.second) * (height - 50 - 100) / cutpHeight) -
+					height / cutpWidth / 2 / 1.5;
+
+				painter->drawEllipse(QRect(x, y, wght, hght));
 			}
 		}
-	}
-
-	if (basemodel.fromUCI.y() != -1) {
-		// draws the last moved line
+	} else 	{
+	// black to move
+	// draws the last moved line
 		pen.setColor(Qt::black);
-
 		pen.setWidth(4);
-		p->setPen(pen);
-		p->setOpacity(0.7);
+		painter->setPen(pen);
 
-		p->drawLine(
-			(50 + (((basemodel.fromUCI.x())) * (w - 2 * 50) / cutpWidth)),
-			(50 + ((9 - basemodel.fromUCI.y())) * (h - 50 - 100) / cutpHeight),
+		painter->setOpacity(0.7);
 
-			(50 + (((basemodel.toUCI.x())) * (w - 2 * 50) / cutpWidth)),
-			(50 + ((9 - basemodel.toUCI.y())) * (h - 50 - 100) / cutpHeight));
+		const auto x1 = (50 + (((basemodel.fromUCI.x())) * (width - 2 * 50) / cutpWidth));
+		const auto y1 = (50 + ((9 - basemodel.fromUCI.y())) * (height - 50 - 100) / cutpHeight);
+		const auto x2 = (50 + (((basemodel.toUCI.x())) * (width - 2 * 50) / cutpWidth));
+		const auto y2 = (50 + ((9 - basemodel.toUCI.y())) * (height - 50 - 100) / cutpHeight);
 
+		painter->drawLine(x1, y1, x2, y2);
+		
 		pen.setWidth(25);
-		p->setPen(pen);
-
-		p->drawPoint(
-			(50 + (((basemodel.fromUCI.x())) * (w - 2 * 50) / cutpWidth)),
-			(50 + ((9 - basemodel.fromUCI.y())) * (h - 50 - 100) / cutpHeight));
+		painter->setPen(pen);
+		painter->drawPoint(x1, y1);			
 
 		pen.setWidth(18);
-		p->setPen(pen);
-		p->drawPoint(
-			(50 + (((basemodel.toUCI.x())) * (w - 2 * 50) / cutpWidth)),
-			(50 + ((9 - basemodel.toUCI.y())) * (h - 50 - 100) / cutpHeight));
+		painter->setPen(pen);
+		painter->drawPoint(x2, y2);
 
 		pen.setWidth(5);
-		p->setPen(pen);
-		p->setOpacity(1);
+		painter->setPen(pen);
+		painter->setOpacity(1);
 
 		pen.setColor(Qt::black);
 		pen.setWidth(5);
-		p->setPen(pen);
-		p->drawEllipse(
-			QRect((50 + (((basemodel.toUCI.x())) * (w - 2 * 50) / cutpWidth)) -
-				w / cutpWidth / 2 / 1.5,
-				(50 + (9 - (basemodel.toUCI.y())) * (h - 50 - 100) / cutpHeight) -
-				h / cutpWidth / 2 / 1.5,
-				w / (cutpWidth) / 1.5, h / cutpHeight / 1.5));
+		painter->setPen(pen);
+		painter->drawEllipse(QRect(x1 -	width / cutpWidth / 2 / 1.5,
+			y1 -height / cutpWidth / 2 / 1.5, 
+			width / (cutpWidth) / 1.5,
+			height / cutpHeight / 1.5));
 
-		p->drawEllipse(QRect(
-			(50 + (((basemodel.fromUCI.x())) * (w - 2 * 50) / cutpWidth)) -
-			w / cutpWidth / 2 / 1.5,
-			(50 + (9 - (basemodel.fromUCI.y())) * (h - 50 - 100) / cutpHeight) -
-			h / cutpWidth / 2 / 1.5,
-			w / (cutpWidth) / 1.5, h / cutpHeight / 1.5));
+		painter->drawEllipse(QRect(
+			x2 - width / cutpWidth / 2 / 1.5,
+			y2 - height / cutpWidth / 2 / 1.5,
+			width / (cutpWidth) / 1.5, height / cutpHeight / 1.5));
+
+		painter->setOpacity(1.0);
 	}
 }
 
-PPiece *piece;
+PPiece* piece;
 
 void BoardView::mousePressEvent(QMouseEvent* event) {
 	const int x = event->pos().x();
@@ -455,7 +373,8 @@ void BoardView::mousePressEvent(QMouseEvent* event) {
 	QPoint boardPos = CalcBoardCoords({ x, y });
 	QPoint coord(10 - boardPos.y(), boardPos.x() - 1); // Simplified coordinate conversion	
 
-	if (!pressed) {	
+	if (!pressed) {
+		basemodel.position.players_color = Color::Red;
 		piece = basemodel.position.board[coord.x()][coord.y()].piece;
 		// Ensure the piece is not null before dereferencing
 		if (!piece || piece->piece_type == PieceType::Empty || piece->color != basemodel.position.players_color) {
@@ -476,8 +395,7 @@ void BoardView::mousePressEvent(QMouseEvent* event) {
 
 		for (const auto& [toY, toX] : all_moves) { // Use structured binding
 			if (toX == basemodel.toHuman.x() && toY == basemodel.toHuman.y()) {
-				QString kindOfPlayer = basemodel.kind.contains("uci") ? "uci" : "human";
-				emit updateView(basemodel.fromHuman, basemodel.toHuman, kindOfPlayer);
+				emit updateView(basemodel.fromHuman, basemodel.toHuman, "uci");
 				break; // Exit loop after finding a valid move
 			}
 		}
@@ -513,18 +431,90 @@ QPoint BoardView::CalcBoardCoords(QPoint r) {
 	return QPoint(col, row);
 }
 
+void BoardView::PaintMarker(QPainter* p) {
+	// qDebug() << __PRETTY_FUNCTION__;
+	Q_ASSERT(p);
+
+	auto w = this->width();
+	auto h = this->height();
+
+	int lcol = 0;
+	int lrow = 0;
+
+	for (auto& marker : contextMenu->markers) {
+		auto x = marker.first.x();
+		auto y = marker.first.y();
+
+		qDebug() << x << y << "x und y";
+
+		QPoint coords = CalcBoardCoords(marker.first);
+		int col = coords.x();
+		int row = coords.y();
+
+		switch (marker.second) {
+		case markerType::Kreuz:
+
+			break;
+		case markerType::Kreis:
+			p->setPen(QPen(Qt::green, 8));
+			p->drawChord(QRect((50 + (((col - 1)) * (w - 2 * 50) / cutpWidth)) -
+				w / cutpWidth / 2 / 1.5,
+				(50 + ((row - 1)) * (h - 50 - 100) / cutpHeight) -
+				h / cutpWidth / 2 / 1.5,
+				w / (cutpWidth) / 1.5, h / cutpWidth / 1.5),
+				0, 5760);
+
+			break;
+		case markerType::Dreieck:
+
+			break;
+		case markerType::Linie:
+			p->setPen(QPen(Qt::blue, 8));
+			p->drawPoint((50 + (((col - 1)) * (w - 2 * 50) /
+				cutpWidth)), // - w / cutp_width / 2 / 1.5,
+				(50 + ((row - 1)) * (h - 50 - 100) / cutpHeight));
+			//- h / cutp_width / 2 / 1.5);
+			lrow = row;
+			lcol = col;
+			break;
+		case markerType::Linienende:
+			p->setPen(QPen(Qt::blue, 8));
+
+			p->drawLine(50 + (((lcol - 1)) * (w - 2 * 50) /
+				cutpWidth), // - w / cutp_width / 2 / 1.5,
+				(50 + ((lrow - 1)) * (h - 50 - 100) / cutpHeight),
+				50 + (((col - 1)) * (w - 2 * 50) /
+					cutpWidth), // - w / cutp_width / 2 / 1.5,
+				(50 + ((row - 1)) * (h - 50 - 100) / cutpHeight));
+
+			break;
+		case markerType::Viereck:
+			p->setPen(QPen(Qt::yellow, 8));
+
+			p->drawRect(QRect((50 + (((col - 1)) * (w - 2 * 50) / cutpWidth)) -
+				w / cutpWidth / 2 / 1.5,
+				(50 + ((row - 1)) * (h - 50 - 100) / cutpHeight) -
+				h / cutpWidth / 2 / 1.5,
+				w / (cutpWidth) / 1.5, h / cutpWidth / 1.5));
+			break;
+		default:
+			break;
+		}
+	}
+}
+
 // TODO: exchange hanzi with unicode [ok]
 //  Sets the selected pieces on the (clean) board
 void BoardView::SetEditorPieces() {
 	// qDebug() << __PRETTY_FUNCTION__;
 	QPoint coords;
-	for (auto piece : contextMenu->pieces) {
+	/* for (auto& piece : contextMenu->pieces) {
 		coords = CalcBoardCoords(piece.first);
 		QPoint tmp = coords;
 		coords.setX(10 - tmp.y());
 		coords.setY(tmp.x() - 1);
 		switch (piece.second) {
-			/*       case completePieceType::GeneralRot:
+			      case completePieceType::GeneralRot:
 			 basemodel.position.add_piece(new
 	  PPiece{PieceType::General,Color::Red, QImage(), QPoint(coords.x(),
 	  coords.y()), "\u5e25"},coords.x(), coords.y()); //"帥")); break; case
@@ -590,12 +580,12 @@ void BoardView::SetEditorPieces() {
 		   basemodel.position.InitPiece(Piece(color::Black, pieceType::Soldier,
 										   {coords.x(), coords.y()},
 										   "\u5352")); //"卒"));
-		   break;*/
+		   break;
 		default:
 			qDebug() << "Error in boarview::SetEditorPieces";
 			break;
 		}
-	}
+	}*/
 }
 
 
