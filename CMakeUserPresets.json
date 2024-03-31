@@ -16,11 +16,39 @@
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
+    },
+    {
+      "hidden": true,
+      "name": "Qt-Default",
+      "inherits": "6.6.2",
+      "vendor": {
+        "qt-project.org/Default": {
+          "checksum": "DnLuqFm/3q5f8uvWD5xSNLXe/44="
+        }
+      }
+    },
+    {
+      "hidden": true,
+      "name": "6.6.2",
+      "inherits": "Qt",
+      "environment": {
+        "QTDIR": "C:/QT/6.6.2/MSVC2019_64"
+      },
+      "architecture": {
+        "strategy": "external",
+        "value": "x64"
+      },
+      "generator": "Ninja",
+      "vendor": {
+        "qt-project.org/Version": {
+          "checksum": "vHQXHwSBA3Ug1omQKGnMu7k9q28="
+        }
+      }
     }
   ],
   "vendor": {
     "qt-project.org/Presets": {
-      "checksum": "/vTL+Ix9R3Uz6OAwYvYNkbWe7fE="
+      "checksum": "TZMT0+DE1YKZPe/kNOSsR4lW1jM="
     }
   }
 }

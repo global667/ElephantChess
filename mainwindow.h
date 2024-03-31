@@ -146,7 +146,7 @@ public slots:
     void ItemClicked(QTreeWidgetItem *, int);
 
 public slots:
-    void ToMove(QPoint from, QPoint to, QString kind);
+    void PlayNextTwoMoves(QPoint from, QPoint to, QString kind);
 private slots:
     void Debug();
 };

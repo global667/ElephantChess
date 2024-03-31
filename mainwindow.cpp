@@ -40,6 +40,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     InitEngine();
     InitConnections();
     statusBar()->showMessage(tr("Ready"));
+    loggingTextView->insertPlainText(basemodel.position.perftTest(1));
+    loggingTextView->insertPlainText(basemodel.position.perftTest(2));
+    loggingTextView->insertPlainText(basemodel.position.perftTest(3));
+
 }
 
 void MainWindow::InitEngine() {
@@ -54,12 +58,12 @@ void MainWindow::InitEngine() {
 void MainWindow::InitConnections() {
     // engine moves
     connect(engine, SIGNAL(updateView(QPoint, QPoint, QString)),
-            SLOT(ToMove(QPoint, QPoint, QString)));
+            SLOT(PlayNextTwoMoves(QPoint, QPoint, QString)));
     // mouse clicked moves (human)
 #ifdef THREE_D_VIEW
 #else
     connect(boardview, SIGNAL(updateView(QPoint, QPoint, QString)),
-            SLOT(ToMove(QPoint, QPoint, QString)));
+            SLOT(PlayNextTwoMoves(QPoint, QPoint, QString)));
 #endif
     // TODO: let board unchanged (at the moment it will reseted)
     connect(settings, SIGNAL(boardStyleChanged()), SLOT(Newgame()));
@@ -328,6 +332,7 @@ void MainWindow::Open() {
 }
 
 void MainWindow::ReadPGNData(QString data) {
+    data.shrink_to_fit();
     for (auto &s : data.split('\n')) {
         if (s.contains("[Event ")) {
             loca->setText(s.split("\"").at(1));
@@ -344,10 +349,19 @@ void MainWindow::ReadPGNData(QString data) {
                         if (s.contains("Date")) {
                             date->setText(s.split("\"").at(1));
                         } else {
-                            if (s.split(" ").first().contains("1.")) {
-                                for (auto &s : s.split(" ")) {
-                                    if (s.contains(".")) {
-                                        basemodel.moves << s.split(".").last();
+                            if (s.contains("1.")) {  
+                                s.shrink_to_fit();
+                                
+                                //s.remove("[\\d].");
+                                QRegularExpression re(R"(\d?\d+\.+)");
+                                for (auto &d : s.split(re)) {
+                                    //d.remove(" ");
+                                    for (auto &m : d.split(" "))
+                                    {//(R"(\w\d\w\d)");
+                                        m.shrink_to_fit();
+                                        if (!m.isEmpty()) {
+                                            basemodel.moves << m;
+                                        }
                                     }
                                 }
                             }
@@ -362,12 +376,18 @@ void MainWindow::ReadPGNData(QString data) {
 void MainWindow::PutPGNOnBoard() {
     int c = 0;
     basemodel.position.initBoard();
+    basemodel.currentMove = 0;
+    basemodel.moveHistory.clear();
+    model->clear();
+    // row = 0,
+    column = 0;
 
     QStandardItem *item;
     for (QString &item1 : basemodel.moves) {
         item = new QStandardItem(item1);
-        if (c % 2 == 0)
+        if (c % 2 == 0) {
             model->setItem(c / 2, 0, item);
+        }
         if (c % 2 == 1)
             model->setItem(c / 2, 1, item);
         c++;
@@ -377,9 +397,50 @@ void MainWindow::PutPGNOnBoard() {
         auto tx = ((char)item1.at(2).toLatin1()) - 'a';
         auto ty = 9 - (item1.at(3).digitValue());
         basemodel.position.move_piece(9 - fy, 8 - fx, 9 - ty, 8 - tx);
+        AddMoveToHistory();
+  /*      QStringList mv;
+
+        QString name = basemodel.position.board[8-fx][9-fy].piece->name;
+        QString beaten;
+        if (basemodel.position.board[8-tx][9-ty].piece->piece_type != PieceType::Empty)
+            beaten = "x";
+        else
+            beaten = "-";
+
+        mv << name << QString(basemodel.moves.last().at(0))
+            << QString(basemodel.moves.last().at(1)) << beaten
+            << QString(basemodel.moves.last().at(2))
+            << QString(basemodel.moves.last().at(3))
+            << (!basemodel.position.is_check(basemodel.position.players_color) ? QString("") : QString("+"));
+*/
+        AddMoveToList(item1);
     }
     column = c;
     repaint();
+}
+
+void MainWindow::AddMoveToHistory() {
+    basemodel.currentMove++;
+    basemodel.moveHistory.append(Position(basemodel.position));
+}
+
+void MainWindow::AddMoveToList(QString move) {
+    qDebug() << move << "\n";
+    QTreeWidgetItem* item = new QTreeWidgetItem();
+    item->setText(0, move);
+    if (isTableClicked) {
+        if (table->topLevelItemCount() == isTableClicked + 1) {
+            table->addTopLevelItem(item);
+        }
+        else {
+            table->currentItem()->addChild(item);
+        }
+    }
+    else {
+        table->addTopLevelItem(item);
+    }
+    item = nullptr;
+    // column++;
 }
 
 void MainWindow::Save() {
@@ -490,7 +551,7 @@ void MainWindow::UpdateSettings() {
             disconnect(uci, SIGNAL(updateView(position, position, QString)), nullptr,
                        nullptr);
             connect(engine, SIGNAL(updateView(position, position, QString)),
-                    SLOT(ToMove(position, position, QString)));
+                    SLOT(PlayNextTwoMoves(position, position, QString)));
             opp2->setPlaceholderText(basemodel.engineName);
             if (!uci)
                 delete uci;
@@ -503,13 +564,13 @@ void MainWindow::UpdateSettings() {
             disconnect(engine, SIGNAL(updateView(QPoint, QPoint, QString)), nullptr,
                        nullptr);
             connect(uci, SIGNAL(updateView(QPoint, QPoint, QString)),
-                    SLOT(ToMove(QPoint, QPoint, QString)));
+                    SLOT(PlayNextTwoMoves(QPoint, QPoint, QString)));
         } else {
             qDebug() << "uci";
             uciThread.quit();
             uci = new UCI();
             connect(uci, SIGNAL(updateView(QPoint, QPoint, QString)),
-                    SLOT(ToMove(QPoint, QPoint, QString)));
+                    SLOT(PlayNextTwoMoves(QPoint, QPoint, QString)));
         }
         opp2->setPlaceholderText(basemodel.engineName);
         Q_ASSERT(&uci);
@@ -547,17 +608,17 @@ void MainWindow::Newgame() {
 // End Toolbar slots
 
 void MainWindow::ResetToHistory() {
-    basemodel.position = basemodel.moveHistory[basemodel.currentMove];
+    //basemodel.position = basemodel.moveHistory[basemodel.currentMove];
+    basemodel.position = Position(basemodel.moveHistory[basemodel.currentMove]);
     basemodel.fromHuman = {-1, -1};
     basemodel.toHuman = {-1, -1};
     basemodel.fromUCI = {-1, -1};
     basemodel.toUCI = {-1, -1};
-    //boardview->fromHuman = {-1, -1};
-    //boardview->toHuman = {-1, -1};
+
     repaint();
 }
 
-void MainWindow::ToMove(QPoint from, QPoint to, QString kind) {
+void MainWindow::PlayNextTwoMoves(QPoint from, QPoint to, QString kind) {
     // not used at the moment
     // basemodel.currentMoves.push_back({from, to});
 
@@ -568,15 +629,15 @@ void MainWindow::ToMove(QPoint from, QPoint to, QString kind) {
 
     QString name = basemodel.position.board[from.x()][from.y()].piece->name;
     QString beaten;
-    if (basemodel.position.board[to.y()][to.x()].piece->piece_type != PieceType::Empty)
+    if (basemodel.position.board[to.x()][to.y()].piece->piece_type != PieceType::Empty)
         beaten = "x";
     else
         beaten = "-";
 
-    basemodel.position.move_piece(from.x(), from.y(), to.y(), to.x());
+    basemodel.position.move_piece(from.x(), from.y(), to.x(), to.y());
 
     basemodel.moves.append(
-        basemodel.posToken(from.y(), from.x(), to.x(), to.y()));
+        basemodel.posToken(from.x(), from.y(), to.x(), to.y()));
 
     basemodel.fromHuman = from;
     basemodel.toHuman = to;
@@ -595,8 +656,20 @@ void MainWindow::ToMove(QPoint from, QPoint to, QString kind) {
 
 
     if (kind.contains("human")) {
+        // moves and x and y are swaped in first and second!
         std::pair<QPoint, QPoint> move = engine->engineGo();//= std::make_pair(QPoint(1,1), QPoint(1,1));//
+        QPoint tmp = move.first;
+        move.first = move.second;
+        move.second = tmp;
+/*
+        int tp = move.first.x();
+        move.first.setX(move.first.y());
+        move.first.setY(tp);
 
+        tp = move.second.x();
+        move.second.setX(move.second.y());
+        move.second.setY(tp);
+*/
         if (move.first.x() == -1) {
             AddMoveToList("#");
             QMessageBox msgBox;
@@ -623,6 +696,7 @@ void MainWindow::ToMove(QPoint from, QPoint to, QString kind) {
             }
         } else {
 
+            // x and y are swaped!
             QString name =
                 basemodel.position.board[move.first.y()][move.first.x()].piece->name;
             QString beaten;
@@ -633,6 +707,7 @@ void MainWindow::ToMove(QPoint from, QPoint to, QString kind) {
 
             basemodel.position.move_piece(move.first.y(), move.first.x(),
                                           move.second.y(), move.second.x());
+            // ********************
 
             QByteArray moveAsString = basemodel.posToken(
                 move.first.x(), move.first.y(), move.second.x(), move.second.y());
@@ -662,28 +737,6 @@ void MainWindow::ToMove(QPoint from, QPoint to, QString kind) {
     }
 
     repaint();
-}
-
-void MainWindow::AddMoveToHistory() {
-    basemodel.currentMove++;
-    basemodel.moveHistory.append(basemodel.position);
-}
-
-void MainWindow::AddMoveToList(QString move) {
-    qDebug() << move;
-    QTreeWidgetItem *item = new QTreeWidgetItem();
-    item->setText(0, move);
-    if (isTableClicked) {
-        if (table->topLevelItemCount() == isTableClicked + 1) {
-            table->addTopLevelItem(item);
-        } else {
-            table->currentItem()->addChild(item);
-        }
-    } else {
-        table->addTopLevelItem(item);
-    }
-    item = nullptr;
-    // column++;
 }
 
 void MainWindow::ItemClicked(QTreeWidgetItem *item, int column) {

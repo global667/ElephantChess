@@ -46,9 +46,16 @@ protected:
 private:
     void PaintBoard(QPainter *p);    
     void PaintMarker(QPainter *p);
-    void PaintPieces(QPainter *p);
     void PrepareNativePiece(QPicture *p, int row, int col, int h, int w);
-    void PaintSelectedPieces(QPainter *p);
+    void PaintSelectedPieces(QPainter *p) const;
+
+    void drawSelectedPiece(QPainter* p, double cellWidth, double cellHeight) const;
+
+    void drawLegalMoves(QPainter* p, double cellWidth, double cellHeight) const;
+
+    void drawLastMoveLine(QPainter* p, double cellWidth, double cellHeight) const;
+
+    QPair<int, int> calculatePosition(QPoint boardCoord, double cellWidth, double cellHeight) const;
 
 private:
     QPoint CalcBoardCoords(QPoint r);

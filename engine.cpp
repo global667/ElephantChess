@@ -24,7 +24,7 @@ Engine::Engine() {}
 
 std::pair<QPoint, QPoint> Engine::GetBestMove(Color color)
 {
-    std::vector<std::pair<QPoint, QPoint>> posAll = basemodel.position.generate_all_valid_moves();
+    std::vector<std::pair<QPoint, QPoint>> posAll = basemodel.position.generate_valid_moves_for_all();
 
     size_t sizeOfPosAll = posAll.size();
 
@@ -36,7 +36,11 @@ std::pair<QPoint, QPoint> Engine::GetBestMove(Color color)
     int random = 0;
     if (sizeOfPosAll > 0) {
        random = QRandomGenerator::global()->bounded(sizeOfPosAll);
-       return posAll.at(random);
+       std::pair<QPoint, QPoint> bestmove = posAll.at(random);
+       //QPoint tmp = bestmove.first;
+       //bestmove.first = bestmove.second;
+       //bestmove.second = tmp;
+       return bestmove;
     } else
        return std::pair(QPoint(-1,-1),QPoint(-1,-1));
 }

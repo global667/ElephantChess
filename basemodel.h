@@ -24,11 +24,11 @@
 
 #include "cchess_rules.h"
 
-struct BaseModel : public QObject
+struct BaseModel //: public QObject
 {
-    Q_OBJECT
+    //Q_OBJECT
 public:
-    BaseModel(QObject *parent = nullptr)
+    BaseModel()//QObject *parent = nullptr)
     {
         engineName
             = "built-in";//"F:/source/XiangQi/build-Dumbo-Desktop_Qt_6_6_1_MinGW_64_bit-Debug/Dumbo"; //"/home/wsk/.vs/Dumbo/out/build/linux-debug/Dumbo"; //
@@ -37,10 +37,10 @@ public:
         currentMove++;
     }
 
-    static const short BoardRows = ROWS;
-    static const short BoardCols = COLS;
-    static const short BoardRowPoints = BoardRows - 1;
-    static const short BoardColPoints = BoardCols - 1;
+    static constexpr short BoardRows = ROWS;
+    static constexpr short BoardCols = COLS;
+    static constexpr short BoardRowPoints = BoardRows - 1;
+    static constexpr short BoardColPoints = BoardCols - 1;
 
     Position position;
 
@@ -64,16 +64,12 @@ public:
 
     QByteArray posToken(int fromX, int fromY, int toX, int toY)
     {
-        QByteArray m;
-        char c1 = fromX + 'a';
-        char c2 = fromY + '0';
-        char c3 = toX + 'a';
-        char c4 = toY + '0';
-        m.append(c1);
-        m.append(c2);
-        m.append(c3);
-        m.append(c4);
-        return m;
+        char c[4];
+        c[0] = fromX + 'a';
+        c[1] = fromY + '0';
+        c[2] = toX + 'a';
+        c[3] = toY + '0';       
+        return QByteArray(c,sizeof(c));
     }
 };
 
