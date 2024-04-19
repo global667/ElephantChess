@@ -103,7 +103,7 @@ set(PROJECT_CPP
         renderview.h renderview.cpp
         aboutview.h aboutview.cpp
         #res.qrc
-        cchess_rules.h
+        cchess_rules.h cchess_rules.cpp
 )
 
 set(PROJECT_SOURCES
@@ -112,7 +112,7 @@ set(PROJECT_SOURCES
         ${PROJECT_WEBSITE}
         ${MISC_SOURCES}
 )
-add_executable(ElephantChess WIN32 ${PROJECT_CPP} ${RESOURCES})
+add_executable(ElephantChess WIN32 ${PROJECT_CPP} ${RESOURCES} )
 
 target_link_libraries(ElephantChess PUBLIC
     Qt6::Core

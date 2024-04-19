@@ -41,8 +41,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     InitConnections();
     statusBar()->showMessage(tr("Ready"));
     loggingTextView->insertPlainText(basemodel.position.perftTest(1));
-    loggingTextView->insertPlainText(basemodel.position.perftTest(2));
-    loggingTextView->insertPlainText(basemodel.position.perftTest(3));
+    //loggingTextView->insertPlainText(basemodel.position.perftTest(2));
+    //loggingTextView->insertPlainText(basemodel.position.perftTest(3));
     //loggingTextView->insertPlainText(basemodel.position.perftTest(4));
     //loggingTextView->insertPlainText(basemodel.position.perftTest(5));
 

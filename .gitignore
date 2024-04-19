@@ -72,6 +72,9 @@ CMakeLists.txt.user*
 *.dll
 *.exe
 
+/installer
+/out
+
 /.vs
 /out/build/.cmake/api/v1/query/cache-v2
 /out/build/.cmake/api/v1/query/client-MicrosoftVS/query.json

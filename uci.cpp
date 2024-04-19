@@ -32,7 +32,7 @@ UCI::UCI()
     //basemodel.engineName = "Chameleon";
 
     // Set the program for the engine
-    engine.setProgram("pikafish-ssse3.exe");//basemodel.engineName);
+    engine.setProgram("pikafish.exe");//basemodel.engineName);
     qDebug() << "Starting uci engine:" << basemodel.engineName;
     engine.setReadChannel(QProcess::StandardOutput);
 

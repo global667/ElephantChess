@@ -26,7 +26,7 @@
 #include "contexmenu.h"
 
 #include "basemodel.h"
-#include <cchess_rules.h>
+#include "cchess_rules.h"
 
 // This class is the 2D-view of the board. It is a QWidget and draws the board and the pieces.
 // Handles the mouse input and the context menu.

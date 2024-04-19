@@ -54,11 +54,9 @@
 #include "basemodel.h"
 #include "boardview.h"
 #include "engine.h"
-//#include "genmove.h"
-#include <cchess_rules.h>
+#include "cchess_rules.h"
 #include "renderview.h"
 #include "settingsview.h"
-//#include "types.h.old"
 #include "uci.h"
 
 class MainWindow : public QMainWindow
