@@ -58,8 +58,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
                                      QString("2        1920         6          72\n") +
                                      QString("3       79666       384        3159\n") +
                                      QString("4     3290240     19380      115365\n"));
-// 5   133312995    953251     4917734
-// 6  5392831844  39150745   200568035"
+    // 5   133312995    953251     4917734
+    // 6  5392831844  39150745   200568035"
 
     //loggingTextView->insertPlainText(basemodel.position.perftTest(1));
     //loggingTextView->insertPlainText(basemodel.position.perftTest(2));
@@ -69,7 +69,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
 
 }
-#define ENGINE
+#undef ENGINE
 void MainWindow::InitEngine() {
 #ifdef ENGINE
     engine = new Engine();
@@ -77,12 +77,12 @@ void MainWindow::InitEngine() {
     connect(engine, SIGNAL(updateView(Point, Point, QString)),
             SLOT(PlayNextTwoMoves(Point, Point, QString)));
 #else
-     basemodel.kind = "uci";
-     uci = new UCI();
-     connect(uci, SIGNAL(updateView(Point, Point, QString)),
-             SLOT(PlayNextTwoMoves(Point, Point, QString)));
-     uci->start();
-     uci->engine.waitForReadyRead();
+    basemodel.kind = "uci";
+    uci = new UCI();
+    connect(uci, SIGNAL(updateView(Point, Point, QString)),
+            SLOT(PlayNextTwoMoves(Point, Point, QString)));
+    uci->start();
+    uci->engine.waitForReadyRead();
 #endif
 }
 void MainWindow::InitConnections() {
@@ -423,7 +423,7 @@ void MainWindow::PutPGNOnBoard() {
         auto ty = 9 - (item1.at(3).digitValue());
         basemodel.position.movePiece(Point(9 - fy, 8 - fx),Point(9 - ty, 8 - tx), basemodel.position.board);
         AddMoveToHistory();
-  /*      QStringList mv;
+        /*      QStringList mv;
 
         QString name = basemodel.position.board[8-fx][9-fy].piece->name;
         QString beaten;
@@ -648,87 +648,62 @@ void MainWindow::PlayNextTwoMoves(Point from, Point to, QString kind) {
 
     repaint();
 
+    if (from.x == -1 && from.y == -1 && to.x == -1 && to.y == -1) {
+        YouLose();
+        return;
+    }
+
     if (!basemodel.position.board[from.x][from.y]) {
         qDebug() << "Error in ToMove" << from.x << " " << from.y;
         return;
     }
     
 
-        QString name = basemodel.position.board[from.x][from.y]->getName();
-        QString beaten;
-        if (!name.isEmpty())
-            beaten = "x";
-        else
-            beaten = "-";
+    auto name = basemodel.position.board[from.x][from.y]->getName();
+    QString beatenName = basemodel.position.board[to.x][to.y]->getName();
+    QString beaten;
+    if (!beatenName.isEmpty())
+        beaten = "x";
+    else
+        beaten = "-";
 
-        basemodel.position.movePiece(Point{from.x, from.y}, Point(to.x, to.y), basemodel.position.board);
+    basemodel.position.movePiece(Point{from.x, from.y}, Point(to.x, to.y), basemodel.position.board);
 
-        basemodel.moves.append(
-            basemodel.posToken(from.x, from.y, to.x, to.y));
+    basemodel.moves.append(
+        basemodel.posToken(from.x, from.y, to.x, to.y));
 
-        basemodel.fromHuman = from;
-        basemodel.toHuman = to;
+    basemodel.fromHuman = from;
+    basemodel.toHuman = to;
 
-        AddMoveToHistory();
+    AddMoveToHistory();
 
-        QStringList mv;
-        mv << name << QString(basemodel.moves.last().at(0))
-            << QString(basemodel.moves.last().at(1)) << beaten
-            << QString(basemodel.moves.last().at(2))
-            << QString(basemodel.moves.last().at(3))
-            ;//<< (!basemodel.position.is_check(basemodel.position.players_color) ? QString("") : QString("+"));
+    QStringList mv;
+    mv << name << QString(basemodel.moves.last().at(0))
+       << QString(basemodel.moves.last().at(1)) << beaten
+       << QString(basemodel.moves.last().at(2))
+       << QString(basemodel.moves.last().at(3));
 
-        AddMoveToList(mv.join(""));
+    mv << (!basemodel.position.isCheck(basemodel.position.players_color, basemodel.position.board) ? QString("") : QString("+"));
+
+    AddMoveToList(mv.join(""));
 
 
 
     if (kind.contains("engine")) {
         basemodel.position.toggleColor();
         std::pair<Point, Point> move = engine->engineGo();//= std::make_pair(QPoint(1,1), QPoint(1,1));//
-        // Point tmp = move.first;
-        // move.first = move.second;
-        // move.second = tmp;
 
         basemodel.fromUCI = move.first;
         basemodel.toUCI = move.second;
         basemodel.fromHuman = from;
         basemodel.toHuman = to;
-/*
-        int tp = move.first.x();
-        move.first.setX(move.first.y());
-        move.first.setY(tp);
 
-        tp = move.second.x();
-        move.second.setX(move.second.y());
-        move.second.setY(tp);
-*/
         if (move.first.x == -1) {
             AddMoveToList("#");
-            QMessageBox msgBox;
-            msgBox.setText("The game has finished: Black lost.");
-            msgBox.setInformativeText("Do you want to save game");
-            msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
-            msgBox.setDefaultButton(QMessageBox::Save);
-            int ret = msgBox.exec();
-            switch (ret) {
-            case QMessageBox::Save:
-                // Save was clicked
-                Save();
-                break;
-            case QMessageBox::Discard:
-                // Don't Save was clicked
-                Newgame();
-                break;
-            case QMessageBox::Cancel:
-                // Cancel was clicked
-                break;
-            default:
-                // should never be reached
-                break;
-            }
+            YouWin();
+            return;
         } else {
 
-            // x and y are swaped!
             QString name =
                 basemodel.position.board[move.first.x][move.first.y]->getName();
             QString beaten;
@@ -738,7 +713,7 @@ void MainWindow::PlayNextTwoMoves(Point from, Point to, QString kind) {
                 beaten = "-";
 
             basemodel.position.movePiece({move.first.x, move.first.y},
-                                          {move.second.x, move.second.y}, basemodel.position.board);
+                                         {move.second.x, move.second.y}, basemodel.position.board);
             // ********************
 
             QByteArray moveAsString = basemodel.posToken(
@@ -755,17 +730,68 @@ void MainWindow::PlayNextTwoMoves(Point from, Point to, QString kind) {
                << QString(basemodel.moves.last().at(1)) << beaten
                << QString(basemodel.moves.last().at(2))
                << QString(basemodel.moves.last().at(3))
-                ;//<< (!basemodel.position.is_check(basemodel.position.players_color) ? QString("") : QString("+"));
+               << (!basemodel.position.isCheck(basemodel.position.players_color, basemodel.position.board) ? QString("") : QString("+"));
             AddMoveToList(mv.join(""));
         }
     } else if (kind.contains("uci")) {
-        //basemodel.position.toggleColor(&basemodel.position.players_color);
-        basemodel.position.players_color = Color::Black;
+        basemodel.position.toggleColor();
         uci->engineGo();
     } else {
         qDebug() << "Error in game loop ToMove()";
     }        
     repaint();
+}
+
+// You win message
+void MainWindow::YouWin() {
+    QMessageBox msgBox;
+    msgBox.setText("The game has finished: Red won.");
+    msgBox.setInformativeText("Do you want to save game");
+    msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+    msgBox.setDefaultButton(QMessageBox::Save);
+    int ret = msgBox.exec();
+    switch (ret) {
+    case QMessageBox::Save:
+        // Save was clicked
+        Save();
+        break;
+    case QMessageBox::Discard:
+        // Don't Save was clicked
+        Newgame();
+        break;
+    case QMessageBox::Cancel:
+        // Cancel was clicked
+        break;
+    default:
+        // should never be reached
+        break;
+    }
+}
+
+// You lose message
+void MainWindow::YouLose() {
+    QMessageBox msgBox;
+    msgBox.setText("The game has finished: Red lost.");
+    msgBox.setInformativeText("Do you want to save game");
+    msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+    msgBox.setDefaultButton(QMessageBox::Save);
+    int ret = msgBox.exec();
+    switch (ret) {
+    case QMessageBox::Save:
+        // Save was clicked
+        Save();
+        break;
+    case QMessageBox::Discard:
+        // Don't Save was clicked
+        Newgame();
+        break;
+    case QMessageBox::Cancel:
+        // Cancel was clicked
+        break;
+    default:
+        // should never be reached
+        break;
+    }
 }
 
 void MainWindow::ItemClicked(QTreeWidgetItem *item, int column) {

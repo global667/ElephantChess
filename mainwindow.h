@@ -73,7 +73,8 @@ public:
     UCI *uci  = nullptr;
     QThread uciThread;
     Engine *engine  = nullptr;
-
+    void YouLose();
+    void YouWin();
 private:
     void InitWidgets();
     void InitConnections();

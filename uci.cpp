@@ -88,10 +88,10 @@ void UCI::readData()
                 auto fy = (mv.at(1) - '0');
                 auto tx = (mv.at(2) - 'a');
                 auto ty = (mv.at(3) - '0');
-                basemodel.fromUCI = fx;
-                basemodel.fromUCI = fy;
-                basemodel.toUCI = tx;
-                basemodel.toUCI = ty;
+                basemodel.fromUCI.x = fx;
+                basemodel.fromUCI.y = fy;
+                basemodel.toUCI.x = tx;
+                basemodel.toUCI.y = ty;
                 // Ruft gameloop auf
                 emit updateView(Point(fy, fx), Point(ty, tx), "human");
             } else if (c.contains("info")) {

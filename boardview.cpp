@@ -308,7 +308,7 @@ void BoardView::PaintSelectedPieces(QPainter* painter) const {
             const auto fromY = basemodel.fromHuman.y;
             const auto pieceType = basemodel.position.board[fromX][fromY]->getName();
 
-            auto all_moves = basemodel.position.board[fromX][fromY]->generateValidMoves({fromX,fromY},basemodel.position.board);
+            auto all_moves = basemodel.position.getValidMovesForPiece(Point(fromX,fromY), basemodel.position.board);//basemodel.position.board[fromX][fromY]->generateValidMoves({fromX,fromY},basemodel.position.board);
 			for (const auto& move : all_moves) {
 
                 auto x = (50 + ((move.second.y) * (width - 2 * 50) / cutpWidth)) -
@@ -319,7 +319,7 @@ void BoardView::PaintSelectedPieces(QPainter* painter) const {
                 painter->drawEllipse(QRect(x, y, wght, hght));
 			}
 		}
-    } else if (basemodel.fromUCI != Point(-1, -1))	{
+    } else if (basemodel.fromUCI != Point(-1, -1) && basemodel.toUCI != Point(-1, -1))	{
 	// black to move
 	// draws the last moved line
 		pen.setColor(Qt::black);
@@ -329,9 +329,9 @@ void BoardView::PaintSelectedPieces(QPainter* painter) const {
 		painter->setOpacity(0.7);
 
         const auto x1 = (50 + ((basemodel.fromUCI.x) * (width - 2 * 50) / cutpWidth));
-        const auto y1 = (50 + (9-basemodel.fromUCI.y) * (height - 50 - 100) / cutpHeight);
+        const auto y1 = (50 + (9 - basemodel.fromUCI.y) * (height - 50 - 100) / cutpHeight);
         const auto x2 = (50 + ((basemodel.toUCI.x) * (width - 2 * 50) / cutpWidth));
-        const auto y2 = (50 + (9-basemodel.toUCI.y) * (height - 50 - 100) / cutpHeight);
+        const auto y2 = (50 + (9 - basemodel.toUCI.y) * (height - 50 - 100) / cutpHeight);
 
 		painter->drawLine(x1, y1, x2, y2);
 		
@@ -394,10 +394,13 @@ void BoardView::mousePressEvent(QMouseEvent* event) {
 
         for (const auto& [from ,to] : all_moves) { // Use structured binding
             if (to.x == basemodel.toHuman.x && to.y == basemodel.toHuman.y) {
-                emit updateView(basemodel.fromHuman, basemodel.toHuman, "engine");
-				break; // Exit loop after finding a valid move
+                emit updateView(basemodel.fromHuman, basemodel.toHuman, "uci");
+                return; // Exit loop after finding a valid move
 			}
 		}
+        // Reset the move if no valid move was found
+        if (all_moves.size() == 0)
+            emit updateView({-1,-1}, {-1,-1}, "uci");
 	}
 	repaint(); // Repaint at the end regardless of the path taken
 }
