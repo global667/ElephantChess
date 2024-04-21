@@ -49,12 +49,14 @@
 #include <QTreeWidget>
 #include <QVBoxLayout>
 #include <QWidget>
+#include <QtQuick/QQuickView>
+#include <QtQuick3D/qquick3d.h>
+#include <QQmlApplicationEngine>
 
 #include "aboutview.h"
 #include "basemodel.h"
 #include "boardview.h"
 #include "engine.h"
-#include "cchess_rules.h"
 #include "renderview.h"
 #include "settingsview.h"
 #include "uci.h"
@@ -78,6 +80,8 @@ private:
     void InitEngine();
 
     BoardView *boardview = nullptr;
+
+    QQuickView *viewQml = nullptr;
 
     QWidget *view = nullptr;
     Qt3DExtras::Qt3DWindow *renderView = nullptr;
@@ -144,7 +148,7 @@ public slots:
     void ItemClicked(QTreeWidgetItem *, int);
 
 public slots:
-    void PlayNextTwoMoves(QPoint from, QPoint to, QString kind);
+    void PlayNextTwoMoves(Point from, Point to, QString kind);
 private slots:
     void Debug();
 };

@@ -1,37 +1,31 @@
 <RCC>
     <qresource prefix="/">
-        <file>res/800px-Xiangqi_board.svg.png</file>
-        <file>res/engine-interface.txt</file>
-        <file>res/example.sgf</file>
         <file>res/generalRed.png</file>
-        <file>res/ia902908.us.archive.org_26_items_pgn-standard-1994-03-12_PGN_standard_1994-03-12.txt</file>
-        <file>res/modelview-overview.png</file>
-        <file>res/ModelViewControllerDiagram.png</file>
         <file>res/xiangqi.qmodel</file>
-        <file>res/Xiangqi_Advisor_(Trad).png</file>
-        <file>res/Xiangqi_Cannon_(Trad).png</file>
-        <file>res/Xiangqi_Chariot_(Trad).png</file>
-        <file>res/Xiangqi_Elephant_(Trad).png</file>
-        <file>res/Xiangqi_General_(Trad).png</file>
-        <file>res/Xiangqi_Horse_(Trad).png</file>
-        <file>res/Xiangqi_Soldier_(Trad).png</file>
         <file>COPYING</file>
         <file>README.md</file>
         <file>config.h.in</file>
         <file>res/license_short.txt</file>
         <file>res/settings.png</file>
         <file>res/play-now.png</file>
-        <file>res/Xiangqi_Advisor_(Trad)+ wooden.png</file>
         <file>CREDITS</file>
-        <file>renderview3d.qml</file>
-        <file>res/Windows/pikafish-avx2.exe</file>
-        <file>res/Windows/pikafish-avx512.exe</file>
-        <file>res/Windows/pikafish-avx512f.exe</file>
-        <file>res/Windows/pikafish-avxvnni.exe</file>
-        <file>res/Windows/pikafish-bmi2.exe</file>
-        <file>res/Windows/pikafish-sse41-popcnt.exe</file>
-        <file>res/Windows/pikafish-ssse3.exe</file>
-        <file>res/Windows/pikafish-vnni512.exe</file>
-        <file>res/Windows/pikafish.nnue</file>
+        <file>res/3dBoard/12_-_Default_baseColor.jpeg</file>
+        <file>res/3dBoard/13_-_Default_baseColor.jpeg</file>
+        <file>res/3dBoard/Black-bing-diffuse_baseColor.png</file>
+        <file>res/3dBoard/Black-che-diffuse_baseColor.png</file>
+        <file>res/3dBoard/Black-jiang-diffuse_baseColor.png</file>
+        <file>res/3dBoard/Black-ma-diffuse_baseColor.png</file>
+        <file>res/3dBoard/Black-pao-diffuse_baseColor.png</file>
+        <file>res/3dBoard/Black-shi-diffuse_baseColor.png</file>
+        <file>res/3dBoard/Black-xiang-diffuse_baseColor.png</file>
+        <file>res/3dBoard/board.dae</file>
+        <file>res/3dBoard/Red-bing-diffuse_baseColor.png</file>
+        <file>res/3dBoard/Red-che-diffuse_baseColor.png</file>
+        <file>res/3dBoard/Red-jiang-diffuse_baseColor.png</file>
+        <file>res/3dBoard/Red-ma-diffuse_baseColor.png</file>
+        <file>res/3dBoard/Red-pao-diffuse_baseColor.png</file>
+        <file>res/3dBoard/Red-shi-diffuse_baseColor.png</file>
+        <file>res/3dBoard/Red-xiang-diffuse_baseColor.png</file>
+        <file>3dBoard.qml</file>
     </qresource>
 </RCC>

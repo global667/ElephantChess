@@ -113,7 +113,7 @@ void ContexMenu::clearBoard()
 void ContexMenu::GeneralRot()
 {
     //qDebug() << __PRETTY_FUNCTION__; //QPoint cur = QCursor::pos();
-    QPoint cur = {contextMenuX, contextMenuY};
+    Point cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, completePieceType::GeneralRot));
     repaint();
 }
@@ -121,91 +121,91 @@ void ContexMenu::GeneralRot()
 void ContexMenu::GeneralSchwarz()
 {
     //qDebug() << __PRETTY_FUNCTION__;
-    QPoint cur = {contextMenuX, contextMenuY};
+    Point cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, completePieceType::GeneralSchwarz));
 }
 
 void ContexMenu::BeraterRot()
 {
     //qDebug() << __PRETTY_FUNCTION__;
-    QPoint cur = {contextMenuX, contextMenuY};
+    Point cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, completePieceType::AdvisorRot));
 }
 
 void ContexMenu::BeraterSchwarz()
 {
    //qDebug() << __PRETTY_FUNCTION__;
-    QPoint cur = {contextMenuX, contextMenuY};
+    Point cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, completePieceType::AdvisorSchwarz));
 }
 
 void ContexMenu::PferdRot()
 {
     //qDebug() << __PRETTY_FUNCTION__;
-    QPoint cur = {contextMenuX, contextMenuY};
+    Point cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, completePieceType::HorseRot));
 }
 
 void ContexMenu::PferdSchwarz()
 {
     //qDebug() << __PRETTY_FUNCTION__;
-    QPoint cur = {contextMenuX, contextMenuY};
+    Point cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, completePieceType::HorseSchwarz));
 }
 
 void ContexMenu::ElefantRot()
 {
     //qDebug() << __PRETTY_FUNCTION__;
-    QPoint cur = {contextMenuX, contextMenuY};
+    Point cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, completePieceType::ElephantRot));
 }
 
 void ContexMenu::ElefantSchwarz()
 {
     //qDebug() << __PRETTY_FUNCTION__;
-    QPoint cur = {contextMenuX, contextMenuY};
+    Point cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, completePieceType::ElephantSchwarz));
 }
 
 void ContexMenu::KanoneRot()
 {
     //qDebug() << __PRETTY_FUNCTION__;
-    QPoint cur = {contextMenuX, contextMenuY};
+    Point cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, completePieceType::CannonRot));
 }
 
 void ContexMenu::KanoneSchwarz()
 {
     //qDebug() << __PRETTY_FUNCTION__;
-    QPoint cur = {contextMenuX, contextMenuY};
+    Point cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, completePieceType::CannonSchwarz));
 }
 
 void ContexMenu::SoldatRot()
 {
     //qDebug() << __PRETTY_FUNCTION__;
-    QPoint cur = {contextMenuX, contextMenuY};
+    Point cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, completePieceType::SoldierRot));
 }
 
 void ContexMenu::SoldatSchwarz()
 {
     //qDebug() << __PRETTY_FUNCTION__;
-    QPoint cur = {contextMenuX, contextMenuY};
+    Point cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, completePieceType::SoldierSchwarz));
 }
 
 void ContexMenu::TurmRot()
 {
     //qDebug() << __PRETTY_FUNCTION__;
-    QPoint cur = {contextMenuX, contextMenuY};
+    Point cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, completePieceType::ChariotRot));
 }
 
 void ContexMenu::TurmSchwarz()
 {
     //qDebug() << __PRETTY_FUNCTION__;
-    QPoint cur = {contextMenuX, contextMenuY};
+    Point cur = {contextMenuX, contextMenuY};
     pieces.append(std::make_pair(cur, completePieceType::ChariotSchwarz));
 }
 
@@ -218,21 +218,21 @@ void ContexMenu::clearMarkers()
 void ContexMenu::Viereck()
 {
     //qDebug() << __PRETTY_FUNCTION__;
-    QPoint cur = {contextMenuX, contextMenuY};
+    Point cur = {contextMenuX, contextMenuY};
     markers.append(std::make_pair(cur, markerType::Viereck));
 }
 
 void ContexMenu::Dreieck()
 {
     //qDebug() << __PRETTY_FUNCTION__;
-    QPoint cur = {contextMenuX, contextMenuY};
+    Point cur = {contextMenuX, contextMenuY};
     markers.append(std::make_pair(cur, markerType::Dreieck));
 }
 
 void ContexMenu::Kreis()
 {
     //qDebug() << __PRETTY_FUNCTION__;
-    QPoint cur = {contextMenuX, contextMenuY};
+    Point cur = {contextMenuX, contextMenuY};
     markers.append(std::make_pair(cur, markerType::Kreis));
     repaint();
 }
@@ -240,20 +240,20 @@ void ContexMenu::Kreis()
 void ContexMenu::Linie()
 {
     //qDebug() << __PRETTY_FUNCTION__;
-    QPoint cur = {contextMenuX, contextMenuY};
+    Point cur = {contextMenuX, contextMenuY};
     markers.append(std::make_pair(cur, markerType::Linie));
 }
 
 void ContexMenu::Linienende()
 {
     //qDebug() << __PRETTY_FUNCTION__;
-    QPoint cur = {contextMenuX, contextMenuY};
+    Point cur = {contextMenuX, contextMenuY};
     markers.append(std::make_pair(cur, markerType::Linienende));
 }
 
 void ContexMenu::Kreuz()
 {
    //qDebug() << __PRETTY_FUNCTION__;
-    QPoint cur = {contextMenuX, contextMenuY};
+    Point cur = {contextMenuX, contextMenuY};
     markers.append(std::make_pair(cur, markerType::Kreuz));
 }

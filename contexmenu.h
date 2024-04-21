@@ -20,9 +20,9 @@
 #define CONTEXMENU_H
 
 #include <QMenu>
+#include <QPoint>
 
 #include "basemodel.h"
-//#include "types.h.old"
 
 class ContexMenu : public QMenu
 {
@@ -30,8 +30,8 @@ class ContexMenu : public QMenu
 public:
     ContexMenu(QWidget *parent = 0);
 
-    QList<QPair<QPoint, markerType>> markers;
-    QList<QPair<QPoint, completePieceType>> pieces;
+    QList<QPair<Point, markerType>> markers;
+    QList<QPair<Point, completePieceType>> pieces;
     int contextMenuX;
     int contextMenuY;
     QWidget *parent;

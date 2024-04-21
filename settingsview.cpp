@@ -106,11 +106,11 @@ void SettingsView::ChooseBoardStyle()
     QString item = QInputDialog::getItem(this, tr("Pieces"), tr("Pieces"), items, 0, false, &ok);
     if (ok && !item.isEmpty()) {
         if (item == tr("Traditionel")) {
-            basemodel.viewStyleModeVar = viewStyleMode::traditional_native;
+            basemodel.viewStyleModeVar = BaseModel::viewStyleMode::traditional_native;
         } else if (item == tr("Traditionel/PNG")) {
-            basemodel.viewStyleModeVar = viewStyleMode::traditional_png;
+            basemodel.viewStyleModeVar = BaseModel::viewStyleMode::traditional_png;
         } else if (item == tr("Western simplified")) {
-            basemodel.viewStyleModeVar = viewStyleMode::western_png;
+            basemodel.viewStyleModeVar = BaseModel::viewStyleMode::western_png;
         }
         emit boardStyleChanged();
     }

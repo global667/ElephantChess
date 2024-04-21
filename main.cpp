@@ -23,6 +23,8 @@
 #include <QStyleFactory>
 #include <QTranslator>
 #include <QtGlobal>
+#include <QtQuick3D/qquick3d.h>
+#include <QQmlApplicationEngine>
 
 #include "config.h"
 
@@ -56,5 +58,10 @@ int main(int argc, char *argv[])
         + QString(PROJECT_DESC));
     // w.setWindowTitle("ElephantChess " + QString(PROJECT_VERSION));
     w.show();
+
+    //QSurfaceFormat::setDefaultFormat(QQuick3D::idealSurfaceFormat());
+    qputenv("QT_QUICK_CONTROLS_STYLE", "Basic");
+
+
     return a.exec();
 }

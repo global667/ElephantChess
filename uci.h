@@ -29,7 +29,6 @@
 #include <QThread>
 
 #include "basemodel.h"
-//#include "types.h.old"
 
 class UCI : public QObject
 {
@@ -50,7 +49,7 @@ private:
     bool newGame;
 
 signals:
-    void updateView(QPoint from, QPoint to, QString kind);
+    void updateView(Point from, Point to, QString kind);
     void boardChanged(int fromX, int fromY, int toX, int toY);
 
 public slots:

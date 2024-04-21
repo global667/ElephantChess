@@ -32,16 +32,19 @@ enable_language(CXX)
 
 find_package(Qt6 REQUIRED COMPONENTS
     Core
-    Widgets
+    Widgets    
     3DCore
     3DRender
     3DInput
     3DLogic
     3DExtras
     3DAnimation
+    Qml
+    Quick
+    Quick3D
     #Test
     #LinguistTools
-    HINTS "C:/Qt/6.6.2/msvc2019_64"
+    HINTS "C:/Qt/6.7.0/msvc2019_64"
 )
 
 #find_library(CCHESS_RULES_LIBRARY NO_CACHE REQUIRED
@@ -103,7 +106,6 @@ set(PROJECT_CPP
         renderview.h renderview.cpp
         aboutview.h aboutview.cpp
         #res.qrc
-        cchess_rules.h cchess_rules.cpp
 )
 
 set(PROJECT_SOURCES
@@ -112,7 +114,9 @@ set(PROJECT_SOURCES
         ${PROJECT_WEBSITE}
         ${MISC_SOURCES}
 )
-add_executable(ElephantChess WIN32 ${PROJECT_CPP} ${RESOURCES} )
+add_executable(ElephantChess WIN32 ${PROJECT_CPP} ${RESOURCES}
+    board3d.h board3d.cpp
+    cchess_rules.h cchess_rules.cpp )
 
 target_link_libraries(ElephantChess PUBLIC
     Qt6::Core
@@ -123,6 +127,10 @@ target_link_libraries(ElephantChess PUBLIC
     Qt::3DLogic
     Qt::3DExtras
     Qt::3DAnimation
+    Qt::Qml
+    Qt::Quick
+    Qt::Quick3D
+
     #${CCHESS_RULES_LIBRARY}
     #cchess_rules
 )

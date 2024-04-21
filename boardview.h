@@ -26,7 +26,6 @@
 #include "contexmenu.h"
 
 #include "basemodel.h"
-#include "cchess_rules.h"
 
 // This class is the 2D-view of the board. It is a QWidget and draws the board and the pieces.
 // Handles the mouse input and the context menu.
@@ -48,7 +47,7 @@ private:
     void PrepareNativePiece(QPicture *p, int row, int col, int h, int w);
     void PaintSelectedPieces(QPainter *p) const;
 
-    QPoint CalcBoardCoords(QPoint r);
+    Point CalcBoardCoords(Point r);
     void SetEditorPieces();
 
     // controls the mouse input
@@ -70,7 +69,7 @@ private:
 
 signals:
     // signal to the controller
-    void updateView(QPoint from, QPoint to, QString kind);
+    void updateView(Point from, Point to, QString kind);
 };
 
 #endif // BOARDVIEW_H

@@ -21,7 +21,6 @@
 
 #include <QRandomGenerator>
 #include "basemodel.h"
-#include <cchess_rules.h>
 
 // chinese chess engine
 class Engine : public QObject
@@ -31,11 +30,11 @@ public:
     Engine();
     ~Engine() {}
 
-    std::pair<QPoint, QPoint> GetBestMove(Color color);
-    std::pair<QPoint, QPoint> engineGo();
+    std::pair<Point, Point> GetBestMove(Color color);
+    std::pair<Point, Point> engineGo();
 
 signals:
-    void updateView(QPoint from, QPoint to, QString kind);
+    void updateView(Point from, Point to, QString kind);
 };
 
 #endif // ENGINE_H

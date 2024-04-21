@@ -22,9 +22,9 @@ extern BaseModel basemodel;
 
 Engine::Engine() {}
 
-std::pair<QPoint, QPoint> Engine::GetBestMove(Color color)
+std::pair<Point, Point> Engine::GetBestMove(Color color)
 {
-    std::vector<std::pair<QPoint, QPoint>> posAll = basemodel.position.generate_valid_moves_for_all();
+    std::vector<std::pair<Point, Point>> posAll = basemodel.position.getAllValidMoves(color, basemodel.position.board);
 
     size_t sizeOfPosAll = posAll.size();
 
@@ -36,18 +36,18 @@ std::pair<QPoint, QPoint> Engine::GetBestMove(Color color)
     int random = 0;
     if (sizeOfPosAll > 0) {
        random = QRandomGenerator::global()->bounded(sizeOfPosAll);
-       std::pair<QPoint, QPoint> bestmove = posAll.at(random);
+       std::pair<Point, Point> bestmove = posAll.at(random);
        //QPoint tmp = bestmove.first;
        //bestmove.first = bestmove.second;
        //bestmove.second = tmp;
        return bestmove;
     } else
-       return std::pair(QPoint(-1,-1),QPoint(-1,-1));
+       return std::pair(Point(-1,-1),Point(-1,-1));
 }
 
-std::pair<QPoint, QPoint> Engine::engineGo()
+std::pair<Point, Point> Engine::engineGo()
 {
-    std::pair<QPoint, QPoint> ownEngineMove = {};
+    std::pair<Point, Point> ownEngineMove = {};
     ownEngineMove = GetBestMove(basemodel.position.players_color);
     //basemodel.currentMoves.push_back(ownEngineMove);
     return ownEngineMove;

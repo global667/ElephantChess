@@ -32,7 +32,8 @@ UCI::UCI()
     //basemodel.engineName = "Chameleon";
 
     // Set the program for the engine
-    engine.setProgram("pikafish.exe");//basemodel.engineName);
+    engine.setProgram("F:/source/XiangQi/Pikafish/pikafish-ssse3.exe");//"pikafish.exe");//basemodel.engineName);
+    engine.setWorkingDirectory("F:/source/XiangQi/Pikafish/");
     qDebug() << "Starting uci engine:" << basemodel.engineName;
     engine.setReadChannel(QProcess::StandardOutput);
 
@@ -68,6 +69,11 @@ void UCI::readData()
                     waitForReadyOK = false;
                 }
             } */
+            // add name of engine to basemodel
+            if (c.contains("id name")) {
+                basemodel.engineName = c.split(' ').at(2) + " " + c.split(' ').at(3);
+                qDebug() << "Engine name: " << basemodel.engineName;
+            } else
             if (c.contains("uciok")) {
                 // The engine is ready
                 //writeDatas("isready");
@@ -82,12 +88,12 @@ void UCI::readData()
                 auto fy = (mv.at(1) - '0');
                 auto tx = (mv.at(2) - 'a');
                 auto ty = (mv.at(3) - '0');
-                basemodel.fromUCI.setX(fx);
-                basemodel.fromUCI.setY(fy);
-                basemodel.toUCI.setX(tx);
-                basemodel.toUCI.setY(ty);
+                basemodel.fromUCI = fx;
+                basemodel.fromUCI = fy;
+                basemodel.toUCI = tx;
+                basemodel.toUCI = ty;
                 // Ruft gameloop auf
-                emit updateView(QPoint(fy, fx), QPoint(ty, tx), "human");
+                emit updateView(Point(fy, fx), Point(ty, tx), "human");
             } else if (c.contains("info")) {
                 qDebug() << c;
             } else {

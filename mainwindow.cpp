@@ -21,26 +21,47 @@
 // #ifdef TEST
 // #endif
 #include <QDesktopServices>
+#include <QtQuick/QQuickView>
+#include <QtQuick3D/qquick3d.h>
+#include <QQmlApplicationEngine>
 
 extern BaseModel basemodel;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 #ifdef THREE_D_VIEW
-    renderView = new RenderView();
-    renderView->defaultFrameGraph()->setClearColor(QColor(QRgb(0x4d4d4f)));
-    view = QWidget::createWindowContainer(renderView);
+    //renderView = new RenderView();
+    //renderView->defaultFrameGraph()->setClearColor(QColor(QRgb(0x4d4d4f)));
+    //QQmlApplicationEngine engine;
+    //engine.load(QUrl(QStringLiteral("qrc:/3dBoard.qml")));
+    //if (engine.rootObjects().isEmpty())
+    //    return -1;
+
+    viewQml = new QQuickView;
+    viewQml->setSource(QUrl::fromLocalFile(":/3dBoard.qml"));
+    view = QWidget::createWindowContainer(viewQml);//(renderView);
     setCentralWidget(view);
-    renderView->show();
+    //renderView->show();
+
 #else
     boardview = new BoardView(this);
     setCentralWidget(boardview);
 #endif
-
-    InitWidgets();
     InitEngine();
+    InitWidgets();
     InitConnections();
     statusBar()->showMessage(tr("Ready"));
-    loggingTextView->insertPlainText(basemodel.position.perftTest(1));
+
+    loggingTextView->insertPlainText(QString("\nperft test\n") +
+                                     QString("rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1\n") +
+                                     QString("depth       nodes    checks    captures\n") +
+                                     QString("1          44         0           2\n") +
+                                     QString("2        1920         6          72\n") +
+                                     QString("3       79666       384        3159\n") +
+                                     QString("4     3290240     19380      115365\n"));
+// 5   133312995    953251     4917734
+// 6  5392831844  39150745   200568035"
+
+    //loggingTextView->insertPlainText(basemodel.position.perftTest(1));
     //loggingTextView->insertPlainText(basemodel.position.perftTest(2));
     //loggingTextView->insertPlainText(basemodel.position.perftTest(3));
     //loggingTextView->insertPlainText(basemodel.position.perftTest(4));
@@ -48,25 +69,26 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
 
 }
-
+#define ENGINE
 void MainWindow::InitEngine() {
-    //engine = new Engine();
-    //basemodel.kind = "engine";
+#ifdef ENGINE
+    engine = new Engine();
+    basemodel.kind = "engine";
+    connect(engine, SIGNAL(updateView(Point, Point, QString)),
+            SLOT(PlayNextTwoMoves(Point, Point, QString)));
+#else
      basemodel.kind = "uci";
      uci = new UCI();
-     connect(uci, SIGNAL(updateView(QPoint, QPoint, QString)),
-             SLOT(PlayNextTwoMoves(QPoint, QPoint, QString)));
+     connect(uci, SIGNAL(updateView(Point, Point, QString)),
+             SLOT(PlayNextTwoMoves(Point, Point, QString)));
      uci->start();
+     uci->engine.waitForReadyRead();
+#endif
 }
 void MainWindow::InitConnections() {
-    // engine moves
-    //connect(engine, SIGNAL(updateView(QPoint, QPoint, QString)),
-     //       SLOT(PlayNextTwoMoves(QPoint, QPoint, QString)));
-    // mouse clicked moves (human)
-#ifdef THREE_D_VIEW
-#else
-    connect(boardview, SIGNAL(updateView(QPoint, QPoint, QString)),
-            SLOT(PlayNextTwoMoves(QPoint, QPoint, QString)));
+#ifndef THREE_D_VIEW
+    connect(boardview, SIGNAL(updateView(Point, Point, QString)),
+            SLOT(PlayNextTwoMoves(Point, Point, QString)));
 #endif
     // TODO: let board unchanged (at the moment it will reseted)
     connect(settings, SIGNAL(boardStyleChanged()), SLOT(Newgame()));
@@ -184,18 +206,18 @@ void MainWindow::InitWidgets() {
     gameinfosh = new QVBoxLayout;
     opponents = new QHBoxLayout;
     opp1 = new QLineEdit();
-    opp1->setPlaceholderText("Player One");
+    opp1->setPlaceholderText("Me");
     opponents->addWidget(opp1);
     opp2 = new QLineEdit();
-    opp2->setPlaceholderText(basemodel.engineName + "-Engine");
+    opp2->setText(basemodel.engineName);
     opponents->addWidget(opp2);
     location = new QHBoxLayout;
     loca = new QLineEdit();
-    loca->setPlaceholderText("beijin masters");
+    loca->setPlaceholderText("hometown masters");
     location->addWidget(loca);
     location->addWidget(new QLabel(", round"));
     round = new QLineEdit();
-    round->setPlaceholderText("8");
+    round->setPlaceholderText("1");
     round->setMaximumWidth(30);
     location->addWidget(round);
     location->addWidget(new QLabel(", the"));
@@ -217,7 +239,7 @@ void MainWindow::InitWidgets() {
     navigationwidget->setLayout(naviwidlayout);
 
     // hole Dock
-    dockWidget = new QDockWidget(tr("Dock"), this);
+    dockWidget = new QDockWidget(tr("Informations"), this);
     dockWidget->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
     dockWidget->setWidget(navigationwidget);
     dockWidget->setFloating(false);
@@ -378,7 +400,7 @@ void MainWindow::ReadPGNData(QString data) {
 
 void MainWindow::PutPGNOnBoard() {
     int c = 0;
-    basemodel.position.initBoard();
+    basemodel.position.setupInitialPositions();
     basemodel.currentMove = 0;
     basemodel.moveHistory.clear();
     model->clear();
@@ -399,7 +421,7 @@ void MainWindow::PutPGNOnBoard() {
         auto fy = 9 - (item1.at(1).digitValue());
         auto tx = ((char)item1.at(2).toLatin1()) - 'a';
         auto ty = 9 - (item1.at(3).digitValue());
-        basemodel.position.move_piece(9 - fy, 8 - fx, 9 - ty, 8 - tx);
+        basemodel.position.movePiece(Point(9 - fy, 8 - fx),Point(9 - ty, 8 - tx), basemodel.position.board);
         AddMoveToHistory();
   /*      QStringList mv;
 
@@ -424,9 +446,8 @@ void MainWindow::PutPGNOnBoard() {
 
 void MainWindow::AddMoveToHistory() {
     basemodel.currentMove++;
-    basemodel.moveHistory.append(Position(basemodel.position));
+    basemodel.moveHistory.append(basemodel.position);
 }
-
 void MainWindow::AddMoveToList(QString move) {
     qDebug() << move << "\n";
     QTreeWidgetItem* item = new QTreeWidgetItem();
@@ -505,16 +526,16 @@ void MainWindow::ToggleGameView() {
 }
 
 void MainWindow::GiveTipp() {
-    std::pair<QPoint, QPoint> move =
+    std::pair<Point, Point> move =
         engine->GetBestMove(basemodel.position.players_color);
-    QPoint from = move.first;
-    QPoint to = move.second;
+    Point from = move.first;
+    Point to = move.second;
     QString c;
     if (basemodel.position.players_color == Color::Red)
         c = "Red";
     else
         c = "Black";
-    QString token = basemodel.posToken(from.y(), from.x(), to.y(), to.x());
+    QString token = basemodel.posToken(from.y, from.x, to.y, to.x);
     QString bestMoveWouldBe =
         QString("The best move for %1 would be %2").arg(c).arg(token);
     QMessageBox::information(this, "Engine says:", bestMoveWouldBe);
@@ -588,7 +609,7 @@ void MainWindow::UpdateSettings() {
 
 // Startet ein neues Spiel
 void MainWindow::Newgame() {
-    basemodel.position.initBoard();
+    basemodel.position.setupInitialPositions();
     basemodel.moveHistory.clear();
     model->clear();
     // row = 0,
@@ -612,7 +633,7 @@ void MainWindow::Newgame() {
 
 void MainWindow::ResetToHistory() {
     //basemodel.position = basemodel.moveHistory[basemodel.currentMove];
-    basemodel.position = Position(basemodel.moveHistory[basemodel.currentMove]);
+    basemodel.position = basemodel.moveHistory[basemodel.currentMove];
     basemodel.fromHuman = {-1, -1};
     basemodel.toHuman = {-1, -1};
     basemodel.fromUCI = {-1, -1};
@@ -621,29 +642,29 @@ void MainWindow::ResetToHistory() {
     repaint();
 }
 // Play the next two moves begin with red as human and black as engine
-void MainWindow::PlayNextTwoMoves(QPoint from, QPoint to, QString kind) {
+void MainWindow::PlayNextTwoMoves(Point from, Point to, QString kind) {
     // not used at the moment
     // basemodel.currentMoves.push_back({from, to});
 
     repaint();
 
-    if (!basemodel.position.board[from.x()][from.y()].piece) {
-        qDebug() << "Error in ToMove" << from.x() << " " << from.y();
+    if (!basemodel.position.board[from.x][from.y]) {
+        qDebug() << "Error in ToMove" << from.x << " " << from.y;
         return;
     }
     
 
-        QString name = basemodel.position.board[from.x()][from.y()].piece->name;
+        QString name = basemodel.position.board[from.x][from.y]->getName();
         QString beaten;
-        if (basemodel.position.board[to.x()][to.y()].piece->piece_type != PieceType::Empty)
+        if (!name.isEmpty())
             beaten = "x";
         else
             beaten = "-";
 
-        basemodel.position.move_piece(from.x(), from.y(), to.x(), to.y());
+        basemodel.position.movePiece(Point{from.x, from.y}, Point(to.x, to.y), basemodel.position.board);
 
         basemodel.moves.append(
-            basemodel.posToken(from.x(), from.y(), to.x(), to.y()));
+            basemodel.posToken(from.x, from.y, to.x, to.y));
 
         basemodel.fromHuman = from;
         basemodel.toHuman = to;
@@ -655,18 +676,18 @@ void MainWindow::PlayNextTwoMoves(QPoint from, QPoint to, QString kind) {
             << QString(basemodel.moves.last().at(1)) << beaten
             << QString(basemodel.moves.last().at(2))
             << QString(basemodel.moves.last().at(3))
-            << (!basemodel.position.is_check(basemodel.position.players_color) ? QString("") : QString("+"));
+            ;//<< (!basemodel.position.is_check(basemodel.position.players_color) ? QString("") : QString("+"));
 
         AddMoveToList(mv.join(""));
 
 
 
     if (kind.contains("engine")) {
-        // moves and x and y are swaped in first and second!
-        std::pair<QPoint, QPoint> move = engine->engineGo();//= std::make_pair(QPoint(1,1), QPoint(1,1));//
-        QPoint tmp = move.first;
-        move.first = move.second;
-        move.second = tmp;
+        basemodel.position.toggleColor();
+        std::pair<Point, Point> move = engine->engineGo();//= std::make_pair(QPoint(1,1), QPoint(1,1));//
+        // Point tmp = move.first;
+        // move.first = move.second;
+        // move.second = tmp;
 
         basemodel.fromUCI = move.first;
         basemodel.toUCI = move.second;
@@ -681,7 +702,7 @@ void MainWindow::PlayNextTwoMoves(QPoint from, QPoint to, QString kind) {
         move.second.setX(move.second.y());
         move.second.setY(tp);
 */
-        if (move.first.x() == -1) {
+        if (move.first.x == -1) {
             AddMoveToList("#");
             QMessageBox msgBox;
             msgBox.setText("The game has finished: Black lost.");
@@ -709,32 +730,32 @@ void MainWindow::PlayNextTwoMoves(QPoint from, QPoint to, QString kind) {
 
             // x and y are swaped!
             QString name =
-                basemodel.position.board[move.first.y()][move.first.x()].piece->name;
+                basemodel.position.board[move.first.x][move.first.y]->getName();
             QString beaten;
-            if (basemodel.position.board[move.second.y()][move.second.x()].piece->piece_type != PieceType::Empty)
+            if (!basemodel.position.board[move.second.x][move.second.y]->getName().isEmpty())
                 beaten = "x";
             else
                 beaten = "-";
 
-            basemodel.position.move_piece(move.first.y(), move.first.x(),
-                                          move.second.y(), move.second.x());
+            basemodel.position.movePiece({move.first.x, move.first.y},
+                                          {move.second.x, move.second.y}, basemodel.position.board);
             // ********************
 
             QByteArray moveAsString = basemodel.posToken(
-                move.first.x(), move.first.y(), move.second.x(), move.second.y());
+                move.first.x, move.first.y, move.second.x, move.second.y);
             basemodel.moves.append(moveAsString);
 
 
 
             AddMoveToHistory();
-            basemodel.position.toggleColor(&basemodel.position.players_color);
+            basemodel.position.toggleColor();
 
             QStringList mv;
             mv << name << QString(basemodel.moves.last().at(0))
                << QString(basemodel.moves.last().at(1)) << beaten
                << QString(basemodel.moves.last().at(2))
                << QString(basemodel.moves.last().at(3))
-               << (!basemodel.position.is_check(basemodel.position.players_color) ? QString("") : QString("+"));
+                ;//<< (!basemodel.position.is_check(basemodel.position.players_color) ? QString("") : QString("+"));
             AddMoveToList(mv.join(""));
         }
     } else if (kind.contains("uci")) {

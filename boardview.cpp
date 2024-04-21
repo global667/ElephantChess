@@ -15,12 +15,11 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "cchess_rules.h"
-
 #include "boardview.h"
 #include "basemodel.h"
 
 #include "QPicture"
+#include "uci.h"
 #include <QFontDatabase>
 #include <QImageReader>
 #include <QObject>
@@ -68,7 +67,7 @@ void BoardView::paintEvent(QPaintEvent* event) {
 
 	for (int j = 0; j < 10; j++) {
 		for (int i = 0; i < 9; i++) {
-			if (basemodel.position.board[j][i].piece->piece_type != PieceType::Empty)
+            if (!basemodel.position.board[j][i]->getName().isEmpty())
 			{
 				QPicture* piecePicture = new QPicture();
 				PrepareNativePiece(piecePicture, j, i, height, width);
@@ -87,9 +86,9 @@ constexpr int PEN_WIDTH = 3;
 constexpr qreal PIECE_SCALE_FACTOR = 1.5; // Adjust based on your scaling needs
 
 void BoardView::PrepareNativePiece(QPicture* pix, int row, int col, int h, int w) {
-	const auto* piece = basemodel.position.board[row][col].piece;
+    const auto piece = basemodel.position.board[row][col];
 	// Check for null pointer and empty piece
-	if (!piece || piece->piece_type == PieceType::Empty)
+    if (!piece || piece->getName() == "")
 		return;
 
 	QPainter painter;
@@ -291,9 +290,9 @@ void BoardView::PaintSelectedPieces(QPainter* painter) const {
 			painter->setPen(pen);
 			painter->setBrush(Qt::transparent);
 
-			const auto x = (50 + (((basemodel.fromHuman.y())) * (width - 2 * 50) / cutpWidth)) -
+            const auto x = (50 + (((basemodel.fromHuman.y)) * (width - 2 * 50) / cutpWidth)) -
 				width / cutpWidth / 2 / 1.5;
-			const auto y = (50 + (9 - (basemodel.fromHuman.x())) * (height - 50 - 100) / cutpHeight) -
+            const auto y = (50 + (9 - (basemodel.fromHuman.x)) * (height - 50 - 100) / cutpHeight) -
 				height / cutpWidth / 2 / 1.5;
 			const auto wght = width / (cutpWidth) / 1.5;
 			const auto hght = height / cutpHeight / 1.5;
@@ -305,22 +304,22 @@ void BoardView::PaintSelectedPieces(QPainter* painter) const {
 			pen.setWidth(5);
 			painter->setPen(pen);
 
-			const auto fromX = basemodel.fromHuman.x();
-			const auto fromY = basemodel.fromHuman.y();
-			const auto pieceType = basemodel.position.board[fromX][fromY].piece->piece_type;
+            const auto fromX = basemodel.fromHuman.x;
+            const auto fromY = basemodel.fromHuman.y;
+            const auto pieceType = basemodel.position.board[fromX][fromY]->getName();
 
-			auto all_moves = basemodel.position.generate_piece_moves_for(pieceType, fromY, fromX);
+            auto all_moves = basemodel.position.board[fromX][fromY]->generateValidMoves({fromX,fromY},basemodel.position.board);
 			for (const auto& move : all_moves) {
 
-				auto x = (50 + ((move.first) * (width - 2 * 50) / cutpWidth)) -
+                auto x = (50 + ((move.second.y) * (width - 2 * 50) / cutpWidth)) -
 					width / cutpWidth / 2 / 1.5;
-				auto y = (50 + (9 - move.second) * (height - 50 - 100) / cutpHeight) -
+                auto y = (50 + (9 - move.second.x) * (height - 50 - 100) / cutpHeight) -
 					height / cutpWidth / 2 / 1.5;
 
-				painter->drawEllipse(QRect(x, y, wght, hght));
+                painter->drawEllipse(QRect(x, y, wght, hght));
 			}
 		}
-	} else 	{
+    } else if (basemodel.fromUCI != Point(-1, -1))	{
 	// black to move
 	// draws the last moved line
 		pen.setColor(Qt::black);
@@ -329,10 +328,10 @@ void BoardView::PaintSelectedPieces(QPainter* painter) const {
 
 		painter->setOpacity(0.7);
 
-		const auto x1 = (50 + (((basemodel.fromUCI.x())) * (width - 2 * 50) / cutpWidth));
-		const auto y1 = (50 + ((9 - basemodel.fromUCI.y())) * (height - 50 - 100) / cutpHeight);
-		const auto x2 = (50 + (((basemodel.toUCI.x())) * (width - 2 * 50) / cutpWidth));
-		const auto y2 = (50 + ((9 - basemodel.toUCI.y())) * (height - 50 - 100) / cutpHeight);
+        const auto x1 = (50 + ((basemodel.fromUCI.x) * (width - 2 * 50) / cutpWidth));
+        const auto y1 = (50 + (9-basemodel.fromUCI.y) * (height - 50 - 100) / cutpHeight);
+        const auto x2 = (50 + ((basemodel.toUCI.x) * (width - 2 * 50) / cutpWidth));
+        const auto y2 = (50 + (9-basemodel.toUCI.y) * (height - 50 - 100) / cutpHeight);
 
 		painter->drawLine(x1, y1, x2, y2);
 		
@@ -365,19 +364,19 @@ void BoardView::PaintSelectedPieces(QPainter* painter) const {
 	}
 }
 
-PPiece* piece;
+Piece piece(Color::None, "");
 
 void BoardView::mousePressEvent(QMouseEvent* event) {
 	const int x = event->pos().x();
 	const int y = event->pos().y();
-	QPoint boardPos = CalcBoardCoords({ x, y });
-	QPoint coord(10 - boardPos.y(), boardPos.x() - 1); // Simplified coordinate conversion	
+    Point boardPos = CalcBoardCoords({ x, y });
+    Point coord{10 - boardPos.y, boardPos.x - 1}; // Simplified coordinate conversion
 
 	if (!pressed) {
 		basemodel.position.players_color = Color::Red;
-		piece = basemodel.position.board[coord.x()][coord.y()].piece;
+        piece = *basemodel.position.board[coord.x][coord.y].get();
 		// Ensure the piece is not null before dereferencing
-		if (!piece || piece->piece_type == PieceType::Empty || piece->color != basemodel.position.players_color) {
+        if (piece.getName().isEmpty() || piece.color != basemodel.position.players_color) {
 			return; // Early return if piece is null, empty, or not the player's color
 		}
 		basemodel.fromHuman = coord;
@@ -390,12 +389,12 @@ void BoardView::mousePressEvent(QMouseEvent* event) {
 		pressed = false;
 		secondclick = true;
 
-		auto pieceType = piece->piece_type;
-		auto all_moves = basemodel.position.generate_valid_moves_for(pieceType, firstMove.x(), firstMove.y());
+        auto pieceType = piece.getName();
+        auto all_moves = basemodel.position.getAllValidMoves(basemodel.position.players_color, basemodel.position.board);
 
-		for (const auto& [toY, toX] : all_moves) { // Use structured binding
-			if (toX == basemodel.toHuman.x() && toY == basemodel.toHuman.y()) {
-				emit updateView(basemodel.fromHuman, basemodel.toHuman, "uci");
+        for (const auto& [from ,to] : all_moves) { // Use structured binding
+            if (to.x == basemodel.toHuman.x && to.y == basemodel.toHuman.y) {
+                emit updateView(basemodel.fromHuman, basemodel.toHuman, "engine");
 				break; // Exit loop after finding a valid move
 			}
 		}
@@ -412,7 +411,7 @@ constexpr float BOTTOM_MARGIN = 100.0f;
 constexpr float BOARD_COL_POINTS = BaseModel::BoardColPoints; // Assuming this is a valid static constant
 constexpr float BOARD_ROW_POINTS = BaseModel::BoardRowPoints; // Assuming this is a valid static constant
 
-QPoint BoardView::CalcBoardCoords(QPoint r) {
+Point BoardView::CalcBoardCoords(Point r) {
 	const float w = this->width();
 	const float h = this->height();
 
@@ -421,14 +420,14 @@ QPoint BoardView::CalcBoardCoords(QPoint r) {
 	const float squareRowHeight = (h - TOP_MARGIN - BOTTOM_MARGIN) / BOARD_ROW_POINTS;
 
 	// Transform cursor position based on game view
-	float boardCursorX = basemodel.gameView == Color::Red ? r.x() : w - r.x();
-	float boardCursorY = basemodel.gameView == Color::Red ? r.y() : h - r.y();
+    float boardCursorX = basemodel.gameView == Color::Red ? r.x : w - r.x;
+    float boardCursorY = basemodel.gameView == Color::Red ? r.y : h - r.y;
 
 	// Calculate board coordinates from cursor position
 	int col = static_cast<int>(std::floor(boardCursorX / squareColWidth)) + 1;
 	int row = static_cast<int>(std::floor(boardCursorY / squareRowHeight)) + 1;
 
-	return QPoint(col, row);
+    return Point(col, row);
 }
 
 void BoardView::PaintMarker(QPainter* p) {
@@ -442,14 +441,14 @@ void BoardView::PaintMarker(QPainter* p) {
 	int lrow = 0;
 
 	for (auto& marker : contextMenu->markers) {
-		auto x = marker.first.x();
-		auto y = marker.first.y();
+        auto x = marker.first.x;
+        auto y = marker.first.y;
 
 		qDebug() << x << y << "x und y";
 
-		QPoint coords = CalcBoardCoords(marker.first);
-		int col = coords.x();
-		int row = coords.y();
+        Point coords = CalcBoardCoords(marker.first);
+        int col = coords.x;
+        int row = coords.y;
 
 		switch (marker.second) {
 		case markerType::Kreuz:

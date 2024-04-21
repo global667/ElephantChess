@@ -24,6 +24,19 @@
 
 #include "cchess_rules.h"
 
+enum class markerType { Kreuz, Kreis, Dreieck, Linie, Linienende, Viereck };
+
+static constexpr int ROWS = 10;
+static constexpr int COLS = 9;
+
+enum class completePieceType {
+    GeneralRot, AdvisorRot, ElephantRot,
+    HorseRot, ChariotRot, CannonRot,
+    SoldierRot, GeneralSchwarz, AdvisorSchwarz,
+    ElephantSchwarz, HorseSchwarz, ChariotSchwarz,
+    CannonSchwarz, SoldierSchwarz
+};
+
 struct BaseModel //: public QObject
 {
     //Q_OBJECT
@@ -32,31 +45,34 @@ public:
     {
         engineName
             = "PikaFish";//"C:/Users/wolfk/Downloads/Pikafish.2024-03-10/Windows/pikafish-ssse3.exe";//"built-in";//"F:/source/XiangQi/build-Dumbo-Desktop_Qt_6_6_1_MinGW_64_bit-Debug/Dumbo"; //"/home/wsk/.vs/Dumbo/out/build/linux-debug/Dumbo"; //
-        position.initBoard();
+        position.setupInitialPositions();
         moveHistory.append(position);
         currentMove++;
     }
+
 
     static constexpr short BoardRows = ROWS;
     static constexpr short BoardCols = COLS;
     static constexpr short BoardRowPoints = BoardRows - 1;
     static constexpr short BoardColPoints = BoardCols - 1;
 
-    Position position;
+    //Position position;
+    Board position;
 
+    enum class viewStyleMode { traditional_native, traditional_png, western_png };
     viewStyleMode viewStyleModeVar = viewStyleMode::traditional_native;
 
     int currentMove = 0;
     QStringList moves;
     QString engineName = "built-in";
-    QList<Position> moveHistory;
+    QList<Board> moveHistory;
     QString kind = "human";
 
-    QList<QPair<QPoint, QPoint>> currentMoves;
-    QPoint fromHuman = {-1, -1};
-    QPoint toHuman = {-1, -1};
-    QPoint fromUCI = {-1, -1};
-    QPoint toUCI = {-1, -1};
+    QList<QPair<Point, Point>> currentMoves;
+    Point fromHuman = {-1, -1};
+    Point toHuman = {-1, -1};
+    Point fromUCI = {-1, -1};
+    Point toUCI = {-1, -1};
 
     // legt fest welche Farbe unten ist und welche oben,
     // die genannte ist unten
