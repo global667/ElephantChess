@@ -136,7 +136,7 @@ private:
     void PutPGNOnBoard();
     void ReadPGNData(QString data);
     QTextEdit *loggingTextView;
-    QLineEdit *nps;
+    QLineEdit *nps, *eval;
 
 
 public slots:
@@ -161,6 +161,7 @@ public slots:
 public slots:
     void PlayNextTwoMoves(Point from, Point to, QString kind);
     void paintFromThreadSlot();
+    void updateFromThreadSlot();
 private slots:
     void Debug();
 public: signals:

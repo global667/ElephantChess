@@ -89,6 +89,17 @@ public:
     }
 
     long nodes;
+
+    // engine evaluation, search depth etc. for the gui
+    struct EngineData
+    {
+        int evaluation;
+        int searchDepth;
+        long nodes;
+        QString bestMove;
+        QString engineName;
+
+    } engineData;
 };
 
 #endif // BASEMODEL_H

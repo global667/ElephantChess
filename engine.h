@@ -38,9 +38,17 @@ public:
     std::pair<Point, Point> engineGo();
     int search(int depth, Color color, const std::vector<std::vector<std::shared_ptr<Piece>>>& board);
 
+    long nodes = 0;
+    int evaluation = 0;
+    int depth = 2;
+    QString bMove = "";
+    QString name = "ElephantChessEngine";
+
 signals:
     void updateView(Point from, Point to, QString kind);
     void paintFromThread();
+    void updateFromThread();
+
 private:
     int evaluatePosition(const std::vector<std::vector<std::shared_ptr<Piece> > > &board);
     int getPieceValue(const std::shared_ptr<Piece> *piece);

@@ -115,8 +115,6 @@ const std::vector<std::vector<int>> chariotValueTable = {
 
 Engine::Engine() {}
 
-long nodes = 0;
-
 std::pair<Point, Point> Engine::GetBestMove(Color color) {
 
     const std::vector<std::pair<Point, Point>>& posAll = basemodel.position.getAllValidMoves(color, basemodel.position.board);
@@ -124,10 +122,9 @@ std::pair<Point, Point> Engine::GetBestMove(Color color) {
     if (posAll.empty())
         return {Point(-1, -1), Point(-1, -1)};
 
-    std::pair<Point, Point> bestMove = posAll[0];
+    std::pair<Point, Point> bestMove = {};
     int bestScore = INFINITY_SCORE;
-    int depth = 2;
-
+    int depth = this->depth;
     QVector<QFuture<int>> futures;
     std::vector<std::vector<std::shared_ptr<Piece>>> new_board = basemodel.position.board; // Kopie des aktuellen Spielbretts
 
@@ -135,8 +132,7 @@ std::pair<Point, Point> Engine::GetBestMove(Color color) {
         std::shared_ptr<Piece> piece = new_board[move.first.x][move.first.y];
         basemodel.position.movePiece(move.first, move.second, new_board);
 
-        auto future = QtConcurrent::run([this, color, depth, &new_board] {return search(depth - 1, color == Color::Black ? Color::Red : Color::Black, new_board); });
-
+        auto future = QtConcurrent::run([this, color, depth, new_board] {return search(depth - 1, color == Color::Black ? Color::Red : Color::Black, new_board); });
         nodes++;
         futures.append(future);
 
@@ -145,10 +141,13 @@ std::pair<Point, Point> Engine::GetBestMove(Color color) {
 
     // Warte auf alle Futures und evaluiere die Ergebnisse
     for (int i = 0; i < futures.size(); ++i) {
-        int score = futures[i].result();  // Negamax-Ansatz
+        futures[i].waitForFinished();
+        int score = -futures[i].result();  // Negamax-Ansatz
         if (score < bestScore) {
-            bestScore = score;
+            evaluation = bestScore = score;
             bestMove = posAll[i];
+            bMove = basemodel.posToken(bestMove.first.x, bestMove.first.y, bestMove.second.x, bestMove.second.y);
+            emit updateFromThread();
         }
     }
     return bestMove;
@@ -157,13 +156,6 @@ std::pair<Point, Point> Engine::GetBestMove(Color color) {
 
 int Engine::evaluatePosition(const std::vector<std::vector<std::shared_ptr<Piece>>>& board) {
     int score = 0;
-
-    if (basemodel.position.isCheckmate(basemodel.position.players_color, board)) {
-        if (basemodel.position.players_color == Color::Red)
-            return -INFINITY_SCORE;
-        else
-            return INFINITY_SCORE;
-    }
 
 
     for (int x = 0; x < 10; x++) {
@@ -175,7 +167,7 @@ int Engine::evaluatePosition(const std::vector<std::vector<std::shared_ptr<Piece
                 // add evaluation of hiting pieces
                 positionValue += getPossibleHits(x ,y , board) * 250;
                 score += piece->getColor() == Color::Red ? (pieceValue + positionValue) : -(pieceValue + positionValue);
-                qDebug() << "Score in Eval: " << score;
+                //qDebug() << "Score in Eval: " << score;
             }
         }
     }
@@ -262,12 +254,19 @@ int Engine::search(int depth, Color color, const std::vector<std::vector<std::sh
     if (depth == 0)
         return evaluatePosition(board);
 
+    if (basemodel.position.isCheckmate(color, board) ) {
+        if (color == Color::Red)
+            return INFINITY_SCORE;
+        else
+            return -INFINITY_SCORE;
+    }
+
     std::vector<std::pair<Point, Point>> posAll = basemodel.position.getAllValidMoves(color, board);
     if (posAll.empty())
         return INFINITY_SCORE; // oder ein anderer spezieller Wert für Schachmatt/-pat
 
-    std::pair<Point, Point> bestMove;
-    int bestScore = std::numeric_limits<int>::max(); // Für Minimax-Suche
+    //std::pair<Point, Point> bestMove;
+    int bestScore = INFINITY_SCORE; // Für Minimax-Suche
 
     QVector<QFuture<int>> futures;
     std::vector<std::vector<std::shared_ptr<Piece>>> new_board = board;
@@ -279,7 +278,7 @@ int Engine::search(int depth, Color color, const std::vector<std::vector<std::sh
 
         // Starten Sie die Suche in einem neuen Thread
         //auto future = QtConcurrent::run(&Engine::search, depth - 1, color == Color::Black ? Color::Red : Color::Black, new_board);
-        auto future = QtConcurrent::run([this, color, depth, &new_board] {return search(depth - 1, color == Color::Black ? Color::Red : Color::Black, new_board); });
+        auto future = QtConcurrent::run([this, color, depth, new_board] {return search(depth - 1, color == Color::Black ? Color::Red : Color::Black, new_board); });
 
 
         futures.append(future);
@@ -290,10 +289,11 @@ int Engine::search(int depth, Color color, const std::vector<std::vector<std::sh
 
     // Warte auf alle Futures und evaluiere die Ergebnisse
     for (int i = 0; i < futures.size(); ++i) {
-        int score = futures[i].result();  // Negamax-Ansatz
+        futures[i].waitForFinished();
+        int score = -futures[i].result();  // Negamax-Ansatz
         if (score < bestScore) {
             bestScore = score;
-            bestMove = posAll[i];
+            //bestMove = posAll[i];
         }
     }
 
@@ -302,8 +302,12 @@ int Engine::search(int depth, Color color, const std::vector<std::vector<std::sh
 
 void Engine::nodesPerSecond()
 {
-    qDebug() << "Nodes per second: " << nodes;
-    basemodel.nodes = nodes;
+    //qDebug() << "Nodes per second: " << nodes;
+    basemodel.engineData.nodes = nodes;
+    basemodel.engineData.searchDepth = depth;
+    basemodel.engineData.evaluation = evaluation;
+    basemodel.engineData.engineName = name;
+    basemodel.engineData.bestMove = bMove;
     nodes = 0;
 }
 

@@ -85,6 +85,9 @@ std::vector<std::pair<Point, Point> > Board::getValidMovesForPiece(const Point &
 }
 
 bool Board::movePiece(const Point &from, const Point &to, std::vector<std::vector<std::shared_ptr<Piece> > > &board) {
+    if (from.x < 0 || from.x >= 10 || from.y < 0 || from.y >= 9 || to.x < 0 || to.x >= 10 || to.y < 0 || to.y >= 9) {
+        return false;
+    }
     if (board[from.x][from.y] && board[from.x][from.y]->isValidMove(from, to, board)) {
         // Bewegung ist gültig
         board[to.x][to.y] = std::move(board[from.x][from.y]);

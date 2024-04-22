@@ -186,10 +186,13 @@ void MainWindow::InitWidgets() {
     // tabwidget2 layout
     loggingTextView = new QTextEdit();
     nps = new QLineEdit();
-    nps->setText("NPS: 0");
+    nps->setText("0 nodes/s");
     nps->setReadOnly(true);
+    eval = new QLineEdit();
+    eval->setText("Eval: 0");
 
     QVBoxLayout *tabwidget2layout = new QVBoxLayout;
+    tabwidget2layout->addWidget(eval);
     tabwidget2layout->addWidget(nps);
     tabwidget2layout->addWidget(loggingTextView);
     tabwidget2->setLayout(tabwidget2layout);
@@ -458,10 +461,12 @@ void MainWindow::AddMoveToHistory() {
     basemodel.moveHistory.append(basemodel.position);
 }
 void MainWindow::AddMoveToList(std::pair<Point, Point> move) {
+    if (move.first.x == -1)
+        return;
     QString name =
-        basemodel.position.board[move.first.x][move.first.y]->getName();
+        basemodel.position.board[move.second.x][move.second.y]->getName();
     QString beaten;
-    if (!basemodel.position.board[move.second.x][move.second.y]->getName().isEmpty())
+    if (!basemodel.position.board[move.first.x][move.first.y]->getName().isEmpty())
         beaten = "x";
     else
         beaten = "-";
@@ -699,6 +704,18 @@ void MainWindow::paintFromThreadSlot() {
     repaint();
     timer->stop();
     timer2->stop();
+    nps->setText("0 nodes/s");
+
+    if (basemodel.fromUCI.x == -1) {
+        YouWin();
+        return;
+    }
+}
+
+void MainWindow::updateFromThreadSlot() {
+    nps->setText(QString::number(basemodel.engineData.nodes) + " nodes/s\n with a depth of " + QString::number(basemodel.engineData.searchDepth));
+    eval->setText(QString::number(basemodel.engineData.evaluation) + " eval\n for move " + basemodel.engineData.bestMove);
+    opp2->setText(basemodel.engineData.engineName);
 }
 
 // Play the next two moves begin with red as human and black as engine
@@ -731,9 +748,11 @@ void MainWindow::PlayNextTwoMoves(Point from, Point to, QString kind) {
         connect(timer2, &QTimer::timeout, this, &MainWindow::nodesPerSecond);
 
         timer->start(1000);
-        timer2->start(1000);
+        timer2->start(100);
 
         QObject::connect(this, SIGNAL(paintFromThread()), this, SLOT(paintFromThreadSlot()));
+        QObject::connect(engine, SIGNAL(updateFromThread()), this, SLOT(updateFromThreadSlot()));
+
 
         // Putting in a separeted thread
         auto future = QtConcurrent::run([this]() {
@@ -742,9 +761,6 @@ void MainWindow::PlayNextTwoMoves(Point from, Point to, QString kind) {
             basemodel.fromUCI = move.first;
             basemodel.toUCI = move.second;
 
-            if (move.first.x == -1) {
-                YouWin();
-            }
             basemodel.position.movePiece({move.first.x, move.first.y},
                                          {move.second.x, move.second.y}, basemodel.position.board);
             AddMoveToHistory();
@@ -823,7 +839,9 @@ void MainWindow::ItemClicked(QTreeWidgetItem *item, int column) {
 
 void MainWindow::nodesPerSecond()
 {
-    nps->setText(QString::number(basemodel.nodes) + " nodes/s\n");
+    nps->setText(QString::number(basemodel.engineData.nodes) + " nodes/s\n with a depth of " + QString::number(basemodel.engineData.searchDepth));
+    eval->setText(QString::number(basemodel.engineData.evaluation) + " eval\n for move " + basemodel.engineData.bestMove);
+    opp2->setText(basemodel.engineData.engineName);
 }
 
 void MainWindow::ToggleEngineStatus() {
