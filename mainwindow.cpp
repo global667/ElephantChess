@@ -21,9 +21,9 @@
 // #ifdef TEST
 // #endif
 #include <QDesktopServices>
-#include <QtQuick/QQuickView>
-#include <QtQuick3D/qquick3d.h>
-#include <QQmlApplicationEngine>
+//#include <QtQuick/QQuickView>
+//#include <QtQuick3D/qquick3d.h>
+//#include <QQmlApplicationEngine>
 
 extern BaseModel basemodel;
 
@@ -175,8 +175,8 @@ void MainWindow::InitWidgets() {
     headerview->setStretchLastSection(true);
     headerview->setDefaultAlignment(Qt::AlignJustify | Qt::AlignVCenter);
     table = new QTreeWidget();
-    table->setColumnCount(1);
-    table->setHeaderLabels(QStringList() << "Moves");
+    table->setColumnCount(2);
+    table->setHeaderLabels(QStringList() << "Moves" << "Comments");
 
     // tabwidget1 layout
     QHBoxLayout *tab1layout = new QHBoxLayout;
@@ -429,48 +429,27 @@ void MainWindow::PutPGNOnBoard() {
         auto fy = 9 - (item1.at(1).digitValue());
         auto tx = ((char)item1.at(2).toLatin1()) - 'a';
         auto ty = 9 - (item1.at(3).digitValue());
+
         basemodel.position.movePiece(Point(9 - fy, 8 - fx),Point(9 - ty, 8 - tx), basemodel.position.board);
-
-        AddMoveToHistory();
-
-        /*      QStringList mv;
-
-        QString name = basemodel.position.board[8-fx][9-fy].piece->name;
-        QString beaten;
-        if (basemodel.position.board[8-tx][9-ty].piece->piece_type != PieceType::Empty)
-            beaten = "x";
-        else
-            beaten = "-";
-
-        mv << name << QString(basemodel.moves.last().at(0))
-            << QString(basemodel.moves.last().at(1)) << beaten
-            << QString(basemodel.moves.last().at(2))
-            << QString(basemodel.moves.last().at(3))
-            << (!basemodel.position.is_check(basemodel.position.players_color) ? QString("") : QString("+"));
-*/
         AddMoveToList(std::make_pair(Point(9 - fy, 8 - fx),Point(9 - ty, 8 - tx)));
+        AddMoveToHistory();
     }
     column = c;
     repaint();
 }
 
 void MainWindow::AddMoveToHistory() {
-
-
     basemodel.currentMove++;
     basemodel.moveHistory.append(basemodel.position);
 }
+
 void MainWindow::AddMoveToList(std::pair<Point, Point> move) {
     if (move.first.x == -1)
         return;
     QString name =
-        basemodel.position.board[move.second.x][move.second.y]->getName();
+        basemodel.moveHistory.last().board[move.first.x][move.first.y]->getName();
     QString beaten;
-    if (!basemodel.position.board[move.first.x][move.first.y]->getName().isEmpty())
-        beaten = "x";
-    else
-        beaten = "-";
-
+    beaten = basemodel.moveHistory.last().board[move.second.x][move.second.y]->getName().isEmpty() ? "-" : "x"; // If there is no piece on the target field, then it is not a beaten move
 
     QByteArray moveAsString = basemodel.posToken(
         move.first.x, move.first.y, move.second.x, move.second.y);
@@ -483,21 +462,20 @@ void MainWindow::AddMoveToList(std::pair<Point, Point> move) {
        << QString(basemodel.moves.last().at(3))
        << (!basemodel.position.isCheck(basemodel.position.players_color, basemodel.position.board) ? QString("") : QString("+"));
 
-    QTreeWidgetItem* item = new QTreeWidgetItem();
-    item->setText(0, mv.join(""));
+    QTreeWidgetItem* item = new QTreeWidgetItem(table);
+    int ply = (basemodel.moves.size()-1)%2;
+    item->setText(0, QString::number(basemodel.currentMove) + ". " + mv.join(" "));
+
     if (isTableClicked) {
-        if (table->topLevelItemCount() == isTableClicked + 1) {
+        if (0 == ply) {
             table->addTopLevelItem(item);
+        } else {
+            table->setCurrentItem(item);
+            //table->addTopLevelItem(item); // Insert the item at the top
         }
-        else {
-            table->currentItem()->addChild(item);
-        }
-    }
-    else {
+    } else {
         table->addTopLevelItem(item);
     }
-    item = nullptr;
-    // column++;
 }
 
 void MainWindow::Save() {
@@ -601,8 +579,9 @@ void MainWindow::PlayNow() {
 
         basemodel.position.movePiece({move.first.x, move.first.y},
                                      {move.second.x, move.second.y}, basemodel.position.board);
-        AddMoveToHistory();
         AddMoveToList(move);
+        AddMoveToHistory();
+
         basemodel.position.toggleColor();
 
     }
@@ -732,11 +711,12 @@ void MainWindow::PlayNextTwoMoves(Point from, Point to, QString kind) {
         qDebug() << "Error in ToMove" << from.x << " " << from.y;
         return;
     }
-      
+
     basemodel.position.movePiece({move.first.x, move.first.y},
                                  {move.second.x, move.second.y}, basemodel.position.board);
-    AddMoveToHistory();
     AddMoveToList(move);
+    AddMoveToHistory();
+
     basemodel.position.toggleColor();
     repaint();
 
@@ -761,10 +741,12 @@ void MainWindow::PlayNextTwoMoves(Point from, Point to, QString kind) {
             basemodel.fromUCI = move.first;
             basemodel.toUCI = move.second;
 
+
             basemodel.position.movePiece({move.first.x, move.first.y},
                                          {move.second.x, move.second.y}, basemodel.position.board);
-            AddMoveToHistory();
             AddMoveToList(move);
+            AddMoveToHistory();
+
             basemodel.position.toggleColor();
 
             emit paintFromThread();
@@ -859,8 +841,8 @@ MainWindow::~MainWindow() {
         delete uci;
     if (view)
         delete view;
-    if (renderView)
-        delete renderView;
+    //if (renderView)
+    //    delete renderView;
     if (boardview)
         delete boardview;
 

@@ -44,13 +44,11 @@ public:
     BaseModel()//QObject *parent = nullptr)
     {
         engineName
-            = "PikaFish";//"C:/Users/wolfk/Downloads/Pikafish.2024-03-10/Windows/pikafish-ssse3.exe";//"built-in";//"F:/source/XiangQi/build-Dumbo-Desktop_Qt_6_6_1_MinGW_64_bit-Debug/Dumbo"; //"/home/wsk/.vs/Dumbo/out/build/linux-debug/Dumbo"; //
+            = "ElephantChessEngine";//"C:/Users/wolfk/Downloads/Pikafish.2024-03-10/Windows/pikafish-ssse3.exe";//"built-in";//"F:/source/XiangQi/build-Dumbo-Desktop_Qt_6_6_1_MinGW_64_bit-Debug/Dumbo"; //"/home/wsk/.vs/Dumbo/out/build/linux-debug/Dumbo"; //
         position.setupInitialPositions();
         moveHistory.append(position);
         currentMove++;
     }
-
-
     static constexpr short BoardRows = ROWS;
     static constexpr short BoardCols = COLS;
     static constexpr short BoardRowPoints = BoardRows - 1;

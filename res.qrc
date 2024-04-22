@@ -8,23 +8,5 @@
         <file>res/settings.png</file>
         <file>res/play-now.png</file>
         <file>CREDITS</file>
-        <file>res/3dBoard/12_-_Default_baseColor.jpeg</file>
-        <file>res/3dBoard/13_-_Default_baseColor.jpeg</file>
-        <file>res/3dBoard/Black-bing-diffuse_baseColor.png</file>
-        <file>res/3dBoard/Black-che-diffuse_baseColor.png</file>
-        <file>res/3dBoard/Black-jiang-diffuse_baseColor.png</file>
-        <file>res/3dBoard/Black-ma-diffuse_baseColor.png</file>
-        <file>res/3dBoard/Black-pao-diffuse_baseColor.png</file>
-        <file>res/3dBoard/Black-shi-diffuse_baseColor.png</file>
-        <file>res/3dBoard/Black-xiang-diffuse_baseColor.png</file>
-        <file>res/3dBoard/board.dae</file>
-        <file>res/3dBoard/Red-bing-diffuse_baseColor.png</file>
-        <file>res/3dBoard/Red-che-diffuse_baseColor.png</file>
-        <file>res/3dBoard/Red-jiang-diffuse_baseColor.png</file>
-        <file>res/3dBoard/Red-ma-diffuse_baseColor.png</file>
-        <file>res/3dBoard/Red-pao-diffuse_baseColor.png</file>
-        <file>res/3dBoard/Red-shi-diffuse_baseColor.png</file>
-        <file>res/3dBoard/Red-xiang-diffuse_baseColor.png</file>
-        <file>3dBoard.qml</file>
     </qresource>
 </RCC>

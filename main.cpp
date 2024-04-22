@@ -23,8 +23,8 @@
 #include <QStyleFactory>
 #include <QTranslator>
 #include <QtGlobal>
-#include <QtQuick3D/qquick3d.h>
-#include <QQmlApplicationEngine>
+//#include <QtQuick3D/qquick3d.h>
+//#include <QQmlApplicationEngine>
 
 #include "config.h"
 
@@ -54,7 +54,9 @@ int main(int argc, char *argv[])
     w.setWindowIcon(QIcon(":/res/generalRed.png"));
     w.setWindowTitle(
         "ElephantChess v"
-        + QString("%1.%2").arg(ElephantChess_VERSION_MAJOR).arg(ElephantChess_VERSION_MINOR)
+        + QString("%1.%2.%3").arg(ElephantChess_VERSION_MAJOR)
+                          .arg(ElephantChess_VERSION_MINOR)
+                          .arg(ElephantChess_VERSION_PATCH)
         + QString(PROJECT_DESC));
     w.show();
 

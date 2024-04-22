@@ -49,9 +49,9 @@
 #include <QTreeWidget>
 #include <QVBoxLayout>
 #include <QWidget>
-#include <QtQuick/QQuickView>
-#include <QtQuick3D/qquick3d.h>
-#include <QQmlApplicationEngine>
+//#include <QtQuick/QQuickView>
+//#include <QtQuick3D/qquick3d.h>
+//#include <QQmlApplicationEngine>
 #include <QtConcurrent>
 #include <QFuture>
 #include <QtConcurrent/QtConcurrent>
@@ -60,7 +60,7 @@
 #include "basemodel.h"
 #include "boardview.h"
 #include "engine.h"
-#include "renderview.h"
+//#include "renderview.h"
 //#include "settingsview.h"
 #include "uci.h"
 
@@ -87,10 +87,10 @@ private:
 
     BoardView *boardview = nullptr;
 
-    QQuickView *viewQml = nullptr;
+    //QQuickView *viewQml = nullptr;
 
     QWidget *view = nullptr;
-    Qt3DExtras::Qt3DWindow *renderView = nullptr;
+    //Qt3DExtras::Qt3DWindow *renderView = nullptr;
 
     QTabWidget *tabview = nullptr;
     QWidget *tabwidget1 = nullptr;

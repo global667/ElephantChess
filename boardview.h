@@ -53,6 +53,7 @@ private:
     // controls the mouse input
     bool pressed = false;
     bool secondclick = false;
+    bool smoothChange = false;
 
     // Cutting points of the board
     const int cutpWidth = BaseModel::BoardColPoints;  //8;

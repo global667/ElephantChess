@@ -32,15 +32,15 @@ find_package(Qt6 REQUIRED COMPONENTS
     Core
     Widgets    
     Concurrent
-    3DCore
-    3DRender
-    3DInput
-    3DLogic
-    3DExtras
-    3DAnimation
-    Qml
-    Quick
-    Quick3D
+    #3DCore
+    #3DRender
+    #3DInput
+    #3DLogic
+    #3DExtras
+    #3DAnimation
+    #Qml
+    #Quick
+    #Quick3D
     #Test
     #LinguistTools
     HINTS "C:/Qt/6.7.0/msvc2019_64"
@@ -58,7 +58,7 @@ set(PROJECT_CPP
         engine.h engine.cpp
         settingsview.h settingsview.cpp
         config.h contexmenu.h contexmenu.cpp
-        renderview.h renderview.cpp
+        #renderview.h renderview.cpp
         aboutview.h aboutview.cpp
 )
 
@@ -77,14 +77,14 @@ target_link_libraries(ElephantChess PUBLIC
     Qt::Widgets
     Qt::Concurrent
     #Qt::Test
-    Qt::3DCore
-    Qt::3DRender
-    Qt::3DLogic
-    Qt::3DExtras
-    Qt::3DAnimation
-    Qt::Qml
-    Qt::Quick
-    Qt::Quick3D
+    #Qt::3DCore
+    #Qt::3DRender
+    #Qt::3DLogic
+    #Qt::3DExtras
+    #Qt::3DAnimation
+    #Qt::Qml
+    #Qt::Quick
+    #Qt::Quick3D
 )
 
 qt_finalize_executable(ElephantChess)
