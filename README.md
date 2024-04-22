@@ -2,7 +2,7 @@
 # ElephantChess
 
 
-![A Screenshot](Screenshot.jpg)
+![A Screenshot](Screenshot.png)
 ##### Table of Contents 
 [Introduction](#Introduction)     
 [Installation](#installation)   
