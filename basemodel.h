@@ -87,6 +87,8 @@ public:
         c[3] = toX + '0';
         return QByteArray(c,sizeof(c));
     }
+
+    long nodes;
 };
 
 #endif // BASEMODEL_H

@@ -19,7 +19,11 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include <QRandomGenerator>
+#include <QtConcurrent>
+#include <QFuture>
+#include <QtConcurrent/QtConcurrent>
+#include <QTimer>
+
 #include "basemodel.h"
 
 // chinese chess engine
@@ -32,16 +36,23 @@ public:
 
     std::pair<Point, Point> GetBestMove(Color color);
     std::pair<Point, Point> engineGo();
+    int search(int depth, Color color, const std::vector<std::vector<std::shared_ptr<Piece>>>& board);
 
 signals:
     void updateView(Point from, Point to, QString kind);
+    void paintFromThread();
 private:
     int evaluatePosition(const std::vector<std::vector<std::shared_ptr<Piece> > > &board);
     int getPieceValue(const std::shared_ptr<Piece> *piece);
     int getPositionValue(const std::shared_ptr<Piece> *piece, int x, int y);
     int minimax(int depth, int alpha, int beta, Color color);
     int quiesce(int alpha, int beta, Color color);
-    int search(int depth, Color color);
+
+    static constexpr int INFINITY_SCORE = std::numeric_limits<int>::max();
+
+    int getPossibleHits(const int x, const int y, const std::vector<std::vector<std::shared_ptr<Piece>>>& board);
+public slots:
+    void nodesPerSecond();
 };
 
 #endif // ENGINE_H

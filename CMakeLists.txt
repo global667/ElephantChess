@@ -31,6 +31,7 @@ enable_language(CXX)
 find_package(Qt6 REQUIRED COMPONENTS
     Core
     Widgets    
+    Concurrent
     3DCore
     3DRender
     3DInput
@@ -74,6 +75,7 @@ add_executable(ElephantChess WIN32 ${PROJECT_CPP} ${RESOURCES}
 target_link_libraries(ElephantChess PUBLIC
     Qt6::Core
     Qt::Widgets
+    Qt::Concurrent
     #Qt::Test
     Qt::3DCore
     Qt::3DRender

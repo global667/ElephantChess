@@ -328,10 +328,10 @@ void BoardView::PaintSelectedPieces(QPainter* painter) const {
 
 		painter->setOpacity(0.7);
 
-        const auto x1 = (50 + ((basemodel.fromUCI.x) * (width - 2 * 50) / cutpWidth));
-        const auto y1 = (50 + (9 - basemodel.fromUCI.y) * (height - 50 - 100) / cutpHeight);
-        const auto x2 = (50 + ((basemodel.toUCI.x) * (width - 2 * 50) / cutpWidth));
-        const auto y2 = (50 + (9 - basemodel.toUCI.y) * (height - 50 - 100) / cutpHeight);
+        const auto x1 = (50 + (basemodel.fromUCI.y) * (width - 2 * 50) / cutpWidth);
+        const auto y1 = (50 + ( basemodel.fromUCI.x) * (height - 50 - 100) / cutpHeight);
+        const auto x2 = (50 + (basemodel.toUCI.y) * (width - 2 * 50) / cutpWidth);
+        const auto y2 = (50 + ( basemodel.toUCI.x) * (height - 50 - 100) / cutpHeight);
 
 		painter->drawLine(x1, y1, x2, y2);
 		

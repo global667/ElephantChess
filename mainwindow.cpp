@@ -185,7 +185,12 @@ void MainWindow::InitWidgets() {
 
     // tabwidget2 layout
     loggingTextView = new QTextEdit();
-    QHBoxLayout *tabwidget2layout = new QHBoxLayout;
+    nps = new QLineEdit();
+    nps->setText("NPS: 0");
+    nps->setReadOnly(true);
+
+    QVBoxLayout *tabwidget2layout = new QVBoxLayout;
+    tabwidget2layout->addWidget(nps);
     tabwidget2layout->addWidget(loggingTextView);
     tabwidget2->setLayout(tabwidget2layout);
 
@@ -422,7 +427,9 @@ void MainWindow::PutPGNOnBoard() {
         auto tx = ((char)item1.at(2).toLatin1()) - 'a';
         auto ty = 9 - (item1.at(3).digitValue());
         basemodel.position.movePiece(Point(9 - fy, 8 - fx),Point(9 - ty, 8 - tx), basemodel.position.board);
+
         AddMoveToHistory();
+
         /*      QStringList mv;
 
         QString name = basemodel.position.board[8-fx][9-fy].piece->name;
@@ -438,20 +445,41 @@ void MainWindow::PutPGNOnBoard() {
             << QString(basemodel.moves.last().at(3))
             << (!basemodel.position.is_check(basemodel.position.players_color) ? QString("") : QString("+"));
 */
-        AddMoveToList(item1);
+        AddMoveToList(std::make_pair(Point(9 - fy, 8 - fx),Point(9 - ty, 8 - tx)));
     }
     column = c;
     repaint();
 }
 
 void MainWindow::AddMoveToHistory() {
+
+
     basemodel.currentMove++;
     basemodel.moveHistory.append(basemodel.position);
 }
-void MainWindow::AddMoveToList(QString move) {
-    qDebug() << move << "\n";
+void MainWindow::AddMoveToList(std::pair<Point, Point> move) {
+    QString name =
+        basemodel.position.board[move.first.x][move.first.y]->getName();
+    QString beaten;
+    if (!basemodel.position.board[move.second.x][move.second.y]->getName().isEmpty())
+        beaten = "x";
+    else
+        beaten = "-";
+
+
+    QByteArray moveAsString = basemodel.posToken(
+        move.first.x, move.first.y, move.second.x, move.second.y);
+    basemodel.moves.append(moveAsString);
+
+    QStringList mv;
+    mv << name << QString(basemodel.moves.last().at(0))
+       << QString(basemodel.moves.last().at(1)) << beaten
+       << QString(basemodel.moves.last().at(2))
+       << QString(basemodel.moves.last().at(3))
+       << (!basemodel.position.isCheck(basemodel.position.players_color, basemodel.position.board) ? QString("") : QString("+"));
+
     QTreeWidgetItem* item = new QTreeWidgetItem();
-    item->setText(0, move);
+    item->setText(0, mv.join(""));
     if (isTableClicked) {
         if (table->topLevelItemCount() == isTableClicked + 1) {
             table->addTopLevelItem(item);
@@ -563,38 +591,15 @@ void MainWindow::PlayNow() {
         //basemodel.toHuman = to;
 
         if (move.first.x == -1) {
-            AddMoveToList("#");
             YouWin();
-            return;
-        } else {
-
-            QString name =
-                basemodel.position.board[move.first.x][move.first.y]->getName();
-            QString beaten;
-            if (!basemodel.position.board[move.second.x][move.second.y]->getName().isEmpty())
-                beaten = "x";
-            else
-                beaten = "-";
-
-            basemodel.position.movePiece({move.first.x, move.first.y},
-                                         {move.second.x, move.second.y}, basemodel.position.board);
-            // ********************
-
-            QByteArray moveAsString = basemodel.posToken(
-                move.first.x, move.first.y, move.second.x, move.second.y);
-            basemodel.moves.append(moveAsString);
-
-            AddMoveToHistory();
-
-            QStringList mv;
-            mv << name << QString(basemodel.moves.last().at(0))
-               << QString(basemodel.moves.last().at(1)) << beaten
-               << QString(basemodel.moves.last().at(2))
-               << QString(basemodel.moves.last().at(3))
-               << (!basemodel.position.isCheck(basemodel.position.players_color, basemodel.position.board) ? QString("") : QString("+"));
-            AddMoveToList(mv.join(""));
-            basemodel.position.toggleColor();
         }
+
+        basemodel.position.movePiece({move.first.x, move.first.y},
+                                     {move.second.x, move.second.y}, basemodel.position.board);
+        AddMoveToHistory();
+        AddMoveToList(move);
+        basemodel.position.toggleColor();
+
     }
     else
         uci->engineGo();
@@ -689,100 +694,66 @@ void MainWindow::ResetToHistory() {
 
     repaint();
 }
+
+void MainWindow::paintFromThreadSlot() {
+    repaint();
+    timer->stop();
+    timer2->stop();
+}
+
 // Play the next two moves begin with red as human and black as engine
 void MainWindow::PlayNextTwoMoves(Point from, Point to, QString kind) {
     // not used at the moment
     // basemodel.currentMoves.push_back({from, to});
-
-    repaint();
+    std::pair<Point, Point> move = std::make_pair(from, to);
 
     if (from.x == -1 && from.y == -1 && to.x == -1 && to.y == -1) {
         YouLose();
         return;
-    }
-
+    }    
     if (!basemodel.position.board[from.x][from.y]) {
         qDebug() << "Error in ToMove" << from.x << " " << from.y;
         return;
     }
-    
-
-    auto name = basemodel.position.board[from.x][from.y]->getName();
-    QString beatenName = basemodel.position.board[to.x][to.y]->getName();
-    QString beaten;
-    if (!beatenName.isEmpty())
-        beaten = "x";
-    else
-        beaten = "-";
-
-    basemodel.position.movePiece(Point{from.x, from.y}, Point(to.x, to.y), basemodel.position.board);
-
-    basemodel.moves.append(
-        basemodel.posToken(from.x, from.y, to.x, to.y));
-
-    basemodel.fromHuman = from;
-    basemodel.toHuman = to;
-
+      
+    basemodel.position.movePiece({move.first.x, move.first.y},
+                                 {move.second.x, move.second.y}, basemodel.position.board);
     AddMoveToHistory();
-
-    QStringList mv;
-    mv << name << QString(basemodel.moves.last().at(0))
-       << QString(basemodel.moves.last().at(1)) << beaten
-       << QString(basemodel.moves.last().at(2))
-       << QString(basemodel.moves.last().at(3));
-
-    mv << (!basemodel.position.isCheck(basemodel.position.players_color, basemodel.position.board) ? QString("") : QString("+"));
-
-    AddMoveToList(mv.join(""));
-
-
+    AddMoveToList(move);
+    basemodel.position.toggleColor();
+    repaint();
 
     if (kind.contains("engine")) {
-        basemodel.position.toggleColor();
-        std::pair<Point, Point> move = engine->engineGo();//= std::make_pair(QPoint(1,1), QPoint(1,1));//
 
-        basemodel.fromUCI = move.first;
-        basemodel.toUCI = move.second;
-        basemodel.fromHuman = from;
-        basemodel.toHuman = to;
+        timer = new QTimer(this);
+        timer2 = new QTimer(this);
+        connect(timer, &QTimer::timeout, engine, &Engine::nodesPerSecond);
+        connect(timer2, &QTimer::timeout, this, &MainWindow::nodesPerSecond);
 
-        if (move.first.x == -1) {
-            AddMoveToList("#");
-            YouWin();
-            return;
-        } else {
+        timer->start(1000);
+        timer2->start(1000);
 
-            QString name =
-                basemodel.position.board[move.first.x][move.first.y]->getName();
-            QString beaten;
-            if (!basemodel.position.board[move.second.x][move.second.y]->getName().isEmpty())
-                beaten = "x";
-            else
-                beaten = "-";
+        QObject::connect(this, SIGNAL(paintFromThread()), this, SLOT(paintFromThreadSlot()));
 
+        // Putting in a separeted thread
+        auto future = QtConcurrent::run([this]() {
+            std::pair<Point, Point> move = engine->engineGo();
+
+            basemodel.fromUCI = move.first;
+            basemodel.toUCI = move.second;
+
+            if (move.first.x == -1) {
+                YouWin();
+            }
             basemodel.position.movePiece({move.first.x, move.first.y},
                                          {move.second.x, move.second.y}, basemodel.position.board);
-            // ********************
-
-            QByteArray moveAsString = basemodel.posToken(
-                move.first.x, move.first.y, move.second.x, move.second.y);
-            basemodel.moves.append(moveAsString);
-
-
-
             AddMoveToHistory();
+            AddMoveToList(move);
             basemodel.position.toggleColor();
 
-            QStringList mv;
-            mv << name << QString(basemodel.moves.last().at(0))
-               << QString(basemodel.moves.last().at(1)) << beaten
-               << QString(basemodel.moves.last().at(2))
-               << QString(basemodel.moves.last().at(3))
-               << (!basemodel.position.isCheck(basemodel.position.players_color, basemodel.position.board) ? QString("") : QString("+"));
-            AddMoveToList(mv.join(""));
-        }
+            emit paintFromThread();
+        });
     } else if (kind.contains("uci")) {
-        basemodel.position.toggleColor();
         uci->engineGo();
     } else {
         qDebug() << "Error in game loop ToMove()";
@@ -848,6 +819,11 @@ void MainWindow::ItemClicked(QTreeWidgetItem *item, int column) {
     //     basemodel.board = basemodel.moveHistory[row];
     //     isTableClicked = row;
     //     repaint();
+}
+
+void MainWindow::nodesPerSecond()
+{
+    nps->setText(QString::number(basemodel.nodes) + " nodes/s\n");
 }
 
 void MainWindow::ToggleEngineStatus() {

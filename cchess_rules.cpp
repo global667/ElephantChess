@@ -243,6 +243,8 @@ bool Board::isCheckmate(Color color, const std::vector<std::vector<std::shared_p
                 }
             }
         }
+    } else {
+        return false;
     }
     return true;
 }

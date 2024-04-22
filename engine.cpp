@@ -21,16 +21,16 @@
 extern BaseModel basemodel;
 
 std::vector<std::vector<int>> soldierValueTable = {
-    {0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {20, 22, 24, 26, 28, 26, 24, 22, 20},
-    {22, 24, 26, 28, 30, 28, 26, 24, 22},
-    {24, 26, 28, 30, 32, 30, 28, 26, 24},
-    {26, 28, 30, 32, 34, 32, 30, 28, 26},
-    {28, 30, 32, 34, 36, 34, 32, 30, 28},
+    {32, 34, 36, 38, 40, 38, 36, 34, 32},
     {30, 32, 34, 36, 38, 36, 34, 32, 30},
-    {32, 34, 36, 38, 40, 38, 36, 34, 32}
+    {28, 30, 32, 34, 36, 34, 32, 30, 28},
+    {26, 28, 30, 32, 34, 32, 30, 28, 26},
+    {24, 26, 28, 30, 32, 30, 28, 26, 24},
+    {22, 24, 26, 28, 30, 28, 26, 24, 22},
+    {20, 22, 24, 26, 28, 26, 24, 22, 20},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0},
 };
 
 
@@ -115,35 +115,56 @@ const std::vector<std::vector<int>> chariotValueTable = {
 
 Engine::Engine() {}
 
-std::pair<Point, Point> Engine::GetBestMove(Color color)
-{
-    std::vector<std::pair<Point, Point>> posAll = basemodel.position.getAllValidMoves(color, basemodel.position.board);
+long nodes = 0;
+
+std::pair<Point, Point> Engine::GetBestMove(Color color) {
+
+    const std::vector<std::pair<Point, Point>>& posAll = basemodel.position.getAllValidMoves(color, basemodel.position.board);
 
     if (posAll.empty())
-        return std::make_pair(Point(-1, -1), Point(-1, -1));
+        return {Point(-1, -1), Point(-1, -1)};
 
-    std::pair<Point, Point> bestmove = posAll[0];
-    int bestScore = 0;
+    std::pair<Point, Point> bestMove = posAll[0];
+    int bestScore = INFINITY_SCORE;
+    int depth = 2;
 
-    for (auto &move : posAll) {
-         std::vector<std::vector<std::shared_ptr<Piece>>> new_board = basemodel.position.board;
-         std::shared_ptr<Piece> piece = new_board[move.first.x][move.first.y];
-         basemodel.position.movePiece(move.first, move.second, new_board);
-         int score = evaluatePosition(new_board); //-search(depth - 1, color == Color::Red ? Color::Black : Color::Red);
-         basemodel.position.undoMove(move.first, move.second, piece, new_board);
-         if (score > bestScore) {
-            bestScore = score;
-            bestmove = move;
-         }
+    QVector<QFuture<int>> futures;
+    std::vector<std::vector<std::shared_ptr<Piece>>> new_board = basemodel.position.board; // Kopie des aktuellen Spielbretts
+
+    for (const auto& move : posAll) {
+        std::shared_ptr<Piece> piece = new_board[move.first.x][move.first.y];
+        basemodel.position.movePiece(move.first, move.second, new_board);
+
+        auto future = QtConcurrent::run([this, color, depth, &new_board] {return search(depth - 1, color == Color::Black ? Color::Red : Color::Black, new_board); });
+
+        nodes++;
+        futures.append(future);
+
+        basemodel.position.undoMove(move.first, move.second, piece, new_board);
     }
-    return bestmove;
+
+    // Warte auf alle Futures und evaluiere die Ergebnisse
+    for (int i = 0; i < futures.size(); ++i) {
+        int score = futures[i].result();  // Negamax-Ansatz
+        if (score < bestScore) {
+            bestScore = score;
+            bestMove = posAll[i];
+        }
+    }
+    return bestMove;
 }
+
 
 int Engine::evaluatePosition(const std::vector<std::vector<std::shared_ptr<Piece>>>& board) {
     int score = 0;
 
-    if (basemodel.position.isCheckmate(Color::Black, board))
-        return 1000000;
+    if (basemodel.position.isCheckmate(basemodel.position.players_color, board)) {
+        if (basemodel.position.players_color == Color::Red)
+            return -INFINITY_SCORE;
+        else
+            return INFINITY_SCORE;
+    }
+
 
     for (int x = 0; x < 10; x++) {
         for (int y = 0; y < 9; y++) {
@@ -151,12 +172,29 @@ int Engine::evaluatePosition(const std::vector<std::vector<std::shared_ptr<Piece
             if (!piece->name.isEmpty()) {
                 int pieceValue = getPieceValue(&piece);
                 int positionValue = getPositionValue(&piece, x, y);
-                //score += piece->getColor() == Color::Red ? (pieceValue + positionValue) : -(pieceValue + positionValue);
-                score += pieceValue + positionValue;
+                // add evaluation of hiting pieces
+                positionValue += getPossibleHits(x ,y , board) * 250;
+                score += piece->getColor() == Color::Red ? (pieceValue + positionValue) : -(pieceValue + positionValue);
+                qDebug() << "Score in Eval: " << score;
             }
         }
     }
+
+
+
     return score;
+}
+
+int Engine::getPossibleHits(const int x, const int y, const std::vector<std::vector<std::shared_ptr<Piece>>>& board)
+{
+    int hits = 0;
+    auto moves = basemodel.position.getValidMovesForPiece(Point(x,y),board);
+    for (const auto& move : moves)
+    {
+        if (!board[move.second.x][move.second.y]->name.isEmpty() && board[move.second.x][move.second.y]->color != board[x][y]->color)
+            hits++;
+    }
+    return hits;
 }
 
 int Engine::getPieceValue(const std::shared_ptr<Piece> *piece)
@@ -181,19 +219,29 @@ int Engine::getPieceValue(const std::shared_ptr<Piece> *piece)
 int Engine::getPositionValue(const std::shared_ptr<Piece> *piece, int x, int y)
 {
     if (piece->get()->euroName == "Soldier")
+    {   //qDebug() << soldierValueTable[piece->get()->getColor() == Color::Red ? x : 9 - x][y];
+        //qDebug() << "X: " << x << " Y: " << y;
+        //qDebug() << "Piece Name: " << piece->get()->euroName;
         return soldierValueTable[piece->get()->getColor() == Color::Red ? x : 9 - x][y];
-    if (piece->get()->euroName == "Cannon")
+    }
+    if (piece->get()->euroName == "Cannon")    {
         return cannonValueTable[piece->get()->getColor() == Color::Red ? x : 9 - x][y];
-    if (piece->get()->euroName == "Chariot")
+    }
+    if (piece->get()->euroName == "Chariot") {
         return chariotValueTable[piece->get()->getColor() == Color::Red ? x : 9 - x][y];
-    if (piece->get()->euroName == "Horse")
+    }
+    if (piece->get()->euroName == "Horse") {
         return horseValueTable[piece->get()->getColor() == Color::Red ? x : 9 - x][y];
-    if (piece->get()->euroName == "Elephant")
+    }
+    if (piece->get()->euroName == "Elephant") {
         return elephantValueTable[piece->get()->getColor() == Color::Red ? x : 9 - x][y];
-    if (piece->get()->euroName == "Advisor")
+    }
+    if (piece->get()->euroName == "Advisor") {
         return advisorValueTable[piece->get()->getColor() == Color::Red ? x : 9 - x][y];
-    if (piece->get()->euroName == "General")
+    }
+    if (piece->get()->euroName == "General") {
         return generalValueTable[piece->get()->getColor() == Color::Red ? x : 9 - x][y];
+    }
     return 0;
 }
 
@@ -207,27 +255,61 @@ int Engine::quiesce(int alpha, int beta, Color color)
     return 0;
 }
 
-int Engine::search(int depth, Color color)
-{
-    std::vector<std::pair<Point, Point>> posAll = basemodel.position.getAllValidMoves(color, basemodel.position.board);
-
-    size_t sizeOfPosAll = posAll.size();
-    qDebug() << "Depth: " << depth << "Nodes: " << sizeOfPosAll;
-    if (sizeOfPosAll == 0)
-        qDebug() << "Checkmate for black";
+int Engine::search(int depth, Color color, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) {
+    //qDebug() << "Depth: " << depth;
+    nodes++;
+    //qDebug() << "Nodes: " << nodes;
     if (depth == 0)
-        return evaluatePosition(basemodel.position.board);
+        return evaluatePosition(board);
+
+    std::vector<std::pair<Point, Point>> posAll = basemodel.position.getAllValidMoves(color, board);
+    if (posAll.empty())
+        return INFINITY_SCORE; // oder ein anderer spezieller Wert für Schachmatt/-pat
+
+    std::pair<Point, Point> bestMove;
+    int bestScore = std::numeric_limits<int>::max(); // Für Minimax-Suche
+
+    QVector<QFuture<int>> futures;
+    std::vector<std::vector<std::shared_ptr<Piece>>> new_board = board;
+
+    for (auto& move : posAll) {
+
+        std::shared_ptr<Piece> piece = new_board[move.first.x][move.first.y];
+        basemodel.position.movePiece(move.first, move.second, new_board);
+
+        // Starten Sie die Suche in einem neuen Thread
+        //auto future = QtConcurrent::run(&Engine::search, depth - 1, color == Color::Black ? Color::Red : Color::Black, new_board);
+        auto future = QtConcurrent::run([this, color, depth, &new_board] {return search(depth - 1, color == Color::Black ? Color::Red : Color::Black, new_board); });
 
 
+        futures.append(future);
 
+        basemodel.position.undoMove(move.first, move.second, piece, new_board);
 
-    return 0;
+    }
+
+    // Warte auf alle Futures und evaluiere die Ergebnisse
+    for (int i = 0; i < futures.size(); ++i) {
+        int score = futures[i].result();  // Negamax-Ansatz
+        if (score < bestScore) {
+            bestScore = score;
+            bestMove = posAll[i];
+        }
+    }
+
+    return bestScore;
 }
 
+void Engine::nodesPerSecond()
+{
+    qDebug() << "Nodes per second: " << nodes;
+    basemodel.nodes = nodes;
+    nodes = 0;
+}
 
 std::pair<Point, Point> Engine::engineGo()
 {
-    std::pair<Point, Point> ownEngineMove = {};
-    ownEngineMove = GetBestMove(basemodel.position.players_color);
-    return ownEngineMove;
+    auto move = GetBestMove(basemodel.position.players_color);
+
+    return move;
 }

@@ -52,6 +52,9 @@
 #include <QtQuick/QQuickView>
 #include <QtQuick3D/qquick3d.h>
 #include <QQmlApplicationEngine>
+#include <QtConcurrent>
+#include <QFuture>
+#include <QtConcurrent/QtConcurrent>
 
 #include "aboutview.h"
 #include "basemodel.h"
@@ -75,6 +78,8 @@ public:
     Engine *engine  = nullptr;
     void YouLose();
     void YouWin();
+    QTimer *timer, *timer2;
+
 private:
     void InitWidgets();
     void InitConnections();
@@ -119,7 +124,7 @@ private:
 
     //int row = 0,
     int column = 0;
-    void AddMoveToList(QString p);
+    void AddMoveToList(std::pair<Point, Point> move);
     void AddMoveToHistory();
 
     QPushButton button;
@@ -131,6 +136,9 @@ private:
     void PutPGNOnBoard();
     void ReadPGNData(QString data);
     QTextEdit *loggingTextView;
+    QLineEdit *nps;
+
+
 public slots:
     void Open();
     void Save();
@@ -148,9 +156,15 @@ public slots:
     //void UpdateSettings();
     void ItemClicked(QTreeWidgetItem *, int);
 
+    void nodesPerSecond();
+
 public slots:
     void PlayNextTwoMoves(Point from, Point to, QString kind);
+    void paintFromThreadSlot();
 private slots:
     void Debug();
+public: signals:
+    void paintFromThread();
+
 };
 #endif // MAINWINDOW_H
