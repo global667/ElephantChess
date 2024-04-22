@@ -35,6 +35,13 @@ public:
 
 signals:
     void updateView(Point from, Point to, QString kind);
+private:
+    int evaluatePosition(const std::vector<std::vector<std::shared_ptr<Piece> > > &board);
+    int getPieceValue(const std::shared_ptr<Piece> *piece);
+    int getPositionValue(const std::shared_ptr<Piece> *piece, int x, int y);
+    int minimax(int depth, int alpha, int beta, Color color);
+    int quiesce(int alpha, int beta, Color color);
+    int search(int depth, Color color);
 };
 
 #endif // ENGINE_H

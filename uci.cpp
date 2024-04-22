@@ -29,11 +29,15 @@ UCI::UCI()
             SIGNAL(errorOccurred(QProcess::ProcessError)),
             SLOT(anError(QProcess::ProcessError)));
 
-    //basemodel.engineName = "Chameleon";
+    QStringList list = basemodel.engineName.split('/');
+    QString path = list.mid(0, list.size() - 1).join('/');
+    QString engineName = list.last();
+
+    basemodel.engineName = engineName;
 
     // Set the program for the engine
-    engine.setProgram("F:/source/XiangQi/Pikafish/pikafish-ssse3.exe");//"pikafish.exe");//basemodel.engineName);
-    engine.setWorkingDirectory("F:/source/XiangQi/Pikafish/");
+    engine.setProgram(path + '/' + engineName);//"F:/source/XiangQi/Pikafish/pikafish.exe");//"pikafish.exe");//
+    engine.setWorkingDirectory(path);//"F:/source/XiangQi/Pikafish/");
     qDebug() << "Starting uci engine:" << basemodel.engineName;
     engine.setReadChannel(QProcess::StandardOutput);
 

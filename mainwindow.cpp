@@ -69,7 +69,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
 
 }
-#undef ENGINE
+#define ENGINE
 void MainWindow::InitEngine() {
 #ifdef ENGINE
     engine = new Engine();
@@ -91,7 +91,7 @@ void MainWindow::InitConnections() {
             SLOT(PlayNextTwoMoves(Point, Point, QString)));
 #endif
     // TODO: let board unchanged (at the moment it will reseted)
-    connect(settings, SIGNAL(boardStyleChanged()), SLOT(Newgame()));
+    //connect(settings, SIGNAL(boardStyleChanged()), SLOT(Newgame()));
 
     connect(
         table, &QTreeWidget::itemClicked, this,
@@ -141,7 +141,7 @@ void MainWindow::InitConnections() {
 }
 
 void MainWindow::InitWidgets() {
-    settings = new SettingsView();
+    //settings = new SettingsView();
 
     tabview = new QTabWidget(this);
     tabwidget1 = new QWidget(tabview);
@@ -294,7 +294,7 @@ void MainWindow::InitWidgets() {
                     tr("Give up"), this, SLOT(GiveUpGame()))
         ->setToolTip("Give the game up. You will loose.");
     toolbar->addSeparator();
-    toolbar->addAction(QIcon(":res/settings.png"), tr("Settings"), this,
+    toolbar->addAction(QIcon(":res/settings.png"), tr("Load engine"), this,
                        SLOT(OpenSettings()));
     toolbar
         ->addAction(QIcon(style()->standardIcon((QStyle::SP_DialogHelpButton))),
@@ -535,7 +535,7 @@ void MainWindow::GiveTipp() {
         c = "Red";
     else
         c = "Black";
-    QString token = basemodel.posToken(from.y, from.x, to.y, to.x);
+    QString token = basemodel.posToken(from.x, from.y, to.x, to.y);
     QString bestMoveWouldBe =
         QString("The best move for %1 would be %2").arg(c).arg(token);
     QMessageBox::information(this, "Engine says:", bestMoveWouldBe);
@@ -554,20 +554,67 @@ void MainWindow::Help() const {
 
 void MainWindow::PlayNow() {
     if (basemodel.kind == "engine")
-        engine->engineGo();
+    {
+        std::pair<Point, Point> move = engine->engineGo();//= std::make_pair(QPoint(1,1), QPoint(1,1));//
+
+        basemodel.fromUCI = move.first;
+        basemodel.toUCI = move.second;
+        //basemodel.fromHuman = from;
+        //basemodel.toHuman = to;
+
+        if (move.first.x == -1) {
+            AddMoveToList("#");
+            YouWin();
+            return;
+        } else {
+
+            QString name =
+                basemodel.position.board[move.first.x][move.first.y]->getName();
+            QString beaten;
+            if (!basemodel.position.board[move.second.x][move.second.y]->getName().isEmpty())
+                beaten = "x";
+            else
+                beaten = "-";
+
+            basemodel.position.movePiece({move.first.x, move.first.y},
+                                         {move.second.x, move.second.y}, basemodel.position.board);
+            // ********************
+
+            QByteArray moveAsString = basemodel.posToken(
+                move.first.x, move.first.y, move.second.x, move.second.y);
+            basemodel.moves.append(moveAsString);
+
+            AddMoveToHistory();
+
+            QStringList mv;
+            mv << name << QString(basemodel.moves.last().at(0))
+               << QString(basemodel.moves.last().at(1)) << beaten
+               << QString(basemodel.moves.last().at(2))
+               << QString(basemodel.moves.last().at(3))
+               << (!basemodel.position.isCheck(basemodel.position.players_color, basemodel.position.board) ? QString("") : QString("+"));
+            AddMoveToList(mv.join(""));
+            basemodel.position.toggleColor();
+        }
+    }
     else
         uci->engineGo();
+
+    repaint();
 }
 
 void MainWindow::OpenSettings() {
-    connect(settings, SIGNAL(finished()), this, SLOT(UpdateSettings()));
-    qDebug() << "OpenSettings()";
-    settings->show();
-}
+    // Bind new engine
+    QString filename = QFileDialog::getOpenFileName(this,
+                                                    "Choose engine",
+                                                    QDir::homePath(),
+                                                    nullptr);
+    if (filename.isEmpty()) {
+        filename = "built-in";
+        basemodel.engineName = filename;
+        return;
+    }
+    basemodel.engineName = filename;
 
-// called after OpenSettings()
-void MainWindow::UpdateSettings() {
-    qDebug() << basemodel.engineName;
     if (basemodel.engineName == "built-in") {
         if (!engine) {
             engine = new Engine();
@@ -585,18 +632,18 @@ void MainWindow::UpdateSettings() {
         if (!uci) {
             qDebug() << "!uci";
             uci = new UCI();
-            disconnect(engine, SIGNAL(updateView(QPoint, QPoint, QString)), nullptr,
+            disconnect(engine, SIGNAL(updateView(Point, Point, QString)), nullptr,
                        nullptr);
-            connect(uci, SIGNAL(updateView(QPoint, QPoint, QString)),
-                    SLOT(PlayNextTwoMoves(QPoint, QPoint, QString)));
+            connect(uci, SIGNAL(updateView(Point, Point, QString)),
+                    SLOT(PlayNextTwoMoves(Point, Point, QString)));
         } else {
             qDebug() << "uci";
             uciThread.quit();
             uci = new UCI();
-            connect(uci, SIGNAL(updateView(QPoint, QPoint, QString)),
-                    SLOT(PlayNextTwoMoves(QPoint, QPoint, QString)));
+            connect(uci, SIGNAL(updateView(Point, Point, QString)),
+                    SLOT(PlayNextTwoMoves(Point, Point, QString)));
         }
-        opp2->setPlaceholderText(basemodel.engineName);
+        //opp2->setText(basemodel.engineName);
         Q_ASSERT(&uci);
         Q_ASSERT(&uciThread);
         // uci->moveToThread(&uciThread);
@@ -604,6 +651,7 @@ void MainWindow::UpdateSettings() {
                         " in extra thread";
         // uciThread.start();
         uci->start();
+        uci->engine.waitForReadyRead();
     }
 }
 
@@ -879,8 +927,8 @@ MainWindow::~MainWindow() {
     if (dockWidget)
         delete dockWidget;
 
-    if (settings)
-        delete settings;
+    //if (settings)
+    //    delete settings;
     if (about)
         delete about;
     if (openbutton)

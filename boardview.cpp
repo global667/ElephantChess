@@ -394,13 +394,13 @@ void BoardView::mousePressEvent(QMouseEvent* event) {
 
         for (const auto& [from ,to] : all_moves) { // Use structured binding
             if (to.x == basemodel.toHuman.x && to.y == basemodel.toHuman.y) {
-                emit updateView(basemodel.fromHuman, basemodel.toHuman, "uci");
+                emit updateView(basemodel.fromHuman, basemodel.toHuman, basemodel.kind);
                 return; // Exit loop after finding a valid move
 			}
 		}
         // Reset the move if no valid move was found
         if (all_moves.size() == 0)
-            emit updateView({-1,-1}, {-1,-1}, "uci");
+            emit updateView({-1,-1}, {-1,-1}, basemodel.kind);
 	}
 	repaint(); // Repaint at the end regardless of the path taken
 }

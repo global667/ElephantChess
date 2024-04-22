@@ -74,6 +74,7 @@ CMakeLists.txt.user*
 
 /installer
 /out
+/build
 
 /.vs
 /out/build/.cmake/api/v1/query/cache-v2

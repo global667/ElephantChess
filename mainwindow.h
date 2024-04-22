@@ -58,7 +58,7 @@
 #include "boardview.h"
 #include "engine.h"
 #include "renderview.h"
-#include "settingsview.h"
+//#include "settingsview.h"
 #include "uci.h"
 
 class MainWindow : public QMainWindow
@@ -113,7 +113,7 @@ private:
     QLineEdit *opp1 = nullptr, *opp2 = nullptr, *loca = nullptr, *round = nullptr, *date = nullptr;
     QHBoxLayout *location = nullptr;
 
-    SettingsView *settings = nullptr;
+    //SettingsView *settings = nullptr;
 
     AboutView *about = nullptr;
 
@@ -145,7 +145,7 @@ public slots:
     void Help() const;
     void GiveUpGame();
 
-    void UpdateSettings();
+    //void UpdateSettings();
     void ItemClicked(QTreeWidgetItem *, int);
 
 public slots:

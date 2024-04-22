@@ -8,13 +8,11 @@ execute_process(
     OUTPUT_VARIABLE GIT_COMMIT_HASH
     OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-project(ElephantChess VERSION 0.4.0 DESCRIPTION "${COMMIT_ID}" LANGUAGES CXX HOMEPAGE_URL "https/www.elephant-chess.com")
+project(ElephantChess VERSION 0.4.4 DESCRIPTION "${COMMIT_ID}" LANGUAGES CXX HOMEPAGE_URL "https/www.elephant-chess.com")
 
 set(PROJECT_DESC "-alpha (commit ${GIT_COMMIT_HASH})")
 
 configure_file(./config.h.in ./config.h)
-
-#add_subdirectory(sources)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -47,50 +45,8 @@ find_package(Qt6 REQUIRED COMPONENTS
     HINTS "C:/Qt/6.7.0/msvc2019_64"
 )
 
-#find_library(CCHESS_RULES_LIBRARY NO_CACHE REQUIRED
-#    NAMES "cchess_rules"
-#    HINTS "F:/source/XiangQi/build-cchess_rules-Desktop_Qt_6_6_2_MSVC2019_64bit-Debug/"
-#)
-
-#add_library("cchess_rules" STATIC
-# "${CMAKE_SOURCE_DIR}../build-cchess_rules-Desktop_Qt_6_6_2_MinGW_64_bit-Debug/"
-#)
-
-#link_directories(BEFORE "${CMAKE_SOURCE_DIR}../../build-cchess_rules-Desktop_Qt_6_6_2_MSVC2019_64bit-Debug/")
-#add_library(cchess_rules STATIC IMPORTED) # or STATIC instead of SHARED
-#set_target_properties(cchess_rules PROPERTIES
-#  IMPORTED_LOCATION "F:/source/XiangQi/build-cchess_rules-Desktop_Qt_6_6_2_MSVC2019_64bit-Debug/cchess_rules.lib"
-#  INTERFACE_INCLUDE_DIRECTORIES "F:/source/XiangQi/cchess_rules"
-#)
-
 qt6_standard_project_setup()
 qt_add_resources(RESOURCES res.qrc)
-
-#set(TS_FILES i18n/XiangQi_de_DE.ts)
-
-set(MISC_SOURCES
-    res/deployment.txt
-    res/Roadmap.md
-    res//xiangqi.qmodel
-)
-
-set(PROJECT_WEBSITE "docs/lizenzen.html"
-    "docs/robots.txt"
-    "docs/Screenshot.jpg"
-    "docs/sitemaps.txt"
-    "docs/sitemaps.xml"
-    "docs/style.css"
-    "docs/apple-touch-icon-120x120-precomposed.png"
-    "docs/apple-touch-icon-152x152-precomposed.png"
-    "docs/datenschutz.html"
-    "docs/download.html"
-    "docs/favicon.ico"
-    "docs/footer.html"
-    "docs/header.html"
-    "docs/index.html"
-    "docs/jquery-3.7.0.min.js"
-    "docs/links.html"
-)
 
 set(PROJECT_CPP
         main.cpp
@@ -98,14 +54,11 @@ set(PROJECT_CPP
         boardview.h boardview.cpp
         basemodel.h basemodel.cpp
         uci.cpp uci.h
-        #types.h
         engine.h engine.cpp
         settingsview.h settingsview.cpp
-        #board.h board.cpp
         config.h contexmenu.h contexmenu.cpp
         renderview.h renderview.cpp
         aboutview.h aboutview.cpp
-        #res.qrc
 )
 
 set(PROJECT_SOURCES
@@ -115,7 +68,7 @@ set(PROJECT_SOURCES
         ${MISC_SOURCES}
 )
 add_executable(ElephantChess WIN32 ${PROJECT_CPP} ${RESOURCES}
-    board3d.h board3d.cpp
+
     cchess_rules.h cchess_rules.cpp )
 
 target_link_libraries(ElephantChess PUBLIC
@@ -130,22 +83,20 @@ target_link_libraries(ElephantChess PUBLIC
     Qt::Qml
     Qt::Quick
     Qt::Quick3D
-
-    #${CCHESS_RULES_LIBRARY}
-    #cchess_rules
 )
 
 qt_finalize_executable(ElephantChess)
 
-
-#target_include_directories(ElephantChess PUBLIC "${CMAKE_SOURCE_DIR}../../cchess_rules"
-#)
-
-
-
 #enable_testing(true)
 #add_subdirectory(tests)
 #add_test(NAME ElephantChess COMMAND ElephantChess)
+
+
+
+
+
+#target_include_directories(ElephantChess PUBLIC "${CMAKE_SOURCE_DIR}../../cchess_rules"
+#)
 
 #if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 #    qt_add_executable(XiangQi
@@ -173,54 +124,6 @@ qt_finalize_executable(ElephantChess)
 
 #    qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 #endif()
-
-#add_executable(test_xiangqi_app test_xiangqi_app.cpp test_xiangqi_app.h
-#    genmove.cpp genmove.h types.h boardview.cpp boardview.h board.cpp board.h
-#    basemodel.cpp basemodel.h res.qrc engine.cpp engine.h uci.cpp uci.h settingsview.cpp settingsview.h
-#    mainwindow.cpp mainwindow.h)
-#target_link_libraries(test_xiangqi_app PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Test)
-
-#add_executable(Chameleon Chameleon/LICENSE
-#    Chameleon/README.md
-#    Chameleon/bitboard.cpp
-#    Chameleon/bitboard.h
-#    Chameleon/bitcount.h
-#    Chameleon/endgame.cpp
-#    Chameleon/endgame.h
-#    Chameleon/evaluate.cpp
-#    Chameleon/evaluate.h
-#    Chameleon/init.cpp
-#    Chameleon/init.h
-#    Chameleon/magics.h
-#    Chameleon/main.cpp
-#    Chameleon/material.cpp
-#    Chameleon/material.h
-#    Chameleon/misc.cpp
-#    Chameleon/misc.h
-#    Chameleon/movegen.cpp
-#    Chameleon/movegen.h
-#    Chameleon/movepick.cpp
-#    Chameleon/movepick.h
-#    Chameleon/pawns.cpp
-#    Chameleon/pawns.h
-#    Chameleon/position.cpp
-#    Chameleon/position.h
-#    Chameleon/psqt.cpp
-#    Chameleon/search.cpp
-#    Chameleon/search.h
-#    Chameleon/thread.cpp
-#    Chameleon/thread.h
-#    Chameleon/thread_win32.h
-#    Chameleon/timeman.cpp
-#    Chameleon/timeman.h
-#    Chameleon/tt.cpp
-#    Chameleon/tt.h
-#    Chameleon/types.h
-#    Chameleon/uci.cpp
-#   Chameleon/uci.h
-#    Chameleon/ucioption.cpp
-#)
-
 
 #target_link_libraries(XiangQi PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Test)
 

@@ -56,7 +56,6 @@ int main(int argc, char *argv[])
         "ElephantChess v"
         + QString("%1.%2").arg(ElephantChess_VERSION_MAJOR).arg(ElephantChess_VERSION_MINOR)
         + QString(PROJECT_DESC));
-    // w.setWindowTitle("ElephantChess " + QString(PROJECT_VERSION));
     w.show();
 
     //QSurfaceFormat::setDefaultFormat(QQuick3D::idealSurfaceFormat());

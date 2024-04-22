@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>res/generalRed.png</file>
-        <file>res/xiangqi.qmodel</file>
         <file>COPYING</file>
         <file>README.md</file>
         <file>config.h.in</file>
