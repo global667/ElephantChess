@@ -17,10 +17,10 @@ jobs:
 
     - uses: global667/yaqti@main
       with:
-            version: '6.7.0'
+            version: '6.2.0'
             os: 'windows'
             platform: 'desktop'
-            modules: 'qt.qt6.670.win64_msvc2019_64'
+            modules: 'qt.qt6.620.win64_msvc2019_64'
 
     - name: Build Project
       run: |
