@@ -60,17 +60,18 @@ set(PROJECT_CPP
         config.h contexmenu.h contexmenu.cpp
         #renderview.h renderview.cpp
         aboutview.h aboutview.cpp
+        cchess_rules.h cchess_rules.cpp
 )
 
-set(PROJECT_SOURCES
-        res.qrc
-        ${TS_FILES}
-        ${PROJECT_WEBSITE}
-        ${MISC_SOURCES}
-)
+#set(PROJECT_SOURCES
+#        res.qrc
+#        ${TS_FILES}
+#        ${PROJECT_WEBSITE}
+#        ${MISC_SOURCES}
+#)
+
 add_executable(ElephantChess WIN32 ${PROJECT_CPP} ${RESOURCES}
-
-    cchess_rules.h cchess_rules.cpp )
+)
 
 target_link_libraries(ElephantChess PUBLIC
     Qt6::Core
