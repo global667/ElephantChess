@@ -1,12 +1,11 @@
 <RCC>
     <qresource prefix="/">
         <file>res/generalRed.png</file>
-        <file>COPYING</file>
-        <file>README.md</file>
         <file>config.h.in</file>
         <file>res/license_short.txt</file>
         <file>res/settings.png</file>
         <file>res/play-now.png</file>
-        <file>CREDITS</file>
+        <file>../COPYING</file>
+        <file>../CREDITS</file>
     </qresource>
 </RCC>

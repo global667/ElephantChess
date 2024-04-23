@@ -12,7 +12,7 @@ project(ElephantChess VERSION 0.4.4 DESCRIPTION "${COMMIT_ID}" LANGUAGES CXX HOM
 
 set(PROJECT_DESC "-alpha (commit ${GIT_COMMIT_HASH})")
 
-configure_file(./config.h.in ./config.h)
+configure_file(sources/config.h.in sources/config.h)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -47,28 +47,20 @@ find_package(Qt6 REQUIRED COMPONENTS
 )
 
 qt6_standard_project_setup()
-qt_add_resources(RESOURCES res.qrc)
+qt_add_resources(RESOURCES sources/res.qrc)
 
 set(PROJECT_CPP
-        main.cpp
-        mainwindow.cpp mainwindow.h
-        boardview.h boardview.cpp
-        basemodel.h basemodel.cpp
-        uci.cpp uci.h
-        engine.h engine.cpp
-        settingsview.h settingsview.cpp
-        config.h contexmenu.h contexmenu.cpp
-        #renderview.h renderview.cpp
-        aboutview.h aboutview.cpp
-        cchess_rules.h cchess_rules.cpp
+        sources/main.cpp
+        sources/mainwindow.cpp sources/mainwindow.h
+        sources/boardview.h sources/boardview.cpp
+        sources/basemodel.h sources/basemodel.cpp
+        sources/uci.cpp sources/uci.h
+        sources/engine.h sources/engine.cpp
+        sources/settingsview.h sources/settingsview.cpp
+        sources/config.h sources/contexmenu.h sources/contexmenu.cpp
+        sources/aboutview.h sources/aboutview.cpp
+        sources/cchess_rules.h sources/cchess_rules.cpp
 )
-
-#set(PROJECT_SOURCES
-#        res.qrc
-#        ${TS_FILES}
-#        ${PROJECT_WEBSITE}
-#        ${MISC_SOURCES}
-#)
 
 add_executable(ElephantChess WIN32 ${PROJECT_CPP} ${RESOURCES}
 )
