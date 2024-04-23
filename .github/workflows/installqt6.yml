@@ -9,6 +9,6 @@ jobs:
       - uses: WillBrennan/yaqti@main
         with:
           version: '6.7.0'
-          host: 'windows'
-          target: 'desktop'
+          os: 'windows'
+          platfrom: 'desktop'
           modules: 'qtcurrent'
