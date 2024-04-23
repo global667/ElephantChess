@@ -26,6 +26,14 @@
 
 #include "basemodel.h"
 
+struct TTEntry {
+    int depth;
+    int value;
+    // Sie können weitere Informationen speichern, wie z.B. den besten Zug
+};
+
+using TranspositionTable = std::unordered_map<std::uint64_t, TTEntry>;
+
 // chinese chess engine
 class Engine : public QObject
 {
@@ -36,13 +44,15 @@ public:
 
     std::pair<Point, Point> GetBestMove(Color color);
     std::pair<Point, Point> engineGo();
-    int search(int depth, Color color, const std::vector<std::vector<std::shared_ptr<Piece>>>& board);
+    //int search(int depth, Color color, const std::vector<std::vector<std::shared_ptr<Piece>>>& board);
 
     long nodes = 0;
     int evaluation = 0;
     int depth = 2;
     QString bMove = "";
     QString name = "ElephantChessEngine";
+    TranspositionTable *transpositionTable;
+
 
 signals:
     void updateView(Point from, Point to, QString kind);
@@ -53,12 +63,14 @@ private:
     int evaluatePosition(const std::vector<std::vector<std::shared_ptr<Piece> > > &board);
     int getPieceValue(const std::shared_ptr<Piece> *piece);
     int getPositionValue(const std::shared_ptr<Piece> *piece, int x, int y);
-    int minimax(int depth, int alpha, int beta, Color color);
     int quiesce(int alpha, int beta, Color color);
 
     static constexpr int INFINITY_SCORE = std::numeric_limits<int>::max();
 
-    int getPossibleHits(const int x, const int y, const std::vector<std::vector<std::shared_ptr<Piece>>>& board);
+    int getPossibleHits(const int x, const int y, const std::vector<std::vector<std::shared_ptr<Piece> > > &board, const std::vector<std::pair<Point, Point> > &moves);
+    std::uint64_t hashBoard(const std::vector<std::vector<std::shared_ptr<Piece> > > &board);
+    int minimax(int depth, bool maximizingPlayer, const std::vector<std::vector<std::shared_ptr<Piece> > > board, TranspositionTable *tt);
+    void initializeZobrist();
 public slots:
     void nodesPerSecond();
 };

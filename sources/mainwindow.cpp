@@ -683,7 +683,7 @@ void MainWindow::paintFromThreadSlot() {
     repaint();
     timer->stop();
     timer2->stop();
-    nps->setText("0 nodes/s");
+    //nps->setText("0 nodes/s");
 
     if (basemodel.fromUCI.x == -1) {
         YouWin();
@@ -747,9 +747,10 @@ void MainWindow::PlayNextTwoMoves(Point from, Point to, QString kind) {
             AddMoveToList(move);
             AddMoveToHistory();
 
+            emit paintFromThread();
+
             basemodel.position.toggleColor();
 
-            emit paintFromThread();
         });
     } else if (kind.contains("uci")) {
         uci->engineGo();
