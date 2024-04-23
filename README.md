@@ -1,7 +1,7 @@
 <div align="center">
    
 # ElephantChess
-[![Install Qt 6](https://github.com/global667/ElephantChess/actions/workflows/installqt6.yml/badge.svg)](https://github.com/global667/ElephantChess/actions/workflows/installqt6.yml) 
+[![Build](https://github.com/global667/ElephantChess/actions/workflows/build_elephantchess.yml/badge.svg)](https://github.com/global667/ElephantChess/actions/workflows/build_elephantchess.yml)
 ![Screenshot](Screenshot.png)
 
 </div>
