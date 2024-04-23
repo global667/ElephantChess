@@ -2,7 +2,7 @@ name: Install Qt 6
 run-name: ${{ github.actor }} is installing Qt6
 on: [push]
 jobs:
-  check-bats-version:
+  install_qt620:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
