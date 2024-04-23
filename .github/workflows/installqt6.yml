@@ -1,0 +1,14 @@
+name: Install Qt 6
+run-name: ${{ github.actor }} is installing Qt6
+on: [push]
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: WillBrennan/yaqti@main
+        with:
+          version: '6.7.0'
+          host: 'windows'
+          target: 'desktop'
+          modules: 'qtcurrent'
