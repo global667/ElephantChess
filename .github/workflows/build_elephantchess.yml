@@ -1,0 +1,35 @@
+name: Build Qt Project with MSVC 2019
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up MSVC 2019
+      uses: ilammy/msvc-dev-cmd@v1
+
+    - uses: global667/yaqti@main
+      with:
+            version: '6.7.0'
+            os: 'windows'
+            platform: 'desktop'
+            modules: 'qt.qt6.670.win64_msvc2019_64'
+
+    - name: Build Project
+      run: |
+        mkdir build
+        cd build
+        cmake --build . --config Release
+
+#    - name: Run tests
+#      run: |
+#        cd build
+#        ctest -C Release
+
