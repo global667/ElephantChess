@@ -199,10 +199,10 @@ void BoardView::PaintBoard(QPainter* p) const {
 	QFont tmp = QFont(p->font());
 	QFont font = QFont();
 	font.setPointSize(30);
-	font.setBold(false);
+    font.setBold(true);
 	font.setItalic(true);
 	p->setFont(font);
-	p->drawText(QRect(100, 5 * squareHeight + 10,
+    p->drawText(QRect(50, 5 * squareHeight + 10,
 		150, // width(),
 		squareHeight / 2),
 		Qt::AlignCenter, redRiver);
@@ -277,6 +277,39 @@ void BoardView::PaintBoard(QPainter* p) const {
 
 	pn.setWidth(2);
 	p->setPen(pn);
+}
+
+bool BoardView::event(QEvent *event)
+{
+    auto width = this->width();
+    auto height = this->height();
+    auto marginLeft = width - 2 * 50;
+    auto marginRight = height - 50. - 100;
+
+    if (event->type() == QEvent::ToolTip) {
+        QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
+        for (int j = 0; j < 10; j++) {
+            for (int i = 0; i < 9; i++) {
+                auto x = (50. + ((i)*marginLeft / cutpWidth)) - width / cutpWidth / 2 / PIECE_SCALE_FACTOR;
+                auto y = (50. + (9 - j) * marginRight / cutpHeight) - height / cutpWidth / 2. / PIECE_SCALE_FACTOR;
+
+                if (helpEvent->pos().x() > x && helpEvent->pos().x() < x + width / cutpWidth / PIECE_SCALE_FACTOR &&
+                    helpEvent->pos().y() > y && helpEvent->pos().y() < y + height / cutpHeight / PIECE_SCALE_FACTOR &&
+                    !basemodel.position.board[j][i]->getName().isEmpty()) {
+                    QToolTip::showText(helpEvent->globalPos(), QString("%1:\n%2").arg(basemodel.position.board[j][i]->getEuroName()).arg(basemodel.position.board[j][i]->getEuroNameDesc()), this, rect());
+                    return true;
+                }
+            }
+        }
+        //if (helpEvent->pos().x() > 50 && helpEvent->pos().x() < width() - 50) {
+         //   QToolTip::showText(helpEvent->globalPos(), QString("%1, %2").arg(helpEvent->pos().x()).arg(helpEvent->pos().y()), this, rect());
+        //}
+        return true;
+    } else {
+        QToolTip::hideText();
+        event->ignore();
+    }
+    return QWidget::event(event);
 }
 
 // TODO: Optimize the function

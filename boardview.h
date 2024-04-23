@@ -23,6 +23,8 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QWidget>
+#include <QToolTip>
+
 #include "contexmenu.h"
 
 #include "basemodel.h"
@@ -41,6 +43,7 @@ protected:
     void mousePressEvent(QMouseEvent *event) override;
     void contextMenuEvent(QContextMenuEvent *event) override;
 
+    bool event(QEvent *event) override;
 private:
     void PaintBoard(QPainter *p) const;    
     void PaintMarker(QPainter *p);

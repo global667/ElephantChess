@@ -30,6 +30,8 @@ QString Piece::getName() const { return name; }
 
 QString Piece::getEuroName() const { return euroName; }
 
+QString Piece::getEuroNameDesc() const { return euroNameDesc; }
+
 Piece Piece::operator=(const Piece &other) {
     color = other.color;
     name = other.name;
