@@ -11,4 +11,4 @@ jobs:
           version: '6.2.0'
           os: 'windows'
           platform: 'desktop'
-          modules: 'qtwidget'
+          
