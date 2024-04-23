@@ -11,5 +11,5 @@ jobs:
           version: '6.2.0'
           os: 'windows'
           platform: 'desktop'
-          modules: 'debug_info'
+          modules: 'qt.qt6.620.win64_msvc2019_64'
           
