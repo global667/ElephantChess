@@ -1,7 +1,10 @@
-
+<div align="center">
+   
 # ElephantChess
-
+[![Install Qt 6](https://github.com/global667/ElephantChess/actions/workflows/installqt6.yml/badge.svg)](https://github.com/global667/ElephantChess/actions/workflows/installqt6.yml) 
 ![Screenshot](Screenshot.png)
+
+</div>
 
 ## Table of Contents
 - [Introduction](#introduction)
