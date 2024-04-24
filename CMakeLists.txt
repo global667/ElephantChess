@@ -46,7 +46,7 @@ find_package(Qt6 REQUIRED COMPONENTS
     HINTS "C:/Qt/6.7.0/msvc2019_64"
 )
 
-#qt6_standard_project_setup()
+qt6_standard_project_setup()
 qt_add_resources(RESOURCES sources/res.qrc)
 
 set(PROJECT_CPP
