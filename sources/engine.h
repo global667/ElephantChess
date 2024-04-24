@@ -48,7 +48,7 @@ public:
 
     long nodes = 0;
     int evaluation = 0;
-    int depth = 2;
+    int depth = 4;
     QString bMove = "";
     QString name = "ElephantChessEngine";
     TranspositionTable *transpositionTable;
@@ -69,8 +69,9 @@ private:
 
     int getPossibleHits(const int x, const int y, const std::vector<std::vector<std::shared_ptr<Piece> > > &board, const std::vector<std::pair<Point, Point> > &moves);
     std::uint64_t hashBoard(const std::vector<std::vector<std::shared_ptr<Piece> > > &board);
-    int minimax(int depth, bool maximizingPlayer, const std::vector<std::vector<std::shared_ptr<Piece> > > board, TranspositionTable *tt);
+    //int minimax(int depth, bool maximizingPlayer, const std::vector<std::vector<std::shared_ptr<Piece> > > board, TranspositionTable *tt);
     void initializeZobrist();
+    int minimax(int depth, bool maximizingPlayer, std::vector<std::vector<std::shared_ptr<Piece> > > board, TranspositionTable *tt);
 public slots:
     void nodesPerSecond();
 };

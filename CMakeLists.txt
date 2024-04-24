@@ -50,14 +50,14 @@ qt6_standard_project_setup()
 qt_add_resources(RESOURCES sources/res.qrc)
 
 set(PROJECT_CPP
-        sources/main.cpp
+        sources/main.cpp #sources/config.h
         sources/mainwindow.cpp sources/mainwindow.h
         sources/boardview.h sources/boardview.cpp
         sources/basemodel.h sources/basemodel.cpp
         sources/uci.cpp sources/uci.h
         sources/engine.h sources/engine.cpp
         sources/settingsview.h sources/settingsview.cpp
-        sources/config.h sources/contexmenu.h sources/contexmenu.cpp
+        sources/contexmenu.h sources/contexmenu.cpp
         sources/aboutview.h sources/aboutview.cpp
         sources/cchess_rules.h sources/cchess_rules.cpp
 )

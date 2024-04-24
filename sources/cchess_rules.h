@@ -62,6 +62,7 @@ public:
     QString name;
     QString euroName;
     QString euroNameDesc;
+    int id;
 public:
     Piece(Color color, QString name);
     virtual ~Piece();
@@ -73,6 +74,7 @@ public:
     QString getName() const;
     QString getEuroName() const;
     QString getEuroNameDesc() const;
+    int getId() const;
 
     Piece operator=(const Piece& other);
 };
@@ -82,7 +84,9 @@ public:
     General(Color color, QString name) : Piece(color, name) {euroName = "General";
         euroNameDesc = "Moves and captures within the palace (3x3 area) one square\n"
                        "orthogonally and may not face the opposing General directly\n"
-                       "along the same file without an intervening piece.";}
+                       "along the same file without an intervening piece.";
+        id = 0;
+    }
     bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) const override {
         // Bewegungslogik für den General
         int dx = std::abs(to.x - from.x);
@@ -111,7 +115,9 @@ public:
 
 class Advisor : public Piece {
 public:
-    Advisor(Color color, QString name) : Piece(color, name) {euroName = "Advisor"; euroNameDesc = "Moves and captures one point diagonally and must stay within the palace."; }
+    Advisor(Color color, QString name) : Piece(color, name) {euroName = "Advisor"; euroNameDesc = "Moves and captures one point diagonally and must stay within the palace.";
+        id = 1;
+    }
 
     bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) const override {
         // Implementieren Sie die Bewegungslogik für den Berater
@@ -146,7 +152,10 @@ public:
 
 class Elephant : public Piece {
 public:
-    Elephant(Color color, QString name) : Piece(color, name) {euroName = "Elephant"; euroNameDesc ="Moves exactly two points diagonally and cannot cross the river, serving as a defensive piece."; }
+    Elephant(Color color, QString name) : Piece(color, name) {euroName = "Elephant";
+        euroNameDesc ="Moves exactly two points diagonally and cannot cross the river, serving as a defensive piece.";
+        id = 2;
+    }
 
     bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) const override {
         // Implementieren Sie die Bewegungslogik für den Elephant
@@ -169,7 +178,10 @@ public:
 
 class Horse : public Piece {
 public:
-    Horse(Color color, QString name) : Piece(color, name) {euroName = "Horse"; euroNameDesc = "Moves one point orthogonally and then one point diagonally outward, similar to the knight in international chess, but its movement can be blocked by an intervening piece.";}
+    Horse(Color color, QString name) : Piece(color, name) {euroName = "Horse";
+        euroNameDesc = "Moves one point orthogonally and then one point diagonally outward, similar to the knight in international chess, but its movement can be blocked by an intervening piece.";
+        id = 3;
+    }
 
     bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) const override {
         // Implementieren Sie die Bewegungslogik für den Berater
@@ -199,7 +211,9 @@ public:
 class Chariot : public Piece {
 public:
     Chariot(Color color, QString name) : Piece(color, name) {euroName = "Chariot";
-        euroNameDesc = "Moves and captures any number of points along a row or column across the board without leaping."; }
+        euroNameDesc = "Moves and captures any number of points along a row or column across the board without leaping.";
+        id = 4;
+    }
 
     bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) const override {
         // Implementieren Sie die Bewegungslogik für den Chariot
@@ -241,6 +255,7 @@ class Cannon : public Piece {
 public:
     Cannon(Color color, QString name) : Piece(color, name) {euroName = "Cannon";
     euroNameDesc = "Moves like the chariot but captures by leaping exactly one piece, friend or foe, along its path to its target.";
+    id = 5;
     }
 
     bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) const override {
@@ -310,6 +325,7 @@ class Soldier : public Piece {
 public:
     Soldier(Color color, QString name) : Piece(color, name) {euroName = "Soldier";
     euroNameDesc = "Moves and captures by advancing one point forward; once across the river, it may also move and capture one point horizontally.";
+        id = 6;
     }
     bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) const override {
         // Ensure move is within board bounds

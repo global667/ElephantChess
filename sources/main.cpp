@@ -26,7 +26,7 @@
 //#include <QtQuick3D/qquick3d.h>
 //#include <QQmlApplicationEngine>
 
-#include "config.h"
+#include <sources/config.h>
 
 int main(int argc, char *argv[])
 {
