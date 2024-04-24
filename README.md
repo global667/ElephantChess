@@ -1,66 +1,61 @@
-
+<div align="center">
+   
 # ElephantChess
+[![Build](https://github.com/global667/ElephantChess/actions/workflows/build_elephantchess.yml/badge.svg)](https://github.com/global667/ElephantChess/actions/workflows/build_elephantchess.yml)
+![Screenshot](Screenshot.png)
 
+</div>
 
-![A Screenshot](Screenshot.png)
-##### Table of Contents 
-[Introduction](#Introduction) 
-
-[Rules](#Rules)
-
-[Installation](#installation)  
-
-[Usage](#usage)    
-
-[Issues](#issues) 
-
-<a name="headers"/>
+## Table of Contents
+- [Introduction](#introduction)
+- [Rules](#rules)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Issues](#issues)
 
 ## Introduction
+ElephantChess is a Chinese Chess (Xiangqi) GUI application designed to play and analyze games, similar to how "Arena" functions for European Chess. Inspired by the commercial "Fritz" software, it's currently in a pre-alpha stage and features a basic AI opponent (weakbot).
 
-Chinese chess GUI with weakbot and in pre alpha stadium...
-
-The aim is to play and analyse games for Chinese Chess like with "Arena" 
-for Europe Chess (with the commercial "Fritz" in mind).
-
-- Chinese Chess on Wikipedia: <a href="https://en.wikipedia.org/wiki/Xiangqi">XiangQi</a>
-- Europe Chess on Wikipedia: <a href="https://en.wikipedia.org/wiki/Chess">Chess</a>
+- [Learn about Xiangqi on Wikipedia](https://en.wikipedia.org/wiki/Xiangqi)
+- [Learn about European Chess on Wikipedia](https://en.wikipedia.org/wiki/Chess)
 
 ## Rules
-Xiangqi, also known as Chinese Chess, is played on a 9x10 board divided by a "river" with pieces positioned on the intersections (points). The game features two players, Red and Black, each starting with one General, two Advisors, two Elephants, two Horses, two Chariots, two Cannons, and five Soldiers.
+Xiangqi is played on a 9x10 board divided by a "river", with pieces positioned on intersections. The game involves two players, Red and Black, each equipped with a set of distinct pieces: one General, two Advisors, two Elephants, two Horses, two Chariots, two Cannons, and five Soldiers.
 
-Objective: The main goal is to checkmate the opponent's General.
+### Objective
+The primary goal is to checkmate the opponent's General.
 
-### Gameplay Rules:
+### Gameplay Rules
+- **General**: Moves one point orthogonally within the palace, a specific 3x3 region.
+- **Advisor**: Moves one point diagonally, remaining within the palace.
+- **Elephant**: Moves two points diagonally, cannot cross the river.
+- **Horse**: Moves in an “L” shape, can be blocked by other pieces.
+- **Chariot**: Moves any number of points along a row or column.
+- **Cannon**: Moves like the Chariot but must jump over one piece to capture another.
+- **Soldier**: Moves one point forward; after crossing the river, it can also move sideways.
 
-Movement: Each type of piece has specific movement rules:
-- General: Moves one point horizontally or vertically within the palace (a 3x3 area in the central columns of each player’s home territory).
-- Advisor: Moves one point diagonally, also confined within the palace.
-- Elephant: Moves exactly two points diagonally and cannot cross the river.
-- Horse: Moves one point orthogonally followed by one point diagonally outward, similar to an “L” shape. Its movement can be blocked by an intervening piece.
-- Chariot: Moves any number of points horizontally or vertically across the board.
-- Cannon: Moves like the Chariot but captures by jumping over exactly one intermediate piece to take an opponent's piece.
-- Soldier: Moves and captures one point forward vertically. Upon crossing the river, it can also move and capture horizontally.
-- Capturing: A piece captures an opponent's piece by moving into the point occupied by that piece, according to its movement abilities, except for the Cannon, which must jump to capture.
-- General's Safety: The two Generals must never face each other directly on an open file (column with no intervening pieces).
-- Check and Checkmate: A player's turn ends in check if their General could be captured on the opponent’s next move. The game ends in checkmate if a player’s General is in check and no legal move can remove or block the threat.
-Players alternate turns, moving one piece per turn, aiming to maneuver into a position to checkmate the opposing General. The game can also end in a stalemate or draw if a player has no legal move and their General is not in check.
+Players take turns, with each move aiming to threaten the opponent's General. The game concludes by checkmate or stalemate, the latter occurring if a player cannot make a legal move and their General is not in check.
 
 ## Installation
-### Use QtCreator
-- Go to https://www.qt.io/download-open-source and login
-- Download Qt6.x for Linux with "Qt Online Installer"
-- Import repo in QtCreator or use
 
-    ```git clone https://github.com/global667/ElephantChess.git```
+### Using QtCreator
+1. Download and install Qt6.x for Linux from [Qt's official site](https://www.qt.io/download-open-source).
+2. Clone the repository:
+   ```bash
+   git clone https://github.com/global667/ElephantChess.git
+   ```
+3. Open CMakeLists.txt in QtCreator and run the project.
 
-- Run `CMakeLists.txt` on QtCreator
+### Using Installation Package
 
-### Use installation package
-- go to www.elephant-chess.com download the zip file extract it and run installation
+Visit www.elephant-chess.com, download the zip file, extract it, and follow the installation instructions.
+
+## Usage
+
+(TBD - Include information on how to use ElephantChess, covering any initial setup steps, basic commands, and options for gameplay.)
 
 ## Issues
-- Should run on Windows and macOS too
-- Tested on Ubuntu/wsl
-- Have fun!
 
+- Compatibility: Should also run on Windows and macOS.
+- Testing: Primarily tested on Ubuntu/wsl.
+- Feedback and contributions are welcome to enhance the application. Enjoy!

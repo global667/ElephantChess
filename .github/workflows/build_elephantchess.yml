@@ -1,0 +1,42 @@
+name: Build
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up MSVC 2019
+      uses: ilammy/msvc-dev-cmd@v1
+
+    - uses: global667/yaqti@main
+      with:
+            version: '6.2.0'
+            os: 'windows'
+            platform: 'desktop'
+            modules: 'qt.qt6.620.win64_msvc2019_64'
+
+    - name: Build Project
+      run: |
+        mkdir build
+        cd build
+        cmake --build . --config Release
+
+#    - name: Run tests
+#      run: |
+#        cd build
+#        ctest -C Release
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: elephant-chess
+        path: . #path/to/your/build/directory*
+
+
+
