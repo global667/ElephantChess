@@ -17,12 +17,8 @@ jobs:
 
     - name: Download yaqti Release
       run: |
-          curl -s https://api.github.com/repos/global667/yaqti/releases/latest \
-          | grep "browser_download_url.*yaqti.*tar.gz" \
-          | cut -d : -f 2,3 \
-          | tr -d \
-          | wget -qi -
-
+          curl -s https://api.github.com/repos/global667/yaqti/releases/latest 
+          
     - name: Extract yaqti Release
       run: tar -xzf yaqti*.tar.gz
 
