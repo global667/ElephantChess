@@ -23,13 +23,10 @@ jobs:
       run: |
           Expand-Archive yaqti.zip
 
-    - name: Install yaqti
+    - name: Install Qt using yaqti
       run: |
           cd yaqti
-          python setup.py install
-
-    - name: Install Qt using yaqti
-      run: yaqti install --version 6.7.0 --host windows --target desktop 
+          yaqti install --version 6.7.0 --host windows --target desktop 
 
     #- name: Build and Test
     #  run: |
