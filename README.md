@@ -1,9 +1,29 @@
-<div align="center">
+<div align="center"> 
+<code>
+ ____     ___                     __                          __        ____     __                                 
+/\  _`\  /\_ \                   /\ \                        /\ \__    /\  _`\  /\ \                                
+\ \ \L\_\\//\ \       __   _____ \ \ \___       __       ___ \ \ ,_\   \ \ \/\_\\ \ \___       __     ____    ____  
+ \ \  _\L  \ \ \    /'__`\/\ '__`\\ \  _ `\   /'__`\   /' _ `\\ \ \/    \ \ \/_/_\ \  _ `\   /'__`\  /',__\  /',__\ 
+  \ \ \L\ \ \_\ \_ /\  __/\ \ \L\ \\ \ \ \ \ /\ \L\.\_ /\ \/\ \\ \ \_    \ \ \L\ \\ \ \ \ \ /\  __/ /\__, `\/\__, `\
+   \ \____/ /\____\\ \____\\ \ ,__/ \ \_\ \_\\ \__/.\_\\ \_\ \_\\ \__\    \ \____/ \ \_\ \_\\ \____\\/\____/\/\____/
+    \/___/  \/____/ \/____/ \ \ \/   \/_/\/_/ \/__/\/_/ \/_/\/_/ \/__/     \/___/   \/_/\/_/ \/____/ \/___/  \/___/ 
+                             \ \_\                                                                                  
+                              \/_/                                                                                  
+</code>
+<br>
+<br>
    
-# ElephantChess
-
+.::
 [![Build ElephantChess](https://github.com/global667/ElephantChess/actions/workflows/build.yml/badge.svg)](https://github.com/global667/ElephantChess/actions/workflows/build.yml)
+::.
+<div align="center"> 
 
+.::
+![](https://badgen.net/static/license/GNU%20GPL%203.0/)
+:::
+![](https://badgen.net/github/release/global667/ElephantChess/)
+::.
+<!-- ![](https://badgen.net/github/release/stable/global667/ElephantChess/) -->
 </div>
 
 ## Table of Contents
