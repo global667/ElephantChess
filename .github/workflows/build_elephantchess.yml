@@ -15,18 +15,10 @@ jobs:
     - name: Set up MSVC 2019
       uses: ilammy/msvc-dev-cmd@v1
 
-    - name: Download yaqti Release
-      run: |
-          Invoke-WebRequest https://github.com/global667/yaqti/releases/download/v1/yaqti-main.zip -OutFile ./yaqti.zip     
-    
-    - name: Extract yaqti Release
-      run: |
-          Expand-Archive yaqti.zip
-
     - name: Install Qt using yaqti
       run: |
+          git clone https://github.com/global667/yaqti.git
           cd yaqti
-          cd yaqti-main
           cd yaqti
           python -m yaqti install --os windows --platform desktop --version 6.7.0 --modules qt.qt6.670.win64_msvc2019_64 
 
