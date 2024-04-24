@@ -15,15 +15,41 @@ jobs:
     - name: Set up MSVC 2019
       uses: ilammy/msvc-dev-cmd@v1
 
-    - uses: global667/yaqti@v1
-      with:
-            version: '6.2.0'
-            os: 'windows'
-            platform: 'desktop'
-            modules: 'qt.qt6.620.win64_msvc2019_64'
+    - name: Download yaqti Release
+      run: |
+          curl -s https://api.github.com/repos/global667/yaqti/releases/latest \
+          | grep "browser_download_url.*yaqti.*tar.gz" \
+          | cut -d : -f 2,3 \
+          | tr -d \" \
+          | wget -qi -
+
+    - name: Extract yaqti Release
+      run: tar -xzf yaqti*.tar.gz
+
+    - name: Install yaqti
+      run: |
+          cd yaqti
+          python setup.py install
+
+    - name: Install Qt using yaqti
+      run: yaqti install --version 6.7.0 --host windows --target desktop 
+
+    #- name: Build and Test
+    #  run: |
+          # Add commands to build and test your project here
+     #     echo "Build and test commands go here"
+
+
+    #- uses: global667/yaqti@v1
+    #  with:
+    #        version: '6.2.0'
+    #        os: 'windows'
+    #        platform: 'desktop'
+    #        modules: 'qt.qt6.620.win64_msvc2019_64'
 
     - name: Build Project
       run: |
+        cd $GITHUB_REPOSITORY 
         mkdir build
         cd build
         cmake --build . --config Release
@@ -32,11 +58,7 @@ jobs:
 #      run: |
 #        cd build
 #        ctest -C Release
-    - name: Archive production artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: elephant-chess
-        path: . #path/to/your/build/directory*
+
 
 
 
