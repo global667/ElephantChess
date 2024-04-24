@@ -20,7 +20,7 @@ jobs:
           curl -s https://api.github.com/repos/global667/yaqti/releases/latest \
           | grep "browser_download_url.*yaqti.*tar.gz" \
           | cut -d : -f 2,3 \
-          | tr -d \" \
+          | tr -d \
           | wget -qi -
 
     - name: Extract yaqti Release
