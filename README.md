@@ -19,6 +19,10 @@ ElephantChess is a Chinese Chess (Xiangqi) GUI application designed to play and 
 - [Learn about Xiangqi on Wikipedia](https://en.wikipedia.org/wiki/Xiangqi)
 - [Learn about European Chess on Wikipedia](https://en.wikipedia.org/wiki/Chess)
 
+<div align="center">
+<img src="Screenshot.png" width="800" height="600">
+</div>
+
 ## Rules
 Xiangqi is played on a 9x10 board divided by a "river", with pieces positioned on intersections. The game involves two players, Red and Black, each equipped with a set of distinct pieces: one General, two Advisors, two Elephants, two Horses, two Chariots, two Cannons, and five Soldiers.
 
