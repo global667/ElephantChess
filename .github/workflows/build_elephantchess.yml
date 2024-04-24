@@ -15,7 +15,7 @@ jobs:
     - name: Set up MSVC 2019
       uses: ilammy/msvc-dev-cmd@v1
 
-    - uses: global667/yaqti@main
+    - uses: global667/yaqti@v1
       with:
             version: '6.2.0'
             os: 'windows'
