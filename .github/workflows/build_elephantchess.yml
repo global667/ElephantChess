@@ -26,6 +26,7 @@ jobs:
     - name: Install Qt using yaqti
       run: |
           cd yaqti
+          cd yaqti
           python -m yaqti install --os windows --platform desktop --version 6.7.0 --modules qt.qt6.670.win64_msvc2019_64 
 
     #- name: Build and Test
