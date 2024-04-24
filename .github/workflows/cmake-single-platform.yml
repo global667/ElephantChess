@@ -26,10 +26,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install Qt
-      run: |
-          Invoke-WebRequest https://download.qt.io/official_releases/online_installers/qt-unified-windows-x64-online.exe -OutFile qt-unified-windows-x64-online.exe 
-          .\qt-unified-windows-x64-online.exe --root .\Qt --accept-licenses --default-answer --confirm-command install qt.qt6.670.win64_msvc2019_64
+    # - name: Install Qt
+      # run: |
+          # Invoke-WebRequest https://download.qt.io/official_releases/online_installers/qt-unified-windows-x64-online.exe -OutFile qt-unified-windows-x64-online.exe 
+          # .\qt-unified-windows-x64-online.exe --root .\Qt --accept-licenses --default-answer --confirm-command install qt.qt6.670.win64_msvc2019_64
+          
     - name: Install CMake
       run: |
           winget install kitware.cmake
