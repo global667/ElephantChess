@@ -1,8 +1,8 @@
 <div align="center">
    
 # ElephantChess
-[![Build](https://github.com/global667/ElephantChess/actions/workflows/build_elephantchess.yml/badge.svg)](https://github.com/global667/ElephantChess/actions/workflows/build_elephantchess.yml)
-![Screenshot](Screenshot.png)
+
+[![Build ElephantChess](https://github.com/global667/ElephantChess/actions/workflows/build.yml/badge.svg)](https://github.com/global667/ElephantChess/actions/workflows/build.yml)
 
 </div>
 
