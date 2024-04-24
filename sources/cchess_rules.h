@@ -54,6 +54,10 @@ struct Point {
     bool operator*(const Point& other) const {
         return x == other.x && y == other.y;
     }
+
+    bool isValid() const {
+        return x >= 0 && x < 9 && y >= 0 && y < 10;
+    }
 };
 
 class Piece {
@@ -67,8 +71,8 @@ public:
     Piece(Color color, QString name);
     virtual ~Piece();
 
-    virtual bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) const;;
-    std::vector<std::pair<Point, Point>> generateValidMoves(const Point& position, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) const;;
+    virtual bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board);
+    virtual std::vector<std::pair<Point, Point>> generateValidMoves(const Point& position, const std::vector<std::vector<std::shared_ptr<Piece>>> board);
 
     Color getColor() const;
     QString getName() const;
@@ -87,7 +91,7 @@ public:
                        "along the same file without an intervening piece.";
         id = 0;
     }
-    bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) const override {
+    bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board)  override {
         // Bewegungslogik für den General
         int dx = std::abs(to.x - from.x);
         int dy = std::abs(to.y - from.y);
@@ -119,7 +123,7 @@ public:
         id = 1;
     }
 
-    bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) const override {
+    bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) override {
         // Implementieren Sie die Bewegungslogik für den Berater
 
         // Bewegungslogik für den General
@@ -157,7 +161,7 @@ public:
         id = 2;
     }
 
-    bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) const override {
+    bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) override {
         // Implementieren Sie die Bewegungslogik für den Elephant
         if ((to.x >= 0 && to.x < 6 && to.y >= 0 && to.y < 5) || (to.x >= 0 && to.x < 6 && to.y >= 4 && to.y < 9)) {
             if (std::abs(to.x - from.x) == 2 && std::abs(to.y - from.y) == 2) {
@@ -167,7 +171,6 @@ public:
                 }
             }
         }
-
         return false;
     }
 
@@ -183,7 +186,7 @@ public:
         id = 3;
     }
 
-    bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) const override {
+    bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) override {
         // Implementieren Sie die Bewegungslogik für den Berater
         if (to.x >= 0 && to.x < 10 && to.y >= 0 && to.y < 9) {
             if (std::abs(to.x - from.x) == 2 && std::abs(to.y - from.y) == 1) {
@@ -215,7 +218,7 @@ public:
         id = 4;
     }
 
-    bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) const override {
+    bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) override {
         // Implementieren Sie die Bewegungslogik für den Chariot
         if (to.x >= 0 && to.x < 10 && to.y >= 0 && to.y < 9) {
             if (board[to.x][to.y]->getColor() != board[from.x][from.y]->getColor()){
@@ -246,19 +249,68 @@ public:
         return false;
     }
 
-    // std::vector<std::pair<Point, Point>> generateValidMoves(const Point& position, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) const override {
-    //     return {};
-    // }
+    std::vector<std::pair<Point, Point>> generateValidMoves(const Point& position,
+                                                            const std::vector<std::vector<std::shared_ptr<Piece>>> board) override {
+        // Implementieren Sie die Bewegungslogik für den Chariot
+        std::vector<std::pair<Point, Point>> validMoves;
+        Point from = position;
+        std::vector<Point> chariotMoves = {Point(1, 0), Point(-1, 0), Point(0, 1), Point(0, -1)};
+
+        for (const Point& move : chariotMoves) {
+            Point to = from + move;
+            while (to.x >= 0 && to.x < 10 && to.y >= 0 && to.y < 9) {
+                if (board[to.x][to.y]->getColor() == Color::None) {
+                    validMoves.push_back({from, to});
+                } else {
+                    if (board[to.x][to.y]->getColor() != board[from.x][from.y]->getColor()) {
+                        validMoves.push_back({from, to});
+                    }
+                    break;
+                }
+                to = to + move;
+            }
+        }
+        return validMoves;
+    }
+
+    /*      if (to.x >= 0 && to.x < 10 && to.y >= 0 && to.y < 9) {
+             if (board[to.x][to.y]->getColor() != board[from.x][from.y]->getColor()) {
+                 if (from.x == to.x) {
+                     int start = std::min(from.y, to.y);
+                     int end = std::max(from.y, to.y);
+                     for (int i = start + 1; i < end; ++i) {
+                         if (board[from.x][i]->getColor() != Color::None) {
+                             return false;
+                         }
+                     }
+                     return true;
+                 }
+
+                 if (from.y == to.y) {
+                     int start = std::min(from.x, to.x);
+                     int end = std::max(from.x, to.x);
+                     for (int i = start + 1; i < end; ++i) {
+                         if (board[i][from.y]->getColor() != Color::None) {
+                             return false;
+                         }
+                     }
+                     return true;
+                 }
+             }
+         }
+
+         return false;
+     }*/
 };
 
 class Cannon : public Piece {
 public:
     Cannon(Color color, QString name) : Piece(color, name) {euroName = "Cannon";
-    euroNameDesc = "Moves like the chariot but captures by leaping exactly one piece, friend or foe, along its path to its target.";
-    id = 5;
+        euroNameDesc = "Moves like the chariot but captures by leaping exactly one piece, friend or foe, along its path to its target.";
+        id = 5;
     }
 
-    bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) const override {
+    bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) override {
         // Implementieren Sie die Bewegungslogik für den Kanone
         if (to.x >= 0 && to.x < 10 && to.y >= 0 && to.y < 9) {
             if (board[to.x][to.y]->getColor() == Color::None) {
@@ -315,19 +367,89 @@ public:
         }
         return false;
     }
+/*
+    std::vector<std::pair<Point, Point>> generateValidMoves(const Point& position, const std::vector<std::vector<std::shared_ptr<Piece>>> board) override {
+        // Implementieren Sie die Bewegungslogik für den Kanone
+        if (board != this->board) {
+            initializeCannonMoveTables(board);
+            this->board = board;
+        }
+        std::vector<Point> moves;
+        std::vector<std::pair<Point, Point>> allMoves;
+        int x = position.x;
+        int y = position.y;
+        for (int d = 0; d < 4; ++d) {
+            moves.insert(moves.end(), cannonMoves[x][y][d].begin(), cannonMoves[x][y][d].end());
+        }
+        for(const auto& move : moves) {
+            allMoves.push_back({position, move});
+        }
 
-    // std::vector<std::pair<Point, Point>> generateValidMoves(const Point& position, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) const override {
-    //     return {};
-    // }
+        return allMoves;
+    }
+*/
+private:
+    std::vector<std::vector<std::shared_ptr<Piece>>> board;
+
+    enum Direction {
+        North, South, East, West
+    };
+
+    const std::array<Point, 4> directions = {
+        { {0, -1}, {0, 1}, {1, 0}, {-1, 0} } // Norden, Süden, Osten, Westen
+    };
+
+    // Tabellen für die Zugmöglichkeiten der Kanone für jede Richtung und Position
+    std::vector<Point> cannonMoves[9][10][4];
+
+    void initializeCannonMoveTables(const std::vector<std::vector<std::shared_ptr<Piece>>>& board)  {
+        for (int x = 0; x < 9; ++x) {
+            for (int y = 0; y < 10; ++y) {
+                for (int d = 0; d < 4; ++d) {
+                    Point current = {x, y};
+                    bool springboardEncountered = false;
+
+                    while (true) {
+                        current = current + directions[d];
+                        if (!current.isValid()) break;
+
+                        if (board[current.y][current.x]->color != Color::None) { // ' ' bedeutet leeres Feld
+                            if (!springboardEncountered) {
+                                springboardEncountered = true; // Erstes Hindernis gefunden
+                            } else {
+                                // Zweitens Hindernis beendet die Bewegung in dieser Richtung
+                                //if (board[current.y][current.x]->color != board[x][y]->color) {
+                                    cannonMoves[x][y][d].push_back(current);
+                                    break;
+                                //} else {
+                                    break;
+                               // }
+                            }
+                        } else {
+                            if (springboardEncountered) {
+                                // Nach dem ersten Hindernis können wir hier schlagen
+                                cannonMoves[x][y][d].push_back(current);
+
+                            } else {
+                                // Freies Feld, ohne dass wir über ein Hindernis gesprungen sind
+                                cannonMoves[x][y][d].push_back(current);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 };
 
 class Soldier : public Piece {
 public:
     Soldier(Color color, QString name) : Piece(color, name) {euroName = "Soldier";
-    euroNameDesc = "Moves and captures by advancing one point forward; once across the river, it may also move and capture one point horizontally.";
+        euroNameDesc = "Moves and captures by advancing one point forward; once across the river, it may also move and capture one point horizontally.";
         id = 6;
     }
-    bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) const override {
+    bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) override {
         // Ensure move is within board bounds
         if (to.x < 0 || to.x >= 10 || to.y < 0 || to.y >= 9) {
             return false;
@@ -357,6 +479,58 @@ public:
             }
         }
     }
+    std::vector<std::pair<Point, Point>> generateValidMoves(const Point& position, const std::vector<std::vector<std::shared_ptr<Piece>>> board) override {
+        // Implementieren Sie die Bewegungslogik für den Soldat
+        std::vector<std::pair<Point, Point>> validMoves;
+        // Get the color of the piece
+        Color color = board[position.x][position.y]->getColor();
+        if (color == Color::Red) {
+            Point from = position;
+            Point to = from + Point(1, 0);
+            if (to.x >= 0 && to.x < 10 && to.y >= 0 && to.y < 9) {
+                if (board[to.x][to.y]->getColor() == Color::None || board[to.x][to.y]->getColor() != board[from.x][from.y]->getColor()) {
+                    validMoves.push_back({from, to});
+                }
+            }
+            if (from.x >= 5) {
+                to = from + Point(0, 1);
+                if (to.x >= 0 && to.x < 10 && to.y >= 0 && to.y < 9) {
+                    if (board[to.x][to.y]->getColor() == Color::None || board[to.x][to.y]->getColor() != board[from.x][from.y]->getColor()) {
+                        validMoves.push_back({from, to});
+                    }
+                }
+                to = from + Point(0, -1);
+                if (to.x >= 0 && to.x < 10 && to.y >= 0 && to.y < 9) {
+                    if (board[to.x][to.y]->getColor() == Color::None || board[to.x][to.y]->getColor() != board[from.x][from.y]->getColor()) {
+                        validMoves.push_back({from, to});
+                    }
+                }
+            }
+        } else {
+            Point from = position;
+            Point to = from + Point(-1, 0);
+            if (to.x >= 0 && to.x < 10 && to.y >= 0 && to.y < 9) {
+                if (board[to.x][to.y]->getColor() == Color::None || board[to.x][to.y]->getColor() != board[from.x][from.y]->getColor()) {
+                    validMoves.push_back({from, to});
+                }
+            }
+            if (from.x < 5) {
+                to = from + Point(0, 1);
+                if (to.x >= 0 && to.x < 10 && to.y >= 0 && to.y < 9) {
+                    if (board[to.x][to.y]->getColor() == Color::None || board[to.x][to.y]->getColor() != board[from.x][from.y]->getColor()) {
+                        validMoves.push_back({from, to});
+                    }
+                }
+                to = from + Point(0, -1);
+                if (to.x >= 0 && to.x < 10 && to.y >= 0 && to.y < 9) {
+                    if (board[to.x][to.y]->getColor() == Color::None || board[to.x][to.y]->getColor() != board[from.x][from.y]->getColor()){
+                        validMoves.push_back({from, to});
+                    }
+                }
+            }
+        }
+        return validMoves;
+    }
 };
 
 class Board {
@@ -371,7 +545,7 @@ public:
 
     std::vector<std::pair<Point, Point>> getAllValidMoves(Color color, const std::vector<std::vector<std::shared_ptr<Piece>>>& board);
 
-    std::vector<std::pair<Point, Point>> getValidMovesForPiece(const Point& position, const std::vector<std::vector<std::shared_ptr<Piece>>>& board);
+    //std::vector<std::pair<Point, Point>> getValidMovesForPiece(const Point& position, const //std::vector<std::vector<std::shared_ptr<Piece>>>& board);
 
     bool movePiece(const Point& from, const Point& to, std::vector<std::vector<std::shared_ptr<Piece>>>& board);
 

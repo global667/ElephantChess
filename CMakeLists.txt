@@ -46,7 +46,7 @@ find_package(Qt6 REQUIRED COMPONENTS
     HINTS "C:/Qt/6.7.0/msvc2019_64"
 )
 
-qt6_standard_project_setup()
+#qt6_standard_project_setup()
 qt_add_resources(RESOURCES sources/res.qrc)
 
 set(PROJECT_CPP
@@ -80,7 +80,12 @@ target_link_libraries(ElephantChess PUBLIC
     #Qt::Quick3D
 )
 
-qt_finalize_executable(ElephantChess)
+set_target_properties(ElephantChess PROPERTIES
+    WIN32_EXECUTABLE ON
+    MACOSX_BUNDLE ON
+)
+
+#qt_finalize_executable(ElephantChess)
 
 #enable_testing(true)
 #add_subdirectory(tests)

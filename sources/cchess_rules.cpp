@@ -4,11 +4,11 @@
 
 Piece::Piece(Color color, QString name) : color(color), name(name) {}
 
-Piece::~Piece() {}
+Piece::~Piece() { id = -1; }
 
-bool Piece::isValidMove(const Point &from, const Point &to, const std::vector<std::vector<std::shared_ptr<Piece> > > &board) const { return false;}
+bool Piece::isValidMove(const Point &from, const Point &to, const std::vector<std::vector<std::shared_ptr<Piece> > > &board)  { return false;}
 
-std::vector<std::pair<Point, Point> > Piece::generateValidMoves(const Point &position, const std::vector<std::vector<std::shared_ptr<Piece> > > &board) const {
+std::vector<std::pair<Point, Point> > Piece::generateValidMoves(const Point &position, const std::vector<std::vector<std::shared_ptr<Piece> > > board)  {
     std::vector<std::pair<Point, Point>> moves;
 
     for (int i = 0; i < 10; ++i) {
@@ -54,7 +54,7 @@ std::vector<std::pair<Point, Point> > Board::getAllValidMoves(Color color, const
     for (int i = 0; i < 10; ++i) {
         for (int j = 0; j < 9; ++j) {
             if (board[i][j] && board[i][j]->getColor() == color) {
-                auto validMoves = getValidMovesForPiece({i, j}, board);
+                auto validMoves = board[i][j].get()->generateValidMoves(Point(i, j), board);//getValidMovesForPiece({i, j}, board);
                 //moves.insert(moves.end(), validMoves.begin(), validMoves.end());
                 for (const auto& move : validMoves) {
                     // check if board is in check or evil glare after move
@@ -70,7 +70,7 @@ std::vector<std::pair<Point, Point> > Board::getAllValidMoves(Color color, const
     return moves;
 }
 
-std::vector<std::pair<Point, Point> > Board::getValidMovesForPiece(const Point &position, const std::vector<std::vector<std::shared_ptr<Piece> > > &board) {
+/* std::vector<std::pair<Point, Point> > Board::getValidMovesForPiece(const Point& position, const std::vector<std::vector<std::shared_ptr<Piece> > >& board) {
     if (board[position.x][position.y]) {
         auto moves = board[position.x][position.y]->generateValidMoves(position, board);
 
@@ -87,6 +87,7 @@ std::vector<std::pair<Point, Point> > Board::getValidMovesForPiece(const Point &
     }
     return {};
 }
+*/
 
 bool Board::movePiece(const Point &from, const Point &to, std::vector<std::vector<std::shared_ptr<Piece> > > &board) {
     if (from.x < 0 || from.x >= 10 || from.y < 0 || from.y >= 9 || to.x < 0 || to.x >= 10 || to.y < 0 || to.y >= 9) {
@@ -243,7 +244,7 @@ bool Board::isCheckmate(Color color, const std::vector<std::vector<std::shared_p
         for (int i = 0; i < 10; ++i) {
             for (int j = 0; j < 9; ++j) {
                 if (board[i][j]->getColor() == color) {
-                    auto moves = getValidMovesForPiece({i, j}, board);
+                    auto moves = board[i][j].get()->generateValidMoves(Point(i, j), board); //getValidMovesForPiece({i, j}, board);
                     if (!moves.empty()) {
                         return false;
                     }

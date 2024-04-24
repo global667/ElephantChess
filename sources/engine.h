@@ -40,7 +40,7 @@ class Engine : public QObject
     Q_OBJECT
 public:
     Engine();
-    ~Engine() {}
+    ~Engine() { appClosing = true; }
 
     std::pair<Point, Point> GetBestMove(Color color);
     std::pair<Point, Point> engineGo();
@@ -48,11 +48,9 @@ public:
 
     long nodes = 0;
     int evaluation = 0;
-    int depth = 4;
+    int depth = 2;
     QString bMove = "";
     QString name = "ElephantChessEngine";
-    TranspositionTable *transpositionTable;
-
 
 signals:
     void updateView(Point from, Point to, QString kind);
@@ -72,6 +70,7 @@ private:
     //int minimax(int depth, bool maximizingPlayer, const std::vector<std::vector<std::shared_ptr<Piece> > > board, TranspositionTable *tt);
     void initializeZobrist();
     int minimax(int depth, bool maximizingPlayer, std::vector<std::vector<std::shared_ptr<Piece> > > board, TranspositionTable *tt);
+    bool appClosing = false;
 public slots:
     void nodesPerSecond();
 };

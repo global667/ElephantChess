@@ -113,7 +113,7 @@ const std::vector<std::vector<int>> chariotValueTable = {
     {20, 20, 20, 20, 20, 20, 20, 20, 20}
 };
 
-Engine::Engine() {}
+Engine::Engine() { initializeZobrist(); }
 
 const int kBoardSize = 10*9; // Anzahl der Felder auf einem Schachbrett
 const int kPieceTypes = 14; // Anzahl unterschiedlicher Spielsteine (7 für Schwarz, 7 für Rot)
@@ -130,19 +130,20 @@ void Engine::initializeZobrist() {
     }
 }
 
-
 std::uint64_t Engine::hashBoard(const std::vector<std::vector<std::shared_ptr<Piece>>>& board) {
     std::uint64_t hash = 0;
-    for (const std::vector<std::shared_ptr<Piece>>& position : board) {
-        for (const auto& piece : position) {
+    int i = 0;
+    for (const std::vector<std::shared_ptr<Piece>>& row : board) {
+        for (const auto& piece : row) {
             //auto name = std::uint64_t(*piece->getEuroName().toStdU16String().c_str());
             if (!piece || piece->color == Color::None)
                 continue; // Kein Spielstein auf diesem Feld (leeres Feld
-            std::uint64_t id = piece->getId();
-            hash ^= id;  // Hier sollte eine bessere Hash-Funktion verwendet werden
+            std::uint64_t name = piece->getId();
+            //hash ^= name;  // Hier sollte eine bessere Hash-Funktion verwendet werden
+            hash ^= zobristTable[name][i++]; // XOR mit Zufallswert aus Zobrist-Hash-Tabelle
             hash = hash * 1099511628211ULL;  // Ein großer Prime, der oft in Hashing verwendet wird
-            //hash ^= zobristTable[name][piece->position.x * 9 + piece->position.y]; // XOR mit Zufallswert aus Zobrist-Hash-Tabelle
         }
+        i = 0;
     }
     return hash;
 }
@@ -162,9 +163,9 @@ std::pair<Point, Point> Engine::GetBestMove(Color color) {
         basemodel.position.movePiece(move.first, move.second, local_board);
 
         auto future = QtConcurrent::run([this, color/*, move*/, local_board, &transpositionTable]() mutable {
-            int minma = minimax(this->depth - 1, color == Color::Black ? false : true, local_board, &transpositionTable);
+            //int minma =
             //basemodel.position.undoMove(move.first, move.second, local_board[move.first.x][move.first.y], local_board);
-            return minma;
+            return minimax(this->depth - 1, color == Color::Black ? false : true, local_board, &transpositionTable);//minma;
         });
         futures.append(future);
     }
@@ -184,10 +185,15 @@ std::pair<Point, Point> Engine::GetBestMove(Color color) {
 }
 
 int Engine::minimax(int depth, bool maximizingPlayer, std::vector<std::vector<std::shared_ptr<Piece>>> board, TranspositionTable *tt) {
+    if (appClosing)
+		return 0;
+    
     std::uint64_t hash = hashBoard(board);
     nodes++;
     if (tt->find(hash) != tt->end()) {
-        return tt->at(hash).value;
+        auto hs = tt->at(hash).value;
+        qDebug() << "TT hit" << hs << " depth: " << depth << " hash: " << hash << " size: " << tt->size() << " nodes: " << nodes;
+        return tt->at(hash).value;;
     }
 
     Color color = maximizingPlayer ? Color::Red : Color::Black;
@@ -239,7 +245,7 @@ int Engine::evaluatePosition(const std::vector<std::vector<std::shared_ptr<Piece
         for (int y = 0; y < 9; y++) {
             auto piece = board[x][y];
             if (!piece->name.isEmpty()) {
-                auto moves = basemodel.position.getValidMovesForPiece(Point(x,y),board);
+                auto moves = basemodel.position.board[x][y].get()->generateValidMoves(Point(x, y), board);//getValidMovesForPiece(Point(x,y),board);
                 int pieceValue = getPieceValue(&piece);
                 int positionValue = getPositionValue(&piece, x, y);
                 // add evaluation of hiting pieces
@@ -377,7 +383,7 @@ void Engine::nodesPerSecond()
     basemodel.engineData.evaluation = evaluation;
     basemodel.engineData.engineName = name;
     basemodel.engineData.bestMove = bMove;
-    nodes = 0;
+    //nodes = 0;
 }
 
 std::pair<Point, Point> Engine::engineGo()

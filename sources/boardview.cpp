@@ -349,7 +349,7 @@ void BoardView::PaintSelectedPieces(QPainter* painter) const {
             const auto fromX = basemodel.fromHuman.x;
             const auto fromY = basemodel.fromHuman.y;
 
-            auto all_moves = basemodel.position.getValidMovesForPiece(Point(fromX,fromY), basemodel.position.board);//basemodel.position.board[fromX][fromY]->generateValidMoves({fromX,fromY},basemodel.position.board);
+            auto all_moves = basemodel.position.board[fromX][fromY].get()->generateValidMoves(Point(fromX, fromY), basemodel.position.board);//getValidMovesForPiece(Point(fromX,fromY), basemodel.position.board);//basemodel.position.board[fromX][fromY]->generateValidMoves({fromX,fromY},basemodel.position.board);
 			for (const auto& move : all_moves) {
 
                 auto x = (50 + ((move.second.y) * (width - 2 * 50) / cutpWidth)) -
