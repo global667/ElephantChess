@@ -14,60 +14,43 @@
 <!-- ![](https://badgen.net/github/release/stable/global667/ElephantChess/) -->
 </div>
 
-## Table of Contents
+### Table of Contents
 - [Introduction](#introduction)
-- [Rules](#rules)
 - [Installation](#installation)
-- [Usage](#usage)
-- [Issues](#issues)
+- [Rules](#rules)
 
-## Introduction
+### Introduction
 ElephantChess is a Chinese Chess (Xiangqi) GUI application designed to play and analyze games, similar to how "Arena" functions for European Chess. Inspired by the commercial "Fritz" software, it's currently in a pre-alpha stage and features a basic AI opponent (weakbot).
 
 - [Learn about Xiangqi on Wikipedia](https://en.wikipedia.org/wiki/Xiangqi)
 - [Learn about European Chess on Wikipedia](https://en.wikipedia.org/wiki/Chess)
 
+### Installation
+Download the zip file, extract it, and follow the installation instructions. Use [Stable](https://www.elephant-chess.com) or [Latest](https://github.com/global667/ElephantChess/releases/latest)
+  
+#### Compatibility
+Should run on Windows, macOS, Linux and WSL.
+
+### Rules
+Xiangqi is played on a 9x10 board divided by a "river", with pieces positioned on intersections. The game involves two players, Red and Black, each equipped with a set of distinct pieces: one General, two Advisors, two Elephants, two Horses, two Chariots, two Cannons, and five Soldiers.
+
+#### Objective
+The primary goal is to checkmate the opponent's General.
+
+#### Gameplay Rules
+- **將/帥 (Jiàng/Shuài) - General/King**: Moves one point orthogonally within the palace, a specific 3x3 region. 將 (Jiàng) is used by the black side. 帥 (Shuài) is used by the red side.
+- **士 (Shì) - Guard/Advisor**: Moves one point diagonally, remaining within the palace. Sometimes also translated as "Mandarin."
+- **象/相 (Xiàng) - Elephant**: Moves two points diagonally, cannot cross the river. 象 (Xiàng) is used by the black side. 相 (Xiàng) is used by the red side. Known as "Minister" in some English descriptions.
+- **馬 (Mǎ) - Horse**: Moves in an “L” shape, can be blocked by other pieces.
+- **車 (Jū) - Chariot/Rook**: Moves any number of points along a row or column.
+- **炮/砲 (Pào) - Cannon**: Moves like the Chariot but must jump over one piece to capture another. Both 炮 and 砲 are used, depending on the regional writing system (simplified vs. traditional).
+- **卒/兵 (Zú/Bīng) - Soldier/Pawn**: Moves one point forward; after crossing the river, it can also move sideways. 卒 (Zú) is used by the black side. 兵 (Bīng) is used by the red side.
+
 <div align="center">
 <img src="Screenshot.png" width="800" height="600">
 </div>
 
-## Rules
-Xiangqi is played on a 9x10 board divided by a "river", with pieces positioned on intersections. The game involves two players, Red and Black, each equipped with a set of distinct pieces: one General, two Advisors, two Elephants, two Horses, two Chariots, two Cannons, and five Soldiers.
-
-### Objective
-The primary goal is to checkmate the opponent's General.
-
-### Gameplay Rules
-- **General**: Moves one point orthogonally within the palace, a specific 3x3 region.
-- **Advisor**: Moves one point diagonally, remaining within the palace.
-- **Elephant**: Moves two points diagonally, cannot cross the river.
-- **Horse**: Moves in an “L” shape, can be blocked by other pieces.
-- **Chariot**: Moves any number of points along a row or column.
-- **Cannon**: Moves like the Chariot but must jump over one piece to capture another.
-- **Soldier**: Moves one point forward; after crossing the river, it can also move sideways.
-
 Players take turns, with each move aiming to threaten the opponent's General. The game concludes by checkmate or stalemate, the latter occurring if a player cannot make a legal move and their General is not in check.
-
-## Installation
-
-### Using QtCreator
-1. Download and install Qt6.x for Linux from [Qt's official site](https://www.qt.io/download-open-source).
-2. Clone the repository:
-   ```bash
-   git clone https://github.com/global667/ElephantChess.git
-   ```
-3. Open CMakeLists.txt in QtCreator and run the project.
-
-### Using Installation Package
-
-Visit www.elephant-chess.com, download the zip file, extract it, and follow the installation instructions.
-
-## Usage
 
 (TBD - Include information on how to use ElephantChess, covering any initial setup steps, basic commands, and options for gameplay.)
 
-## Issues
-
-- Compatibility: Should also run on Windows and macOS.
-- Testing: Primarily tested on Ubuntu/wsl.
-- Feedback and contributions are welcome to enhance the application. Enjoy!
