@@ -21,7 +21,7 @@ jobs:
     
     - name: Extract yaqti Release
       run: |
-          Expand-Archive yaqti-main.zip
+          Expand-Archive yaqti.zip
 
     - name: Install yaqti
       run: |
