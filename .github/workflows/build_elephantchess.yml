@@ -20,7 +20,8 @@ jobs:
           curl -s https://github.com/global667/yaqti/releases/download/v1/yaqti-main.zip 
           
     - name: Extract yaqti Release
-      run: unzip yaqti-main.zip
+      run: |
+          unzip yaqti-main.zip
 
     - name: Install yaqti
       run: |
