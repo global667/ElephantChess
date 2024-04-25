@@ -74,25 +74,25 @@ const std::vector<std::vector<int>> elephantValueTable = {
 };
 
 const std::vector<std::vector<int>> horseValueTable = {
-    {0, 4, 6, 8, 10, 8, 6, 4, 0},
+    {4, 12, 14, 16, 18, 16, 14, 12, 4},
+    {4, 12, 14, 16, 18, 16, 14, 12, 4},
+    {4, 12, 14, 16, 18, 16, 14, 12, 4},
+    {4, 12, 14, 16, 18, 16, 14, 12, 4},
+    {4, 12, 14, 16, 18, 16, 14, 12, 4},
+    {4, 12, 14, 16, 18, 16, 14, 12, 4},
+    {4, 10, 12, 14, 16, 14, 12, 10, 4},
+    {4, 8, 10, 12, 14, 12, 10, 8, 4},
     {4, 6, 8, 10, 12, 10, 8, 6, 4},
-    {6, 8, 10, 12, 14, 12, 10, 8, 6},
-    {8, 10, 12, 14, 16, 14, 12, 10, 8},
-    {10, 12, 14, 16, 18, 16, 14, 12, 10},
-    {10, 12, 14, 16, 18, 16, 14, 12, 10},
-    {8, 10, 12, 14, 16, 14, 12, 10, 8},
-    {6, 8, 10, 12, 14, 12, 10, 8, 6},
-    {4, 6, 8, 10, 12, 10, 8, 6, 4},
-    {0, 4, 6, 8, 10, 8, 6, 4, 0}
+    {0, 4, 4, 4, 4, 4, 4, 4, 0}
 };
 
 
 std::vector<std::vector<int>> cannonValueTable = {
-    {18, 18, 18, 18, 18, 18, 18, 18, 18},
-    {14, 14, 14, 14, 14, 14, 14, 14, 14},
-    {10, 10, 10, 10, 10, 10, 10, 10, 10},
-    {8, 8, 8, 8, 8, 8, 8, 8, 8},
-    {6, 6, 6, 6, 6, 6, 6, 6, 6},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0},
     {6, 6, 6, 6, 6, 6, 6, 6, 6},
     {8, 8, 8, 8, 8, 8, 8, 8, 8},
     {10, 10, 10, 10, 10, 10, 10, 10, 10},
@@ -101,10 +101,10 @@ std::vector<std::vector<int>> cannonValueTable = {
 };
 
 const std::vector<std::vector<int>> chariotValueTable = {
-    {20, 20, 20, 20, 20, 20, 20, 20, 20},
-    {15, 15, 15, 15, 15, 15, 15, 15, 15},
-    {12, 12, 12, 12, 12, 12, 12, 12, 12},
-    {10, 10, 10, 10, 10, 10, 10, 10, 10},
+    {8, 8, 8, 8, 8, 8, 8, 8, 8},
+    {8, 8, 8, 8, 8, 8, 8, 8, 8},
+    {8, 8, 8, 8, 8, 8, 8, 8, 8},
+    {8, 8, 8, 8, 8, 8, 8, 8, 8},
     {8, 8, 8, 8, 8, 8, 8, 8, 8},
     {8, 8, 8, 8, 8, 8, 8, 8, 8},
     {10, 10, 10, 10, 10, 10, 10, 10, 10},
@@ -180,7 +180,7 @@ std::pair<Point, Point> Engine::GetBestMove(Color color) {
     }
     evaluation = bestScore;
     bMove = basemodel.posToken(bestMove.first.x, bestMove.first.y, bestMove.second.x, bestMove.second.y);
-    emit updateFromThread();
+    //emit updateFromThread();
     return bestMove;
 }
 
@@ -192,7 +192,7 @@ int Engine::minimax(int depth, bool maximizingPlayer, std::vector<std::vector<st
     nodes++;
     if (tt->find(hash) != tt->end()) {
         auto hs = tt->at(hash).value;
-        qDebug() << "TT hit" << hs << " depth: " << depth << " hash: " << hash << " size: " << tt->size() << " nodes: " << nodes;
+        qDebug() << "TT hit" << hs << " depth: " << depth << " hash: " << hash << " size: " << tt->size() << " nodes: " << nodes << "hashed: " << hashed++;
         return tt->at(hash).value;;
     }
 
@@ -233,7 +233,7 @@ int Engine::minimax(int depth, bool maximizingPlayer, std::vector<std::vector<st
     }
 
     (*tt)[hash] = {depth, eval};  // Speichern der Bewertung
-    emit updateFromThread();
+    //emit updateFromThread();
     return eval;
 }
 
@@ -274,7 +274,7 @@ int Engine::getPieceValue(const std::shared_ptr<Piece> *piece)
     if (piece->get()->euroName.contains( "Soldier"))
         return 100;
     if (piece->get()->euroName.contains("Cannon"))
-        return 300;
+        return 350;
     if (piece->get()->getEuroName() == "Chariot")
         return 500;
     if (piece->get()->euroName.contains("Horse"))
@@ -284,7 +284,7 @@ int Engine::getPieceValue(const std::shared_ptr<Piece> *piece)
     if (piece->get()->euroName.contains("Advisor"))
         return 100;
     if (piece->get()->euroName.contains("General"))
-        return INFINITY_SCORE;
+        return 150;
     return 0;
 }
 

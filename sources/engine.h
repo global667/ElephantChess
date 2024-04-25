@@ -49,6 +49,7 @@ public:
     long nodes = 0;
     int evaluation = 0;
     int depth = 2;
+    int hashed = 0;
     QString bMove = "";
     QString name = "ElephantChessEngine";
 

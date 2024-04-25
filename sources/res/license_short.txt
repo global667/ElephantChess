@@ -1,6 +1,6 @@
 /*
   ElephantChess, a UCI chinese chess playing GUI with builtin engine
-  Copyright (C) 2022-2023 Wolf S. Kappesser
+  Copyright (C) 2022-2024 global667
 
   ElephantChess is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by

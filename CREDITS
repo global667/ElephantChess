@@ -1,9 +1,51 @@
-- "Chinese Chess" (https://skfb.ly/67vpX) by Michael Zhang is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+<a>Special thanks and credits to the following resources and people:</a>
 
-- 2D Pieces (https://en.wikipedia.org/wiki/Xiangqi) all rights released (Public domain)
+<ul>
+<!--
 
-- Settings icon
+<li> "Chinese Chess" <a href="https://skfb.ly/67vpX">https://skfb.ly/67vpX</a> by Michael Zhang is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+</li>
+<li> 2D Pieces <a href="https://en.wikipedia.org/wiki/Xiangqi">https://en.wikipedia.org/wiki/Xiangqi</a> all rights released (Public domain)
+</li>
+-->
 
-- PikaFish (https://pikafish.org/ , https://github.com/official-pikafish)
+<li> Settings icon ...? <a href="https://www.iconfinder.com/">https://www.iconfinder.com/</a>
+</li>
 
-- Qt6 (https://www.qt.io/download-open-source)
+<li> PikaFish <a href="https://github.com/official-pikafish">https://github.com/official-pikafish</a>
+</li>
+
+<li> Qt6 <a href="https://www.qt.io/download-open-source">https://www.qt.io/download-open-source</a>
+</li>
+
+<li> CMake <a href="https://cmake.org/">https://cmake.org/</a>
+</li>
+
+<li> Visual Studio Code <a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a>
+</li>
+
+<li> Git <a href="https://git-scm.com/">https://git-scm.com/</a>
+</li>
+
+<li> GitHub <a href="https://www.GitHub.com/">https://www.GitHub.com/</a>
+</li>
+
+<li> MS Copilot <a href="https://copilot.github.com/">https://copilot.github.com/</a>
+</li>
+
+<li> Google <a href="https://www.google.com/">https://www.google.com/</a>
+
+<li> Stack Overflow <a href="https://stackoverflow.com/">https://stackoverflow.com/</a>
+</li>
+
+<li> YouTube <a href="https://www.youtube.com/">https://www.youtube.com/</a>
+
+<li> Chess Programming Wiki <a href="https://www.chessprogramming.org/Main_Page">https://www.chessprogramming.org/Main_Page</a>
+</li>
+
+<li> OpenAI <a href="https://openai.com/">https://openai.com/</a>
+
+<li> Tidal <a href="https://tidal.com/">https://tidal.com/</a>
+</li>
+
+</ul>

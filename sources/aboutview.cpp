@@ -3,6 +3,7 @@
 #include <QFile>
 #include <QIODeviceBase>
 #include <QPushButton>
+#include <QTextBrowser>
 #include <QTextEdit>
 #include <QTextStream>
 #include <QVBoxLayout>
@@ -20,6 +21,8 @@ AboutView::AboutView(QWidget *parent)
     license.open(QIODeviceBase::ReadOnly | QIODeviceBase::Text);
     QTextStream licenseStream(&license);
     QTextEdit *licenseView = new QTextEdit();
+    licenseView->setWordWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere);
+    licenseView->setReadOnly(true);
     licenseView->setPlainText(licenseStream.readAll());
     tab1layout->addWidget(licenseView);
     license.close();
@@ -32,8 +35,12 @@ AboutView::AboutView(QWidget *parent)
     QFile credits(":/CREDITS");
     credits.open(QIODeviceBase::ReadOnly | QIODeviceBase::Text);
     QTextStream creditsStream(&credits);
-    QTextEdit *creditsView = new QTextEdit();
-    creditsView->setPlainText(creditsStream.readAll());
+    QTextBrowser *creditsView = new QTextBrowser();
+    creditsView->setReadOnly(true);
+    creditsView->setOpenExternalLinks(true);
+    creditsView->setTextInteractionFlags(Qt::TextBrowserInteraction);
+    creditsView->setWordWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere);
+    creditsView->setHtml(creditsStream.readAll());
     tab2layout->addWidget(creditsView);
     credits.close();
 
@@ -53,7 +60,7 @@ AboutView::AboutView(QWidget *parent)
     tabwidget3->setLayout(tab3layout);
     // tabview
     addTab(tabwidget1, "License");
-    addTab(tabwidget2, "Third-party Contents");
+    addTab(tabwidget2, "Credits");
     addTab(tabwidget3, "About");
 
     show();
