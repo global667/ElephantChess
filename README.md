@@ -1,6 +1,8 @@
 <div align="center"> 
-
+<!-- {% comment %} -->
+  
 ### Elephant Chess 
+<!-- {% endcomment %} -->
 
 <img src="sources/res/generalRed.png" width="50" height="50">
 <br>
@@ -59,5 +61,5 @@ The primary goal is to checkmate the opponent's General.
 
 Players take turns, with each move aiming to threaten the opponent's General. The game concludes by checkmate or stalemate, the latter occurring if a player cannot make a legal move and their General is not in check.
 
-(TBD - Include information on how to use ElephantChess, covering any initial setup steps, basic commands, and options for gameplay.)
+<!-- (TBD - Include information on how to use ElephantChess, covering any initial setup steps, basic commands, and options for gameplay.) -->
 
