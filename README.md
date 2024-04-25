@@ -5,7 +5,7 @@
 <img src="sources/res/generalRed.png" width="50" height="50">
 <br>
 <br>
-<!-- {% -->
+<!-- {% comment %} -->  
 
 .::
 [![Build ElephantChess](https://github.com/global667/ElephantChess/actions/workflows/build.yml/badge.svg)](https://github.com/global667/ElephantChess/actions/workflows/build.yml)
@@ -17,7 +17,8 @@
 ![](https://badgen.net/github/release/global667/ElephantChess/)
 ::.
 <!-- ![](https://badgen.net/github/release/stable/global667/ElephantChess/) -->
-<!-- %} -->
+<!-- {% endcomment %} -->
+
 </div>
 
 ### Table of Contents
