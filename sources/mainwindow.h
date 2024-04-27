@@ -64,13 +64,13 @@
 //#include "settingsview.h"
 #include "uci.h"
 
-class MainWindow : public QMainWindow
+class MainWindow final : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    explicit MainWindow(QWidget *parent = nullptr);
+    ~MainWindow() override;
 
     // The engine, and its thread
     UCI *uci  = nullptr;
@@ -78,7 +78,7 @@ public:
     Engine *engine  = nullptr;
     void YouLose();
     void YouWin();
-    QTimer *timer, *timer2;
+    QTimer *timer{}, *timer2{};
 
 private:
     void InitWidgets();
@@ -124,8 +124,9 @@ private:
 
     //int row = 0,
     int column = 0;
-    void AddMoveToList(std::pair<Point, Point> move);
-    void AddMoveToHistory();
+    void AddMoveToList(std::pair<Point, Point> move) const;
+
+    static void AddMoveToHistory();
 
     QPushButton button;
 
@@ -134,9 +135,9 @@ private:
     void ResetToHistory();
     QFile *LoadPGNFile();
     void PutPGNOnBoard();
-    void ReadPGNData(QString data);
-    QTextEdit *loggingTextView;
-    QLineEdit *nps, *eval;
+    void ReadPGNData(QString data) const;
+    QTextEdit *loggingTextView{};
+    QLineEdit *nps{}, *eval{};
 
 
 public slots:
@@ -154,16 +155,16 @@ public slots:
     void GiveUpGame();
 
     //void UpdateSettings();
-    void ItemClicked(QTreeWidgetItem *, int);
+    static void ItemClicked(QTreeWidgetItem *, int);
 
-    void nodesPerSecond();
+    void nodesPerSecond() const;
 
 public slots:
-    void PlayNextTwoMoves(Point from, Point to, QString kind);
+    void PlayNextTwoMoves(Point from, Point to, const QString &kind);
     void paintFromThreadSlot();
-    void updateFromThreadSlot();
+    void updateFromThreadSlot() const;
 private slots:
-    void Debug();
+    void Debug() const;
 public: signals:
     void paintFromThread();
 

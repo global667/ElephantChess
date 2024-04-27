@@ -37,7 +37,7 @@ public:
     explicit UCI();
     ~UCI();
 
-    void writeDatas(QByteArray d);
+    void writeDatas(const QByteArray &d);
 
     QProcess engine;
     void engineGo();
@@ -53,9 +53,10 @@ signals:
     void boardChanged(int fromX, int fromY, int toX, int toY);
 
 public slots:
-    void start();
+    static void start();
     void readData();
-    void anError(QProcess::ProcessError error);
+
+    static void anError(QProcess::ProcessError error);
 };
 
 #endif // UCI_H

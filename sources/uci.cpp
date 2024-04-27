@@ -117,7 +117,7 @@ void UCI::engineGo()
     writeDatas("isready");
 }
 
-void UCI::writeDatas(QByteArray d)
+void UCI::writeDatas(const QByteArray &d)
 {
     qint64 bytesWritten = engine.write(d + "\n");
     qDebug() << "Data written:" << bytesWritten << d;

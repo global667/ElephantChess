@@ -85,7 +85,7 @@ void BoardView::paintEvent(QPaintEvent* event) {
 	PaintSelectedPieces(&painter);
 }
 
-void BoardView::PrepareNativePiece(QPicture* pix, int row, int col, int h, int w) {
+void BoardView::PrepareNativePiece(QPicture* pix, const int row, const int col, const int h, const int w) const {
     const auto piece = basemodel.position.board[row][col];
 	// Check for null pointer and empty piece
     if (!piece || piece->getName() == "")
@@ -118,9 +118,9 @@ void BoardView::PrepareNativePiece(QPicture* pix, int row, int col, int h, int w
 	// Draw piece circle
     const auto width = pix->boundingRect().width();
     const auto height = pix->boundingRect().height();
-    const auto wdth =  (double)width / (double)cutpWidth / PIECE_SCALE_FACTOR;
+    const auto wdth =  static_cast<double>(width) / static_cast<double>(cutpWidth) / PIECE_SCALE_FACTOR;
     const auto hght =(double)height / (double)cutpHeight / PIECE_SCALE_FACTOR;
-    QRect drawRect = QRect(0, 0, round(wdth), round(hght));
+    const auto drawRect = QRect(0, 0, round(wdth), round(hght));
     painter.drawEllipse(drawRect);
 
     //painter.drawEllipse(center, radius, radius);
@@ -144,9 +144,9 @@ void BoardView::PaintBoard(QPainter* p) const {
 	const auto squareWidth = (width - 2. * 50.) / cutpWidth;
 	const auto squareHeight = (height - 50. - 100.) / cutpHeight;
 
-	const QColor background(252, 175, 62);
-	const QColor sides(206, 92, 0);
-	const QColor river(63, 67, 143);//"#3A438F");
+	constexpr QColor background(252, 175, 62);
+	constexpr QColor sides(206, 92, 0);
+	constexpr QColor river(63, 67, 143);//"#3A438F");
 
 	p->fillRect(p->viewport(), background);
 
@@ -196,8 +196,8 @@ void BoardView::PaintBoard(QPainter* p) const {
 	p->fillRect(0, 50 + 4 * squareHeight, width, squareHeight, river);
 
 	// Flussufer
-	QFont tmp = QFont(p->font());
-	QFont font = QFont();
+	auto tmp = QFont(p->font());
+	auto font = QFont();
 	font.setPointSize(30);
     font.setBold(true);
 	font.setItalic(true);
@@ -224,7 +224,7 @@ void BoardView::PaintBoard(QPainter* p) const {
 	p->setPen(QColor(0, 0, 0));
 
 	// Notation
-	if (0 == 0) {
+	if (true) {
 		// Westliche, an Schach angelehnte Notation
 
 		// Vertikaler Text
@@ -281,16 +281,16 @@ void BoardView::PaintBoard(QPainter* p) const {
 
 bool BoardView::event(QEvent *event)
 {
-    auto width = this->width();
-    auto height = this->height();
-    auto marginLeft = width - 2 * 50;
-    auto marginRight = height - 50. - 100;
+	const auto width = this->width();
+	const auto height = this->height();
+	const auto marginLeft = width - 2 * 50;
+	const auto marginRight = height - 50. - 100;
 
     if (event->type() == QEvent::ToolTip) {
-        QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
+        auto *helpEvent = dynamic_cast<QHelpEvent *>(event);
         for (int j = 0; j < 10; j++) {
             for (int i = 0; i < 9; i++) {
-                auto x = (50. + ((i)*marginLeft / cutpWidth)) - width / cutpWidth / 2 / PIECE_SCALE_FACTOR;
+                auto x = 50. + i*marginLeft / cutpWidth - width / cutpWidth / 2 / PIECE_SCALE_FACTOR;
                 auto y = (50. + (9 - j) * marginRight / cutpHeight) - height / cutpWidth / 2. / PIECE_SCALE_FACTOR;
 
                 if (helpEvent->pos().x() > x && helpEvent->pos().x() < x + width / cutpWidth / PIECE_SCALE_FACTOR &&
@@ -317,15 +317,13 @@ void BoardView::PaintSelectedPieces(QPainter* painter) const {
 	// qDebug() << __PRETTY_FUNCTION__;
 	Q_ASSERT(painter);
 
-	const auto width = this->width();  // p->viewport().width();
-	const auto height = this->height(); // p->viewport().height();
-	
-	QPen pen;
-	
-    //if (basemodel.position.players_color == Color::Red)
-	{
-		if (pressed == true && secondclick == false) {
-			// Draw selected piece
+	//if (basemodel.position.players_color == Color::Red)
+	//{
+		const auto width = this->width();
+		const auto height = this->height();
+	if (pressed == true && secondclick == false) {
+		QPen pen;
+		// Draw selected piece
 			pen.setColor(Qt::green);
 			pen.setWidth(5);
 
@@ -349,7 +347,7 @@ void BoardView::PaintSelectedPieces(QPainter* painter) const {
             const auto fromX = basemodel.fromHuman.x;
             const auto fromY = basemodel.fromHuman.y;
 
-            auto all_moves = basemodel.position.board[fromX][fromY].get()->generateValidMoves(Point(fromX, fromY), basemodel.position.board);//getValidMovesForPiece(Point(fromX,fromY), basemodel.position.board);//basemodel.position.board[fromX][fromY]->generateValidMoves({fromX,fromY},basemodel.position.board);
+            auto all_moves = basemodel.position.board[fromX][fromY]->generateValidMoves(Point(fromX, fromY), basemodel.position.board);//getValidMovesForPiece(Point(fromX,fromY), basemodel.position.board);//basemodel.position.board[fromX][fromY]->generateValidMoves({fromX,fromY},basemodel.position.board);
 			for (const auto& move : all_moves) {
 
                 auto x = (50 + ((move.second.y) * (width - 2 * 50) / cutpWidth)) -
@@ -359,7 +357,7 @@ void BoardView::PaintSelectedPieces(QPainter* painter) const {
 
                 painter->drawEllipse(QRect(x, y, wght, hght));
 			}
-		}
+	///	}
     //} else if (basemodel.fromUCI != Point(-1, -1) && basemodel.toUCI != Point(-1, -1))	{
 	// black to move
 	// draws the last moved line
@@ -414,9 +412,8 @@ void BoardView::mousePressEvent(QMouseEvent* event) {
     if (!pressed) {
         pressed = true;
         basemodel.fromHuman = coord;
-        Piece piece = *basemodel.position.board[coord.x][coord.y].get();
 
-        if (piece.getName().isEmpty() || piece.getColor() != basemodel.position.players_color) {
+        if (const Piece piece = *basemodel.position.board[coord.x][coord.y]; piece.getName().isEmpty() || piece.getColor() != basemodel.position.players_color) {
             pressed = false; // Reset if invalid piece or color
             return;
         }
@@ -429,7 +426,7 @@ void BoardView::mousePressEvent(QMouseEvent* event) {
             return;
         }
         pressed = false;
-        auto all_moves = basemodel.position.getAllValidMoves(basemodel.position.players_color, basemodel.position.board);
+        auto all_moves = Board::getAllValidMoves(basemodel.position.players_color, basemodel.position.board);
         for (const auto& [from, to] : all_moves) {
             if (from == basemodel.fromHuman && to == basemodel.toHuman) {
                 emit updateView(basemodel.fromHuman ,basemodel.toHuman, basemodel.kind); // Assuming you have such a signal
@@ -451,7 +448,7 @@ constexpr float BOTTOM_MARGIN = 100.0f;
 constexpr float BOARD_COL_POINTS = BaseModel::BoardColPoints; // Assuming this is a valid static constant
 constexpr float BOARD_ROW_POINTS = BaseModel::BoardRowPoints; // Assuming this is a valid static constant
 
-Point BoardView::CalcBoardCoords(Point r) {
+Point BoardView::CalcBoardCoords(Point r) const {
 	const float w = this->width();
 	const float h = this->height();
 
@@ -460,17 +457,17 @@ Point BoardView::CalcBoardCoords(Point r) {
 	const float squareRowHeight = (h - TOP_MARGIN - BOTTOM_MARGIN) / BOARD_ROW_POINTS;
 
 	// Transform cursor position based on game view
-    float boardCursorX = basemodel.gameView == Color::Red ? r.x : w - r.x;
-    float boardCursorY = basemodel.gameView == Color::Red ? r.y : h - r.y;
+	const float boardCursorX = basemodel.gameView == Color::Red ? r.x : w - r.x;
+	const float boardCursorY = basemodel.gameView == Color::Red ? r.y : h - r.y;
 
 	// Calculate board coordinates from cursor position
 	int col = static_cast<int>(std::floor(boardCursorX / squareColWidth)) + 1;
 	int row = static_cast<int>(std::floor(boardCursorY / squareRowHeight)) + 1;
 
-    return Point(col, row);
+    return {col, row};
 }
 
-void BoardView::PaintMarker(QPainter* p) {
+void BoardView::PaintMarker(QPainter* p) const {
 	// qDebug() << __PRETTY_FUNCTION__;
 	Q_ASSERT(p);
 

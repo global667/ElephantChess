@@ -28,7 +28,7 @@ class ContexMenu : public QMenu
 {
     Q_OBJECT
 public:
-    ContexMenu(QWidget *parent = 0);
+    explicit ContexMenu(QWidget *parent = 0);
 
     QList<QPair<Point, markerType>> markers;
     QList<QPair<Point, completePieceType>> pieces;

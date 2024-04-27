@@ -46,12 +46,13 @@ protected:
     bool event(QEvent *event) override;
 private:
     void PaintBoard(QPainter *p) const;    
-    void PaintMarker(QPainter *p);
-    void PrepareNativePiece(QPicture *p, int row, int col, int h, int w);
+    void PaintMarker(QPainter *p) const;
+    void PrepareNativePiece(QPicture *p, int row, int col, int h, int w) const;
     void PaintSelectedPieces(QPainter *p) const;
 
-    Point CalcBoardCoords(Point r);
-    void SetEditorPieces();
+    Point CalcBoardCoords(Point r) const;
+
+    static void SetEditorPieces();
 
     // controls the mouse input
     bool pressed = false;

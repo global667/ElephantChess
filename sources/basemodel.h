@@ -42,13 +42,15 @@ struct BaseModel //: public QObject
     //Q_OBJECT
 public:
     BaseModel()//QObject *parent = nullptr)
-    {
+        : nodes(0), engineData({0, 0, 0, "", ""}) {
         engineName
-            = "ElephantChessEngine";//"C:/Users/wolfk/Downloads/Pikafish.2024-03-10/Windows/pikafish-ssse3.exe";//"built-in";//"F:/source/XiangQi/build-Dumbo-Desktop_Qt_6_6_1_MinGW_64_bit-Debug/Dumbo"; //"/home/wsk/.vs/Dumbo/out/build/linux-debug/Dumbo"; //
+                = "ElephantChessEngine";
+        //"C:/Users/wolfk/Downloads/Pikafish.2024-03-10/Windows/pikafish-ssse3.exe";//"built-in";//"F:/source/XiangQi/build-Dumbo-Desktop_Qt_6_6_1_MinGW_64_bit-Debug/Dumbo"; //"/home/wsk/.vs/Dumbo/out/build/linux-debug/Dumbo"; //
         position.setupInitialPositions();
         moveHistory.append(position);
         currentMove++;
     }
+
     static constexpr short BoardRows = ROWS;
     static constexpr short BoardCols = COLS;
     static constexpr short BoardRowPoints = BoardRows - 1;
@@ -76,14 +78,14 @@ public:
     // die genannte ist unten
     Color gameView = Color::Red;
 
-    QByteArray posToken(int fromX, int fromY, int toX, int toY)
+    static QByteArray posToken(const int fromX, const int fromY, const int toX, const int toY)
     {
         char c[4];
-        c[0] = fromY + 'a';
-        c[1] = fromX + '0';
-        c[2] = toY + 'a';
-        c[3] = toX + '0';
-        return QByteArray(c,sizeof(c));
+        c[0] = static_cast<char>(fromY+ 'a');
+        c[1] = static_cast<char>(fromX + '0');
+        c[2] = static_cast<char>(toY + 'a');
+        c[3] = static_cast<char>(toX + '0');
+        return {c,sizeof(c)};
     }
 
     long nodes;
@@ -91,9 +93,9 @@ public:
     // engine evaluation, search depth etc. for the gui
     struct EngineData
     {
-        int evaluation;
-        int searchDepth;
-        long nodes;
+        int evaluation{};
+        int searchDepth{};
+        long nodes{};
         QString bestMove;
         QString engineName;
 

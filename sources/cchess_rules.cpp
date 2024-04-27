@@ -1,22 +1,25 @@
 #include "cchess_rules.h"
 
+#include <utility>
 
 
-Piece::Piece(Color color, QString name) : color(color), name(name) {}
+
+Piece::Piece(const Color color, QString name) : color(color), name(std::move(name)) {}
 
 Piece::~Piece() { id = -1; }
 
 bool Piece::isValidMove(const Point &from, const Point &to, const std::vector<std::vector<std::shared_ptr<Piece> > > &board)  { return false;}
 
-std::vector<std::pair<Point, Point> > Piece::generateValidMoves(const Point &position, const std::vector<std::vector<std::shared_ptr<Piece> > > board)  {
+auto Piece::generateValidMoves(const Point &position,
+                               const std::vector<std::vector<std::shared_ptr<Piece> > > &board) -> std::vector<std::pair<
+    Point, Point> > {
     std::vector<std::pair<Point, Point>> moves;
 
     for (int i = 0; i < 10; ++i) {
         for (int j = 0; j < 9; ++j) {
-            Point move = {i, j};
-            if (move.x >= 0 && move.x < 10 && move.y >= 0 && move.y < 9) {
+            if (Point move = {i, j}; move.x >= 0 && move.x < 10 && move.y >= 0 && move.y < 9) {
                 if (isValidMove(position, move, board)) {
-                    moves.push_back({position, move});
+                    moves.emplace_back(position, move);
                 }
             }
         }
@@ -42,6 +45,7 @@ Piece Piece::operator=(const Piece &other) {
 
 Board::Board() : board(10, std::vector<std::shared_ptr<Piece>>(9, nullptr)) {
     // Initialisiere das Brett mit Null-Pointern oder spezifischen Startpositionen
+    players_color = Color::Red;
     setupInitialPositions();
 }
 
@@ -54,7 +58,7 @@ std::vector<std::pair<Point, Point> > Board::getAllValidMoves(Color color, const
     for (int i = 0; i < 10; ++i) {
         for (int j = 0; j < 9; ++j) {
             if (board[i][j] && board[i][j]->getColor() == color) {
-                auto validMoves = board[i][j].get()->generateValidMoves(Point(i, j), board);//getValidMovesForPiece({i, j}, board);
+                auto validMoves = board[i][j]->generateValidMoves(Point(i, j), board);//getValidMovesForPiece({i, j}, board);
                 //moves.insert(moves.end(), validMoves.begin(), validMoves.end());
                 for (const auto& move : validMoves) {
                     // check if board is in check or evil glare after move
@@ -102,7 +106,7 @@ bool Board::movePiece(const Point &from, const Point &to, std::vector<std::vecto
     return false;
 }
 
-void Board::undoMove(const Point &from, const Point &to, std::shared_ptr<Piece> piece, std::vector<std::vector<std::shared_ptr<Piece> > > &board) {
+void Board::undoMove(const Point &from, const Point &to, const std::shared_ptr<Piece> &piece, std::vector<std::vector<std::shared_ptr<Piece> > > &board) {
     board[from.x][from.y] = std::move(board[to.x][to.y]);
     board[to.x][to.y] = piece;
 }
@@ -159,11 +163,11 @@ void Board::toggleColor() {
     players_color = (players_color == Color::Red) ? Color::Black : Color::Red;
 }
 
-Color Board::toggleColor(Color color) {
+Color Board::toggleColor(const Color color) {
     return (color == Color::Red) ? Color::Black : Color::Red;
 }
 
-bool Board::isCheck(Color color, const std::vector<std::vector<std::shared_ptr<Piece> > > &board) {
+bool Board::isCheck(const Color color, const std::vector<std::vector<std::shared_ptr<Piece> > > &board) {
     Point generalPosition;
     if (color == Color::Black) {
         for (int i = 0; i < 10; ++i) {
@@ -239,13 +243,12 @@ bool Board::isEvilGlare(Color color, const std::vector<std::vector<std::shared_p
     return isEvil;
 }
 
-bool Board::isCheckmate(Color color, const std::vector<std::vector<std::shared_ptr<Piece> > > &board) {
+bool Board::isCheckmate(const Color color, const std::vector<std::vector<std::shared_ptr<Piece> > > &board) {
     if (isCheck(color, board)) {
         for (int i = 0; i < 10; ++i) {
             for (int j = 0; j < 9; ++j) {
                 if (board[i][j]->getColor() == color) {
-                    auto moves = board[i][j].get()->generateValidMoves(Point(i, j), board); //getValidMovesForPiece({i, j}, board);
-                    if (!moves.empty()) {
+                    if (auto moves = board[i][j]->generateValidMoves(Point(i, j), board); !moves.empty()) {
                         return false;
                     }
                 }

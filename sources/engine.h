@@ -20,9 +20,6 @@
 #define ENGINE_H
 
 #include <QtConcurrent>
-#include <QFuture>
-#include <QtConcurrent/QtConcurrent>
-#include <QTimer>
 
 #include "basemodel.h"
 
@@ -35,20 +32,19 @@ struct TTEntry {
 using TranspositionTable = std::unordered_map<std::uint64_t, TTEntry>;
 
 // chinese chess engine
-class Engine : public QObject
+class Engine final : public QObject
 {
     Q_OBJECT
 public:
     Engine();
-    ~Engine() { appClosing = true; }
+    ~Engine() override { appClosing = true; if(!transpositionTable) delete transpositionTable; }
 
     std::pair<Point, Point> GetBestMove(Color color);
     std::pair<Point, Point> engineGo();
-    //int search(int depth, Color color, const std::vector<std::vector<std::shared_ptr<Piece>>>& board);
 
     long nodes = 0;
     int evaluation = 0;
-    int depth = 2;
+    const int depth = 4;
     int hashed = 0;
     QString bMove = "";
     QString name = "ElephantChessEngine";
@@ -59,21 +55,24 @@ signals:
     void updateFromThread();
 
 private:
-    int evaluatePosition(const std::vector<std::vector<std::shared_ptr<Piece> > > &board);
-    int getPieceValue(const std::shared_ptr<Piece> *piece);
-    int getPositionValue(const std::shared_ptr<Piece> *piece, int x, int y);
-    int quiesce(int alpha, int beta, Color color);
+    static int evaluatePosition(const std::vector<std::vector<std::shared_ptr<Piece> > > &board);
+
+    static int getPieceValue(const std::shared_ptr<Piece> *piece);
+
+    static int getPositionValue(const std::shared_ptr<Piece> *piece, int x, int y);
+    //int quiesce(int alpha, int beta, Color color);
 
     static constexpr int INFINITY_SCORE = std::numeric_limits<int>::max();
 
-    int getPossibleHits(const int x, const int y, const std::vector<std::vector<std::shared_ptr<Piece> > > &board, const std::vector<std::pair<Point, Point> > &moves);
-    std::uint64_t hashBoard(const std::vector<std::vector<std::shared_ptr<Piece> > > &board);
-    //int minimax(int depth, bool maximizingPlayer, const std::vector<std::vector<std::shared_ptr<Piece> > > board, TranspositionTable *tt);
-    void initializeZobrist();
-    int minimax(int depth, bool maximizingPlayer, std::vector<std::vector<std::shared_ptr<Piece> > > board, TranspositionTable *tt);
+    //int getPossibleHits(const int x, const int y, const std::vector<std::vector<std::shared_ptr<Piece> > > &board, const std::vector<std::pair<Point, Point> > &moves);
+
+    static std::uint64_t hashBoard(const std::vector<std::vector<std::shared_ptr<Piece> > > &board);
+    static void initializeZobrist();
+    int minimax(int depth, bool maximizingPlayer, const std::vector<std::vector<std::shared_ptr<Piece> > > &board, TranspositionTable *tt);
     bool appClosing = false;
+    TranspositionTable *transpositionTable = nullptr;
 public slots:
-    void nodesPerSecond();
+    void nodesPerSecond() const;
 };
 
 #endif // ENGINE_H

@@ -15,6 +15,9 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include <QFuture>
+#include <QtConcurrent/QtConcurrent>
+#
 
 #include "engine.h"
 
@@ -115,8 +118,8 @@ const std::vector<std::vector<int>> chariotValueTable = {
 
 Engine::Engine() { initializeZobrist(); }
 
-const int kBoardSize = 10*9; // Anzahl der Felder auf einem Schachbrett
-const int kPieceTypes = 14; // Anzahl unterschiedlicher Spielsteine (7 für Schwarz, 7 für Rot)
+constexpr int kBoardSize = 10*9; // Anzahl der Felder auf einem Schachbrett
+constexpr int kPieceTypes = 14; // Anzahl unterschiedlicher Spielsteine (7 für Schwarz, 7 für Rot)
 std::array<std::array<uint64_t, kBoardSize>, kPieceTypes> zobristTable;
 
 void Engine::initializeZobrist() {
@@ -135,10 +138,9 @@ std::uint64_t Engine::hashBoard(const std::vector<std::vector<std::shared_ptr<Pi
     int i = 0;
     for (const std::vector<std::shared_ptr<Piece>>& row : board) {
         for (const auto& piece : row) {
-            //auto name = std::uint64_t(*piece->getEuroName().toStdU16String().c_str());
             if (!piece || piece->color == Color::None)
                 continue; // Kein Spielstein auf diesem Feld (leeres Feld
-            std::uint64_t name = piece->getId();
+            const std::uint64_t name = piece->getId();
             //hash ^= name;  // Hier sollte eine bessere Hash-Funktion verwendet werden
             hash ^= zobristTable[name][i++]; // XOR mit Zufallswert aus Zobrist-Hash-Tabelle
             hash = hash * 1099511628211ULL;  // Ein großer Prime, der oft in Hashing verwendet wird
@@ -149,66 +151,71 @@ std::uint64_t Engine::hashBoard(const std::vector<std::vector<std::shared_ptr<Pi
 }
 
 std::pair<Point, Point> Engine::GetBestMove(Color color) {
-    const auto& posAll = basemodel.position.getAllValidMoves(color, basemodel.position.board);
+    const auto& posAll = Board::getAllValidMoves(color, basemodel.position.board);
     if (posAll.empty())
         return {Point(-1, -1), Point(-1, -1)};
 
     std::pair<Point, Point> bestMove = {};
     int bestScore = color == Color::Black ? INFINITY_SCORE : -INFINITY_SCORE;
     QVector<QFuture<int>> futures;
-    TranspositionTable transpositionTable;
+    transpositionTable = new TranspositionTable();
 
-    for (const auto& move : posAll) {
+    for (const auto&[fst, snd] : posAll) {
         auto local_board = basemodel.position.board; // Erstelle eine Kopie des Boards für jeden Thread
-        basemodel.position.movePiece(move.first, move.second, local_board);
+        Board::movePiece(fst, snd, local_board);
 
-        auto future = QtConcurrent::run([this, color/*, move*/, local_board, &transpositionTable]() mutable {
+        auto future = QtConcurrent::run([this, color/*, move*/, local_board]() mutable {
             //int minma =
             //basemodel.position.undoMove(move.first, move.second, local_board[move.first.x][move.first.y], local_board);
-            return minimax(this->depth - 1, color == Color::Black ? false : true, local_board, &transpositionTable);//minma;
+            return minimax(this->depth - 1, color == Color::Red, local_board, this->transpositionTable);//minma;
         });
         futures.append(future);
     }
 
     for (int i = 0; i < futures.size(); ++i) {
         futures[i].waitForFinished();
-        int eval = futures[i].result();
-        if ((color == Color::Black && eval < bestScore) || (color == Color::Red && eval > bestScore)) {
+        if (const int eval = futures[i].result(); (color == Color::Black && eval < bestScore) || (color == Color::Red && eval > bestScore)) {
             bestScore = eval;
             bestMove = posAll[i];
         }
     }
     evaluation = bestScore;
-    bMove = basemodel.posToken(bestMove.first.x, bestMove.first.y, bestMove.second.x, bestMove.second.y);
+    //bMove = BaseModel::posToken(bestMove.first.x, bestMove.first.y, bestMove.second.x, bestMove.second.y);
     //emit updateFromThread();
     return bestMove;
 }
 
-int Engine::minimax(int depth, bool maximizingPlayer, std::vector<std::vector<std::shared_ptr<Piece>>> board, TranspositionTable *tt) {
+int Engine::minimax(int depth, bool maximizingPlayer, const std::vector<std::vector<std::shared_ptr<Piece>>> &board, TranspositionTable *tt) {
     if (appClosing)
 		return 0;
-    
-    std::uint64_t hash = hashBoard(board);
     nodes++;
+
+   const std::uint64_t hash = hashBoard(board);
     if (tt->find(hash) != tt->end()) {
-        auto hs = tt->at(hash).value;
-        qDebug() << "TT hit" << hs << " depth: " << depth << " hash: " << hash << " size: " << tt->size() << " nodes: " << nodes << "hashed: " << hashed++;
+        //const auto hs = tt->at(hash).value;
+        //qDebug() << "TT hit"  " hash: " << hash << " size: " << tt->size() << " nodes: " << nodes << "hashed: " << hashed++;
         return tt->at(hash).value;;
     }
 
-    Color color = maximizingPlayer ? Color::Red : Color::Black;
-    auto moves = basemodel.position.getAllValidMoves(color, board);
+    const Color color = maximizingPlayer ? Color::Red : Color::Black;
+    auto moves = Board::getAllValidMoves(color, board);
 
-    if (depth == 0 || moves.empty()) {
-        int evaluation = evaluatePosition(board);
+    if (depth == 0) {
+        const int evaluation = evaluatePosition(board);
+        (*tt)[hash] = {depth, evaluation};
+        return evaluation;
+    }
+    if (moves.empty()) {
+        const int evaluation = Board::isCheckmate(color, board) ? (maximizingPlayer ? -INFINITY_SCORE : INFINITY_SCORE) : 0;
         (*tt)[hash] = {depth, evaluation};
         return evaluation;
     }
 
+
     QVector<QFuture<int>> futures;
 
     int eval = maximizingPlayer ? INT_MIN : INT_MAX;
-    auto updateEval = [&eval, maximizingPlayer](int result) {
+    auto updateEval = [&eval, maximizingPlayer](const int result) {
         if (maximizingPlayer) {
             eval = std::max(eval, result);
         } else {
@@ -219,9 +226,9 @@ int Engine::minimax(int depth, bool maximizingPlayer, std::vector<std::vector<st
     for (auto& move : moves) {
         auto future = QtConcurrent::run([this, depth, move, board, tt, maximizingPlayer]() {
             std::vector<std::vector<std::shared_ptr<Piece>>> temp_board = board; // Erstelle lokale Kopie für den Thread
-            basemodel.position.movePiece(move.first, move.second, temp_board);
-            int result = minimax(depth - 1, !maximizingPlayer, temp_board, tt);
-            basemodel.position.undoMove(move.first, move.second, board[move.first.x][move.first.y], temp_board);
+            Board::movePiece(move.first, move.second, temp_board);
+            const int result = minimax(depth - 1, !maximizingPlayer, temp_board, tt);
+            Board::undoMove(move.first, move.second, board[move.first.x][move.first.y], temp_board);
             return result;
         });
         futures.append(future);
@@ -245,9 +252,9 @@ int Engine::evaluatePosition(const std::vector<std::vector<std::shared_ptr<Piece
         for (int y = 0; y < 9; y++) {
             auto piece = board[x][y];
             if (!piece->name.isEmpty()) {
-                auto moves = basemodel.position.board[x][y].get()->generateValidMoves(Point(x, y), board);//getValidMovesForPiece(Point(x,y),board);
-                int pieceValue = getPieceValue(&piece);
-                int positionValue = getPositionValue(&piece, x, y);
+                auto moves = basemodel.position.board[x][y]->generateValidMoves(Point(x, y), board);//getValidMovesForPiece(Point(x,y),board);
+                const int pieceValue = getPieceValue(&piece);
+                const int positionValue = getPositionValue(&piece, x, y);
                 // add evaluation of hiting pieces
                 //positionValue += getPossibleHits(x ,y , board, moves);
                 score += piece->getColor() == Color::Red ? (pieceValue + positionValue) : -(pieceValue + positionValue);
@@ -257,7 +264,7 @@ int Engine::evaluatePosition(const std::vector<std::vector<std::shared_ptr<Piece
     }
     return score;
 }
-
+/*
 int Engine::getPossibleHits(const int x, const int y, const std::vector<std::vector<std::shared_ptr<Piece>>>& board, const std::vector<std::pair<Point, Point>>& moves)
 {
     int hits = 0;
@@ -268,7 +275,7 @@ int Engine::getPossibleHits(const int x, const int y, const std::vector<std::vec
     }
     return hits;
 }
-
+*/
 int Engine::getPieceValue(const std::shared_ptr<Piece> *piece)
 {
     if (piece->get()->euroName.contains( "Soldier"))
@@ -316,12 +323,12 @@ int Engine::getPositionValue(const std::shared_ptr<Piece> *piece, int x, int y)
     }
     return 0;
 }
-
+/*
 int Engine::quiesce(int alpha, int beta, Color color)
 {
     return 0;
 }
-/*
+
 int Engine::search(int depth, Color color, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) {
     //qDebug() << "Depth: " << depth;
     //qDebug() << "Nodes: " << nodes;
@@ -375,8 +382,7 @@ int Engine::search(int depth, Color color, const std::vector<std::vector<std::sh
     return bestScore;
 }
 */
-void Engine::nodesPerSecond()
-{
+void Engine::nodesPerSecond() const {
     //qDebug() << "Nodes per second: " << nodes;
     basemodel.engineData.nodes = nodes;
     basemodel.engineData.searchDepth = depth;
@@ -387,9 +393,9 @@ void Engine::nodesPerSecond()
 }
 
 std::pair<Point, Point> Engine::engineGo()
-{    
-    auto move = GetBestMove(basemodel.position.players_color);
-    qDebug() << "Engine Move: " << basemodel.posToken(move.first.x, move.first.y, move.second.x, move.second.y);
+{
+    const auto move = GetBestMove(basemodel.position.players_color);
+    qDebug() << "Engine Move: " << BaseModel::posToken(move.first.x, move.first.y, move.second.x, move.second.y);
     qDebug() << "Engine Evaluation: " << evaluation;
     qDebug() << "Engine Nodes: " << nodes;
     qDebug() << "Engine Depth: " << depth;
