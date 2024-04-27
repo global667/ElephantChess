@@ -74,7 +74,7 @@ private:
 
 signals:
     // signal to the controller
-    void updateView(Point from, Point to, QString kind);
+    void updateView(Point from, Point to,  BaseModel::Mode mode);
 };
 
 #endif // BOARDVIEW_H

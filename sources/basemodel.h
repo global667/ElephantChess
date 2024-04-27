@@ -66,7 +66,9 @@ public:
     QStringList moves;
     QString engineName = "built-in";
     QList<Board> moveHistory;
-    QString kind = "human";
+    //QString kind = "human";
+    enum class Mode { human, engine, uci };
+    Mode mode = Mode::human;
 
     QList<QPair<Point, Point>> currentMoves;
     Point fromHuman = {-1, -1};

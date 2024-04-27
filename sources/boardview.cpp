@@ -406,8 +406,8 @@ void BoardView::PaintSelectedPieces(QPainter* painter) const {
 void BoardView::mousePressEvent(QMouseEvent* event) {
     const int x = event->pos().x();
     const int y = event->pos().y();
-    Point boardPos = CalcBoardCoords({ x, y });
-    Point coord{10 - boardPos.y, boardPos.x - 1}; // Simplified coordinate conversion
+    const Point boardPos = CalcBoardCoords({ x, y });
+    const Point coord{10 - boardPos.y, boardPos.x - 1}; // Simplified coordinate conversion
 
     if (!pressed) {
         pressed = true;
@@ -429,7 +429,7 @@ void BoardView::mousePressEvent(QMouseEvent* event) {
         auto all_moves = Board::getAllValidMoves(basemodel.position.players_color, basemodel.position.board);
         for (const auto& [from, to] : all_moves) {
             if (from == basemodel.fromHuman && to == basemodel.toHuman) {
-                emit updateView(basemodel.fromHuman ,basemodel.toHuman, basemodel.kind); // Assuming you have such a signal
+                emit updateView(basemodel.fromHuman ,basemodel.toHuman, basemodel.mode);
                 update();
                 return;
             }

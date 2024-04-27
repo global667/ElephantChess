@@ -37,7 +37,7 @@ class Engine final : public QObject
     Q_OBJECT
 public:
     Engine();
-    ~Engine() override { appClosing = true; if(!transpositionTable) delete transpositionTable; }
+    ~Engine() override { appClosing = true; /*delete transpositionTable;*/ }
 
     std::pair<Point, Point> GetBestMove(Color color);
     std::pair<Point, Point> engineGo();
@@ -50,7 +50,7 @@ public:
     QString name = "ElephantChessEngine";
 
 signals:
-    void updateView(Point from, Point to, QString kind);
+    void updateView(Point from, Point to, BaseModel::Mode);
     void paintFromThread();
     void updateFromThread();
 

@@ -36,7 +36,7 @@ UCI::UCI()
     basemodel.engineName = engineName;
 
     // Set the program for the engine
-    engine.setProgram(path + '/' + engineName);//"F:/source/XiangQi/Pikafish/pikafish.exe");//"pikafish.exe");//
+    engine.setProgram(engineName);//"F:/source/XiangQi/Pikafish/pikafish.exe");//"pikafish.exe");//
     engine.setWorkingDirectory(path);//"F:/source/XiangQi/Pikafish/");
     qDebug() << "Starting uci engine:" << basemodel.engineName;
     engine.setReadChannel(QProcess::StandardOutput);
@@ -97,7 +97,7 @@ void UCI::readData()
                 basemodel.toUCI.x = tx;
                 basemodel.toUCI.y = ty;
                 // Ruft gameloop auf
-                emit updateView(Point(fy, fx), Point(ty, tx), "human");
+                emit updateView(Point(fy, fx), Point(ty, tx), BaseModel::Mode::human);
             } else if (c.contains("info")) {
                 qDebug() << c;
             } else {

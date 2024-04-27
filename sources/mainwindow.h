@@ -55,6 +55,11 @@
 #include <QtConcurrent>
 #include <QFuture>
 #include <QtConcurrent/QtConcurrent>
+#include <QCoreApplication>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QFile>
+#include <QDir>
 
 #include "aboutview.h"
 #include "basemodel.h"
@@ -144,9 +149,12 @@ public slots:
     void Open();
     void Save();
     void OpenSettings();
+
+
     void ToggleEngineStatus();
     void Newgame();
     void PlayNow();
+
     void ToggleGameView();
     //void togglePlayer();
     void GiveTipp();
@@ -160,10 +168,11 @@ public slots:
     void nodesPerSecond() const;
 
 public slots:
-    void PlayNextTwoMoves(Point from, Point to, const QString &kind);
+    void PlayNextTwoMoves(Point from, Point to, const BaseModel::Mode mode);
     void paintFromThreadSlot();
     void updateFromThreadSlot() const;
 private slots:
+    void onDownloaded(const QString& filename = {});
     void Debug() const;
 public: signals:
     void paintFromThread();

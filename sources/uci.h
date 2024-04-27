@@ -49,7 +49,7 @@ private:
     bool newGame;
 
 signals:
-    void updateView(Point from, Point to, QString kind);
+    void updateView(Point from, Point to, BaseModel::Mode);
     void boardChanged(int fromX, int fromY, int toX, int toY);
 
 public slots:
