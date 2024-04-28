@@ -40,20 +40,22 @@ public:
     void writeDatas(const QByteArray &d);
 
     QProcess engine;
-    void engineGo();
+    void engineGo(bool tipp);
     QStringList moves;
 
 private:
     QByteArray buffer;
     bool waitForReadyOK;
     bool newGame;
-
+    bool tipp = false;
 signals:
     void updateView(Point from, Point to, BaseModel::Mode);
     void boardChanged(int fromX, int fromY, int toX, int toY);
+    void giveTipp(Point point, Point point1);
 
 public slots:
     static void start();
+
     void readData();
 
     static void anError(QProcess::ProcessError error);

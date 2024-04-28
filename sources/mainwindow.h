@@ -136,6 +136,7 @@ private:
     QPushButton button;
 
     int isTableClicked = 0;
+    bool tipp = false;
 
     void ResetToHistory();
     QFile *LoadPGNFile();
@@ -158,6 +159,7 @@ public slots:
     void ToggleGameView();
     //void togglePlayer();
     void GiveTipp();
+    void engineTipp(Point from,Point to);
     void About();
     void Help() const;
     void GiveUpGame();

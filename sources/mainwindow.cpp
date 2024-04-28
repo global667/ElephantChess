@@ -69,17 +69,19 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     //loggingTextView->insertPlainText(basemodel.position.perftTest(5));
 }
 
-#define ENGINE
+#undef ENGINE
 
 void MainWindow::InitEngine() {
-if (!QFile::exists("pikafish.exe"))
+
+if (QFile::exists(QDir::currentPath() + "/pikafish.exe"))
     {
-    qDebug() << "Starting built-in engine";
+/*    qDebug() << "Starting built-in engine";
         engine = new Engine();
         basemodel.mode = BaseModel::Mode::engine;
         connect(engine, SIGNAL(updateView(Point,Point,BaseModel::Mode)),
                 SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
-    } else {
+    } else { */
+
         basemodel.engineName = "pikafish.exe";
         qDebug() << "Starting uci engine (" + basemodel.engineName +
                 " in extra thread";
@@ -89,6 +91,10 @@ if (!QFile::exists("pikafish.exe"))
                 SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
         UCI::start();
         uci->engine.waitForReadyRead();
+    } else {
+        QMessageBox::information(this, "Information",
+                                 "Download the engine from the releases page on \nhttp://www.elephant-chess.com\nand put it in the program folder\n" + QDir::currentPath() + "\n");
+        exit(0);
     }
 }
 
@@ -99,6 +105,7 @@ void MainWindow::InitConnections() {
 #endif
     // TODO: let board unchanged (at the moment it will reseted)
     //connect(settings, SIGNAL(boardStyleChanged()), SLOT(Newgame()));
+    connect(uci, SIGNAL(giveTipp(Point,Point)), SLOT(engineTipp(Point,Point)));
 
     connect(
         table, &QTreeWidget::itemClicked, this,
@@ -308,8 +315,8 @@ void MainWindow::InitWidgets() {
                         tr("Give up"), this, SLOT(GiveUpGame()))
             ->setToolTip("Give the game up. You will loose.");
     toolbar->addSeparator();
-    toolbar->addAction(QIcon(":res/settings.png"), tr("Load engine"), this,
-                       SLOT(OpenSettings()));
+    //toolbar->addAction(QIcon(":res/settings.png"), tr("Load engine"), this,
+     //                  SLOT(OpenSettings()));
     toolbar
             ->addAction(QIcon(style()->standardIcon((QStyle::SP_DialogHelpButton))),
                         tr("Help"), this, SLOT(Help()))
@@ -323,11 +330,12 @@ void MainWindow::InitWidgets() {
                         &QCoreApplication::quit)
             ->setToolTip("Exit the application");
     toolbar->addSeparator();
-
+/*
     toolbar
             ->addAction(QIcon(style()->standardIcon((QStyle::SP_DialogCloseButton))),
                         tr("EvalDebug"), this, SLOT(Debug()))
             ->setToolTip("Evaluate and comment a position");
+*/
 }
 
 void MainWindow::Debug() const { loggingTextView->insertPlainText("Test,test,test"); }
@@ -413,31 +421,34 @@ void MainWindow::ReadPGNData(QString data) const {
 }
 
 void MainWindow::PutPGNOnBoard() {
-    int c = 0;
     basemodel.position.setupInitialPositions();
-    basemodel.currentMove = 0;
     basemodel.moveHistory.clear();
+    AddMoveToHistory();
+    basemodel.currentMove = 0;
     model->clear();
     // row = 0,
     column = 0;
+    auto moves = basemodel.moves;
+    basemodel.moves.clear();
+    int c = 0;
 
-    for (QString &item1: basemodel.moves) {
+    for (QString &item1: moves) {
         auto *item = new QStandardItem(item1);
-        if (c % 2 == 0) {
-            model->setItem(c / 2, 0, item);
-        }
-        if (c % 2 == 1)
-            model->setItem(c / 2, 1, item);
-        c++;
+        //if (c % 2 == 0) {
+       //     model->setItem(c / 2, 0, item);
+       // }
+        //if (c % 2 == 1)
+        model->setItem(c , 0, item);
 
-        auto fx = ((char) item1.at(0).toLatin1()) - 'a';
-        auto fy = 9 - (item1.at(1).digitValue());
-        auto tx = ((char) item1.at(2).toLatin1()) - 'a';
-        auto ty = 9 - (item1.at(3).digitValue());
+        const auto fx = ((char)item1.at(0).toLatin1() - 'a') ;
+        const auto fy = static_cast<char>(9 - item1[1].digitValue());
+        const auto tx = ((char)  item1.at(2).toLatin1() -'a');
+        const auto ty = static_cast<char>(9 - item1[3].digitValue());
 
         Board::movePiece(Point(9 - fy, 8 - fx), Point(9 - ty, 8 - tx), basemodel.position.board);
-        AddMoveToList(std::make_pair(Point(9 - fy, 8 - fx), Point(9 - ty, 8 - tx)));
         AddMoveToHistory();
+        AddMoveToList(std::make_pair(Point(9 - fy, 8 - fx), Point(9 - ty, 8 - tx)));
+        c++;
     }
     column = c;
     repaint();
@@ -457,7 +468,7 @@ void MainWindow::AddMoveToList(const std::pair<Point, Point> move) const {
                                ? "-"
                                : "x"; // If there is no piece on the target field, then it is not a beaten move
 
-    const QByteArray moveAsString = basemodel.posToken(
+    const QByteArray moveAsString = BaseModel::posToken(
         move.first.x, move.first.y, move.second.x, move.second.y);
     basemodel.moves.append(moveAsString);
 
@@ -521,7 +532,7 @@ void MainWindow::Save() {
         textstream << m << " ";
     }
 
-    textstream << "0-1\n\n";
+    textstream << "\n0-1\n\n";
 
     svfile.close();
 
@@ -544,12 +555,8 @@ void MainWindow::ToggleGameView() {
     repaint();
 }
 
-void MainWindow::GiveTipp() {
-    std::pair<Point, Point> move =
-            engine->GetBestMove(basemodel.position.players_color);
-    Point from = move.first;
-    Point to = move.second;
-    QString c;
+void MainWindow::engineTipp(Point from,Point to) {
+     QString c;
     if (basemodel.position.players_color == Color::Red)
         c = "Red";
     else
@@ -558,6 +565,12 @@ void MainWindow::GiveTipp() {
     const QString bestMoveWouldBe =
             QString("The best move for %1 would be %2").arg(c).arg(token);
     QMessageBox::information(this, "Engine says:", bestMoveWouldBe);
+}
+
+void MainWindow::GiveTipp() {
+    ///std::pair<Point, Point> move =
+            //engine->GetBestMove(basemodel.position.players_color);
+     uci->engineGo(true);;
 }
 
 void MainWindow::About() {
@@ -593,7 +606,7 @@ void MainWindow::PlayNow() {
 
         basemodel.position.toggleColor();
     } else
-        uci->engineGo();
+        uci->engineGo(false);
 
     repaint();
 }
@@ -784,7 +797,7 @@ void MainWindow::PlayNextTwoMoves(Point from, Point to, const BaseModel::Mode mo
             basemodel.position.toggleColor();
         });
     } else if (mode == BaseModel::Mode::uci) {
-        uci->engineGo();
+        uci->engineGo(false);
     } else {
         qDebug() << "Error in game loop ToMove()";
     }

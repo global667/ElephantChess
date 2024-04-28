@@ -11,6 +11,7 @@
 #include <QWidget>
 #include <utility>
 #include <QProgressDialog>
+#include <QtZlib/zlib.h>
 
 class AboutView final : public QTabWidget
 {
@@ -70,7 +71,8 @@ private slots:
                 }
                 */
                 //QFile file("engines/pikafish.zip");
-                QFile file("pikafish.zip");
+                QFile file(QDir::currentPath() + "./pikafish.zip");
+                qDebug() << QDir::currentPath();
                 if (file.open(QFile::WriteOnly)) {
                     file.write(reply->readAll());
                     file.close();
@@ -80,10 +82,12 @@ private slots:
                 }
             }
             reply->deleteLater();
-            QProcess process;
-            process.start("tar -xf pikafish.zip");
-            process.waitForFinished(-1);
-            QFile::remove("pikafish.zip");
+    QProcess process;
+    process.setWorkingDirectory(QDir::currentPath());
+    //process.setArguments({"tar","-x", "pikafish.zip"});
+    process.start("cmd.exe start /c tar -x pikafish.zip");
+    process.waitForFinished(-1);
+    //QFile::remove("pikafish.zip");
 
             emit downloaded("pikafish.exe");
         }

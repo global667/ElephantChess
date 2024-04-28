@@ -18,6 +18,8 @@
 
 #include "uci.h"
 
+#include <QDir>
+
 extern BaseModel basemodel;
 
 UCI::UCI()
@@ -30,14 +32,15 @@ UCI::UCI()
             SLOT(anError(QProcess::ProcessError)));
 
     QStringList list = basemodel.engineName.split('/');
-    QString path = list.mid(0, list.size() - 1).join('/');
-    QString engineName = list.last();
+    //QString path = list.mid(0, list.size() - 1).join('/');
+    const QString engineName = list.last();
 
     basemodel.engineName = engineName;
 
     // Set the program for the engine
-    engine.setProgram(engineName);//"F:/source/XiangQi/Pikafish/pikafish.exe");//"pikafish.exe");//
-    engine.setWorkingDirectory(path);//"F:/source/XiangQi/Pikafish/");
+    qDebug() << QDir::currentPath() + "/" + engineName;
+    engine.setProgram(QDir::currentPath() + "/" + engineName);//"F:/source/XiangQi/Pikafish/pikafish.exe");//"pikafish.exe");//
+    engine.setWorkingDirectory(QDir::currentPath());//"F:/source/XiangQi/Pikafish/");
     qDebug() << "Starting uci engine:" << basemodel.engineName;
     engine.setReadChannel(QProcess::StandardOutput);
 
@@ -96,8 +99,11 @@ void UCI::readData()
                 basemodel.fromUCI.y = fy;
                 basemodel.toUCI.x = tx;
                 basemodel.toUCI.y = ty;
-                // Ruft gameloop auf
-                emit updateView(Point(fy, fx), Point(ty, tx), BaseModel::Mode::human);
+                if(tipp == false) {
+                    // Ruft gameloop auf
+                    emit updateView(Point(fy, fx), Point(ty, tx), BaseModel::Mode::human);
+                } else
+                    emit giveTipp(Point(fy, fx), Point(ty, tx));
             } else if (c.contains("info")) {
                 qDebug() << c;
             } else {
@@ -109,8 +115,9 @@ void UCI::readData()
     }
 }
 
-void UCI::engineGo()
+void UCI::engineGo(const bool tipp)
 {
+    this->tipp = tipp;
     // get a move
     writeDatas("position startpos moves " + basemodel.moves.join(" ").toUtf8());
     writeDatas("go depth 3");

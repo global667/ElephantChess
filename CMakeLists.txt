@@ -30,6 +30,7 @@ enable_language(CXX)
 
 find_package(Qt6 REQUIRED COMPONENTS
     Core
+    #Core5Compat
     Widgets    
     Concurrent
     Network
@@ -46,6 +47,27 @@ find_package(Qt6 REQUIRED COMPONENTS
     #LinguistTools
     HINTS "C:/Qt/6.7.0/msvc2019_64"
 )
+
+#find_package(ZLIB REQUIRED
+    #HINTS ${CMAKE_SOURCE_DIR}/sources/zlib
+#        HINTS "C:/Users/wolfk/CLionProjects/ElephantChess/sources/zlib"
+#)
+#set (QuaZip-Qt6_DIR "C:/Users/wolfk/CLionProjects/ElephantChess/sources/quazip/build/quazip/CMakeFiles/Export/9a598ef5a9283f4576650c6d54ccd9f8")
+#find_package(QuaZip-Qt6 REQUIRED
+ #       HINTS "C:/Users/wolfk/CLionProjects/Sources/Quazip/"
+#)
+# CMakeFiles\Export\9a598ef5a9283f4576650c6d54ccd9f8" REQUIRED)
+#target_link_libraries(ElephantChess QuaZip::QuaZip)
+
+#set (ZLIB_INCLUDE_DIR "C:/Users/wolfk/CLionProjects/ElephantChess/sources/zlib")
+#set (ZLIB_LIBRARY "C:/Users/wolfk/CLionProjects/ElephantChess/sources/zlib/zlib.lib")
+
+#find_package(ZLIB REQUIRED)
+#add_library(ZLib::ZLib UNKNOWN IMPORTED)
+#set_target_properties(ZLib::ZLib PROPERTIES
+#    IMPORTED_LOCATION "${ZLIB_LIBRARIES}"
+#    INTERFACE_INCLUDE_DIRECTORIES "${ZLIB_INCLUDE_DIRS}"
+#)
 
 qt6_standard_project_setup()
 qt_add_resources(RESOURCES sources/res.qrc)
@@ -68,9 +90,12 @@ add_executable(ElephantChess WIN32 ${PROJECT_CPP} ${RESOURCES}
 
 target_link_libraries(ElephantChess PUBLIC
     Qt6::Core
+    #Qt6::Core5Compat
+       # ZLib::ZLib
     Qt::Widgets
     Qt::Concurrent
     Qt::Network
+       # QuaZip::QuaZip
     #Qt::Test
     #Qt::3DCore
     #Qt::3DRender
