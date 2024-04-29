@@ -1,9 +1,10 @@
 ﻿# PowerShell-Skript für das Deployen von ElephantChess unter Windows 11
+# für die developer shell
 
 # Pfad zur Qt-Installation
 $QtDir =  "C:\Qt\6.7.0\msvc2019_64" # "C:\Qt\6.7.0\mingw_64"
 # Pfad zum Build-Verzeichnis Ihres Projekts
-$BuildDir = "C:\Users\wolfk\CLionProjects\ElephantChess\cmake-build-debug-visual-studio"
+$BuildDir = "~\CLionProjects\ElephantChess\cmake-build-debug-visual-studio"
 #Installer data and config root dir
 $InstRoot = "F:\deploy\ElephantChess\"
 # Zielverzeichnis für das Deployment
