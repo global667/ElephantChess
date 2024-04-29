@@ -107,7 +107,7 @@ void MainWindow::InitConnections() {
     //connect(settings, SIGNAL(boardStyleChanged()), SLOT(Newgame()));
     connect(uci, SIGNAL(giveTipp(Point,Point)), SLOT(engineTipp(Point,Point)));
 
-    connect(
+    /*connect(
         table, &QTreeWidget::itemClicked, this,
         [=](const QTreeWidgetItem *item, int col) {
             const int row = table->indexFromItem(item).row();
@@ -115,7 +115,7 @@ void MainWindow::InitConnections() {
             isTableClicked = row;
             repaint();
         },
-        Qt::AutoConnection);
+        Qt::AutoConnection); */
     // SLOT(ItemClicked(QTreeWidgetItem *, int)));
 
     connect(
@@ -380,6 +380,8 @@ void MainWindow::Open() {
 
 void MainWindow::ReadPGNData(QString data) const {
     data.shrink_to_fit();
+    basemodel.moves.clear();
+    model->clear();
     for (auto &s: data.split('\n')) {
         if (s.contains("[Event ")) {
             loca->setText(s.split("\"").at(1));
@@ -421,35 +423,41 @@ void MainWindow::ReadPGNData(QString data) const {
 }
 
 void MainWindow::PutPGNOnBoard() {
+
     basemodel.position.setupInitialPositions();
     basemodel.moveHistory.clear();
-    AddMoveToHistory();
-    basemodel.currentMove = 0;
+    for (const auto & m : model->findItems("*", Qt::MatchWildcard)) {
+        model->removeRow(m->row());
+    }
+    table->clear();
     model->clear();
-    // row = 0,
-    column = 0;
     auto moves = basemodel.moves;
     basemodel.moves.clear();
+    AddMoveToHistory();
+    basemodel.currentMove = 0;
     int c = 0;
 
-    for (QString &item1: moves) {
-        auto *item = new QStandardItem(item1);
+    for (auto& item1: moves) {
+        //auto *item = new QStandardItem(item1);
         //if (c % 2 == 0) {
        //     model->setItem(c / 2, 0, item);
        // }
         //if (c % 2 == 1)
-        model->setItem(c , 0, item);
+        //model->appendRow(item);
 
         const auto fx = ((char)item1.at(0).toLatin1() - 'a') ;
         const auto fy = static_cast<char>(9 - item1[1].digitValue());
         const auto tx = ((char)  item1.at(2).toLatin1() -'a');
         const auto ty = static_cast<char>(9 - item1[3].digitValue());
 
-        Board::movePiece(Point(9 - fy, 8 - fx), Point(9 - ty, 8 - tx), basemodel.position.board);
-        AddMoveToHistory();
+       AddMoveToHistory();
         AddMoveToList(std::make_pair(Point(9 - fy, 8 - fx), Point(9 - ty, 8 - tx)));
+        Board::movePiece(Point(9 - fy, 8 - fx), Point(9 - ty, 8 - tx), basemodel.position.board);
+
         c++;
+        basemodel.position.toggleColor();
     }
+    basemodel.currentMove++;
     column = c;
     repaint();
 }
@@ -482,19 +490,19 @@ void MainWindow::AddMoveToList(const std::pair<Point, Point> move) const {
                     : QString("+"));
 
     auto *item = new QTreeWidgetItem(table);
-    const int ply = (basemodel.moves.size() - 1) % 2;
+    //const int ply = (basemodel.moves.size() - 1) % 2;
     item->setText(0, QString::number(basemodel.currentMove) + ". " + mv.join(" "));
 
-    if (isTableClicked) {
+   /* if (isTableClicked) {
         if (0 == ply) {
             table->addTopLevelItem(item);
         } else {
             table->setCurrentItem(item);
             //table->addTopLevelItem(item); // Insert the item at the top
         }
-    } else {
-        table->addTopLevelItem(item);
-    }
+    } else { */
+        //table->addTopLevelItem(item);
+    //}
 }
 
 void MainWindow::Save() {
@@ -712,12 +720,11 @@ void MainWindow::Newgame() {
 // End Toolbar slots
 
 void MainWindow::ResetToHistory() {
-    //basemodel.position = basemodel.moveHistory[basemodel.currentMove];
     basemodel.position = basemodel.moveHistory[basemodel.currentMove];
-    basemodel.fromHuman = {-1, -1};
-    basemodel.toHuman = {-1, -1};
-    basemodel.fromUCI = {-1, -1};
-    basemodel.toUCI = {-1, -1};
+    //basemodel.fromHuman = {-1, -1};
+    //basemodel.toHuman = {-1, -1};
+    //basemodel.fromUCI = {-1, -1};
+    //basemodel.toUCI = {-1, -1};
 
     repaint();
 }
