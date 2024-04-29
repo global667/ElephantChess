@@ -31,10 +31,13 @@ $ExePath = Join-Path -Path $BuildDir -ChildPath $ExeName
 #$PikaNetPath = Join-Path -Path $BuildDir -ChildPath $PikaNet
 
 Copy-Item -Path $ExePath -Destination $DataDir
+cd $BuildDir
+cd ..
+Copy-Item -Path ".\sources\res\icon.ico" -Destination $DataDir
 
 #& $WinDeployQt --dir $DeployDir $ExePath
 # Führen Sie windeployqt aus, um die erforderlichen Abhängigkeiten zu kopieren
-& $WinDeployQt --debug --no-translations --no-opengl-sw   $DataDir"\"$ExeName
+& $WinDeployQt --debug --no-translations --no-opengl-sw --compiler-runtime $DataDir"\"$ExeName
 #--no-system-d3d-compiler --qmldir $QtDir\qml --no-compiler-runtime
 
 # Schritt 4: Kopieren der ausführbaren Datei und anderer benötigter Dateien in das Deploy-Verzeichnis

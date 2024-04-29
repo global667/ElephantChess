@@ -4,7 +4,11 @@
 ### Elephant Chess 
 <!-- {% endcomment %} -->
 
-<img src="sources/res/generalRed.png" width="50" height="50">
+![](https://img.shields.io/badge/ALPHA%20VERSION!-8A2BE2)
+
+Use with caution, as the software is still in development.
+
+<img src="sources/res/generalRed.png" width="50" height="50" alt="">
 <br>
 <br>
 <!-- {% comment %} -->  
@@ -18,6 +22,8 @@
 :::
 ![](https://badgen.net/github/release/global667/ElephantChess/)
 ::.
+
+
 <!-- ![](https://badgen.net/github/release/stable/global667/ElephantChess/) -->
 <!-- {% endcomment %} -->
 
