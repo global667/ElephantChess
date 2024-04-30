@@ -117,6 +117,7 @@ private:
     QWidget *navigationview = nullptr;
     QPushButton *lleft = nullptr, *left = nullptr, *right = nullptr, *rright = nullptr;
 
+
     QWidget *gameinfoswidget = nullptr;
     QVBoxLayout *gameinfosh = nullptr;
     QHBoxLayout *opponents = nullptr;
@@ -142,9 +143,10 @@ private:
     QFile *LoadPGNFile();
     void PutPGNOnBoard();
     void ReadPGNData(QString data) const;
-    QTextEdit *loggingTextView{};
-    QLineEdit *nps{}, *eval{};
-
+    QTextEdit *loggingTextView = nullptr;
+    QLineEdit *nps = nullptr, *eval = nullptr;
+    QHBoxLayout *tab1layout = nullptr, *navibuttonslayout = nullptr;
+    QVBoxLayout *tabwidget2layout = nullptr, *naviwidlayout = nullptr;
 
 public slots:
     void Open();

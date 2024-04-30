@@ -166,46 +166,32 @@ void MainWindow::InitWidgets() {
     navigationwidget = new QWidget(this);
     navigationview = new QWidget(navigationwidget);
 
-    // navigation buttons
-    right = new QPushButton(
-        QIcon(style()->standardIcon(QStyle::SP_MediaSeekForward)), "Forward");
-    rright = new QPushButton(
-        QIcon(style()->standardIcon(QStyle::SP_MediaSkipForward)), "End");
-    left = new QPushButton(
-        QIcon(style()->standardIcon(QStyle::SP_MediaSeekBackward)), "Back");
-    lleft = new QPushButton(
-        QIcon(style()->standardIcon(QStyle::SP_MediaSkipBackward)), "Begin");
-    right->setToolTip("Goes on move for");
-    rright->setToolTip("Goes to the end of the game");
-    left->setToolTip("Goes one move back");
-    lleft->setToolTip("Goes to the begining of the game");
-
     // move listing
-    model = new QStandardItemModel(0, 2);
-    model->setHeaderData(0, Qt::Horizontal, tr("Red"));
-    model->setHeaderData(1, Qt::Horizontal, tr("Black"));
-    headerview = new QHeaderView(Qt::Horizontal);
-    headerview->resizeSections(QHeaderView::Stretch);
-    headerview->setStretchLastSection(true);
-    headerview->setDefaultAlignment(Qt::AlignJustify | Qt::AlignVCenter);
-    table = new QTreeWidget();
+   // model = new QStandardItemModel(0, 2);
+   // model->setHeaderData(0, Qt::Horizontal, tr("Red"));
+   // model->setHeaderData(1, Qt::Horizontal, tr("Black"));
+    //headerview = new QHeaderView(Qt::Horizontal);
+   // headerview->resizeSections(QHeaderView::Stretch);
+   // headerview->setStretchLastSection(true);
+   // headerview->setDefaultAlignment(Qt::AlignJustify | Qt::AlignVCenter);
+    table = new QTreeWidget(navigationwidget);
     table->setColumnCount(2);
     table->setHeaderLabels(QStringList() << "Moves" << "Comments");
 
     // tabwidget1 layout
-    auto *tab1layout = new QHBoxLayout;
+    tab1layout = new QHBoxLayout(tabwidget1);
     tab1layout->addWidget(table);
     tabwidget1->setLayout(tab1layout);
 
+    tabwidget2layout = new QVBoxLayout(tabwidget2);
     // tabwidget2 layout
-    loggingTextView = new QTextEdit();
-    nps = new QLineEdit();
+    loggingTextView = new QTextEdit(tabwidget2layout->widget());
+    nps = new QLineEdit(tabwidget2layout->widget());
     nps->setText("0 nodes/s");
     nps->setReadOnly(true);
-    eval = new QLineEdit();
+    eval = new QLineEdit(tabwidget2layout->widget());
     eval->setText("Eval: 0");
 
-    auto *tabwidget2layout = new QVBoxLayout;
     tabwidget2layout->addWidget(eval);
     tabwidget2layout->addWidget(nps);
     tabwidget2layout->addWidget(loggingTextView);
@@ -215,8 +201,23 @@ void MainWindow::InitWidgets() {
     tabview->addTab(tabwidget1, "Move list");
     tabview->addTab(tabwidget2, "Info");
 
+    navibuttonslayout = new QHBoxLayout(navigationview);
+
+    // navigation buttons
+    right = new QPushButton(
+        QIcon(style()->standardIcon(QStyle::SP_MediaSeekForward)), "Forward",navibuttonslayout->widget());
+    rright = new QPushButton(
+        QIcon(style()->standardIcon(QStyle::SP_MediaSkipForward)), "End",navibuttonslayout->widget());
+    left = new QPushButton(
+        QIcon(style()->standardIcon(QStyle::SP_MediaSeekBackward)), "Back",navibuttonslayout->widget());
+    lleft = new QPushButton(
+        QIcon(style()->standardIcon(QStyle::SP_MediaSkipBackward)), "Begin",navibuttonslayout->widget());
+    right->setToolTip("Goes on move for");
+    rright->setToolTip("Goes to the end of the game");
+    left->setToolTip("Goes one move back");
+    lleft->setToolTip("Goes to the begining of the game");
+
     // navgationview
-    auto *navibuttonslayout = new QHBoxLayout;
     navibuttonslayout->addWidget(lleft);
     navibuttonslayout->addWidget(left);
     navibuttonslayout->addWidget(right);
@@ -224,26 +225,26 @@ void MainWindow::InitWidgets() {
     navigationview->setLayout(navibuttonslayout);
 
     // gameinfos
-    gameinfoswidget = new QWidget();
-    gameinfosh = new QVBoxLayout;
-    opponents = new QHBoxLayout;
-    opp1 = new QLineEdit();
+    gameinfoswidget = new QWidget(this);
+    gameinfosh = new QVBoxLayout(gameinfoswidget);
+    opponents = new QHBoxLayout(gameinfoswidget);
+    opp1 = new QLineEdit(opponents->widget());
     opp1->setPlaceholderText("Me");
     opponents->addWidget(opp1);
-    opp2 = new QLineEdit();
+    opp2 = new QLineEdit(opponents->widget());
     opp2->setText(basemodel.engineName);
     opponents->addWidget(opp2);
     location = new QHBoxLayout;
-    loca = new QLineEdit();
+    loca = new QLineEdit(gameinfosh->widget());
     loca->setPlaceholderText("hometown masters");
     location->addWidget(loca);
     location->addWidget(new QLabel(", round"));
-    round = new QLineEdit();
+    round = new QLineEdit(gameinfosh->widget());
     round->setPlaceholderText("1");
     round->setMaximumWidth(30);
     location->addWidget(round);
     location->addWidget(new QLabel(", the"));
-    date = new QLineEdit();
+    date = new QLineEdit(gameinfosh->widget());
     date->setPlaceholderText("20.02.2000");
     date->setMaximumWidth(60);
     location->addWidget(date);
@@ -253,7 +254,7 @@ void MainWindow::InitWidgets() {
 
     gameinfoswidget->setLayout(gameinfosh);
 
-    auto *naviwidlayout = new QVBoxLayout;
+    naviwidlayout = new QVBoxLayout(navigationwidget);
     naviwidlayout->addWidget(navigationview);
     naviwidlayout->addWidget(gameinfoswidget);
     naviwidlayout->addWidget(tabview);
