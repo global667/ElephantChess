@@ -647,7 +647,7 @@ void MainWindow::onDownloaded(const QString& filename) {
     if (!uci) {
         qDebug() << "!uci";
         uci = new UCI();
-        disconnect(engine, SIGNAL(updateView(Point,Point,BaseModel::Mode)), nullptr,
+        disconnect(engine.get(), SIGNAL(updateView(Point,Point,BaseModel::Mode)), nullptr,
                    nullptr);
         connect(uci, SIGNAL(updateView(Point,Point,BaseModel::Mode)),
                 SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
@@ -777,14 +777,14 @@ void MainWindow::PlayNextTwoMoves(Point from, Point to, const BaseModel::Mode mo
     if (mode == BaseModel::Mode::engine) {
         timer = new QTimer(this);
         timer2 = new QTimer(this);
-        connect(timer, &QTimer::timeout, engine, &Engine::nodesPerSecond);
+        connect(timer, &QTimer::timeout, engine.get(), &Engine::nodesPerSecond);
         connect(timer2, &QTimer::timeout, this, &MainWindow::nodesPerSecond);
 
         timer->start(1000);
         timer2->start(100);
 
         QObject::connect(this, SIGNAL(paintFromThread()), this, SLOT(paintFromThreadSlot()));
-        QObject::connect(engine, SIGNAL(updateFromThread()), this, SLOT(updateFromThreadSlot()));
+        QObject::connect(engine.get(), SIGNAL(updateFromThread()), this, SLOT(updateFromThreadSlot()));
 
 
         // Putting in a separeted thread
@@ -891,7 +891,7 @@ void MainWindow::ToggleEngineStatus() {
 
 MainWindow::~MainWindow() {
     //std::default_delete<this>Objects();
-    delete engine;
+//    delete engine;
     delete uci;
     //if (view)
     delete view;

@@ -80,7 +80,7 @@ public:
     // The engine, and its thread
     UCI *uci  = nullptr;
     QThread uciThread;
-    Engine *engine  = nullptr;
+    QScopedPointer<Engine> engine;
     void YouLose();
     void YouWin();
     QTimer *timer{}, *timer2{};
