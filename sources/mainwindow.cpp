@@ -86,8 +86,8 @@ if (QFile::exists(QDir::currentPath() + "/pikafish.exe"))
         qDebug() << "Starting uci engine (" + basemodel.engineName +
                 " in extra thread";
         basemodel.mode = BaseModel::Mode::uci;
-        uci = new UCI();
-        connect(uci, SIGNAL(updateView(Point,Point,BaseModel::Mode)),
+        uci.reset(new UCI());
+        connect(uci.get(), SIGNAL(updateView(Point,Point,BaseModel::Mode)),
                 SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
         UCI::start();
         uci->engine.waitForReadyRead();
@@ -105,7 +105,7 @@ void MainWindow::InitConnections() {
 #endif
     // TODO: let board unchanged (at the moment it will reseted)
     //connect(settings, SIGNAL(boardStyleChanged()), SLOT(Newgame()));
-    connect(uci, SIGNAL(giveTipp(Point,Point)), SLOT(engineTipp(Point,Point)));
+    connect(uci.get(), SIGNAL(giveTipp(Point,Point)), SLOT(engineTipp(Point,Point)));
 
     /*connect(
         table, &QTreeWidget::itemClicked, this,
@@ -646,16 +646,16 @@ void MainWindow::onDownloaded(const QString& filename) {
     basemodel.mode = BaseModel::Mode::uci;
     if (!uci) {
         qDebug() << "!uci";
-        uci = new UCI();
+        uci.reset(new UCI());
         disconnect(engine.get(), SIGNAL(updateView(Point,Point,BaseModel::Mode)), nullptr,
                    nullptr);
-        connect(uci, SIGNAL(updateView(Point,Point,BaseModel::Mode)),
+        connect(uci.get(), SIGNAL(updateView(Point,Point,BaseModel::Mode)),
                 SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
     } else {
         qDebug() << "uci";
         uciThread.quit();
-        uci = new UCI();
-        connect(uci, SIGNAL(updateView(Point,Point,BaseModel::Mode)),
+        uci.reset(new UCI());
+        connect(uci.get(), SIGNAL(updateView(Point,Point,BaseModel::Mode)),
                 SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
     }
     //opp2->setText(basemodel.engineName);
@@ -892,7 +892,7 @@ void MainWindow::ToggleEngineStatus() {
 MainWindow::~MainWindow() {
     //std::default_delete<this>Objects();
 //    delete engine;
-    delete uci;
+    //delete uci;
     //if (view)
     delete view;
     //if (renderView)

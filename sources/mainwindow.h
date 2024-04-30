@@ -78,7 +78,7 @@ public:
     ~MainWindow() override;
 
     // The engine, and its thread
-    UCI *uci  = nullptr;
+    QScopedPointer<UCI> uci;
     QThread uciThread;
     QScopedPointer<Engine> engine;
     void YouLose();
