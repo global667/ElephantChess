@@ -46,6 +46,7 @@ private:
     void PaintMarker(QPainter *p) const;
     void PrepareNativePiece(QPicture *p, int row, int col, int h, int w) const;
     void PaintSelectedPieces(QPainter *p) const;
+    void DrawEngineMoves(QPainter *painter) const;
     [[nodiscard]] Point CalcBoardCoords(Point r) const;
     static void SetEditorPieces();
     // controls the mouse input

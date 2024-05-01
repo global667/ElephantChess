@@ -804,6 +804,8 @@ void MainWindow::PlayNextTwoMoves(Point from, Point to, const BaseModel::Mode mo
         });
     } else if (mode == BaseModel::Mode::uci) {
         uci->engineGo(false);
+    } else if (mode == BaseModel::Mode::human) {
+        qDebug () << "Waiting for human...";
     } else {
         qDebug() << "Error in game loop ToMove()";
     }
