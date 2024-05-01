@@ -429,11 +429,11 @@ private:
                             if (!springboardEncountered) {
                                 // Freies Feld, ohne dass wir über ein Hindernis gesprungen sind
                                 cannonMoves[x][y][d].push_back(current);
-                            } else {
+                           // } else {
                                 // Nach dem ersten Hindernis können wir hier schlagen
-                                cannonMoves[x][y][d].push_back(current);
+                              //  cannonMoves[x][y][d].push_back(current);
 
-                            }
+                           }
                         }
                     }
                 }

@@ -382,7 +382,7 @@ void MainWindow::Open() {
 void MainWindow::ReadPGNData(QString data) const {
     data.shrink_to_fit();
     basemodel.moves.clear();
-    model->clear();
+    //model->clear();
     for (auto &s: data.split('\n')) {
         if (s.contains("[Event ")) {
             loca->setText(s.split("\"").at(1));
@@ -427,11 +427,11 @@ void MainWindow::PutPGNOnBoard() {
 
     basemodel.position.setupInitialPositions();
     basemodel.moveHistory.clear();
-    for (const auto & m : model->findItems("*", Qt::MatchWildcard)) {
-        model->removeRow(m->row());
-    }
-    table->clear();
-    model->clear();
+    //for (const auto & m : model->findItems("*", Qt::MatchWildcard)) {
+   //     model->removeRow(m->row());
+   // }
+    //table->clear();
+   // model->clear();
     auto moves = basemodel.moves;
     basemodel.moves.clear();
     AddMoveToHistory();
@@ -572,11 +572,11 @@ void MainWindow::engineTipp(Point from,Point to) {
         c = "Black";
     const QString token = BaseModel::posToken(from.x, from.y, to.x, to.y);
     const QString bestMoveWouldBe =
-            QString("The best move for %1 would be %2").arg(c).arg(token);
+            QString("The best move for %1 would be %2").arg(c,token);
     QMessageBox::information(this, "Engine says:", bestMoveWouldBe);
 }
 
-void MainWindow::GiveTipp() {
+void MainWindow::GiveTipp() const {
     ///std::pair<Point, Point> move =
             //engine->GetBestMove(basemodel.position.players_color);
      uci->engineGo(true);;
@@ -653,14 +653,14 @@ void MainWindow::onDownloaded(const QString& filename) {
                 SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
     } else {
         qDebug() << "uci";
-        uciThread.quit();
+        //uciThread.quit();
         uci.reset(new UCI());
         connect(uci.get(), SIGNAL(updateView(Point,Point,BaseModel::Mode)),
                 SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
     }
     //opp2->setText(basemodel.engineName);
     Q_ASSERT(&uci);
-    Q_ASSERT(&uciThread);
+    //Q_ASSERT(&uciThread);
     // uci->moveToThread(&uciThread);
     qDebug() << "Starting uci engine (" + basemodel.engineName +
             " in extra thread";
@@ -700,7 +700,7 @@ void MainWindow::onDownloaded(const QString& filename) {
 void MainWindow::Newgame() {
     basemodel.position.setupInitialPositions();
     basemodel.moveHistory.clear();
-    model->clear();
+    //model->clear();
     // row = 0,
     column = 0;
     basemodel.currentMove = 0;
@@ -709,7 +709,7 @@ void MainWindow::Newgame() {
     basemodel.fromUCI = {-1, -1};
     basemodel.toUCI = {-1, -1};
     basemodel.position.players_color = Color::Red;
-    for (int i = basemodel.moves.size(); i >= 0; i--) {
+    for (int i = static_cast<int>(basemodel.moves.size()); i >= 0; i--) {
         table->takeTopLevelItem(i);
     }
     basemodel.moves.clear();
@@ -880,21 +880,21 @@ void MainWindow::nodesPerSecond() const {
 }
 
 void MainWindow::ToggleEngineStatus() {
-    if (uci)
-        return;
-    if (uciThread.isRunning()) {
+    //if (uci)
+    //    return;
+/*    if (uciThread.isRunning()) {
         uciThread.quit();
     } else {
         uciThread.start();
-    }
+    }*/
 }
 
-MainWindow::~MainWindow() {
+//MainWindow::~MainWindow() {
     //std::default_delete<this>Objects();
 //    delete engine;
     //delete uci;
     //if (view)
-    delete view;
+  /*  delete view;
     //if (renderView)
     //    delete renderView;
     //if (boardview)
@@ -981,4 +981,4 @@ MainWindow::~MainWindow() {
 
     //if (toolbar)
     delete toolbar;
-}
+}*/

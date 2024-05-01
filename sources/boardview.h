@@ -31,7 +31,7 @@
 
 // This class is the 2D-view of the board. It is a QWidget and draws the board and the pieces.
 // Handles the mouse input and the context menu.
-class BoardView : public QWidget
+class BoardView final : public QWidget
 {
     Q_OBJECT
 
@@ -50,7 +50,7 @@ private:
     void PrepareNativePiece(QPicture *p, int row, int col, int h, int w) const;
     void PaintSelectedPieces(QPainter *p) const;
 
-    Point CalcBoardCoords(Point r) const;
+    [[nodiscard]] Point CalcBoardCoords(Point r) const;
 
     static void SetEditorPieces();
 

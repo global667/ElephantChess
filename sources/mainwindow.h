@@ -75,11 +75,11 @@ class MainWindow final : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow() override;
+    ~MainWindow() override = default;
 
     // The engine, and its thread
     QScopedPointer<UCI> uci;
-    QThread uciThread;
+    //QThread uciThread;
     QScopedPointer<Engine> engine;
     void YouLose();
     void YouWin();
@@ -111,7 +111,7 @@ private:
     QMenuBar *menubar = nullptr;
     QMenu *menu1 = nullptr;
     QDockWidget *dockWidget = nullptr;
-    QStandardItemModel *model = nullptr;
+    //QStandardItemModel *model = nullptr;
     QHeaderView *headerview = nullptr;
     QWidget *navigationwidget = nullptr;
     QWidget *navigationview = nullptr;
@@ -160,7 +160,7 @@ public slots:
 
     void ToggleGameView();
     //void togglePlayer();
-    void GiveTipp();
+    void GiveTipp() const;
     void engineTipp(Point from,Point to);
     void About();
     void Help() const;
