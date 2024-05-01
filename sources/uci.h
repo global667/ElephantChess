@@ -30,19 +30,16 @@
 
 #include "basemodel.h"
 
-class UCI : public QObject
+class UCI final : public QObject
 {
     Q_OBJECT
 public:
     explicit UCI();
-    ~UCI();
-
+    ~UCI() override;
     void writeDatas(const QByteArray &d);
-
     QProcess engine;
     void engineGo(bool tipp);
     QStringList moves;
-
 private:
     QByteArray buffer;
     bool waitForReadyOK;
@@ -52,12 +49,9 @@ signals:
     void updateView(Point from, Point to, BaseModel::Mode);
     void boardChanged(int fromX, int fromY, int toX, int toY);
     void giveTipp(Point point, Point point1);
-
 public slots:
     static void start();
-
     void readData();
-
     static void anError(QProcess::ProcessError error);
 };
 

@@ -72,39 +72,35 @@
 class MainWindow final : public QMainWindow
 {
     Q_OBJECT
-
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override = default;
-
-    // The engine, and its thread
-    QScopedPointer<UCI> uci;
-    //QThread uciThread;
-    QScopedPointer<Engine> engine;
-    void YouLose();
-    void YouWin();
-    QTimer *timer{}, *timer2{};
-
 private:
+     void YouLose();
+    void YouWin();
     void InitWidgets();
     void InitConnections();
     void InitEngine();
+    void AddMoveToList(std::pair<Point, Point> move) const;
+    static void AddMoveToHistory();
+    void ResetToHistory();
+    QFile *LoadPGNFile();
+    void PutPGNOnBoard();
+    void ReadPGNData(QString data) const;
 
+    QScopedPointer<UCI> uci;
+    QScopedPointer<Engine> engine;
+    QTimer *timer{}, *timer2{};
     BoardView *boardview = nullptr;
-
     //QQuickView *viewQml = nullptr;
-
     QWidget *view = nullptr;
     //Qt3DExtras::Qt3DWindow *renderView = nullptr;
-
     QTabWidget *tabview = nullptr;
     QWidget *tabwidget1 = nullptr;
     QWidget *tabwidget2 = nullptr;
     QWidget *menu = nullptr;
-
     //QTableView *table;
     QTreeWidget *table = nullptr;
-
     QToolBar *toolbar = nullptr;
     QAction *openbutton = nullptr, *savebutton = nullptr, *settingsbutton = nullptr, *enginestartsbutton = nullptr, *exitbutton = nullptr,
         *newgamebutton = nullptr;
@@ -116,70 +112,43 @@ private:
     QWidget *navigationwidget = nullptr;
     QWidget *navigationview = nullptr;
     QPushButton *lleft = nullptr, *left = nullptr, *right = nullptr, *rright = nullptr;
-
-
     QWidget *gameinfoswidget = nullptr;
     QVBoxLayout *gameinfosh = nullptr;
     QHBoxLayout *opponents = nullptr;
     QLineEdit *opp1 = nullptr, *opp2 = nullptr, *loca = nullptr, *round = nullptr, *date = nullptr;
     QHBoxLayout *location = nullptr;
-
     //SettingsView *settings = nullptr;
-
     AboutView *about = nullptr;
-
-    //int row = 0,
-    int column = 0;
-    void AddMoveToList(std::pair<Point, Point> move) const;
-
-    static void AddMoveToHistory();
-
     QPushButton button;
-
-    int isTableClicked = 0;
-    bool tipp = false;
-
-    void ResetToHistory();
-    QFile *LoadPGNFile();
-    void PutPGNOnBoard();
-    void ReadPGNData(QString data) const;
     QTextEdit *loggingTextView = nullptr;
     QLineEdit *nps = nullptr, *eval = nullptr;
     QHBoxLayout *tab1layout = nullptr, *navibuttonslayout = nullptr;
     QVBoxLayout *tabwidget2layout = nullptr, *naviwidlayout = nullptr;
-
+    //int row = 0,
+    int column = 0;
+    int isTableClicked = 0;
+    bool tipp = false;
 public slots:
     void Open();
     void Save();
     void OpenSettings();
-
-
     void ToggleEngineStatus();
     void Newgame();
     void PlayNow();
-
     void ToggleGameView();
-    //void togglePlayer();
     void GiveTipp() const;
-    void engineTipp(Point from,Point to);
+    void EngineTipp(Point from,Point to);
     void About();
     void Help() const;
     void GiveUpGame();
-
-    //void UpdateSettings();
-    static void ItemClicked(QTreeWidgetItem *, int);
-
-    void nodesPerSecond() const;
-
-public slots:
-    void PlayNextTwoMoves(Point from, Point to, const BaseModel::Mode mode);
-    void paintFromThreadSlot();
-    void updateFromThreadSlot() const;
+    void NodesPerSecond() const;
+    void PlayNextTwoMoves(Point from, Point to, BaseModel::Mode mode);
+    void PaintFromThreadSlot();
+    void UpdateFromThreadSlot() const;
 private slots:
-    void onDownloaded(const QString& filename = {});
+    void OnDownloaded(const QString& filename = {});
     void Debug() const;
 public: signals:
-    void paintFromThread();
-
+    void PaintFromThread();
 };
 #endif // MAINWINDOW_H

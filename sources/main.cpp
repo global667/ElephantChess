@@ -64,5 +64,5 @@ int main(int argc, char *argv[])
     qputenv("QT_QUICK_CONTROLS_STYLE", "Basic");
 
 
-    return a.exec();
+    return QApplication::exec();
 }

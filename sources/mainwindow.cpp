@@ -103,9 +103,8 @@ void MainWindow::InitConnections() {
     connect(boardview, SIGNAL(updateView(Point,Point,BaseModel::Mode)),
             SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
 #endif
-    // TODO: let board unchanged (at the moment it will reseted)
     //connect(settings, SIGNAL(boardStyleChanged()), SLOT(Newgame()));
-    connect(uci.get(), SIGNAL(giveTipp(Point,Point)), SLOT(engineTipp(Point,Point)));
+    connect(uci.get(), SIGNAL(giveTipp(Point,Point)), SLOT(EngineTipp(Point,Point)));
 
     /*connect(
         table, &QTreeWidget::itemClicked, this,
@@ -360,7 +359,6 @@ QFile *MainWindow::LoadPGNFile() {
     return opfile;
 }
 
-// TODO: Add data to history
 // Toolbar slots
 void MainWindow::Open() {
     QFile *opfile = LoadPGNFile();
@@ -564,7 +562,7 @@ void MainWindow::ToggleGameView() {
     repaint();
 }
 
-void MainWindow::engineTipp(Point from,Point to) {
+void MainWindow::EngineTipp(Point from,Point to) {
      QString c;
     if (basemodel.position.players_color == Color::Red)
         c = "Red";
@@ -639,7 +637,7 @@ void MainWindow::OpenSettings() {
     auto *download = new DownloadView(this);
 }
 
-void MainWindow::onDownloaded(const QString& filename) {
+void MainWindow::OnDownloaded(const QString& filename) {
     QMessageBox::information(this, "Information", "Downloaded " + filename);
 
     basemodel.engineName = filename;
@@ -730,7 +728,7 @@ void MainWindow::ResetToHistory() {
     repaint();
 }
 
-void MainWindow::paintFromThreadSlot() {
+void MainWindow::PaintFromThreadSlot() {
     repaint();
     timer->stop();
     timer2->stop();
@@ -742,7 +740,7 @@ void MainWindow::paintFromThreadSlot() {
     }
 }
 
-void MainWindow::updateFromThreadSlot() const {
+void MainWindow::UpdateFromThreadSlot() const {
     nps->setText(
         QString::number(basemodel.engineData.nodes) + " nodes/s\n with a depth of " + QString::number(
             basemodel.engineData.searchDepth));
@@ -778,7 +776,7 @@ void MainWindow::PlayNextTwoMoves(Point from, Point to, const BaseModel::Mode mo
         timer = new QTimer(this);
         timer2 = new QTimer(this);
         connect(timer, &QTimer::timeout, engine.get(), &Engine::nodesPerSecond);
-        connect(timer2, &QTimer::timeout, this, &MainWindow::nodesPerSecond);
+        connect(timer2, &QTimer::timeout, this, &MainWindow::NodesPerSecond);
 
         timer->start(1000);
         timer2->start(100);
@@ -800,7 +798,7 @@ void MainWindow::PlayNextTwoMoves(Point from, Point to, const BaseModel::Mode mo
             AddMoveToList(pair);
             AddMoveToHistory();
 
-            emit paintFromThread();
+            emit PaintFromThread();
 
             basemodel.position.toggleColor();
         });
@@ -862,15 +860,15 @@ void MainWindow::YouLose() {
     }
 }
 
-void MainWindow::ItemClicked(QTreeWidgetItem *item, int column) {
+//void MainWindow::ItemClicked(QTreeWidgetItem *item, int column) {
     // qDebug() << "item clicked";
     //     int row = table->indexFromItem(item).row();
     //     basemodel.board = basemodel.moveHistory[row];
     //     isTableClicked = row;
     //     repaint();
-}
+//}
 
-void MainWindow::nodesPerSecond() const {
+void MainWindow::NodesPerSecond() const {
     nps->setText(
         QString::number(basemodel.engineData.nodes) + " nodes\n with a depth of " + QString::number(
             basemodel.engineData.searchDepth));

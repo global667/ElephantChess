@@ -312,7 +312,6 @@ bool BoardView::event(QEvent *event)
     return QWidget::event(event);
 }
 
-// TODO: Optimize the function
 void BoardView::PaintSelectedPieces(QPainter* painter) const {
 	// qDebug() << __PRETTY_FUNCTION__;
 	Q_ASSERT(painter);
@@ -539,7 +538,6 @@ void BoardView::PaintMarker(QPainter* p) const {
 	}
 }
 
-// TODO: exchange hanzi with unicode [ok]
 //  Sets the selected pieces on the (clean) board
 void BoardView::SetEditorPieces() {
 	// qDebug() << __PRETTY_FUNCTION__;

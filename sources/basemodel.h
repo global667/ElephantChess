@@ -36,7 +36,7 @@ enum class completePieceType {
     ElephantSchwarz, HorseSchwarz, ChariotSchwarz,
     CannonSchwarz, SoldierSchwarz
 };
-
+// TODO: delete doublettes i.e. engineName and engineData.engineName
 struct BaseModel //: public QObject
 {
     //Q_OBJECT
@@ -100,7 +100,6 @@ public:
         long nodes{};
         QString bestMove;
         QString engineName;
-
     } engineData;
 };
 

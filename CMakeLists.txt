@@ -8,7 +8,7 @@ execute_process(
     OUTPUT_VARIABLE GIT_COMMIT_HASH
     OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-project(ElephantChess VERSION 0.4.4 DESCRIPTION "${COMMIT_ID}" LANGUAGES CXX HOMEPAGE_URL "https/www.elephant-chess.com")
+project(ElephantChess VERSION 0.4.7 DESCRIPTION "${COMMIT_ID}" LANGUAGES CXX HOMEPAGE_URL "https/www.elephant-chess.com")
 
 set(PROJECT_DESC "-alpha (commit ${GIT_COMMIT_HASH})")
 

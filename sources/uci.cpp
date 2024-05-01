@@ -139,7 +139,7 @@ UCI::~UCI()
 {
     // Stop the engine and close the process
     writeDatas("quit");
-    emit engine.finished(0);
-    engine.waitForFinished();
     engine.close();
+    engine.waitForFinished();
+    emit engine.finished(0);
 }
