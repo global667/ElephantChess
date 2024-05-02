@@ -132,7 +132,7 @@ void UCI::anError(QProcess::ProcessError error) {
 UCI::~UCI() {
     // Stop the engine and close the process
     writeDatas("quit");
-    engine.close();
     engine.waitForFinished();
-    emit engine.finished(0);
+    engine.close();
+//emit engine.finished(0);
 }
