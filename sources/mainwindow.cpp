@@ -488,22 +488,22 @@ void MainWindow::AddMoveToList(const std::pair<Point, Point> move) const {
                     ? QString("")
                     : QString("+"));
 //TODO: Fix PlayNow bug
-/*
-    int j=basemodel.currentMove;
-    int l = basemodel.moveHistory.size();
 
+    int j=basemodel.currentMove-1;
+    int l = basemodel.moveHistory.size();
+/*
     if (j < l) {
         for (int i = j; i < l ; i++) {
             table->takeTopLevelItem(i);
         }
-    } else {
-        for (int i = l; i < j; i++) {
-            auto *item = new QTreeWidgetItem(table);
-            item->setText(0, QString::number(i) + ". " + mv.join(" "));
-            table->addTopLevelItem(item);
-        }
     }
 */
+            auto *item = new QTreeWidgetItem(table);
+            item->setText(0, QString::number(l) + ". " + mv.join(" "));
+            table->addTopLevelItem(item);
+
+
+
 
     //auto *item = new QTreeWidgetItem(table);
     //const int ply = (basemodel.moves.size() - 1) % 2;

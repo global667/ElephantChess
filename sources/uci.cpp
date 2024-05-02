@@ -99,8 +99,9 @@ void UCI::readData() {
                 if (tipp == false) {
                     // Ruft gameloop auf
                     emit updateView(Point(fy, fx), Point(ty, tx), BaseModel::Mode::human);
-                } else
-                emit giveTipp(Point(fy, fx), Point(ty, tx));
+                } else {
+                    emit giveTipp(Point(fy, fx), Point(ty, tx));
+                }
             } else if (c.contains("info")) {
                 qDebug() << c;
             } else {

@@ -48,6 +48,7 @@ public:
         //        = "ElephantChessEngine";
         position.setupInitialPositions();
         currentMove++;
+        moveHistory.append(position);
     }
 
     static constexpr short BoardRows = ROWS;

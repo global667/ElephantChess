@@ -132,6 +132,7 @@ void BoardView::paintEvent(QPaintEvent *event) {
 void BoardView::PrepareNativePiece(QPicture *pix, const int row, const int col, const int h, const int w) const {
     const auto piece = basemodel.position.board[row][col];
     // Check for null pointer and empty piece
+    // TODO: Check if piece is empty with a better method
     if (!piece || piece->getName() == "")
         return;
 
@@ -360,8 +361,9 @@ void BoardView::PaintSelectedPieces(QPainter *painter) const {
     // qDebug() << __PRETTY_FUNCTION__;
     Q_ASSERT(painter);
 
-    //if (basemodel.position.players_color == Color::Red)
-    //{
+    if (basemodel.fromHuman.x == -1 || basemodel.fromHuman.y == -1)
+        return;
+
     const auto width = this->width();
     const auto height = this->height();
     if (pressed == true && secondclick == false) {
@@ -392,7 +394,6 @@ void BoardView::PaintSelectedPieces(QPainter *painter) const {
 
         auto all_moves = basemodel.position.board[fromX][fromY]->
                 generateValidMoves(Point(fromX, fromY), basemodel.position.board);
-        //getValidMovesForPiece(Point(fromX,fromY), basemodel.position.board);//basemodel.position.board[fromX][fromY]->generateValidMoves({fromX,fromY},basemodel.position.board);
         for (const auto &move: all_moves) {
             auto x = (50 + ((move.second.y) * (width - 2 * 50) / cutpWidth)) -
                      width / cutpWidth / 2 / PIECE_SCALE_FACTOR;
@@ -401,9 +402,6 @@ void BoardView::PaintSelectedPieces(QPainter *painter) const {
 
             painter->drawEllipse(QRect(x, y, wght, hght));
         }
-        ///	}
-        //} else if (basemodel.fromUCI != Point(-1, -1) && basemodel.toUCI != Point(-1, -1))	{
-        // black to move
     }
 }
 
