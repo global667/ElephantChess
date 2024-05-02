@@ -181,7 +181,7 @@ public:
 
 class Horse final : public Piece {
 public:
-    Horse(const Color color, const QString &name) : Piece(color, name) {euroName = "Horse";
+    Horse(const Color color, const QString &name) : Piece(color, name) {euroName = "Knight";
         euroNameDesc = "Moves one point orthogonally and then one point diagonally outward, similar to the knight in international chess, but its movement can be blocked by an intervening piece.";
         id = 3;
     }

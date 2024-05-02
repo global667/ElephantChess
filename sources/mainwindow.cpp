@@ -72,18 +72,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 #undef ENGINE
 
 void MainWindow::InitEngine() {
+    if (QFile::exists(QDir::currentPath() + "/pikafish.exe")) {
+        /*    qDebug() << "Starting built-in engine";
+                engine = new Engine();
+                basemodel.mode = BaseModel::Mode::engine;
+                connect(engine, SIGNAL(updateView(Point,Point,BaseModel::Mode)),
+                        SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
+            } else { */
 
-if (QFile::exists(QDir::currentPath() + "/pikafish.exe"))
-    {
-/*    qDebug() << "Starting built-in engine";
-        engine = new Engine();
-        basemodel.mode = BaseModel::Mode::engine;
-        connect(engine, SIGNAL(updateView(Point,Point,BaseModel::Mode)),
-                SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
-    } else { */
-
-        basemodel.engineName = "pikafish.exe";
-        qDebug() << "Starting uci engine (" + basemodel.engineName +
+        basemodel.engineData.engineName = "pikafish.exe";
+        qDebug() << "Starting uci engine (" + basemodel.engineData.engineName +
                 " in extra thread";
         basemodel.mode = BaseModel::Mode::uci;
         uci.reset(new UCI());
@@ -93,7 +91,8 @@ if (QFile::exists(QDir::currentPath() + "/pikafish.exe"))
         uci->engine.waitForReadyRead();
     } else {
         QMessageBox::information(this, "Information",
-                                 "Download the engine from the releases page on \nhttp://www.elephant-chess.com\nand put it in the program folder\n" + QDir::currentPath() + "\n");
+                                 "Download the engine from the releases page on \nhttps://www.elephant-chess.com\nand put it in the program folder\n"
+                                 + QDir::currentPath() + "\n");
         exit(0);
     }
 }
@@ -116,6 +115,8 @@ void MainWindow::InitConnections() {
         },
         Qt::AutoConnection); */
     // SLOT(ItemClicked(QTreeWidgetItem *, int)));
+
+
 
     connect(
         lleft, &QPushButton::pressed, this,
@@ -166,13 +167,13 @@ void MainWindow::InitWidgets() {
     navigationview = new QWidget(navigationwidget);
 
     // move listing
-   // model = new QStandardItemModel(0, 2);
-   // model->setHeaderData(0, Qt::Horizontal, tr("Red"));
-   // model->setHeaderData(1, Qt::Horizontal, tr("Black"));
+    // model = new QStandardItemModel(0, 2);
+    // model->setHeaderData(0, Qt::Horizontal, tr("Red"));
+    // model->setHeaderData(1, Qt::Horizontal, tr("Black"));
     //headerview = new QHeaderView(Qt::Horizontal);
-   // headerview->resizeSections(QHeaderView::Stretch);
-   // headerview->setStretchLastSection(true);
-   // headerview->setDefaultAlignment(Qt::AlignJustify | Qt::AlignVCenter);
+    // headerview->resizeSections(QHeaderView::Stretch);
+    // headerview->setStretchLastSection(true);
+    // headerview->setDefaultAlignment(Qt::AlignJustify | Qt::AlignVCenter);
     table = new QTreeWidget(navigationwidget);
     table->setColumnCount(2);
     table->setHeaderLabels(QStringList() << "Moves" << "Comments");
@@ -204,13 +205,13 @@ void MainWindow::InitWidgets() {
 
     // navigation buttons
     right = new QPushButton(
-        QIcon(style()->standardIcon(QStyle::SP_MediaSeekForward)), "Forward",navibuttonslayout->widget());
+        QIcon(style()->standardIcon(QStyle::SP_MediaSeekForward)), "Forward", navibuttonslayout->widget());
     rright = new QPushButton(
-        QIcon(style()->standardIcon(QStyle::SP_MediaSkipForward)), "End",navibuttonslayout->widget());
+        QIcon(style()->standardIcon(QStyle::SP_MediaSkipForward)), "End", navibuttonslayout->widget());
     left = new QPushButton(
-        QIcon(style()->standardIcon(QStyle::SP_MediaSeekBackward)), "Back",navibuttonslayout->widget());
+        QIcon(style()->standardIcon(QStyle::SP_MediaSeekBackward)), "Back", navibuttonslayout->widget());
     lleft = new QPushButton(
-        QIcon(style()->standardIcon(QStyle::SP_MediaSkipBackward)), "Begin",navibuttonslayout->widget());
+        QIcon(style()->standardIcon(QStyle::SP_MediaSkipBackward)), "Begin", navibuttonslayout->widget());
     right->setToolTip("Goes on move for");
     rright->setToolTip("Goes to the end of the game");
     left->setToolTip("Goes one move back");
@@ -231,7 +232,7 @@ void MainWindow::InitWidgets() {
     opp1->setPlaceholderText("Me");
     opponents->addWidget(opp1);
     opp2 = new QLineEdit(opponents->widget());
-    opp2->setText(basemodel.engineName);
+    opp2->setText(basemodel.engineData.engineName);
     opponents->addWidget(opp2);
     location = new QHBoxLayout;
     loca = new QLineEdit(gameinfosh->widget());
@@ -302,6 +303,10 @@ void MainWindow::InitWidgets() {
                 "Let's the engine makes a move now (changes the color you play)");
 
     toolbar->addSeparator();
+    toolbar
+                  ->addAction(QIcon(":res/toggle-lang.jpg"),
+                              tr("Toggle Pieces"), this, SLOT(togglePiecesView()))
+                  ->setToolTip("Evaluate and comment a position");
 
     toolbar
             ->addAction(QIcon(style()->standardIcon((QStyle::SP_BrowserReload))),
@@ -316,7 +321,7 @@ void MainWindow::InitWidgets() {
             ->setToolTip("Give the game up. You will loose.");
     toolbar->addSeparator();
     //toolbar->addAction(QIcon(":res/settings.png"), tr("Load engine"), this,
-     //                  SLOT(OpenSettings()));
+    //                  SLOT(OpenSettings()));
     toolbar
             ->addAction(QIcon(style()->standardIcon((QStyle::SP_DialogHelpButton))),
                         tr("Help"), this, SLOT(Help()))
@@ -330,12 +335,6 @@ void MainWindow::InitWidgets() {
                         &QCoreApplication::quit)
             ->setToolTip("Exit the application");
     toolbar->addSeparator();
-/*
-    toolbar
-            ->addAction(QIcon(style()->standardIcon((QStyle::SP_DialogCloseButton))),
-                        tr("EvalDebug"), this, SLOT(Debug()))
-            ->setToolTip("Evaluate and comment a position");
-*/
 }
 
 void MainWindow::Debug() const { loggingTextView->insertPlainText("Test,test,test"); }
@@ -422,40 +421,41 @@ void MainWindow::ReadPGNData(QString data) const {
 }
 
 void MainWindow::PutPGNOnBoard() {
-
     basemodel.position.setupInitialPositions();
     basemodel.moveHistory.clear();
     //for (const auto & m : model->findItems("*", Qt::MatchWildcard)) {
-   //     model->removeRow(m->row());
-   // }
+    //     model->removeRow(m->row());
+    // }
     //table->clear();
-   // model->clear();
+    // model->clear();
     auto moves = basemodel.moves;
     basemodel.moves.clear();
+    table->clear();
     AddMoveToHistory();
     basemodel.currentMove = 0;
     int c = 0;
 
-    for (auto& item1: moves) {
+    for (auto &item1: moves) {
         //auto *item = new QStandardItem(item1);
         //if (c % 2 == 0) {
-       //     model->setItem(c / 2, 0, item);
-       // }
+        //     model->setItem(c / 2, 0, item);
+        // }
         //if (c % 2 == 1)
         //model->appendRow(item);
 
-        const auto fx = ((char)item1.at(0).toLatin1() - 'a') ;
+        const auto fx = ((char) item1.at(0).toLatin1() - 'a');
         const auto fy = static_cast<char>(9 - item1[1].digitValue());
-        const auto tx = ((char)  item1.at(2).toLatin1() -'a');
+        const auto tx = ((char) item1.at(2).toLatin1() - 'a');
         const auto ty = static_cast<char>(9 - item1[3].digitValue());
 
-       AddMoveToHistory();
+        AddMoveToHistory();
         AddMoveToList(std::make_pair(Point(9 - fy, 8 - fx), Point(9 - ty, 8 - tx)));
         Board::movePiece(Point(9 - fy, 8 - fx), Point(9 - ty, 8 - tx), basemodel.position.board);
 
         c++;
         basemodel.position.toggleColor();
     }
+    ResetToHistory();
     basemodel.currentMove++;
     column = c;
     repaint();
@@ -467,7 +467,7 @@ void MainWindow::AddMoveToHistory() {
 }
 
 void MainWindow::AddMoveToList(const std::pair<Point, Point> move) const {
-    if (move.first.x == -1)
+    if (move.first.x == -1 ||  basemodel.moveHistory.isEmpty())
         return;
     const QString name =
             basemodel.moveHistory.last().board[move.first.x][move.first.y]->getName();
@@ -487,20 +487,37 @@ void MainWindow::AddMoveToList(const std::pair<Point, Point> move) const {
             << (!Board::isCheck(basemodel.position.players_color, basemodel.position.board)
                     ? QString("")
                     : QString("+"));
+//TODO: Fix PlayNow bug
+/*
+    int j=basemodel.currentMove;
+    int l = basemodel.moveHistory.size();
 
-    auto *item = new QTreeWidgetItem(table);
-    //const int ply = (basemodel.moves.size() - 1) % 2;
-    item->setText(0, QString::number(basemodel.currentMove) + ". " + mv.join(" "));
-
-   /* if (isTableClicked) {
-        if (0 == ply) {
-            table->addTopLevelItem(item);
-        } else {
-            table->setCurrentItem(item);
-            //table->addTopLevelItem(item); // Insert the item at the top
+    if (j < l) {
+        for (int i = j; i < l ; i++) {
+            table->takeTopLevelItem(i);
         }
-    } else { */
-        //table->addTopLevelItem(item);
+    } else {
+        for (int i = l; i < j; i++) {
+            auto *item = new QTreeWidgetItem(table);
+            item->setText(0, QString::number(i) + ". " + mv.join(" "));
+            table->addTopLevelItem(item);
+        }
+    }
+*/
+
+    //auto *item = new QTreeWidgetItem(table);
+    //const int ply = (basemodel.moves.size() - 1) % 2;
+    //item->setText(0, QString::number(basemodel.currentMove) + ". " + mv.join(" "));
+
+    /* if (isTableClicked) {
+         if (0 == ply) {
+             table->addTopLevelItem(item);
+         } else {
+             table->setCurrentItem(item);
+             //table->addTopLevelItem(item); // Insert the item at the top
+         }
+     } else { */
+    //table->addTopLevelItem(item);
     //}
 }
 
@@ -562,22 +579,22 @@ void MainWindow::ToggleGameView() {
     repaint();
 }
 
-void MainWindow::EngineTipp(Point from,Point to) {
-     QString c;
+void MainWindow::EngineTipp(Point from, Point to) {
+    QString c;
     if (basemodel.position.players_color == Color::Red)
         c = "Red";
     else
         c = "Black";
     const QString token = BaseModel::posToken(from.x, from.y, to.x, to.y);
     const QString bestMoveWouldBe =
-            QString("The best move for %1 would be %2").arg(c,token);
+            QString("The best move for %1 would be %2").arg(c, token);
     QMessageBox::information(this, "Engine says:", bestMoveWouldBe);
 }
 
 void MainWindow::GiveTipp() const {
     ///std::pair<Point, Point> move =
-            //engine->GetBestMove(basemodel.position.players_color);
-     uci->engineGo(true);;
+    //engine->GetBestMove(basemodel.position.players_color);
+    uci->engineGo(true);;
 }
 
 void MainWindow::About() {
@@ -612,9 +629,9 @@ void MainWindow::PlayNow() {
         AddMoveToHistory();
 
         basemodel.position.toggleColor();
-    } else
+    } else {
         uci->engineGo(false);
-
+    }
     repaint();
 }
 
@@ -637,10 +654,10 @@ void MainWindow::OpenSettings() {
     auto *download = new DownloadView(this);
 }
 
-void MainWindow::OnDownloaded(const QString& filename) {
+void MainWindow::OnDownloaded(const QString &filename) {
     QMessageBox::information(this, "Information", "Downloaded " + filename);
 
-    basemodel.engineName = filename;
+    basemodel.engineData.engineName = filename;
     basemodel.mode = BaseModel::Mode::uci;
     if (!uci) {
         qDebug() << "!uci";
@@ -660,7 +677,7 @@ void MainWindow::OnDownloaded(const QString& filename) {
     Q_ASSERT(&uci);
     //Q_ASSERT(&uciThread);
     // uci->moveToThread(&uciThread);
-    qDebug() << "Starting uci engine (" + basemodel.engineName +
+    qDebug() << "Starting uci engine (" + basemodel.engineData.engineName +
             " in extra thread";
     // uciThread.start();
     UCI::start();
@@ -691,7 +708,6 @@ void MainWindow::OnDownloaded(const QString& filename) {
       } else {*/
 
     //}
-
 }
 
 // Startet ein neues Spiel
@@ -719,11 +735,12 @@ void MainWindow::Newgame() {
 // End Toolbar slots
 
 void MainWindow::ResetToHistory() {
+
     basemodel.position = basemodel.moveHistory[basemodel.currentMove];
-    //basemodel.fromHuman = {-1, -1};
-    //basemodel.toHuman = {-1, -1};
-    //basemodel.fromUCI = {-1, -1};
-    //basemodel.toUCI = {-1, -1};
+    basemodel.fromHuman = {-1, -1};
+    basemodel.toHuman = {-1, -1};
+    basemodel.fromUCI = {-1, -1};
+    basemodel.toUCI = {-1, -1};
 
     repaint();
 }
@@ -747,6 +764,11 @@ void MainWindow::UpdateFromThreadSlot() const {
     eval->setText(
         QString::number(basemodel.engineData.evaluation) + " eval\n for move " + basemodel.engineData.bestMove);
     opp2->setText(basemodel.engineData.engineName);
+}
+
+void MainWindow::togglePiecesView() {
+    basemodel.nativePieces = !basemodel.nativePieces;
+repaint();
 }
 
 // Play the next two moves begin with red as human and black as engine
@@ -805,7 +827,7 @@ void MainWindow::PlayNextTwoMoves(Point from, Point to, const BaseModel::Mode mo
     } else if (mode == BaseModel::Mode::uci) {
         uci->engineGo(false);
     } else if (mode == BaseModel::Mode::human) {
-        qDebug () << "Waiting for human...";
+        qDebug() << "Waiting for human...";
     } else {
         qDebug() << "Error in game loop ToMove()";
     }
@@ -863,11 +885,11 @@ void MainWindow::YouLose() {
 }
 
 //void MainWindow::ItemClicked(QTreeWidgetItem *item, int column) {
-    // qDebug() << "item clicked";
-    //     int row = table->indexFromItem(item).row();
-    //     basemodel.board = basemodel.moveHistory[row];
-    //     isTableClicked = row;
-    //     repaint();
+// qDebug() << "item clicked";
+//     int row = table->indexFromItem(item).row();
+//     basemodel.board = basemodel.moveHistory[row];
+//     isTableClicked = row;
+//     repaint();
 //}
 
 void MainWindow::NodesPerSecond() const {
@@ -882,103 +904,103 @@ void MainWindow::NodesPerSecond() const {
 void MainWindow::ToggleEngineStatus() {
     //if (uci)
     //    return;
-/*    if (uciThread.isRunning()) {
-        uciThread.quit();
-    } else {
-        uciThread.start();
-    }*/
+    /*    if (uciThread.isRunning()) {
+            uciThread.quit();
+        } else {
+            uciThread.start();
+        }*/
 }
 
 //MainWindow::~MainWindow() {
-    //std::default_delete<this>Objects();
+//std::default_delete<this>Objects();
 //    delete engine;
-    //delete uci;
-    //if (view)
-  /*  delete view;
-    //if (renderView)
-    //    delete renderView;
-    //if (boardview)
-    delete boardview;
+//delete uci;
+//if (view)
+/*  delete view;
+  //if (renderView)
+  //    delete renderView;
+  //if (boardview)
+  delete boardview;
 
-    //if (opp1)
-    delete opp1;
-    // if (opp2)
-    delete opp2;
-    // if (opponents)
-    delete opponents;
+  //if (opp1)
+  delete opp1;
+  // if (opp2)
+  delete opp2;
+  // if (opponents)
+  delete opponents;
 
-    // if (loca)
-    delete loca;
-    // if (round)
-    delete round;
-    //if (date)
-    delete date;
-    // if (location)
-    delete location;
+  // if (loca)
+  delete loca;
+  // if (round)
+  delete round;
+  //if (date)
+  delete date;
+  // if (location)
+  delete location;
 
-    //if (gameinfosh)
-    delete gameinfosh;
-    //if (gameinfoswidget)
-    delete gameinfoswidget;
+  //if (gameinfosh)
+  delete gameinfosh;
+  //if (gameinfoswidget)
+  delete gameinfoswidget;
 
-    //if (lleft)
-    delete lleft;
-    // if (left)
-    delete left;
-    // if (right)
-    delete right;
-    //if (rright)
-    delete rright;
+  //if (lleft)
+  delete lleft;
+  // if (left)
+  delete left;
+  // if (right)
+  delete right;
+  //if (rright)
+  delete rright;
 
-    //if (headerview)
-    delete headerview;
-    //if (model)
-    delete model;
+  //if (headerview)
+  delete headerview;
+  //if (model)
+  delete model;
 
-    // QTableView *table;
-    // if (table)
-    delete table;
-    // if (tabwidget2)
-    delete tabwidget2;
-    // if (tabwidget1)
-    delete tabwidget1;
-    // if (tabview)
-    delete tabview;
+  // QTableView *table;
+  // if (table)
+  delete table;
+  // if (tabwidget2)
+  delete tabwidget2;
+  // if (tabwidget1)
+  delete tabwidget1;
+  // if (tabview)
+  delete tabview;
 
-    // if (menu)
-    delete menu;
+  // if (menu)
+  delete menu;
 
-    //if (navigationview)
-    delete navigationview;
+  //if (navigationview)
+  delete navigationview;
 
-    // if (navigationwidget)
-    delete navigationwidget;
+  // if (navigationwidget)
+  delete navigationwidget;
 
-    //if (dockWidget)
-    delete dockWidget;
+  //if (dockWidget)
+  delete dockWidget;
 
-    //if (settings)
-    //    delete settings;
-    // if (about)
-    delete about;
-    // if (openbutton)
-    delete openbutton;
-    // if (savebutton)
-    delete savebutton;
-    // if (settingsbutton)
-    delete settingsbutton;
-    /// if (enginestartsbutton)
-    delete enginestartsbutton;
-    // if (exitbutton)
-    delete exitbutton;
-    // if (exitbutton)
-    delete newgamebutton;
+  //if (settings)
+  //    delete settings;
+  // if (about)
+  delete about;
+  // if (openbutton)
+  delete openbutton;
+  // if (savebutton)
+  delete savebutton;
+  // if (settingsbutton)
+  delete settingsbutton;
+  /// if (enginestartsbutton)
+  delete enginestartsbutton;
+  // if (exitbutton)
+  delete exitbutton;
+  // if (exitbutton)
+  delete newgamebutton;
 
-    // if (menu1)
-    delete menu1;
-    // if (menubar)
-    delete menubar;
+  // if (menu1)
+  delete menu1;
+  // if (menubar)
+  delete menubar;
 
-    //if (toolbar)
-    delete toolbar;
+  //if (toolbar)
+  delete toolbar;
 }*/

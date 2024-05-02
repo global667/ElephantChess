@@ -28,8 +28,7 @@
 
 #include <sources/config.h>
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     QApplication::setStyle(QStyleFactory::create("Fusion"));
     //qputenv("QT_QPA_PLATFORM", "wayland:darkmode=2");
 
@@ -55,8 +54,8 @@ int main(int argc, char *argv[])
     w.setWindowTitle(
         "ElephantChess v"
         + QString("%1.%2.%3").arg(ElephantChess_VERSION_MAJOR)
-                          .arg(ElephantChess_VERSION_MINOR)
-                          .arg(ElephantChess_VERSION_PATCH)
+        .arg(ElephantChess_VERSION_MINOR)
+        .arg(ElephantChess_VERSION_PATCH)
         + QString(PROJECT_DESC));
     w.show();
 

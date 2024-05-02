@@ -28,21 +28,59 @@
 #include <QRadialGradient>
 #include <QTextItem>
 
-
 extern BaseModel basemodel;
 
 constexpr int FONT_POINT_SIZE = 30;
 constexpr int PEN_WIDTH = 3;
 constexpr qreal PIECE_SCALE_FACTOR = 1.3; // Adjust based on your scaling needs
 
-BoardView::BoardView(QWidget* parent) : QWidget{ parent } {
+BoardView::BoardView(QWidget *parent) : QWidget{parent} {
     // qDebug() << __PRETTY_FUNCTION__;
     setMouseTracking(false);
     contextMenu = new ContexMenu(this);
-
 }
 
-void BoardView::contextMenuEvent(QContextMenuEvent* event) {
+void BoardView::PrepareEuroPiece(QPicture *pix, int row, int col, int h, int w) {
+
+    const auto piece = basemodel.position.board[row][col];
+    // Check for null pointer and empty piece
+    if (!piece || piece->getName() == "")
+        return;
+
+    const QString path = ":/res/" + piece->euroName + "_" + (piece->getColor()== Color::Red ? "r" : "b" )+ "_z.png";
+
+    const QImage image(path);
+    if (image.isNull()) {
+        qDebug() << "Failed to load image: " << path;
+        return;
+    }
+    QPainter painter;
+    painter.begin(pix);
+    pix->setBoundingRect(QRect(0, 0, w, h));
+
+    // Gradient center and dimensions adjustment
+    QPointF center(w / (2.0 * PIECE_SCALE_FACTOR * cutpWidth), h / (2.0 * PIECE_SCALE_FACTOR * cutpHeight));
+    qreal radius = qMin(w, h) / (2.0 * PIECE_SCALE_FACTOR * qMax(cutpWidth, cutpHeight));
+
+    QRadialGradient gradient(center, radius);
+    gradient.setColorAt(0, QColor::fromRgb(255, 255, 255, 255));
+    gradient.setColorAt(1, QColor::fromRgb(222, 91, 16, 255));
+
+    painter.setBrush(gradient);
+
+    // Draw piece circle
+    const auto width = pix->boundingRect().width();
+    const auto height = pix->boundingRect().height();
+    const auto wdth = static_cast<double>(width) / static_cast<double>(cutpWidth) / PIECE_SCALE_FACTOR;
+    const auto hght = (double) height / (double) cutpHeight / PIECE_SCALE_FACTOR;
+    const auto drawRect = QRect(0, 0, round(wdth), round(hght));
+    painter.drawEllipse(drawRect);
+
+    painter.drawImage(drawRect, image);
+    painter.end();
+}
+
+void BoardView::contextMenuEvent(QContextMenuEvent *event) {
     // qDebug() << __PRETTY_FUNCTION__;
     // Q_UNUSED(event);
     // qDebug() << "contextMenuEvent";
@@ -51,7 +89,8 @@ void BoardView::contextMenuEvent(QContextMenuEvent* event) {
     contextMenu->exec(QCursor::pos());
 }
 
-void BoardView::paintEvent(QPaintEvent* event) {
+
+void BoardView::paintEvent(QPaintEvent *event) {
     // qDebug() << __PRETTY_FUNCTION__;
     QPainter painter(this);
 
@@ -71,11 +110,13 @@ void BoardView::paintEvent(QPaintEvent* event) {
 
     for (int j = 0; j < 10; j++) {
         for (int i = 0; i < 9; i++) {
-            if (!basemodel.position.board[j][i]->getName().isEmpty())
-            {
-                QPicture* piecePicture = new QPicture();
-                PrepareNativePiece(piecePicture, j, i, height, width);
-                auto x = (50. + ((i)*marginLeft / cutpWidth)) - width / cutpWidth / 2 / PIECE_SCALE_FACTOR;
+            if (!basemodel.position.board[j][i]->getName().isEmpty()) {
+                auto *piecePicture = new QPicture();
+                if (basemodel.nativePieces == false)
+                    PrepareEuroPiece(piecePicture, j, i, height, width);
+                else
+                    PrepareNativePiece(piecePicture, j, i, height, width);
+                auto x = (50. + ((i) * marginLeft / cutpWidth)) - width / cutpWidth / 2 / PIECE_SCALE_FACTOR;
                 auto y = (50. + (9 - j) * marginRight / cutpHeight) - height / cutpWidth / 2. / PIECE_SCALE_FACTOR;
                 painter.drawPicture(x, y, *piecePicture);
                 delete piecePicture;
@@ -87,7 +128,8 @@ void BoardView::paintEvent(QPaintEvent* event) {
         DrawEngineMoves(&painter);
 }
 
-void BoardView::PrepareNativePiece(QPicture* pix, const int row, const int col, const int h, const int w) const {
+// TODO: Refactor this function  to use without row/col
+void BoardView::PrepareNativePiece(QPicture *pix, const int row, const int col, const int h, const int w) const {
     const auto piece = basemodel.position.board[row][col];
     // Check for null pointer and empty piece
     if (!piece || piece->getName() == "")
@@ -120,8 +162,8 @@ void BoardView::PrepareNativePiece(QPicture* pix, const int row, const int col, 
     // Draw piece circle
     const auto width = pix->boundingRect().width();
     const auto height = pix->boundingRect().height();
-    const auto wdth =  static_cast<double>(width) / static_cast<double>(cutpWidth) / PIECE_SCALE_FACTOR;
-    const auto hght =(double)height / (double)cutpHeight / PIECE_SCALE_FACTOR;
+    const auto wdth = static_cast<double>(width) / static_cast<double>(cutpWidth) / PIECE_SCALE_FACTOR;
+    const auto hght = (double) height / (double) cutpHeight / PIECE_SCALE_FACTOR;
     const auto drawRect = QRect(0, 0, round(wdth), round(hght));
     painter.drawEllipse(drawRect);
 
@@ -136,7 +178,7 @@ void BoardView::PrepareNativePiece(QPicture* pix, const int row, const int col, 
 }
 
 // Split in more smaller functions
-void BoardView::PaintBoard(QPainter* p) const {
+void BoardView::PaintBoard(QPainter *p) const {
     // qDebug() << __PRETTY_FUNCTION__;
     Q_ASSERT(p);
 
@@ -148,7 +190,7 @@ void BoardView::PaintBoard(QPainter* p) const {
 
     constexpr QColor background(252, 175, 62);
     constexpr QColor sides(206, 92, 0);
-    constexpr QColor river(63, 67, 143);//"#3A438F");
+    constexpr QColor river(63, 67, 143); //"#3A438F");
 
     p->fillRect(p->viewport(), background);
 
@@ -240,20 +282,19 @@ void BoardView::PaintBoard(QPainter* p) const {
                         height - (2 * 50 / 2),
                         QString("%1").arg(QChar('a' + i)));
         }
-    }
-    else {
+    } else {
         // TODO: Traditionelle Notation, wird in späteren Versionen implementiert
 
         // Horizontaler Text ,unten
         QStringList list;
-        list << "\u4e00"  //"一"
-                << "\u4e8c"  //"二"
-                << "\u4e09"  //"三"
-                << "\u56db"  //"四"
-                << "\u4e94"  //"五"
-                << "\u516d"  //"六"
-                << "\u4e03"  //"七"
-                << "\u516b"  //"八"
+        list << "\u4e00" //"一"
+                << "\u4e8c" //"二"
+                << "\u4e09" //"三"
+                << "\u56db" //"四"
+                << "\u4e94" //"五"
+                << "\u516d" //"六"
+                << "\u4e03" //"七"
+                << "\u516b" //"八"
                 << "\u4e5d"; //"九";
 
         for (int i = 0; i <= cutpWidth; i++) {
@@ -281,8 +322,7 @@ void BoardView::PaintBoard(QPainter* p) const {
     p->setPen(pn);
 }
 
-bool BoardView::event(QEvent *event)
-{
+bool BoardView::event(QEvent *event) {
     const auto width = this->width();
     const auto height = this->height();
     const auto marginLeft = width - 2 * 50;
@@ -292,13 +332,15 @@ bool BoardView::event(QEvent *event)
         auto *helpEvent = dynamic_cast<QHelpEvent *>(event);
         for (int j = 0; j < 10; j++) {
             for (int i = 0; i < 9; i++) {
-                auto x = 50. + i*marginLeft / cutpWidth - width / cutpWidth / 2 / PIECE_SCALE_FACTOR;
+                auto x = 50. + i * marginLeft / cutpWidth - width / cutpWidth / 2 / PIECE_SCALE_FACTOR;
                 auto y = (50. + (9 - j) * marginRight / cutpHeight) - height / cutpWidth / 2. / PIECE_SCALE_FACTOR;
 
                 if (helpEvent->pos().x() > x && helpEvent->pos().x() < x + width / cutpWidth / PIECE_SCALE_FACTOR &&
                     helpEvent->pos().y() > y && helpEvent->pos().y() < y + height / cutpHeight / PIECE_SCALE_FACTOR &&
                     !basemodel.position.board[j][i]->getName().isEmpty()) {
-                    QToolTip::showText(helpEvent->globalPos(), QString("%1:\n%2").arg(basemodel.position.board[j][i]->getEuroName()).arg(basemodel.position.board[j][i]->getEuroNameDesc()), this, rect());
+                    QToolTip::showText(helpEvent->globalPos(),
+                                       QString("%1:\n%2").arg(basemodel.position.board[j][i]->getEuroName()).arg(
+                                           basemodel.position.board[j][i]->getEuroNameDesc()), this, rect());
                     return true;
                 }
             }
@@ -314,7 +356,7 @@ bool BoardView::event(QEvent *event)
     return QWidget::event(event);
 }
 
-void BoardView::PaintSelectedPieces(QPainter* painter) const {
+void BoardView::PaintSelectedPieces(QPainter *painter) const {
     // qDebug() << __PRETTY_FUNCTION__;
     Q_ASSERT(painter);
 
@@ -348,9 +390,10 @@ void BoardView::PaintSelectedPieces(QPainter* painter) const {
         const auto fromX = basemodel.fromHuman.x;
         const auto fromY = basemodel.fromHuman.y;
 
-        auto all_moves = basemodel.position.board[fromX][fromY]->generateValidMoves(Point(fromX, fromY), basemodel.position.board);//getValidMovesForPiece(Point(fromX,fromY), basemodel.position.board);//basemodel.position.board[fromX][fromY]->generateValidMoves({fromX,fromY},basemodel.position.board);
-        for (const auto& move : all_moves) {
-
+        auto all_moves = basemodel.position.board[fromX][fromY]->
+                generateValidMoves(Point(fromX, fromY), basemodel.position.board);
+        //getValidMovesForPiece(Point(fromX,fromY), basemodel.position.board);//basemodel.position.board[fromX][fromY]->generateValidMoves({fromX,fromY},basemodel.position.board);
+        for (const auto &move: all_moves) {
             auto x = (50 + ((move.second.y) * (width - 2 * 50) / cutpWidth)) -
                      width / cutpWidth / 2 / PIECE_SCALE_FACTOR;
             auto y = (50 + (9 - move.second.x) * (height - 50 - 100) / cutpHeight) -
@@ -363,6 +406,7 @@ void BoardView::PaintSelectedPieces(QPainter* painter) const {
         // black to move
     }
 }
+
 void BoardView::DrawEngineMoves(QPainter *painter) const {
     // draws the last moved line
     QPen pen;
@@ -376,9 +420,9 @@ void BoardView::DrawEngineMoves(QPainter *painter) const {
     painter->setOpacity(0.7);
 
     const auto x1 = (50 + (basemodel.fromUCI.x) * (width - 2 * 50) / cutpWidth);
-    const auto y1 = (50 + (9- basemodel.fromUCI.y) * (height - 50 - 100) / cutpHeight);
+    const auto y1 = (50 + (9 - basemodel.fromUCI.y) * (height - 50 - 100) / cutpHeight);
     const auto x2 = (50 + (basemodel.toUCI.x) * (width - 2 * 50) / cutpWidth);
-    const auto y2 = (50 + (9- basemodel.toUCI.y) * (height - 50 - 100) / cutpHeight);
+    const auto y2 = (50 + (9 - basemodel.toUCI.y) * (height - 50 - 100) / cutpHeight);
 
     painter->drawLine(x1, y1, x2, y2);
 
@@ -397,8 +441,8 @@ void BoardView::DrawEngineMoves(QPainter *painter) const {
     pen.setColor(Qt::black);
     pen.setWidth(5);
     painter->setPen(pen);
-    painter->drawEllipse(QRect(x1 -	width / cutpWidth / 2 / 1.5,
-                               y1 -height / cutpWidth / 2 / 1.5,
+    painter->drawEllipse(QRect(x1 - width / cutpWidth / 2 / 1.5,
+                               y1 - height / cutpWidth / 2 / 1.5,
                                width / (cutpWidth) / 1.5,
                                height / cutpHeight / 1.5));
 
@@ -410,16 +454,17 @@ void BoardView::DrawEngineMoves(QPainter *painter) const {
     painter->setOpacity(1.0);
 }
 
-void BoardView::mousePressEvent(QMouseEvent* event) {
+void BoardView::mousePressEvent(QMouseEvent *event) {
     const int x = event->pos().x();
     const int y = event->pos().y();
-    const Point boardPos = CalcBoardCoords({ x, y });
+    const Point boardPos = CalcBoardCoords({x, y});
     const Point coord{10 - boardPos.y, boardPos.x - 1}; // Simplified coordinate conversion
     if (!pressed) {
         pressed = true;
         basemodel.fromHuman = coord;
 
-        if (const Piece piece = *basemodel.position.board[coord.x][coord.y]; piece.getName().isEmpty() || piece.getColor() != basemodel.position.players_color) {
+        if (const Piece piece = *basemodel.position.board[coord.x][coord.y];
+            piece.getName().isEmpty() || piece.getColor() != basemodel.position.players_color) {
             pressed = false; // Reset if invalid piece or color
             return;
         }
@@ -431,16 +476,17 @@ void BoardView::mousePressEvent(QMouseEvent* event) {
             update(); // Refresh to show changes or revert view
             return;
         }
-        if (basemodel.position.board[basemodel.toHuman.x][basemodel.toHuman.y]->getColor() == basemodel.position.players_color) {
+        if (basemodel.position.board[basemodel.toHuman.x][basemodel.toHuman.y]->getColor() == basemodel.position.
+            players_color) {
             basemodel.fromHuman = basemodel.toHuman; // Move the selected piece to the new square
             update(); // Refresh to show changes or revert view
             return;
         }
         pressed = false;
         auto all_moves = Board::getAllValidMoves(basemodel.position.players_color, basemodel.position.board);
-        for (const auto& [from, to] : all_moves) {
+        for (const auto &[from, to]: all_moves) {
             if (from == basemodel.fromHuman && to == basemodel.toHuman) {
-                emit updateView(basemodel.fromHuman ,basemodel.toHuman, basemodel.mode);
+                emit updateView(basemodel.fromHuman, basemodel.toHuman, basemodel.mode);
                 update();
                 return;
             }
@@ -478,7 +524,7 @@ Point BoardView::CalcBoardCoords(Point r) const {
     return {col, row};
 }
 
-void BoardView::PaintMarker(QPainter* p) const {
+void BoardView::PaintMarker(QPainter *p) const {
     // qDebug() << __PRETTY_FUNCTION__;
     Q_ASSERT(p);
 
@@ -488,7 +534,7 @@ void BoardView::PaintMarker(QPainter* p) const {
     int lcol = 0;
     int lrow = 0;
 
-    for (auto& marker : contextMenu->markers) {
+    for (auto &marker: contextMenu->markers) {
         auto x = marker.first.x;
         auto y = marker.first.y;
 
@@ -748,7 +794,7 @@ void BoardView::PaintPieces(QPainter *p) {
 			  PrepareNativePiece(&img, j, i);
 		  }
 		}
-		p->drawPicture(/*QRect(*//*(50 + ((8-i) * (w - 2 * 50) / cutpWidth)) -
+		p->drawPicture(/*QRect(*/ /*(50 + ((8-i) * (w - 2 * 50) / cutpWidth)) -
 								w / cutpWidth / 2 / 1.5,
 							(50 + (9-j) * (h - 50 - 100) / cutpHeight) -
 								h / cutpWidth / 2 / 1.5/*,

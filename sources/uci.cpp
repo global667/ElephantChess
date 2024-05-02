@@ -24,24 +24,24 @@ extern BaseModel basemodel;
 
 UCI::UCI()
     : waitForReadyOK(true)
-    , newGame(true)
-{
+      , newGame(true) {
     connect(&engine, SIGNAL(readyRead()), SLOT(readData()));
     connect(&engine,
             SIGNAL(errorOccurred(QProcess::ProcessError)),
             SLOT(anError(QProcess::ProcessError)));
 
-    QStringList list = basemodel.engineName.split('/');
+    QStringList list = basemodel.engineData.engineName.split('/');
     //QString path = list.mid(0, list.size() - 1).join('/');
     const QString engineName = list.last();
 
-    basemodel.engineName = engineName;
+    basemodel.engineData.engineName = engineName;
 
     // Set the program for the engine
     qDebug() << QDir::currentPath() + "/" + engineName;
-    engine.setProgram(QDir::currentPath() + "/" + engineName);//"F:/source/XiangQi/Pikafish/pikafish.exe");//"pikafish.exe");//
-    engine.setWorkingDirectory(QDir::currentPath());//"F:/source/XiangQi/Pikafish/");
-    qDebug() << "Starting uci engine:" << basemodel.engineName;
+    engine.setProgram(QDir::currentPath() + "/" + engineName);
+    //"F:/source/XiangQi/Pikafish/pikafish.exe");//"pikafish.exe");//
+    engine.setWorkingDirectory(QDir::currentPath()); //"F:/source/XiangQi/Pikafish/");
+    qDebug() << "Starting uci engine:" << basemodel.engineData.engineName;
     engine.setReadChannel(QProcess::StandardOutput);
 
     engine.start(QIODevice::Text | QIODevice::ReadWrite);
@@ -52,18 +52,16 @@ UCI::UCI()
     writeDatas("isready");
 }
 
-void UCI::start()
-{
+void UCI::start() {
     // Start the UCI communication
 }
 
-void UCI::readData()
-{
+void UCI::readData() {
     QByteArray data;
     while (engine.canReadLine()) {
         data = engine.readAll();
         qDebug() << "Data read: " << data;
-        for (const auto &c : data.split('\n')) {
+        for (const auto &c: data.split('\n')) {
             /*if (c.contains("readyok") && waitForReadyOK) {
                 if (newGame) {
                     // Start a new game
@@ -78,10 +76,9 @@ void UCI::readData()
             } */
             // add name of engine to basemodel
             if (c.contains("id name")) {
-                basemodel.engineName = c.split(' ').at(2) + " " + c.split(' ').at(3);
-                qDebug() << "Engine name: " << basemodel.engineName;
-            } else
-            if (c.contains("uciok")) {
+                basemodel.engineData.engineName = c.split(' ').at(2) + " " + c.split(' ').at(3);
+                qDebug() << "Engine name: " << basemodel.engineData.engineName;
+            } else if (c.contains("uciok")) {
                 // The engine is ready
                 //writeDatas("isready");
                 //waitForReadyOK = true;
@@ -99,11 +96,11 @@ void UCI::readData()
                 basemodel.fromUCI.y = fy;
                 basemodel.toUCI.x = tx;
                 basemodel.toUCI.y = ty;
-                if(tipp == false) {
+                if (tipp == false) {
                     // Ruft gameloop auf
                     emit updateView(Point(fy, fx), Point(ty, tx), BaseModel::Mode::human);
                 } else
-                    emit giveTipp(Point(fy, fx), Point(ty, tx));
+                emit giveTipp(Point(fy, fx), Point(ty, tx));
             } else if (c.contains("info")) {
                 qDebug() << c;
             } else {
@@ -115,8 +112,7 @@ void UCI::readData()
     }
 }
 
-void UCI::engineGo(const bool tipp)
-{
+void UCI::engineGo(const bool tipp) {
     this->tipp = tipp;
     // get a move
     writeDatas("position startpos moves " + basemodel.moves.join(" ").toUtf8());
@@ -124,19 +120,16 @@ void UCI::engineGo(const bool tipp)
     writeDatas("isready");
 }
 
-void UCI::writeDatas(const QByteArray &d)
-{
+void UCI::writeDatas(const QByteArray &d) {
     qint64 bytesWritten = engine.write(d + "\n");
     qDebug() << "Data written:" << bytesWritten << d;
 }
 
-void UCI::anError(QProcess::ProcessError error)
-{
+void UCI::anError(QProcess::ProcessError error) {
     qDebug() << "Error:" << error;
 }
 
-UCI::~UCI()
-{
+UCI::~UCI() {
     // Stop the engine and close the process
     writeDatas("quit");
     engine.close();

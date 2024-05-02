@@ -7,5 +7,20 @@
         <file>res/play-now.png</file>
         <file>../COPYING</file>
         <file>../CREDITS</file>
+        <file>res/General_b_z.png</file>
+        <file>res/Advisor_b_z.png</file>
+        <file>res/Advisor_r_z.png</file>
+        <file>res/Cannon_b_z.png</file>
+        <file>res/Cannon_r_z.png</file>
+        <file>res/Chariot_b_z.png</file>
+        <file>res/Chariot_r_z.png</file>
+        <file>res/Elephant_b_z.png</file>
+        <file>res/Elephant_r_z.png</file>
+        <file>res/General_r_z.png</file>
+        <file>res/Knight_b_z.png</file>
+        <file>res/Knight_r_z.png</file>
+        <file>res/Soldier_b_z.png</file>
+        <file>res/Soldier_r_z.png</file>
+        <file>res/toggle-lang.jpg</file>
     </qresource>
 </RCC>
