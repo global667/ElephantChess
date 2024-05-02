@@ -37,18 +37,18 @@ enum class completePieceType {
     CannonSchwarz, SoldierSchwarz
 };
 
+// TODO: delete doublettes i.e. engineName and engineData.engineName
 struct BaseModel //: public QObject
 {
     //Q_OBJECT
 public:
-    BaseModel()//QObject *parent = nullptr)
+    BaseModel() //QObject *parent = nullptr)
         : nodes(0), engineData({0, 0, 0, "", ""}) {
-        engineName
-                = "ElephantChessEngine";
-        //"C:/Users/wolfk/Downloads/Pikafish.2024-03-10/Windows/pikafish-ssse3.exe";//"built-in";//"F:/source/XiangQi/build-Dumbo-Desktop_Qt_6_6_1_MinGW_64_bit-Debug/Dumbo"; //"/home/wsk/.vs/Dumbo/out/build/linux-debug/Dumbo"; //
+        //engineName
+        //        = "ElephantChessEngine";
         position.setupInitialPositions();
-        moveHistory.append(position);
         currentMove++;
+        moveHistory.append(position);
     }
 
     static constexpr short BoardRows = ROWS;
@@ -60,17 +60,21 @@ public:
     Board position;
 
     enum class viewStyleMode { traditional_native, traditional_png, western_png };
+
     viewStyleMode viewStyleModeVar = viewStyleMode::traditional_native;
+    bool nativePieces = true;
 
     int currentMove = 0;
     QStringList moves;
-    QString engineName = "built-in";
-    QList<Board> moveHistory;
+    //QString engineName = "built-in";
+    QList<Board> moveHistory{};
+
     //QString kind = "human";
     enum class Mode { human, engine, uci };
+
     Mode mode = Mode::human;
 
-    QList<QPair<Point, Point>> currentMoves;
+    QList<QPair<Point, Point> > currentMoves;
     Point fromHuman = {-1, -1};
     Point toHuman = {-1, -1};
     Point fromUCI = {-1, -1};
@@ -80,27 +84,24 @@ public:
     // die genannte ist unten
     Color gameView = Color::Red;
 
-    static QByteArray posToken(const int fromX, const int fromY, const int toX, const int toY)
-    {
+    static QByteArray posToken(const int fromX, const int fromY, const int toX, const int toY) {
         char c[4];
-        c[0] = static_cast<char>(fromY+ 'a');
+        c[0] = static_cast<char>(fromY + 'a');
         c[1] = static_cast<char>(fromX + '0');
         c[2] = static_cast<char>(toY + 'a');
         c[3] = static_cast<char>(toX + '0');
-        return {c,sizeof(c)};
+        return {c, sizeof(c)};
     }
 
     long nodes;
 
     // engine evaluation, search depth etc. for the gui
-    struct EngineData
-    {
+    struct EngineData {
         int evaluation{};
         int searchDepth{};
         long nodes{};
         QString bestMove;
         QString engineName;
-
     } engineData;
 };
 

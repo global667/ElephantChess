@@ -78,7 +78,7 @@ SettingsView::SettingsView(QWidget *parent)
         enginesComboBox,
         &QComboBox::currentIndexChanged,
         this,
-        [=]() { basemodel.engineName = enginesComboBox->currentText(); },
+        [=]() { basemodel.engineData.engineName = enginesComboBox->currentText(); },
         Qt::AutoConnection);
     //this,
     //&SettingsView::comboBoxSetEngineName);
@@ -144,11 +144,11 @@ void SettingsView::ChooseEngine()
                                                     nullptr);
     if (filename.isEmpty()) {
         filename = "built-in";
-        basemodel.engineName = filename;
+        basemodel.engineData.engineName = filename;
         return;
     }
     enginesComboBox->addItem(filename);
     enginesComboBox->setCurrentText(filename);
     //enginesComboBox->show();
-    basemodel.engineName = filename;
+    basemodel.engineData.engineName = filename;
 }
