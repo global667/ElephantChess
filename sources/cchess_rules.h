@@ -1,7 +1,7 @@
 #ifndef CCHESS_RULES_H
 #define CCHESS_RULES_H
 
-#include "qdebug.h"
+#include <QDebug>
 #include <QObject>
 #include <QString>
 
