@@ -1,7 +1,7 @@
 #ifndef CCHESS_RULES_H
 #define CCHESS_RULES_H
 
-#include "qdebug.h"
+#include <QDebug>
 #include <QObject>
 #include <QString>
 
@@ -181,7 +181,7 @@ public:
 
 class Horse final : public Piece {
 public:
-    Horse(const Color color, const QString &name) : Piece(color, name) {euroName = "Horse";
+    Horse(const Color color, const QString &name) : Piece(color, name) {euroName = "Knight";
         euroNameDesc = "Moves one point orthogonally and then one point diagonally outward, similar to the knight in international chess, but its movement can be blocked by an intervening piece.";
         id = 3;
     }
@@ -429,11 +429,11 @@ private:
                             if (!springboardEncountered) {
                                 // Freies Feld, ohne dass wir über ein Hindernis gesprungen sind
                                 cannonMoves[x][y][d].push_back(current);
-                            } else {
+                           // } else {
                                 // Nach dem ersten Hindernis können wir hier schlagen
-                                cannonMoves[x][y][d].push_back(current);
+                              //  cannonMoves[x][y][d].push_back(current);
 
-                            }
+                           }
                         }
                     }
                 }

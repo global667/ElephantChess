@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+        <file>../res/general_b.png</file>
         <file>../res/generalRed.png</file>
         <file>../COPYING</file>
         <file>../README.md</file>

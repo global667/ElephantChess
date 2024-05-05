@@ -17,7 +17,8 @@
 */
 
 #include "mainwindow.h"
-// #define THREE_D_VIEW
+#undef THREE_D_VIEW
+#undef ENGINE
 // #ifdef TEST
 // #endif
 #include <QDesktopServices>
@@ -49,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     InitEngine();
     InitWidgets();
     InitConnections();
+
     statusBar()->showMessage(tr("Ready"));
 
     loggingTextView->insertPlainText(QString("\nperft test\n") +
@@ -69,31 +71,28 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     //loggingTextView->insertPlainText(basemodel.position.perftTest(5));
 }
 
-#undef ENGINE
-
 void MainWindow::InitEngine() {
+    if (QFile::exists(QDir::currentPath() + "/pikafish.exe")) {
+        /*    qDebug() << "Starting built-in engine";
+                engine = new Engine();
+                basemodel.mode = BaseModel::Mode::engine;
+                connect(engine, SIGNAL(updateView(Point,Point,BaseModel::Mode)),
+                        SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
+            } else { */
 
-if (QFile::exists(QDir::currentPath() + "/pikafish.exe"))
-    {
-/*    qDebug() << "Starting built-in engine";
-        engine = new Engine();
-        basemodel.mode = BaseModel::Mode::engine;
-        connect(engine, SIGNAL(updateView(Point,Point,BaseModel::Mode)),
-                SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
-    } else { */
-
-        basemodel.engineName = "pikafish.exe";
-        qDebug() << "Starting uci engine (" + basemodel.engineName +
+        basemodel.engineData.engineName = "pikafish.exe";
+        qDebug() << "Starting uci engine (" + basemodel.engineData.engineName +
                 " in extra thread";
         basemodel.mode = BaseModel::Mode::uci;
-        uci = new UCI();
-        connect(uci, SIGNAL(updateView(Point,Point,BaseModel::Mode)),
+        uci.reset(new UCI());
+        connect(uci.get(), SIGNAL(updateView(Point,Point,BaseModel::Mode)),
                 SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
         UCI::start();
         uci->engine.waitForReadyRead();
     } else {
         QMessageBox::information(this, "Information",
-                                 "Download the engine from the releases page on \nhttp://www.elephant-chess.com\nand put it in the program folder\n" + QDir::currentPath() + "\n");
+                                 "Download the engine from the releases page on \nhttps://www.elephant-chess.com\nand put it in the program folder\n"
+                                 + QDir::currentPath() + "\n");
         exit(0);
     }
 }
@@ -103,9 +102,8 @@ void MainWindow::InitConnections() {
     connect(boardview, SIGNAL(updateView(Point,Point,BaseModel::Mode)),
             SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
 #endif
-    // TODO: let board unchanged (at the moment it will reseted)
     //connect(settings, SIGNAL(boardStyleChanged()), SLOT(Newgame()));
-    connect(uci, SIGNAL(giveTipp(Point,Point)), SLOT(engineTipp(Point,Point)));
+    connect(uci.get(), SIGNAL(giveTipp(Point,Point)), SLOT(EngineTipp(Point,Point)));
 
     /*connect(
         table, &QTreeWidget::itemClicked, this,
@@ -117,7 +115,6 @@ void MainWindow::InitConnections() {
         },
         Qt::AutoConnection); */
     // SLOT(ItemClicked(QTreeWidgetItem *, int)));
-
     connect(
         lleft, &QPushButton::pressed, this,
         [=]() {
@@ -166,46 +163,32 @@ void MainWindow::InitWidgets() {
     navigationwidget = new QWidget(this);
     navigationview = new QWidget(navigationwidget);
 
-    // navigation buttons
-    right = new QPushButton(
-        QIcon(style()->standardIcon(QStyle::SP_MediaSeekForward)), "Forward");
-    rright = new QPushButton(
-        QIcon(style()->standardIcon(QStyle::SP_MediaSkipForward)), "End");
-    left = new QPushButton(
-        QIcon(style()->standardIcon(QStyle::SP_MediaSeekBackward)), "Back");
-    lleft = new QPushButton(
-        QIcon(style()->standardIcon(QStyle::SP_MediaSkipBackward)), "Begin");
-    right->setToolTip("Goes on move for");
-    rright->setToolTip("Goes to the end of the game");
-    left->setToolTip("Goes one move back");
-    lleft->setToolTip("Goes to the begining of the game");
-
     // move listing
-    model = new QStandardItemModel(0, 2);
-    model->setHeaderData(0, Qt::Horizontal, tr("Red"));
-    model->setHeaderData(1, Qt::Horizontal, tr("Black"));
-    headerview = new QHeaderView(Qt::Horizontal);
-    headerview->resizeSections(QHeaderView::Stretch);
-    headerview->setStretchLastSection(true);
-    headerview->setDefaultAlignment(Qt::AlignJustify | Qt::AlignVCenter);
-    table = new QTreeWidget();
+    // model = new QStandardItemModel(0, 2);
+    // model->setHeaderData(0, Qt::Horizontal, tr("Red"));
+    // model->setHeaderData(1, Qt::Horizontal, tr("Black"));
+    //headerview = new QHeaderView(Qt::Horizontal);
+    // headerview->resizeSections(QHeaderView::Stretch);
+    // headerview->setStretchLastSection(true);
+    // headerview->setDefaultAlignment(Qt::AlignJustify | Qt::AlignVCenter);
+    table = new QTreeWidget(navigationwidget);
     table->setColumnCount(2);
     table->setHeaderLabels(QStringList() << "Moves" << "Comments");
 
     // tabwidget1 layout
-    auto *tab1layout = new QHBoxLayout;
+    tab1layout = new QHBoxLayout(tabwidget1);
     tab1layout->addWidget(table);
     tabwidget1->setLayout(tab1layout);
 
+    tabwidget2layout = new QVBoxLayout(tabwidget2);
     // tabwidget2 layout
-    loggingTextView = new QTextEdit();
-    nps = new QLineEdit();
+    loggingTextView = new QTextEdit(tabwidget2layout->widget());
+    nps = new QLineEdit(tabwidget2layout->widget());
     nps->setText("0 nodes/s");
     nps->setReadOnly(true);
-    eval = new QLineEdit();
+    eval = new QLineEdit(tabwidget2layout->widget());
     eval->setText("Eval: 0");
 
-    auto *tabwidget2layout = new QVBoxLayout;
     tabwidget2layout->addWidget(eval);
     tabwidget2layout->addWidget(nps);
     tabwidget2layout->addWidget(loggingTextView);
@@ -215,8 +198,23 @@ void MainWindow::InitWidgets() {
     tabview->addTab(tabwidget1, "Move list");
     tabview->addTab(tabwidget2, "Info");
 
+    navibuttonslayout = new QHBoxLayout(navigationview);
+
+    // navigation buttons
+    right = new QPushButton(
+        QIcon(style()->standardIcon(QStyle::SP_MediaSeekForward)), "Forward", navibuttonslayout->widget());
+    rright = new QPushButton(
+        QIcon(style()->standardIcon(QStyle::SP_MediaSkipForward)), "End", navibuttonslayout->widget());
+    left = new QPushButton(
+        QIcon(style()->standardIcon(QStyle::SP_MediaSeekBackward)), "Back", navibuttonslayout->widget());
+    lleft = new QPushButton(
+        QIcon(style()->standardIcon(QStyle::SP_MediaSkipBackward)), "Begin", navibuttonslayout->widget());
+    right->setToolTip("Goes on move for");
+    rright->setToolTip("Goes to the end of the game");
+    left->setToolTip("Goes one move back");
+    lleft->setToolTip("Goes to the begining of the game");
+
     // navgationview
-    auto *navibuttonslayout = new QHBoxLayout;
     navibuttonslayout->addWidget(lleft);
     navibuttonslayout->addWidget(left);
     navibuttonslayout->addWidget(right);
@@ -224,26 +222,26 @@ void MainWindow::InitWidgets() {
     navigationview->setLayout(navibuttonslayout);
 
     // gameinfos
-    gameinfoswidget = new QWidget();
-    gameinfosh = new QVBoxLayout;
-    opponents = new QHBoxLayout;
-    opp1 = new QLineEdit();
+    gameinfoswidget = new QWidget(this);
+    gameinfosh = new QVBoxLayout(gameinfoswidget);
+    opponents = new QHBoxLayout(gameinfoswidget);
+    opp1 = new QLineEdit(opponents->widget());
     opp1->setPlaceholderText("Me");
     opponents->addWidget(opp1);
-    opp2 = new QLineEdit();
-    opp2->setText(basemodel.engineName);
+    opp2 = new QLineEdit(opponents->widget());
+    opp2->setText(basemodel.engineData.engineName);
     opponents->addWidget(opp2);
     location = new QHBoxLayout;
-    loca = new QLineEdit();
+    loca = new QLineEdit(gameinfosh->widget());
     loca->setPlaceholderText("hometown masters");
     location->addWidget(loca);
     location->addWidget(new QLabel(", round"));
-    round = new QLineEdit();
+    round = new QLineEdit(gameinfosh->widget());
     round->setPlaceholderText("1");
     round->setMaximumWidth(30);
     location->addWidget(round);
     location->addWidget(new QLabel(", the"));
-    date = new QLineEdit();
+    date = new QLineEdit(gameinfosh->widget());
     date->setPlaceholderText("20.02.2000");
     date->setMaximumWidth(60);
     location->addWidget(date);
@@ -253,7 +251,7 @@ void MainWindow::InitWidgets() {
 
     gameinfoswidget->setLayout(gameinfosh);
 
-    auto *naviwidlayout = new QVBoxLayout;
+    naviwidlayout = new QVBoxLayout(navigationwidget);
     naviwidlayout->addWidget(navigationview);
     naviwidlayout->addWidget(gameinfoswidget);
     naviwidlayout->addWidget(tabview);
@@ -302,6 +300,10 @@ void MainWindow::InitWidgets() {
                 "Let's the engine makes a move now (changes the color you play)");
 
     toolbar->addSeparator();
+    toolbar
+                  ->addAction(QIcon(":res/toggle-lang.jpg"),
+                              tr("Toggle Pieces"), this, SLOT(togglePiecesView()))
+                  ->setToolTip("Evaluate and comment a position");
 
     toolbar
             ->addAction(QIcon(style()->standardIcon((QStyle::SP_BrowserReload))),
@@ -316,7 +318,7 @@ void MainWindow::InitWidgets() {
             ->setToolTip("Give the game up. You will loose.");
     toolbar->addSeparator();
     //toolbar->addAction(QIcon(":res/settings.png"), tr("Load engine"), this,
-     //                  SLOT(OpenSettings()));
+    //                  SLOT(OpenSettings()));
     toolbar
             ->addAction(QIcon(style()->standardIcon((QStyle::SP_DialogHelpButton))),
                         tr("Help"), this, SLOT(Help()))
@@ -330,12 +332,6 @@ void MainWindow::InitWidgets() {
                         &QCoreApplication::quit)
             ->setToolTip("Exit the application");
     toolbar->addSeparator();
-/*
-    toolbar
-            ->addAction(QIcon(style()->standardIcon((QStyle::SP_DialogCloseButton))),
-                        tr("EvalDebug"), this, SLOT(Debug()))
-            ->setToolTip("Evaluate and comment a position");
-*/
 }
 
 void MainWindow::Debug() const { loggingTextView->insertPlainText("Test,test,test"); }
@@ -359,7 +355,6 @@ QFile *MainWindow::LoadPGNFile() {
     return opfile;
 }
 
-// TODO: Add data to history
 // Toolbar slots
 void MainWindow::Open() {
     QFile *opfile = LoadPGNFile();
@@ -381,7 +376,7 @@ void MainWindow::Open() {
 void MainWindow::ReadPGNData(QString data) const {
     data.shrink_to_fit();
     basemodel.moves.clear();
-    model->clear();
+    //model->clear();
     for (auto &s: data.split('\n')) {
         if (s.contains("[Event ")) {
             loca->setText(s.split("\"").at(1));
@@ -423,40 +418,41 @@ void MainWindow::ReadPGNData(QString data) const {
 }
 
 void MainWindow::PutPGNOnBoard() {
-
     basemodel.position.setupInitialPositions();
     basemodel.moveHistory.clear();
-    for (const auto & m : model->findItems("*", Qt::MatchWildcard)) {
-        model->removeRow(m->row());
-    }
-    table->clear();
-    model->clear();
+    //for (const auto & m : model->findItems("*", Qt::MatchWildcard)) {
+    //     model->removeRow(m->row());
+    // }
+    //table->clear();
+    // model->clear();
     auto moves = basemodel.moves;
     basemodel.moves.clear();
+    table->clear();
     AddMoveToHistory();
     basemodel.currentMove = 0;
     int c = 0;
 
-    for (auto& item1: moves) {
+    for (auto &item1: moves) {
         //auto *item = new QStandardItem(item1);
         //if (c % 2 == 0) {
-       //     model->setItem(c / 2, 0, item);
-       // }
+        //     model->setItem(c / 2, 0, item);
+        // }
         //if (c % 2 == 1)
         //model->appendRow(item);
 
-        const auto fx = ((char)item1.at(0).toLatin1() - 'a') ;
+        const auto fx = ((char) item1.at(0).toLatin1() - 'a');
         const auto fy = static_cast<char>(9 - item1[1].digitValue());
-        const auto tx = ((char)  item1.at(2).toLatin1() -'a');
+        const auto tx = ((char) item1.at(2).toLatin1() - 'a');
         const auto ty = static_cast<char>(9 - item1[3].digitValue());
 
-       AddMoveToHistory();
+        AddMoveToHistory();
         AddMoveToList(std::make_pair(Point(9 - fy, 8 - fx), Point(9 - ty, 8 - tx)));
         Board::movePiece(Point(9 - fy, 8 - fx), Point(9 - ty, 8 - tx), basemodel.position.board);
 
         c++;
         basemodel.position.toggleColor();
     }
+    ResetToHistory();
     basemodel.currentMove++;
     column = c;
     repaint();
@@ -468,7 +464,7 @@ void MainWindow::AddMoveToHistory() {
 }
 
 void MainWindow::AddMoveToList(const std::pair<Point, Point> move) const {
-    if (move.first.x == -1)
+    if (move.first.x == -1 ||  basemodel.moveHistory.isEmpty())
         return;
     const QString name =
             basemodel.moveHistory.last().board[move.first.x][move.first.y]->getName();
@@ -489,19 +485,26 @@ void MainWindow::AddMoveToList(const std::pair<Point, Point> move) const {
                     ? QString("")
                     : QString("+"));
 
-    auto *item = new QTreeWidgetItem(table);
-    //const int ply = (basemodel.moves.size() - 1) % 2;
-    item->setText(0, QString::number(basemodel.currentMove) + ". " + mv.join(" "));
-
-   /* if (isTableClicked) {
-        if (0 == ply) {
+            auto *item = new QTreeWidgetItem(table);
+            item->setText(0, QString::number(basemodel.currentMove+1) + ". " + mv.join(" "));
             table->addTopLevelItem(item);
-        } else {
-            table->setCurrentItem(item);
-            //table->addTopLevelItem(item); // Insert the item at the top
-        }
-    } else { */
-        //table->addTopLevelItem(item);
+
+
+
+
+    //auto *item = new QTreeWidgetItem(table);
+    //const int ply = (basemodel.moves.size() - 1) % 2;
+    //item->setText(0, QString::number(basemodel.currentMove) + ". " + mv.join(" "));
+
+    /* if (isTableClicked) {
+         if (0 == ply) {
+             table->addTopLevelItem(item);
+         } else {
+             table->setCurrentItem(item);
+             //table->addTopLevelItem(item); // Insert the item at the top
+         }
+     } else { */
+    //table->addTopLevelItem(item);
     //}
 }
 
@@ -563,22 +566,22 @@ void MainWindow::ToggleGameView() {
     repaint();
 }
 
-void MainWindow::engineTipp(Point from,Point to) {
-     QString c;
+void MainWindow::EngineTipp(Point from, Point to) {
+    QString c;
     if (basemodel.position.players_color == Color::Red)
         c = "Red";
     else
         c = "Black";
     const QString token = BaseModel::posToken(from.x, from.y, to.x, to.y);
     const QString bestMoveWouldBe =
-            QString("The best move for %1 would be %2").arg(c).arg(token);
+            QString("The best move for %1 would be %2").arg(c, token);
     QMessageBox::information(this, "Engine says:", bestMoveWouldBe);
 }
 
-void MainWindow::GiveTipp() {
+void MainWindow::GiveTipp() const {
     ///std::pair<Point, Point> move =
-            //engine->GetBestMove(basemodel.position.players_color);
-     uci->engineGo(true);;
+    //engine->GetBestMove(basemodel.position.players_color);
+    uci->engineGo(true);;
 }
 
 void MainWindow::About() {
@@ -613,9 +616,9 @@ void MainWindow::PlayNow() {
         AddMoveToHistory();
 
         basemodel.position.toggleColor();
-    } else
+    } else {
         uci->engineGo(false);
-
+    }
     repaint();
 }
 
@@ -638,30 +641,30 @@ void MainWindow::OpenSettings() {
     auto *download = new DownloadView(this);
 }
 
-void MainWindow::onDownloaded(const QString& filename) {
+void MainWindow::OnDownloaded(const QString &filename) {
     QMessageBox::information(this, "Information", "Downloaded " + filename);
 
-    basemodel.engineName = filename;
+    basemodel.engineData.engineName = filename;
     basemodel.mode = BaseModel::Mode::uci;
     if (!uci) {
         qDebug() << "!uci";
-        uci = new UCI();
-        disconnect(engine, SIGNAL(updateView(Point,Point,BaseModel::Mode)), nullptr,
+        uci.reset(new UCI());
+        disconnect(engine.get(), SIGNAL(updateView(Point,Point,BaseModel::Mode)), nullptr,
                    nullptr);
-        connect(uci, SIGNAL(updateView(Point,Point,BaseModel::Mode)),
+        connect(uci.get(), SIGNAL(updateView(Point,Point,BaseModel::Mode)),
                 SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
     } else {
         qDebug() << "uci";
-        uciThread.quit();
-        uci = new UCI();
-        connect(uci, SIGNAL(updateView(Point,Point,BaseModel::Mode)),
+        //uciThread.quit();
+        uci.reset(new UCI());
+        connect(uci.get(), SIGNAL(updateView(Point,Point,BaseModel::Mode)),
                 SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
     }
     //opp2->setText(basemodel.engineName);
     Q_ASSERT(&uci);
-    Q_ASSERT(&uciThread);
+    //Q_ASSERT(&uciThread);
     // uci->moveToThread(&uciThread);
-    qDebug() << "Starting uci engine (" + basemodel.engineName +
+    qDebug() << "Starting uci engine (" + basemodel.engineData.engineName +
             " in extra thread";
     // uciThread.start();
     UCI::start();
@@ -692,23 +695,22 @@ void MainWindow::onDownloaded(const QString& filename) {
       } else {*/
 
     //}
-
 }
 
 // Startet ein neues Spiel
 void MainWindow::Newgame() {
     basemodel.position.setupInitialPositions();
     basemodel.moveHistory.clear();
-    model->clear();
+    //model->clear();
     // row = 0,
     column = 0;
-    basemodel.currentMove = 0;
+    basemodel.currentMove = 1;
     basemodel.fromHuman = {-1, -1};
     basemodel.toHuman = {-1, -1};
     basemodel.fromUCI = {-1, -1};
     basemodel.toUCI = {-1, -1};
     basemodel.position.players_color = Color::Red;
-    for (int i = basemodel.moves.size(); i >= 0; i--) {
+    for (int i = static_cast<int>(basemodel.moves.size()); i >= 0; i--) {
         table->takeTopLevelItem(i);
     }
     basemodel.moves.clear();
@@ -720,16 +722,17 @@ void MainWindow::Newgame() {
 // End Toolbar slots
 
 void MainWindow::ResetToHistory() {
+
     basemodel.position = basemodel.moveHistory[basemodel.currentMove];
-    //basemodel.fromHuman = {-1, -1};
-    //basemodel.toHuman = {-1, -1};
-    //basemodel.fromUCI = {-1, -1};
-    //basemodel.toUCI = {-1, -1};
+    basemodel.fromHuman = {-1, -1};
+    basemodel.toHuman = {-1, -1};
+    basemodel.fromUCI = {-1, -1};
+    basemodel.toUCI = {-1, -1};
 
     repaint();
 }
 
-void MainWindow::paintFromThreadSlot() {
+void MainWindow::PaintFromThreadSlot() {
     repaint();
     timer->stop();
     timer2->stop();
@@ -741,13 +744,18 @@ void MainWindow::paintFromThreadSlot() {
     }
 }
 
-void MainWindow::updateFromThreadSlot() const {
+void MainWindow::UpdateFromThreadSlot() const {
     nps->setText(
         QString::number(basemodel.engineData.nodes) + " nodes/s\n with a depth of " + QString::number(
             basemodel.engineData.searchDepth));
     eval->setText(
         QString::number(basemodel.engineData.evaluation) + " eval\n for move " + basemodel.engineData.bestMove);
     opp2->setText(basemodel.engineData.engineName);
+}
+
+void MainWindow::togglePiecesView() {
+    basemodel.nativePieces = !basemodel.nativePieces;
+repaint();
 }
 
 // Play the next two moves begin with red as human and black as engine
@@ -765,25 +773,46 @@ void MainWindow::PlayNextTwoMoves(Point from, Point to, const BaseModel::Mode mo
         return;
     }
 
+    //TODO: Fix PlayNow bug
+
+    int j=basemodel.currentMove;
+    int l = basemodel.moveHistory.size();
+    bool isBackMove = (j < l-1);
+    if (isBackMove) {
+        table->clear();
+        basemodel.moves.clear();
+
+        for (int i = j; i < l-1 ; i++) {
+            //table->takeTopLevelItem(i);
+            basemodel.moveHistory.removeLast();
+        }
+        //basemodel.currentMove = j;
+        basemodel.position = basemodel.moveHistory.last();
+        update();
+    }
+
+
     Board::movePiece({move.first.x, move.first.y},
                      {move.second.x, move.second.y}, basemodel.position.board);
     AddMoveToList(move);
     AddMoveToHistory();
 
-    basemodel.position.toggleColor();
+   // if (!isBackMove)
+        basemodel.position.toggleColor();
+
     repaint();
 
     if (mode == BaseModel::Mode::engine) {
         timer = new QTimer(this);
         timer2 = new QTimer(this);
-        connect(timer, &QTimer::timeout, engine, &Engine::nodesPerSecond);
-        connect(timer2, &QTimer::timeout, this, &MainWindow::nodesPerSecond);
+        connect(timer, &QTimer::timeout, engine.get(), &Engine::nodesPerSecond);
+        connect(timer2, &QTimer::timeout, this, &MainWindow::NodesPerSecond);
 
         timer->start(1000);
         timer2->start(100);
 
         QObject::connect(this, SIGNAL(paintFromThread()), this, SLOT(paintFromThreadSlot()));
-        QObject::connect(engine, SIGNAL(updateFromThread()), this, SLOT(updateFromThreadSlot()));
+        QObject::connect(engine.get(), SIGNAL(updateFromThread()), this, SLOT(updateFromThreadSlot()));
 
 
         // Putting in a separeted thread
@@ -799,12 +828,15 @@ void MainWindow::PlayNextTwoMoves(Point from, Point to, const BaseModel::Mode mo
             AddMoveToList(pair);
             AddMoveToHistory();
 
-            emit paintFromThread();
+            emit PaintFromThread();
 
             basemodel.position.toggleColor();
         });
     } else if (mode == BaseModel::Mode::uci) {
         uci->engineGo(false);
+    } else if (mode == BaseModel::Mode::human) {
+        basemodel.position.players_color = Color::Red;
+        qDebug() << "Waiting for human...";
     } else {
         qDebug() << "Error in game loop ToMove()";
     }
@@ -818,7 +850,7 @@ void MainWindow::YouWin() {
     msgBox.setInformativeText("Do you want to save game");
     msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
     msgBox.setDefaultButton(QMessageBox::Save);
-    switch (const int ret = msgBox.exec()) {
+    switch (msgBox.exec()) {
         case QMessageBox::Save:
             // Save was clicked
             Save();
@@ -861,15 +893,15 @@ void MainWindow::YouLose() {
     }
 }
 
-void MainWindow::ItemClicked(QTreeWidgetItem *item, int column) {
-    // qDebug() << "item clicked";
-    //     int row = table->indexFromItem(item).row();
-    //     basemodel.board = basemodel.moveHistory[row];
-    //     isTableClicked = row;
-    //     repaint();
-}
+//void MainWindow::ItemClicked(QTreeWidgetItem *item, int column) {
+// qDebug() << "item clicked";
+//     int row = table->indexFromItem(item).row();
+//     basemodel.board = basemodel.moveHistory[row];
+//     isTableClicked = row;
+//     repaint();
+//}
 
-void MainWindow::nodesPerSecond() const {
+void MainWindow::NodesPerSecond() const {
     nps->setText(
         QString::number(basemodel.engineData.nodes) + " nodes\n with a depth of " + QString::number(
             basemodel.engineData.searchDepth));
@@ -879,105 +911,105 @@ void MainWindow::nodesPerSecond() const {
 }
 
 void MainWindow::ToggleEngineStatus() {
-    if (uci)
-        return;
-    if (uciThread.isRunning()) {
-        uciThread.quit();
-    } else {
-        uciThread.start();
-    }
+    //if (uci)
+    //    return;
+    /*    if (uciThread.isRunning()) {
+            uciThread.quit();
+        } else {
+            uciThread.start();
+        }*/
 }
 
-MainWindow::~MainWindow() {
-    //std::default_delete<this>Objects();
-    delete engine;
-    delete uci;
-    //if (view)
-    delete view;
-    //if (renderView)
-    //    delete renderView;
-    //if (boardview)
-    delete boardview;
+//MainWindow::~MainWindow() {
+//std::default_delete<this>Objects();
+//    delete engine;
+//delete uci;
+//if (view)
+/*  delete view;
+  //if (renderView)
+  //    delete renderView;
+  //if (boardview)
+  delete boardview;
 
-    //if (opp1)
-    delete opp1;
-    // if (opp2)
-    delete opp2;
-    // if (opponents)
-    delete opponents;
+  //if (opp1)
+  delete opp1;
+  // if (opp2)
+  delete opp2;
+  // if (opponents)
+  delete opponents;
 
-    // if (loca)
-    delete loca;
-    // if (round)
-    delete round;
-    //if (date)
-    delete date;
-    // if (location)
-    delete location;
+  // if (loca)
+  delete loca;
+  // if (round)
+  delete round;
+  //if (date)
+  delete date;
+  // if (location)
+  delete location;
 
-    //if (gameinfosh)
-    delete gameinfosh;
-    //if (gameinfoswidget)
-    delete gameinfoswidget;
+  //if (gameinfosh)
+  delete gameinfosh;
+  //if (gameinfoswidget)
+  delete gameinfoswidget;
 
-    //if (lleft)
-    delete lleft;
-    // if (left)
-    delete left;
-    // if (right)
-    delete right;
-    //if (rright)
-    delete rright;
+  //if (lleft)
+  delete lleft;
+  // if (left)
+  delete left;
+  // if (right)
+  delete right;
+  //if (rright)
+  delete rright;
 
-    //if (headerview)
-    delete headerview;
-    //if (model)
-    delete model;
+  //if (headerview)
+  delete headerview;
+  //if (model)
+  delete model;
 
-    // QTableView *table;
-    // if (table)
-    delete table;
-    // if (tabwidget2)
-    delete tabwidget2;
-    // if (tabwidget1)
-    delete tabwidget1;
-    // if (tabview)
-    delete tabview;
+  // QTableView *table;
+  // if (table)
+  delete table;
+  // if (tabwidget2)
+  delete tabwidget2;
+  // if (tabwidget1)
+  delete tabwidget1;
+  // if (tabview)
+  delete tabview;
 
-    // if (menu)
-    delete menu;
+  // if (menu)
+  delete menu;
 
-    //if (navigationview)
-    delete navigationview;
+  //if (navigationview)
+  delete navigationview;
 
-    // if (navigationwidget)
-    delete navigationwidget;
+  // if (navigationwidget)
+  delete navigationwidget;
 
-    //if (dockWidget)
-    delete dockWidget;
+  //if (dockWidget)
+  delete dockWidget;
 
-    //if (settings)
-    //    delete settings;
-    // if (about)
-    delete about;
-    // if (openbutton)
-    delete openbutton;
-    // if (savebutton)
-    delete savebutton;
-    // if (settingsbutton)
-    delete settingsbutton;
-    /// if (enginestartsbutton)
-    delete enginestartsbutton;
-    // if (exitbutton)
-    delete exitbutton;
-    // if (exitbutton)
-    delete newgamebutton;
+  //if (settings)
+  //    delete settings;
+  // if (about)
+  delete about;
+  // if (openbutton)
+  delete openbutton;
+  // if (savebutton)
+  delete savebutton;
+  // if (settingsbutton)
+  delete settingsbutton;
+  /// if (enginestartsbutton)
+  delete enginestartsbutton;
+  // if (exitbutton)
+  delete exitbutton;
+  // if (exitbutton)
+  delete newgamebutton;
 
-    // if (menu1)
-    delete menu1;
-    // if (menubar)
-    delete menubar;
+  // if (menu1)
+  delete menu1;
+  // if (menubar)
+  delete menubar;
 
-    //if (toolbar)
-    delete toolbar;
-}
+  //if (toolbar)
+  delete toolbar;
+}*/

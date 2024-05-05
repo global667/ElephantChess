@@ -69,115 +69,121 @@
 //#include "settingsview.h"
 #include "uci.h"
 
-class MainWindow final : public QMainWindow
-{
+class MainWindow final : public QMainWindow {
     Q_OBJECT
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow() override;
 
-    // The engine, and its thread
-    UCI *uci  = nullptr;
-    QThread uciThread;
-    Engine *engine  = nullptr;
-    void YouLose();
-    void YouWin();
-    QTimer *timer{}, *timer2{};
+    ~MainWindow() override = default;
 
 private:
+    void YouLose();
+
+    void YouWin();
+
     void InitWidgets();
+
     void InitConnections();
+
     void InitEngine();
 
+    void AddMoveToList(std::pair<Point, Point> move) const;
+
+    void AddMoveToHistory();
+
+    void ResetToHistory();
+
+    QFile *LoadPGNFile();
+
+    void PutPGNOnBoard();
+
+    void ReadPGNData(QString data) const;
+
+    QScopedPointer<UCI> uci;
+    QScopedPointer<Engine> engine;
+    QTimer *timer{}, *timer2{};
     BoardView *boardview = nullptr;
-
     //QQuickView *viewQml = nullptr;
-
     QWidget *view = nullptr;
     //Qt3DExtras::Qt3DWindow *renderView = nullptr;
-
     QTabWidget *tabview = nullptr;
     QWidget *tabwidget1 = nullptr;
     QWidget *tabwidget2 = nullptr;
     QWidget *menu = nullptr;
-
     //QTableView *table;
     QTreeWidget *table = nullptr;
-
     QToolBar *toolbar = nullptr;
-    QAction *openbutton = nullptr, *savebutton = nullptr, *settingsbutton = nullptr, *enginestartsbutton = nullptr, *exitbutton = nullptr,
-        *newgamebutton = nullptr;
+    QAction *openbutton = nullptr, *savebutton = nullptr, *settingsbutton = nullptr, *enginestartsbutton = nullptr, *
+                    exitbutton = nullptr,
+            *newgamebutton = nullptr;
     QMenuBar *menubar = nullptr;
     QMenu *menu1 = nullptr;
     QDockWidget *dockWidget = nullptr;
-    QStandardItemModel *model = nullptr;
+    //QStandardItemModel *model = nullptr;
     QHeaderView *headerview = nullptr;
     QWidget *navigationwidget = nullptr;
     QWidget *navigationview = nullptr;
     QPushButton *lleft = nullptr, *left = nullptr, *right = nullptr, *rright = nullptr;
-
     QWidget *gameinfoswidget = nullptr;
     QVBoxLayout *gameinfosh = nullptr;
     QHBoxLayout *opponents = nullptr;
     QLineEdit *opp1 = nullptr, *opp2 = nullptr, *loca = nullptr, *round = nullptr, *date = nullptr;
     QHBoxLayout *location = nullptr;
-
     //SettingsView *settings = nullptr;
-
     AboutView *about = nullptr;
-
+    QPushButton button;
+    QTextEdit *loggingTextView = nullptr;
+    QLineEdit *nps = nullptr, *eval = nullptr;
+    QHBoxLayout *tab1layout = nullptr, *navibuttonslayout = nullptr;
+    QVBoxLayout *tabwidget2layout = nullptr, *naviwidlayout = nullptr;
     //int row = 0,
     int column = 0;
-    void AddMoveToList(std::pair<Point, Point> move) const;
-
-    static void AddMoveToHistory();
-
-    QPushButton button;
-
     int isTableClicked = 0;
     bool tipp = false;
 
-    void ResetToHistory();
-    QFile *LoadPGNFile();
-    void PutPGNOnBoard();
-    void ReadPGNData(QString data) const;
-    QTextEdit *loggingTextView{};
-    QLineEdit *nps{}, *eval{};
-
-
 public slots:
     void Open();
+
     void Save();
+
     void OpenSettings();
 
-
     void ToggleEngineStatus();
+
     void Newgame();
+
     void PlayNow();
 
     void ToggleGameView();
-    //void togglePlayer();
-    void GiveTipp();
-    void engineTipp(Point from,Point to);
+
+    void GiveTipp() const;
+
+    void EngineTipp(Point from, Point to);
+
     void About();
+
     void Help() const;
+
     void GiveUpGame();
 
-    //void UpdateSettings();
-    static void ItemClicked(QTreeWidgetItem *, int);
+    void NodesPerSecond() const;
 
-    void nodesPerSecond() const;
+    void PlayNextTwoMoves(Point from, Point to, BaseModel::Mode mode);
 
-public slots:
-    void PlayNextTwoMoves(Point from, Point to, const BaseModel::Mode mode);
-    void paintFromThreadSlot();
-    void updateFromThreadSlot() const;
+    void PaintFromThreadSlot();
+
+    void UpdateFromThreadSlot() const;
+
+    void togglePiecesView();
+
 private slots:
-    void onDownloaded(const QString& filename = {});
-    void Debug() const;
-public: signals:
-    void paintFromThread();
+    void OnDownloaded(const QString &filename = {});
 
+    void Debug() const;
+
+public:
+signals:
+    void PaintFromThread();
 };
 #endif // MAINWINDOW_H

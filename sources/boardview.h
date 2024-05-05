@@ -31,26 +31,35 @@
 
 // This class is the 2D-view of the board. It is a QWidget and draws the board and the pieces.
 // Handles the mouse input and the context menu.
-class BoardView : public QWidget
-{
+class BoardView final : public QWidget {
     Q_OBJECT
 
 public:
     explicit BoardView(QWidget *parent = nullptr);
 
 protected:
+    void PrepareEuroPiece(QPicture * picture, int i, int i1, int height, int width);
+
     void paintEvent(QPaintEvent *event) override;
+
     void mousePressEvent(QMouseEvent *event) override;
+
     void contextMenuEvent(QContextMenuEvent *event) override;
 
     bool event(QEvent *event) override;
+
 private:
-    void PaintBoard(QPainter *p) const;    
+    void PaintBoard(QPainter *p) const;
+
     void PaintMarker(QPainter *p) const;
+
     void PrepareNativePiece(QPicture *p, int row, int col, int h, int w) const;
+
     void PaintSelectedPieces(QPainter *p) const;
 
-    Point CalcBoardCoords(Point r) const;
+    void DrawEngineMoves(QPainter *painter) const;
+
+    [[nodiscard]] Point CalcBoardCoords(Point r) const;
 
     static void SetEditorPieces();
 
@@ -58,23 +67,20 @@ private:
     bool pressed = false;
     bool secondclick = false;
     bool smoothChange = false;
-
     // Cutting points of the board
-    const int cutpWidth = BaseModel::BoardColPoints;  //8;
+    const int cutpWidth = BaseModel::BoardColPoints; //8;
     const int cutpHeight = BaseModel::BoardRowPoints; //9;
-
     //Es befindet sich auf der Seite des Brettes, die dem Spieler mit den roten Figuren gehört.
-    QString redRiver = QString::fromUtf8("\u695a\u6cb3"); //"楚 河"; // (Chǔ hé) - Dieser Schriftzug bedeutet "Fluss von Chu".
-
+    QString redRiver = QString::fromUtf8("\u695a\u6cb3");
+    //"楚 河"; // (Chǔ hé) - Dieser Schriftzug bedeutet "Fluss von Chu".
     //Es befindet sich auf der Seite des Brettes, die dem Spieler mit den schwarzen Figuren gehört.
-    QString blackRiver = QString::fromUtf8("\u6f22\u754c"); //"漢 界"; //  (Hàn jiè) - Dieser Schriftzug bedeutet "Grenze von Han".
-
+    QString blackRiver = QString::fromUtf8("\u6f22\u754c");
+    //"漢 界"; //  (Hàn jiè) - Dieser Schriftzug bedeutet "Grenze von Han".
     // Kontexmenue mit Figuren und Marker
-    ContexMenu *contextMenu;  
-
+    ContexMenu *contextMenu;
 signals:
-    // signal to the controller
-    void updateView(Point from, Point to,  BaseModel::Mode mode);
+    // signal to the controller Mainwindow
+    void updateView(Point from, Point to, BaseModel::Mode mode);
 };
 
 #endif // BOARDVIEW_H
