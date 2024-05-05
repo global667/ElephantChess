@@ -17,7 +17,8 @@
 */
 
 #include "mainwindow.h"
-// #define THREE_D_VIEW
+#undef THREE_D_VIEW
+#undef ENGINE
 // #ifdef TEST
 // #endif
 #include <QDesktopServices>
@@ -49,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     InitEngine();
     InitWidgets();
     InitConnections();
+
     statusBar()->showMessage(tr("Ready"));
 
     loggingTextView->insertPlainText(QString("\nperft test\n") +
@@ -68,8 +70,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     //loggingTextView->insertPlainText(basemodel.position.perftTest(4));
     //loggingTextView->insertPlainText(basemodel.position.perftTest(5));
 }
-
-#undef ENGINE
 
 void MainWindow::InitEngine() {
     if (QFile::exists(QDir::currentPath() + "/pikafish.exe")) {
@@ -115,9 +115,6 @@ void MainWindow::InitConnections() {
         },
         Qt::AutoConnection); */
     // SLOT(ItemClicked(QTreeWidgetItem *, int)));
-
-
-
     connect(
         lleft, &QPushButton::pressed, this,
         [=]() {
@@ -487,19 +484,9 @@ void MainWindow::AddMoveToList(const std::pair<Point, Point> move) const {
             << (!Board::isCheck(basemodel.position.players_color, basemodel.position.board)
                     ? QString("")
                     : QString("+"));
-//TODO: Fix PlayNow bug
 
-    int j=basemodel.currentMove-1;
-    int l = basemodel.moveHistory.size();
-/*
-    if (j < l) {
-        for (int i = j; i < l ; i++) {
-            table->takeTopLevelItem(i);
-        }
-    }
-*/
             auto *item = new QTreeWidgetItem(table);
-            item->setText(0, QString::number(l) + ". " + mv.join(" "));
+            item->setText(0, QString::number(basemodel.currentMove+1) + ". " + mv.join(" "));
             table->addTopLevelItem(item);
 
 
@@ -717,7 +704,7 @@ void MainWindow::Newgame() {
     //model->clear();
     // row = 0,
     column = 0;
-    basemodel.currentMove = 0;
+    basemodel.currentMove = 1;
     basemodel.fromHuman = {-1, -1};
     basemodel.toHuman = {-1, -1};
     basemodel.fromUCI = {-1, -1};
@@ -786,12 +773,33 @@ void MainWindow::PlayNextTwoMoves(Point from, Point to, const BaseModel::Mode mo
         return;
     }
 
+    //TODO: Fix PlayNow bug
+
+    int j=basemodel.currentMove;
+    int l = basemodel.moveHistory.size();
+    bool isBackMove = (j < l-1);
+    if (isBackMove) {
+        table->clear();
+        basemodel.moves.clear();
+
+        for (int i = j; i < l-1 ; i++) {
+            //table->takeTopLevelItem(i);
+            basemodel.moveHistory.removeLast();
+        }
+        //basemodel.currentMove = j;
+        basemodel.position = basemodel.moveHistory.last();
+        update();
+    }
+
+
     Board::movePiece({move.first.x, move.first.y},
                      {move.second.x, move.second.y}, basemodel.position.board);
     AddMoveToList(move);
     AddMoveToHistory();
 
-    basemodel.position.toggleColor();
+   // if (!isBackMove)
+        basemodel.position.toggleColor();
+
     repaint();
 
     if (mode == BaseModel::Mode::engine) {
@@ -827,6 +835,7 @@ void MainWindow::PlayNextTwoMoves(Point from, Point to, const BaseModel::Mode mo
     } else if (mode == BaseModel::Mode::uci) {
         uci->engineGo(false);
     } else if (mode == BaseModel::Mode::human) {
+        basemodel.position.players_color = Color::Red;
         qDebug() << "Waiting for human...";
     } else {
         qDebug() << "Error in game loop ToMove()";
@@ -841,7 +850,7 @@ void MainWindow::YouWin() {
     msgBox.setInformativeText("Do you want to save game");
     msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
     msgBox.setDefaultButton(QMessageBox::Save);
-    switch (const int ret = msgBox.exec()) {
+    switch (msgBox.exec()) {
         case QMessageBox::Save:
             // Save was clicked
             Save();

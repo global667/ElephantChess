@@ -95,7 +95,7 @@ void ContexMenu::clearBoard()
     basemodel.moveHistory.clear();
     //model->clear();
     //column = 0;
-    basemodel.currentMove = 0;
+    basemodel.currentMove = 1;
     //basemodel.fromHuman = {-1, -1};
     //basemodel.toHuman = {-1, -1};
     //basemodel.fromUCI = {-1, -1};
