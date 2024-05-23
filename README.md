@@ -19,12 +19,8 @@ Use with caution, as the software is still in development.
 
 .::
 ![](https://badgen.net/static/license/GNU%20GPL%203.0/)
-:::
-![](https://badgen.net/github/release/global667/ElephantChess/)
 ::.
 
-
-<!-- ![](https://badgen.net/github/release/stable/global667/ElephantChess/) -->
 <!-- {% endcomment %} -->
 
 </div>
@@ -35,16 +31,18 @@ Use with caution, as the software is still in development.
 - [Rules](#rules)
 
 ### Introduction
-ElephantChess is a Chinese Chess (Xiangqi) GUI application designed to play and analyze games, similar to how "Arena" functions for European Chess. Inspired by the commercial "Fritz" software, it's currently in a pre-alpha stage and features a basic AI opponent (weakbot).
+ElephantChess is a Chinese Chess (XiangQi) GUI application designed to play and analyze games, similar to how "Arena" functions for European Chess. Inspired by the commercial "Fritz" software, it's currently in a pre-alpha stage and features a basic AI opponent (weakbot).
 
-- [Learn about Xiangqi on Wikipedia](https://en.wikipedia.org/wiki/Xiangqi)
+- [Learn about XiangQi on Wikipedia](https://en.wikipedia.org/wiki/Xiangqi)
 - [Learn about European Chess on Wikipedia](https://en.wikipedia.org/wiki/Chess)
 
 ### Installation
-Download the zip file, extract it, and follow the installation instructions. Use [Stable](https://www.elephant-chess.com) or [Latest](https://github.com/global667/ElephantChess/releases/latest)
-  
+Download the zip file, extract it, and follow the installation instructions. [Latest](https://github.com/global667/ElephantChess/releases/latest)
+
+After that download PikaFish - the engine -  and extract it to the same folder as ElephantChess. [PikaFish](https://github.com/global667/Pikafish/releases/tag/latest)
+
 #### Compatibility
-Should run on Windows, macOS, Linux and WSL.
+Should run on Windows directly and after building on macOS, Linux and WSL.
 
 ### Rules
 Xiangqi is played on a 9x10 board divided by a "river", with pieces positioned on intersections. The game involves two players, Red and Black, each equipped with a set of distinct pieces: one General, two Advisors, two Elephants, two Horses, two Chariots, two Cannons, and five Soldiers.

@@ -124,7 +124,7 @@ void BoardView::paintEvent(QPaintEvent *event) {
         }
     }
     PaintSelectedPieces(&painter);
-    if (basemodel.fromUCI.x != -1)
+   // if (basemodel.fromUCI.x != -1)
         DrawEngineMoves(&painter);
 }
 
@@ -484,7 +484,9 @@ void BoardView::mousePressEvent(QMouseEvent *event) {
         auto all_moves = Board::getAllValidMoves(basemodel.position.players_color, basemodel.position.board);
         for (const auto &[from, to]: all_moves) {
             if (from == basemodel.fromHuman && to == basemodel.toHuman) {
-                emit updateView(basemodel.fromHuman, basemodel.toHuman, basemodel.mode);
+                //emit updateView(basemodel.fromHuman, basemodel.toHuman, basemodel.mode);
+                basemodel.fromHuman = from;
+                basemodel.toHuman = to;
                 update();
                 return;
             }

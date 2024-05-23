@@ -4,13 +4,18 @@
 # Pfad zur Qt-Installation
 $QtDir =  "C:\Qt\6.7.0\msvc2019_64" # "C:\Qt\6.7.0\mingw_64"
 # Pfad zum Build-Verzeichnis Ihres Projekts
-$BuildDir = "~\CLionProjects\ElephantChess\cmake-build-debug-visual-studio"
+$BuildDir = "F:\source\CLionProjects\ElephantChess\cmake-build-debug-visual-studio"
 #Installer data and config root dir
 $InstRoot = "F:\deploy\ElephantChess\"
 # Zielverzeichnis für das Deployment
 $DataDir = $InstRoot + "\packages\com.boringgames.elephantchess\data"
+# Icon dir
+$IconDir = "F:\source\CLionProjects\ElephantChess\sources\res\icon.ico"
 # Name Ihrer ausführbaren Datei
-$ExeName = "ElephantChess.exe"
+$Name = "ElephantChess"
+$Version = "_v0.4.7"
+$Ending = ".exe"
+$ExeName = $Name + $Ending
 # Name des/der Schachprogramms/Schachprogramme
 #$PikaExe = "pikafish.exe"
 #$PikaNet = "pikafish.nnue"
@@ -34,7 +39,7 @@ $ExePath = Join-Path -Path $BuildDir -ChildPath $ExeName
 Copy-Item -Path $ExePath -Destination $DataDir
 cd $BuildDir
 cd ..
-Copy-Item -Path ".\sources\res\icon.ico" -Destination $DataDir
+Copy-Item -Path $IconDir -Destination $DataDir
 
 #& $WinDeployQt --dir $DeployDir $ExePath
 # Führen Sie windeployqt aus, um die erforderlichen Abhängigkeiten zu kopieren
@@ -52,7 +57,7 @@ Copy-Item -Path ".\sources\res\icon.ico" -Destination $DataDir
 # Weitere benötigte Ressourcen oder Dateien kopieren
 # Copy-Item -Path "" -Destination $DeployDir
 cd $InstRoot
-& C:\Qt\Tools\QtInstallerFramework\4.7\bin\binarycreator.exe -f -c F:\deploy\ElephantChess\config\config.xml -p F:\deploy\ElephantChess\packages $ExeName
+& C:\Qt\Tools\QtInstallerFramework\4.7\bin\binarycreator.exe -f -c F:\deploy\ElephantChess\config\config.xml -p F:\deploy\ElephantChess\packages $Name + $Version + $Ending
 
 # Deployment abgeschlossen
 Write-Host "Deployment abgeschlossen. Überprüfen Sie das Verzeichnis: $InstRoot" 

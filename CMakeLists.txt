@@ -45,7 +45,7 @@ find_package(Qt6 REQUIRED COMPONENTS
     #Quick3D
     #Test
     #LinguistTools
-    HINTS "C:/Qt/6.7.0/msvc2019_64"
+   # HINTS "C:/Qt/6.7.0/msvc2019_64"
 )
 
 #find_package(ZLIB REQUIRED
@@ -83,6 +83,7 @@ set(PROJECT_CPP
         sources/contexmenu.h sources/contexmenu.cpp
         sources/aboutview.h sources/aboutview.cpp
         sources/cchess_rules.h sources/cchess_rules.cpp
+        sources/game.cpp sources/game.h
 )
 
 add_executable(ElephantChess WIN32 ${PROJECT_CPP} ${RESOURCES}

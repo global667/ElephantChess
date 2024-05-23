@@ -77,22 +77,14 @@ public:
 
     ~MainWindow() override = default;
 
-private:
-    void YouLose();
 
-    void YouWin();
+
 
     void InitWidgets();
 
     void InitConnections();
 
     void InitEngine();
-
-    void AddMoveToList(std::pair<Point, Point> move) const;
-
-    void AddMoveToHistory();
-
-    void ResetToHistory();
 
     QFile *LoadPGNFile();
 
@@ -102,7 +94,7 @@ private:
 
     QScopedPointer<UCI> uci;
     QScopedPointer<Engine> engine;
-    QTimer *timer{}, *timer2{};
+private:
     BoardView *boardview = nullptr;
     //QQuickView *viewQml = nullptr;
     QWidget *view = nullptr;
@@ -149,8 +141,6 @@ public slots:
 
     void OpenSettings();
 
-    void ToggleEngineStatus();
-
     void Newgame();
 
     void PlayNow();
@@ -169,7 +159,6 @@ public slots:
 
     void NodesPerSecond() const;
 
-    void PlayNextTwoMoves(Point from, Point to, BaseModel::Mode mode);
 
     void PaintFromThreadSlot();
 

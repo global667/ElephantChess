@@ -92,15 +92,15 @@ void UCI::readData() {
                 auto fy = (mv.at(1) - '0');
                 auto tx = (mv.at(2) - 'a');
                 auto ty = (mv.at(3) - '0');
-                basemodel.fromUCI.x = fx;
-                basemodel.fromUCI.y = fy;
-                basemodel.toUCI.x = tx;
-                basemodel.toUCI.y = ty;
+                basemodel.fromUCI.x = fy;
+                basemodel.fromUCI.y = fx;
+                basemodel.toUCI.x = ty;
+                basemodel.toUCI.y = tx;
                 if (tipp == false) {
                     // Ruft gameloop auf
-                    emit updateView(Point(fy, fx), Point(ty, tx), BaseModel::Mode::human);
+                    //emit updateView(Point(fy, fx), Point(ty, tx), BaseModel::Mode::human);
                 } else {
-                    emit giveTipp(Point(fy, fx), Point(ty, tx));
+                    //emit giveTipp(Point(fy, fx), Point(ty, tx));
                 }
             } else if (c.contains("info")) {
                 qDebug() << c;
