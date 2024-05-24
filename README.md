@@ -2,9 +2,10 @@
 <!-- {% comment %} -->
   
 ### Elephant Chess 
-<!-- {% endcomment %} -->
 
 ![](https://img.shields.io/badge/ALPHA%20VERSION!-8A2BE2)
+
+<!-- {% endcomment %} -->
 
 Use with caution, as the software is still in development.
 
