@@ -1,0 +1,266 @@
+\doxysection{F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/cchess\+\_\+rules.cpp}
+\hypertarget{cchess__rules_8cpp_source}{}\label{cchess__rules_8cpp_source}\mbox{\hyperlink{cchess__rules_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{cchess__rules_8h}{cchess\_rules.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00007}\mbox{\hyperlink{class_piece_a1cdab808545f4b11699aa9138f5a017d}{00007}}\ \mbox{\hyperlink{class_piece_a1cdab808545f4b11699aa9138f5a017d}{Piece::Piece}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}}\ color,\ QString\ name)\ :\ color(color),\ name(std::move(name))\ \{\}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00009}\mbox{\hyperlink{class_piece_a5d7a4f6bade94cb33b6f634de8aa7918}{00009}}\ \mbox{\hyperlink{class_piece_a5d7a4f6bade94cb33b6f634de8aa7918}{Piece::\string~Piece}}()\ \{\ \textcolor{keywordtype}{id}\ =\ -\/1;\ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00011}\mbox{\hyperlink{class_piece_a43c8999c0f9e4b33ee29da5ad6e18111}{00011}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_piece_a43c8999c0f9e4b33ee29da5ad6e18111}{Piece::isValidMove}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_point}{Point}}\ \&from,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_point}{Point}}\ \&to,\ \textcolor{keyword}{const}\ std::vector<std::vector<std::shared\_ptr<Piece>\ >\ >\ \&board)\ \ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00013}\mbox{\hyperlink{class_piece_a9a964fa6a4ef3b9c878050b900d635b6}{00013}}\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{class_piece_a9a964fa6a4ef3b9c878050b900d635b6}{Piece::generateValidMoves}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_point}{Point}}\ \&position,}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00014}00014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<std::shared\_ptr<Piece>\ >\ >\ \&board)\ -\/>\ std::vector<std::pair<}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00015}00015\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}},\ \mbox{\hyperlink{struct_point}{Point}}>\ >\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00016}00016\ \ \ \ \ std::vector<std::pair<Point,\ Point>>\ moves;}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00018}00018\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 10;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ 9;\ ++j)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{struct_point}{Point}}\ move\ =\ \{i,\ j\};\ move.\mbox{\hyperlink{struct_point_a8c779e11e694b20e0946105a9f5de842}{x}}\ >=\ 0\ \&\&\ move.x\ <\ 10\ \&\&\ move.y\ >=\ 0\ \&\&\ move.y\ <\ 9)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isValidMove(position,\ move,\ board))\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ moves.emplace\_back(position,\ move);}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00026}00026\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00027}00027\ \ \ \ \ \textcolor{keywordflow}{return}\ moves;}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00028}00028\ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00030}\mbox{\hyperlink{class_piece_a1168e7fd93f689a30e29f2fb169c6db9}{00030}}\ \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}}\ \mbox{\hyperlink{class_piece_a1168e7fd93f689a30e29f2fb169c6db9}{Piece::getColor}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_piece_a4cf5b29a9e13dcb93b616b11160c2abc}{color}};\ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00032}\mbox{\hyperlink{class_piece_ac91487b9ed6ac4f3bdeed681f3ffbaaa}{00032}}\ QString\ \mbox{\hyperlink{class_piece_ac91487b9ed6ac4f3bdeed681f3ffbaaa}{Piece::getName}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_piece_ab25d40b629e95dd220682c4f0f830eec}{name}};\ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00034}\mbox{\hyperlink{class_piece_a78086a44a114b0f53d5b4b1099f9b030}{00034}}\ QString\ \mbox{\hyperlink{class_piece_a78086a44a114b0f53d5b4b1099f9b030}{Piece::getEuroName}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_piece_a40c7407b132a07c5639792fd95cd42a4}{euroName}};\ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00036}\mbox{\hyperlink{class_piece_aa800a15554d6123fe2b30593280d39b0}{00036}}\ QString\ \mbox{\hyperlink{class_piece_aa800a15554d6123fe2b30593280d39b0}{Piece::getEuroNameDesc}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_piece_a4fe5fd826f5bdd32852a06642d63da32}{euroNameDesc}};\ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00038}\mbox{\hyperlink{class_piece_ad67133f2d7563df69a0912c47ae0cc6f}{00038}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_piece_ad67133f2d7563df69a0912c47ae0cc6f}{Piece::getId}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_piece_ac40cffee50da10a50361ff4791fdd528}{id}};\ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00040}\mbox{\hyperlink{class_piece_a2fac2b5f2cba79d7981ceb0a7aae9e77}{00040}}\ \mbox{\hyperlink{class_piece}{Piece}}\ \mbox{\hyperlink{class_piece_a2fac2b5f2cba79d7981ceb0a7aae9e77}{Piece::operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_piece}{Piece}}\ \&other)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00041}00041\ \ \ \ \ \mbox{\hyperlink{class_piece_a4cf5b29a9e13dcb93b616b11160c2abc}{color}}\ =\ other.\mbox{\hyperlink{class_piece_a4cf5b29a9e13dcb93b616b11160c2abc}{color}};}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00042}00042\ \ \ \ \ \mbox{\hyperlink{class_piece_ab25d40b629e95dd220682c4f0f830eec}{name}}\ =\ other.\mbox{\hyperlink{class_piece_ab25d40b629e95dd220682c4f0f830eec}{name}};}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00043}00043\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00044}00044\ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00046}\mbox{\hyperlink{class_board_a9ee491d4fea680cf69b033374a9fdfcb}{00046}}\ \mbox{\hyperlink{class_board_a9ee491d4fea680cf69b033374a9fdfcb}{Board::Board}}()\ :\ board(10,\ std::vector<std::shared\_ptr<\mbox{\hyperlink{class_piece}{Piece}}>>(9,\ nullptr))\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00047}00047\ \ \ \ \ \textcolor{comment}{//\ Initialisiere\ das\ Brett\ mit\ Null-\/Pointern\ oder\ spezifischen\ Startpositionen}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00048}00048\ \ \ \ \ \mbox{\hyperlink{class_board_a5d5cb514dc33c0a80cb849508112b7b6}{players\_color}}\ =\ \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color::Red}};}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00049}00049\ \ \ \ \ \mbox{\hyperlink{class_board_aae13dd814f2f4ad80a42878056853285}{setupInitialPositions}}();}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00050}00050\ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00052}\mbox{\hyperlink{class_board_aae078a1923ad54b385c34c04e373827a}{00052}}\ std::shared\_ptr<Piece>\ \mbox{\hyperlink{class_board_aae078a1923ad54b385c34c04e373827a}{Board::getPieceAt}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_point}{Point}}\ \&position)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00053}00053\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[position.\mbox{\hyperlink{struct_point_a8c779e11e694b20e0946105a9f5de842}{x}}][position.\mbox{\hyperlink{struct_point_a2e1b5fb2b2a83571f5c0bc0f66a73cf7}{y}}];}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00054}00054\ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00056}\mbox{\hyperlink{class_board_a0f9283a745f45911aa1f9de21e914544}{00056}}\ std::vector<std::pair<Point,\ Point>\ >\ \mbox{\hyperlink{class_board_a0f9283a745f45911aa1f9de21e914544}{Board::getAllValidMoves}}(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}}\ color,\ \textcolor{keyword}{const}\ std::vector<std::vector<std::shared\_ptr<Piece>\ >\ >\ \&board)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00057}00057\ \ \ \ \ std::vector<std::pair<Point,\ Point>>\ moves;}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00058}00058\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 10;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00059}00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ 9;\ ++j)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[i][j]\ \&\&\ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[i][j]-\/>getColor()\ ==\ color)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ validMoves\ =\ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[i][j]-\/>generateValidMoves(\mbox{\hyperlink{struct_point}{Point}}(i,\ j),\ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}});\textcolor{comment}{//getValidMovesForPiece(\{i,\ j\},\ board);}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//moves.insert(moves.end(),\ validMoves.begin(),\ validMoves.end());}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ move\ :\ validMoves)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ if\ board\ is\ in\ check\ or\ evil\ glare\ after\ move}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::vector<std::shared\_ptr<Piece>>>\ new\_board\ =\ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}};}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_board_a2222769b9257ec798f6ec6800060507e}{movePiece}}(move.first,\ move.second,\ new\_board);}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_board_a1bce818087213faff4bce6d5eaf5d597}{isCheck}}(\mbox{\hyperlink{class_board_a73de5ce398e7306dd11f15ce40428746}{toggleColor}}(color),\ new\_board)\ \&\&\ !\mbox{\hyperlink{class_board_a85971cfdadb2b1313a67e87fc02bb077}{isEvilGlare}}(color,\ new\_board))}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ moves.push\_back(move);}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_board_ac4acab226328b0fdf620895bbac18bc2}{undoMove}}(move.first,\ move.second,\ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[move.second.x][move.second.y],\ new\_board);}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00073}00073\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00074}00074\ \ \ \ \ \textcolor{keywordflow}{return}\ moves;}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00075}00075\ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00077}00077\ \textcolor{comment}{/*\ std::vector<std::pair<Point,\ Point>\ >\ Board::getValidMovesForPiece(const\ Point\&\ position,\ const\ std::vector<std::vector<std::shared\_ptr<Piece>\ >\ >\&\ board)\ \{}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00078}00078\ \textcolor{comment}{\ \ \ \ if\ (board[position.x][position.y])\ \{}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00079}00079\ \textcolor{comment}{\ \ \ \ \ \ \ \ auto\ moves\ =\ board[position.x][position.y]-\/>generateValidMoves(position,\ board);}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00080}00080\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00081}00081\ \textcolor{comment}{\ \ \ \ \ \ \ \ //\ check\ if\ moves\ is\ in\ check\ or\ evil\ glare}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00082}00082\ \textcolor{comment}{\ \ \ \ \ \ \ \ for\ (const\ auto\&\ move\ :\ moves)\ \{}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00083}00083\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::vector<std::shared\_ptr<Piece>>>\ new\_board\ =\ board;}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00084}00084\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ movePiece(move.first,\ move.second,\ new\_board);}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00085}00085\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ if\ (isCheck(toggleColor(board[position.x][position.y]-\/>getColor()),\ new\_board)\ ||\ isEvilGlare(board[position.x][position.y]-\/>getColor(),\ new\_board))\ \{}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00086}00086\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ moves.erase(std::remove(moves.begin(),\ moves.end(),\ move),\ moves.end());}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00087}00087\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00088}00088\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ undoMove(move.first,\ move.second,\ board[move.second.x][move.second.y],\ new\_board);}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00089}00089\ \textcolor{comment}{\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00090}00090\ \textcolor{comment}{\ \ \ \ \ \ \ \ return\ moves;}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00091}00091\ \textcolor{comment}{\ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00092}00092\ \textcolor{comment}{\ \ \ \ return\ \{\};}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00093}00093\ \textcolor{comment}{\}}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00094}00094\ \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00096}\mbox{\hyperlink{class_board_a2222769b9257ec798f6ec6800060507e}{00096}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_board_a2222769b9257ec798f6ec6800060507e}{Board::movePiece}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_point}{Point}}\ \&from,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_point}{Point}}\ \&to,\ std::vector<std::vector<std::shared\_ptr<Piece>\ >\ >\ \&board)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00097}00097\ \ \ \ \ \textcolor{keywordflow}{if}\ (from.\mbox{\hyperlink{struct_point_a8c779e11e694b20e0946105a9f5de842}{x}}\ <\ 0\ ||\ from.\mbox{\hyperlink{struct_point_a8c779e11e694b20e0946105a9f5de842}{x}}\ >=\ 10\ ||\ from.\mbox{\hyperlink{struct_point_a2e1b5fb2b2a83571f5c0bc0f66a73cf7}{y}}\ <\ 0\ ||\ from.\mbox{\hyperlink{struct_point_a2e1b5fb2b2a83571f5c0bc0f66a73cf7}{y}}\ >=\ 9\ ||\ to.\mbox{\hyperlink{struct_point_a8c779e11e694b20e0946105a9f5de842}{x}}\ <\ 0\ ||\ to.\mbox{\hyperlink{struct_point_a8c779e11e694b20e0946105a9f5de842}{x}}\ >=\ 10\ ||\ to.\mbox{\hyperlink{struct_point_a2e1b5fb2b2a83571f5c0bc0f66a73cf7}{y}}\ <\ 0\ ||\ to.\mbox{\hyperlink{struct_point_a2e1b5fb2b2a83571f5c0bc0f66a73cf7}{y}}\ >=\ 9)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00099}00099\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00100}00100\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[from.\mbox{\hyperlink{struct_point_a8c779e11e694b20e0946105a9f5de842}{x}}][from.\mbox{\hyperlink{struct_point_a2e1b5fb2b2a83571f5c0bc0f66a73cf7}{y}}]\ \&\&\ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[from.\mbox{\hyperlink{struct_point_a8c779e11e694b20e0946105a9f5de842}{x}}][from.\mbox{\hyperlink{struct_point_a2e1b5fb2b2a83571f5c0bc0f66a73cf7}{y}}]-\/>isValidMove(from,\ to,\ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}))\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Bewegung\ ist\ gültig}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00102}00102\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[to.\mbox{\hyperlink{struct_point_a8c779e11e694b20e0946105a9f5de842}{x}}][to.\mbox{\hyperlink{struct_point_a2e1b5fb2b2a83571f5c0bc0f66a73cf7}{y}}]\ =\ std::move(\mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[from.\mbox{\hyperlink{struct_point_a8c779e11e694b20e0946105a9f5de842}{x}}][from.\mbox{\hyperlink{struct_point_a2e1b5fb2b2a83571f5c0bc0f66a73cf7}{y}}]);}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[from.\mbox{\hyperlink{struct_point_a8c779e11e694b20e0946105a9f5de842}{x}}][from.\mbox{\hyperlink{struct_point_a2e1b5fb2b2a83571f5c0bc0f66a73cf7}{y}}]\ =\ std::make\_shared<Piece>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1ca6adf97f83acf6453d4a6a4b1070f3754}{Color::None}},\ \textcolor{stringliteral}{"{}"{}});;}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00105}00105\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00106}00106\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00107}00107\ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00109}\mbox{\hyperlink{class_board_ac4acab226328b0fdf620895bbac18bc2}{00109}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_board_ac4acab226328b0fdf620895bbac18bc2}{Board::undoMove}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_point}{Point}}\ \&from,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_point}{Point}}\ \&to,\ \textcolor{keyword}{const}\ std::shared\_ptr<Piece>\ \&piece,\ std::vector<std::vector<std::shared\_ptr<Piece>\ >\ >\ \&board)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00110}00110\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[from.\mbox{\hyperlink{struct_point_a8c779e11e694b20e0946105a9f5de842}{x}}][from.\mbox{\hyperlink{struct_point_a2e1b5fb2b2a83571f5c0bc0f66a73cf7}{y}}]\ =\ std::move(\mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[to.\mbox{\hyperlink{struct_point_a8c779e11e694b20e0946105a9f5de842}{x}}][to.\mbox{\hyperlink{struct_point_a2e1b5fb2b2a83571f5c0bc0f66a73cf7}{y}}]);}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00111}00111\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[to.\mbox{\hyperlink{struct_point_a8c779e11e694b20e0946105a9f5de842}{x}}][to.\mbox{\hyperlink{struct_point_a2e1b5fb2b2a83571f5c0bc0f66a73cf7}{y}}]\ =\ piece;}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00112}00112\ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00114}\mbox{\hyperlink{class_board_aae13dd814f2f4ad80a42878056853285}{00114}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_board_aae13dd814f2f4ad80a42878056853285}{Board::setupInitialPositions}}()\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00116}00116\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 10;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00117}00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ 9;\ ++j)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[i][j]\ =\ std::make\_shared<Piece>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1ca6adf97f83acf6453d4a6a4b1070f3754}{Color::None}},\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00119}00119\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00120}00120\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00122}00122\ \ \ \ \ \textcolor{comment}{//\ Hier\ Figuren\ auf\ dem\ Brett\ platzieren}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00123}00123\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[0][0]\ =\ std::make\_shared<Chariot>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color::Red}},\textcolor{stringliteral}{"{}\(\backslash\)u8ECA"{}}\ );}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00124}00124\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[0][1]\ =\ std::make\_shared<Horse>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color::Red}},\ \textcolor{stringliteral}{"{}\(\backslash\)u99AC"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00125}00125\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[0][2]\ =\ std::make\_shared<Elephant>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color::Red}},\ \textcolor{stringliteral}{"{}\(\backslash\)u76f8"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00126}00126\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[0][3]\ =\ std::make\_shared<Advisor>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color::Red}},\ \textcolor{stringliteral}{"{}\(\backslash\)u4ed5"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00127}00127\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[0][4]\ =\ std::make\_shared<General>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color::Red}},\ \textcolor{stringliteral}{"{}\(\backslash\)u5e25"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00128}00128\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[0][5]\ =\ std::make\_shared<Advisor>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color::Red}},\ \textcolor{stringliteral}{"{}\(\backslash\)u4ed5"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00129}00129\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[0][6]\ =\ std::make\_shared<Elephant>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color::Red}},\ \textcolor{stringliteral}{"{}\(\backslash\)u76f8"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00130}00130\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[0][7]\ =\ std::make\_shared<Horse>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color::Red}},\ \textcolor{stringliteral}{"{}\(\backslash\)u99AC"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00131}00131\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[0][8]\ =\ std::make\_shared<Chariot>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color::Red}},\textcolor{stringliteral}{"{}\(\backslash\)u8ECA"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00133}00133\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[2][1]\ =\ std::make\_shared<Cannon>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color::Red}},\ \textcolor{stringliteral}{"{}\(\backslash\)u70ae"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00134}00134\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[2][7]\ =\ std::make\_shared<Cannon>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color::Red}},\ \textcolor{stringliteral}{"{}\(\backslash\)u70ae"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00136}00136\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[3][0]\ =\ std::make\_shared<Soldier>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color::Red}},\textcolor{stringliteral}{"{}\(\backslash\)u5175"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00137}00137\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[3][2]\ =\ std::make\_shared<Soldier>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color::Red}},\textcolor{stringliteral}{"{}\(\backslash\)u5175"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00138}00138\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[3][4]\ =\ std::make\_shared<Soldier>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color::Red}},\textcolor{stringliteral}{"{}\(\backslash\)u5175"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00139}00139\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[3][6]\ =\ std::make\_shared<Soldier>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color::Red}},\textcolor{stringliteral}{"{}\(\backslash\)u5175"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00140}00140\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[3][8]\ =\ std::make\_shared<Soldier>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color::Red}},\textcolor{stringliteral}{"{}\(\backslash\)u5175"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00142}00142\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[9][0]\ =\ std::make\_shared<Chariot>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de}{Color::Black}},\textcolor{stringliteral}{"{}\(\backslash\)u8ECA"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00143}00143\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[9][1]\ =\ std::make\_shared<Horse>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de}{Color::Black}},\ \textcolor{stringliteral}{"{}\(\backslash\)u99AC"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00144}00144\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[9][2]\ =\ std::make\_shared<Elephant>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de}{Color::Black}},\ \textcolor{stringliteral}{"{}\(\backslash\)u8c61"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00145}00145\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[9][3]\ =\ std::make\_shared<Advisor>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de}{Color::Black}},\ \textcolor{stringliteral}{"{}\(\backslash\)u58eb"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00146}00146\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[9][4]\ =\ std::make\_shared<General>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de}{Color::Black}},\ \textcolor{stringliteral}{"{}\(\backslash\)u5c07"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00147}00147\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[9][5]\ =\ std::make\_shared<Advisor>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de}{Color::Black}},\ \textcolor{stringliteral}{"{}\(\backslash\)u58eb"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00148}00148\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[9][6]\ =\ std::make\_shared<Elephant>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de}{Color::Black}},\ \textcolor{stringliteral}{"{}\(\backslash\)u8c61"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00149}00149\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[9][7]\ =\ std::make\_shared<Horse>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de}{Color::Black}},\ \textcolor{stringliteral}{"{}\(\backslash\)u99AC"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00150}00150\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[9][8]\ =\ std::make\_shared<Chariot>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de}{Color::Black}},\textcolor{stringliteral}{"{}\(\backslash\)u8ECA"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00151}00151\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00152}00152\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[7][1]\ =\ std::make\_shared<Cannon>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de}{Color::Black}},\ \textcolor{stringliteral}{"{}\(\backslash\)u7832"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00153}00153\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[7][7]\ =\ std::make\_shared<Cannon>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de}{Color::Black}},\ \textcolor{stringliteral}{"{}\(\backslash\)u7832"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00155}00155\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[6][0]\ =\ std::make\_shared<Soldier>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de}{Color::Black}},\ \ \textcolor{stringliteral}{"{}\(\backslash\)u5352"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00156}00156\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[6][2]\ =\ std::make\_shared<Soldier>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de}{Color::Black}},\ \ \textcolor{stringliteral}{"{}\(\backslash\)u5352"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00157}00157\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[6][4]\ =\ std::make\_shared<Soldier>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de}{Color::Black}},\ \ \textcolor{stringliteral}{"{}\(\backslash\)u5352"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00158}00158\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[6][6]\ =\ std::make\_shared<Soldier>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de}{Color::Black}},\ \ \textcolor{stringliteral}{"{}\(\backslash\)u5352"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00159}00159\ \ \ \ \ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[6][8]\ =\ std::make\_shared<Soldier>(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de}{Color::Black}},\ \ \textcolor{stringliteral}{"{}\(\backslash\)u5352"{}});}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00160}00160\ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00162}\mbox{\hyperlink{class_board_a73de5ce398e7306dd11f15ce40428746}{00162}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_board_a73de5ce398e7306dd11f15ce40428746}{Board::toggleColor}}()\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00163}00163\ \ \ \ \ \mbox{\hyperlink{class_board_a5d5cb514dc33c0a80cb849508112b7b6}{players\_color}}\ =\ (\mbox{\hyperlink{class_board_a5d5cb514dc33c0a80cb849508112b7b6}{players\_color}}\ ==\ \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color::Red}})\ ?\ \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de}{Color::Black}}\ :\ \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color::Red}};}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00164}00164\ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00166}\mbox{\hyperlink{class_board_aec3a7e579d8de4a6d933ec3038851bab}{00166}}\ \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}}\ \mbox{\hyperlink{class_board_a73de5ce398e7306dd11f15ce40428746}{Board::toggleColor}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}}\ color)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00167}00167\ \ \ \ \ \textcolor{keywordflow}{return}\ (color\ ==\ \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color::Red}})\ ?\ \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de}{Color::Black}}\ :\ \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color::Red}};}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00168}00168\ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00170}\mbox{\hyperlink{class_board_a1bce818087213faff4bce6d5eaf5d597}{00170}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_board_a1bce818087213faff4bce6d5eaf5d597}{Board::isCheck}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}}\ color,\ \textcolor{keyword}{const}\ std::vector<std::vector<std::shared\_ptr<Piece>\ >\ >\ \&board)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00171}00171\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ generalPosition;}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00172}00172\ \ \ \ \ \textcolor{keywordflow}{if}\ (color\ ==\ \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de}{Color::Black}})\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00173}00173\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 10;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ 9;\ ++j)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[i][j]-\/>getName()\ ==\ \textcolor{stringliteral}{"{}\(\backslash\)u5e25"{}}\ \&\&\ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[i][j]-\/>getColor()\ !=\ color)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ generalPosition\ =\ \{i,\ j\};}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00179}00179\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00180}00180\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00181}00181\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 10;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00182}00182\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ 9;\ ++j)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00183}00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[i][j]-\/>getName()\ ==\ \textcolor{stringliteral}{"{}\(\backslash\)u5c07"{}}\ \&\&\ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[i][j]-\/>getColor()\ !=\ color)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ generalPosition\ =\ \{i,\ j\};}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00187}00187\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00188}00188\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00189}00189\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 10;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00190}00190\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ 9;\ ++j)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[i][j]-\/>getColor()\ ==\ color)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[i][j]-\/>isValidMove(\{i,\ j\},\ generalPosition,\ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}))\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00196}00196\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00197}00197\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00198}00198\ \ \ \ \ \textcolor{comment}{/*\ \ \ \ \ \ \ for\ (int\ i\ =\ 0;\ i\ <\ 10;\ ++i)\ \{}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00199}00199\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ for\ (int\ j\ =\ 0;\ j\ <\ 9;\ ++j)\ \{}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00200}00200\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ (board[i][j]-\/>getName()\ ==\ "{}\(\backslash\)u5c07"{}\ \&\&\ board[i][j]-\/>getColor()\ !=\ color)\ \{}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00201}00201\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ generalPosition\ =\ \{i,\ j\};}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00202}00202\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00203}00203\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00204}00204\ \textcolor{comment}{\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00205}00205\ \textcolor{comment}{\ \ \ \ \ \ \ \ for\ (int\ i\ =\ 0;\ i\ <\ 10;\ ++i)\ \{}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00206}00206\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ for\ (int\ j\ =\ 0;\ j\ <\ 9;\ ++j)\ \{}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00207}00207\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ (board[i][j]-\/>getColor()\ ==\ color)\ \{}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00208}00208\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ (board[i][j]-\/>isValidMove(\{i,\ j\},\ generalPosition,\ board))\ \{}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00209}00209\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ true;}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00210}00210\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00211}00211\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00212}00212\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00213}00213\ \textcolor{comment}{\ \ \ \ \ \ \ \ \}*/}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00214}00214\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00215}00215\ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00216}00216\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00217}\mbox{\hyperlink{class_board_a85971cfdadb2b1313a67e87fc02bb077}{00217}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_board_a85971cfdadb2b1313a67e87fc02bb077}{Board::isEvilGlare}}(\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}}\ color,\ \textcolor{keyword}{const}\ std::vector<std::vector<std::shared\_ptr<Piece>\ >\ >\ \&board)}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00218}00218\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00219}00219\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ generalPosition;}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00220}00220\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ generalPosition2;}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00221}00221\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 10;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00222}00222\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ 9;\ ++j)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[i][j]-\/>getName()\ ==\ \textcolor{stringliteral}{"{}\(\backslash\)u5c07"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ generalPosition\ =\ \{i,\ j\};}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[i][j]-\/>getName()\ ==\ \textcolor{stringliteral}{"{}\(\backslash\)u5e25"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ generalPosition2\ =\ \{i,\ j\};}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00229}00229\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00230}00230\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00231}00231\ \ \ \ \ \textcolor{keywordtype}{bool}\ isEvil\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00232}00232\ \ \ \ \ \textcolor{keywordflow}{if}\ (generalPosition.\mbox{\hyperlink{struct_point_a2e1b5fb2b2a83571f5c0bc0f66a73cf7}{y}}\ ==\ generalPosition2.\mbox{\hyperlink{struct_point_a2e1b5fb2b2a83571f5c0bc0f66a73cf7}{y}})}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00233}00233\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00234}00234\ \ \ \ \ \ \ \ \ isEvil\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00235}00235\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ generalPosition2.\mbox{\hyperlink{struct_point_a8c779e11e694b20e0946105a9f5de842}{x}}\ +\ 1;\ i\ <\ generalPosition.\mbox{\hyperlink{struct_point_a8c779e11e694b20e0946105a9f5de842}{x}};\ i++)}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00236}00236\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[i][generalPosition.\mbox{\hyperlink{struct_point_a2e1b5fb2b2a83571f5c0bc0f66a73cf7}{y}}]-\/>getName().isEmpty())}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ isEvil\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00241}00241\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00242}00242\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00243}00243\ \ \ \ \ \textcolor{keywordflow}{return}\ isEvil;}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00244}00244\ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00245}00245\ }
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00246}\mbox{\hyperlink{class_board_a42cded8d0584128aed453f088e8679e3}{00246}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_board_a42cded8d0584128aed453f088e8679e3}{Board::isCheckmate}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}}\ color,\ \textcolor{keyword}{const}\ std::vector<std::vector<std::shared\_ptr<Piece>\ >\ >\ \&board)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00247}00247\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_board_a1bce818087213faff4bce6d5eaf5d597}{isCheck}}(color,\ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}))\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00248}00248\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 10;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00249}00249\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ 9;\ ++j)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00250}00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[i][j]-\/>getColor()\ ==\ color)\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00251}00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{auto}\ moves\ =\ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}[i][j]-\/>generateValidMoves(\mbox{\hyperlink{struct_point}{Point}}(i,\ j),\ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}});\ !moves.empty())\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00252}00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00253}00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00254}00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00255}00255\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00256}00256\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00257}00257\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00258}00258\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00259}00259\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00260}00260\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{cchess__rules_8cpp_source_l00261}00261\ \}}
+
+\end{DoxyCode}

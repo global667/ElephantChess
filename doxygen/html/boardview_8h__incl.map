@@ -1,0 +1,35 @@
+<map id="F:/source/CLionProjects/ElephantChess/sources/boardview.h" name="F:/source/CLionProjects/ElephantChess/sources/boardview.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="222,5,385,64"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,187,69,213"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="222,45,181,53,139,67,99,87,64,114,48,141,41,172,36,171,43,139,60,110,96,82,137,62,180,48,221,40"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="253,112,355,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="306,64,306,96,301,96,301,64"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="380,112,452,139"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="341,62,390,100,386,104,338,66"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="476,112,548,139"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="372,62,469,103,467,108,370,67"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="572,112,644,139"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="387,57,557,107,556,112,385,62"/>
+<area shape="rect" id="Node000007" href="$contexmenu_8h.html" title=" " alt="" coords="75,112,178,139"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="247,67,166,107,164,102,245,62"/>
+<area shape="rect" id="Node000009" href="$basemodel_8h.html" title=" " alt="" coords="179,187,274,213"/>
+<area shape="poly" id="edge18_Node000001_Node000009" title=" " alt="" coords="276,66,258,88,243,113,234,143,230,172,225,171,229,142,239,111,254,85,272,63"/>
+<area shape="poly" id="edge7_Node000007_Node000002" title=" " alt="" coords="112,141,66,179,63,175,109,137"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="93,187,154,213"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="129,139,127,171,122,171,123,139"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="145,137,198,175,195,179,142,141"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="99,336,167,363"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="221,215,151,324,147,321,216,212"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="192,336,261,363"/>
+<area shape="poly" id="edge11_Node000009_Node000011" title=" " alt="" coords="229,214,229,320,224,320,224,214"/>
+<area shape="rect" id="Node000012" href="$cchess__rules_8h.html" title=" " alt="" coords="264,261,373,288"/>
+<area shape="poly" id="edge12_Node000009_Node000012" title=" " alt="" coords="244,212,292,250,289,254,241,216"/>
+<area shape="poly" id="edge13_Node000012_Node000010" title=" " alt="" coords="287,291,180,332,179,327,285,286"/>
+<area shape="poly" id="edge14_Node000012_Node000011" title=" " alt="" coords="304,291,256,329,252,324,301,286"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="286,336,351,363"/>
+<area shape="poly" id="edge15_Node000012_Node000013" title=" " alt="" coords="321,289,321,320,316,320,316,289"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="375,336,430,363"/>
+<area shape="poly" id="edge16_Node000012_Node000014" title=" " alt="" coords="335,287,378,324,375,328,331,291"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="454,336,522,363"/>
+<area shape="poly" id="edge17_Node000012_Node000015" title=" " alt="" coords="349,286,445,327,443,332,347,291"/>
+</map>

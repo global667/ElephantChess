@@ -1,0 +1,572 @@
+\doxysection{Main\+Window Class Reference}
+\hypertarget{class_main_window}{}\label{class_main_window}\index{MainWindow@{MainWindow}}
+
+
+{\ttfamily \#include $<$mainwindow.\+h$>$}
+
+
+
+Inheritance diagram for Main\+Window\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=159pt]{class_main_window__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Main\+Window\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=159pt]{class_main_window__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_main_window_a6e5a4e6a7aa3263b6cf734c01ade5e10}{Open}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_aaa627b5bef0df35b757441ba3a527440}{Save}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_adf38bac0123352d8015272f7ffdb6dac}{Open\+Settings}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_aeb618fd72f5e0cccc8c70d2740bfbcef}{Newgame}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_ae3f320db9a54bcd83f202e61255fe2d9}{Play\+Now}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_aa1ee0f61769b0eb06ccf2a44a3a8510c}{Toggle\+Game\+View}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_a373aaecd2eb83ec0326716de4ad51d1e}{Give\+Tipp}} () const
+\item 
+void \mbox{\hyperlink{class_main_window_ac6136a0ee920b5bc8e6d27821892c136}{Engine\+Tipp}} (\mbox{\hyperlink{struct_point}{Point}} from, \mbox{\hyperlink{struct_point}{Point}} to)
+\item 
+void \mbox{\hyperlink{class_main_window_acb789dac6a35383ad1d7bb6f652c7cee}{About}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_a3fc24291c04fabe272d9939dccad2919}{Help}} () const
+\item 
+void \mbox{\hyperlink{class_main_window_a6d4925c2c0abc365f08b1ff304b49e22}{Give\+Up\+Game}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_af6a741a12422fb7067ba57a317504202}{Nodes\+Per\+Second}} () const
+\item 
+void \mbox{\hyperlink{class_main_window_ad7a5af1eb3dcf12f17aad165e66af04c}{Paint\+From\+Thread\+Slot}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_a6f046d69b21dc7a9a84329eff8435163}{Update\+From\+Thread\+Slot}} () const
+\item 
+void \mbox{\hyperlink{class_main_window_a5481aaedad5ae03da94c91c3033f69ed}{toggle\+Pieces\+View}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_main_window_a9787024a36b41fe8e6a78d4f3ede1aa8}{Paint\+From\+Thread}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_main_window_a996c5a2b6f77944776856f08ec30858d}{Main\+Window}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\item 
+\mbox{\hyperlink{class_main_window_a4fb3de67ebec6c1920c8296bda45c993}{\texorpdfstring{$\sim$}{\string~}\+Main\+Window}} () override=default
+\item 
+void \mbox{\hyperlink{class_main_window_a99f1c7af9374206fd52fa14a95ff9771}{Init\+Widgets}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_a8d2b1aeb0de2a49dda87dd86270d9911}{Init\+Connections}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_a982e82152ed34823d42fd976e45c2c10}{Init\+Engine}} ()
+\item 
+QFile \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_main_window_ac8f4e5450339f2d5c377789df15628c2}{Load\+PGNFile}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_a6ef4e337876946048c435882a0a1daac}{Put\+PGNOn\+Board}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_a8a9ba8171eea4b546da364a9aa3a2760}{Read\+PGNData}} (QString data) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+QScoped\+Pointer$<$ \mbox{\hyperlink{class_u_c_i}{UCI}} $>$ \mbox{\hyperlink{class_main_window_a86808000829d73879a78f0398573cc5f}{uci}}
+\item 
+QScoped\+Pointer$<$ \mbox{\hyperlink{class_engine}{Engine}} $>$ \mbox{\hyperlink{class_main_window_abac1af36838a23369dd1d56eb96c64cd}{engine}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8h_source_l00072}{72}} of file \mbox{\hyperlink{mainwindow_8h_source}{mainwindow.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_main_window_a996c5a2b6f77944776856f08ec30858d}\index{MainWindow@{MainWindow}!MainWindow@{MainWindow}}
+\index{MainWindow@{MainWindow}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{MainWindow()}{MainWindow()}}
+{\footnotesize\ttfamily \label{class_main_window_a996c5a2b6f77944776856f08ec30858d} 
+Main\+Window\+::\+Main\+Window (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8cpp_source_l00033}{33}} of file \mbox{\hyperlink{mainwindow_8cpp_source}{mainwindow.\+cpp}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_a996c5a2b6f77944776856f08ec30858d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_main_window_a4fb3de67ebec6c1920c8296bda45c993}\index{MainWindow@{MainWindow}!````~MainWindow@{\texorpdfstring{$\sim$}{\string~}MainWindow}}
+\index{````~MainWindow@{\texorpdfstring{$\sim$}{\string~}MainWindow}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}MainWindow()}{\string~MainWindow()}}
+{\footnotesize\ttfamily \label{class_main_window_a4fb3de67ebec6c1920c8296bda45c993} 
+Main\+Window\+::\texorpdfstring{$\sim$}{\string~}\+Main\+Window (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_main_window_acb789dac6a35383ad1d7bb6f652c7cee}\index{MainWindow@{MainWindow}!About@{About}}
+\index{About@{About}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{About}{About}}
+{\footnotesize\ttfamily \label{class_main_window_acb789dac6a35383ad1d7bb6f652c7cee} 
+void Main\+Window\+::\+About (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8cpp_source_l00542}{542}} of file \mbox{\hyperlink{mainwindow_8cpp_source}{mainwindow.\+cpp}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_acb789dac6a35383ad1d7bb6f652c7cee_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_main_window_ac6136a0ee920b5bc8e6d27821892c136}\index{MainWindow@{MainWindow}!EngineTipp@{EngineTipp}}
+\index{EngineTipp@{EngineTipp}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{EngineTipp}{EngineTipp}}
+{\footnotesize\ttfamily \label{class_main_window_ac6136a0ee920b5bc8e6d27821892c136} 
+void Main\+Window\+::\+Engine\+Tipp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_point}{Point}}}]{from}{, }\item[{\mbox{\hyperlink{struct_point}{Point}}}]{to}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8cpp_source_l00524}{524}} of file \mbox{\hyperlink{mainwindow_8cpp_source}{mainwindow.\+cpp}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_ac6136a0ee920b5bc8e6d27821892c136_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_ac6136a0ee920b5bc8e6d27821892c136_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_main_window_a373aaecd2eb83ec0326716de4ad51d1e}\index{MainWindow@{MainWindow}!GiveTipp@{GiveTipp}}
+\index{GiveTipp@{GiveTipp}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{GiveTipp}{GiveTipp}}
+{\footnotesize\ttfamily \label{class_main_window_a373aaecd2eb83ec0326716de4ad51d1e} 
+void Main\+Window\+::\+Give\+Tipp (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [slot]}}
+
+std\+::pair$<$\+Point, Point$>$ move =
+
+Definition at line \mbox{\hyperlink{mainwindow_8cpp_source_l00536}{536}} of file \mbox{\hyperlink{mainwindow_8cpp_source}{mainwindow.\+cpp}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_a373aaecd2eb83ec0326716de4ad51d1e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_main_window_a6d4925c2c0abc365f08b1ff304b49e22}\index{MainWindow@{MainWindow}!GiveUpGame@{GiveUpGame}}
+\index{GiveUpGame@{GiveUpGame}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{GiveUpGame}{GiveUpGame}}
+{\footnotesize\ttfamily \label{class_main_window_a6d4925c2c0abc365f08b1ff304b49e22} 
+void Main\+Window\+::\+Give\+Up\+Game (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8cpp_source_l00508}{508}} of file \mbox{\hyperlink{mainwindow_8cpp_source}{mainwindow.\+cpp}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_a6d4925c2c0abc365f08b1ff304b49e22_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_main_window_a3fc24291c04fabe272d9939dccad2919}\index{MainWindow@{MainWindow}!Help@{Help}}
+\index{Help@{Help}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{Help}{Help}}
+{\footnotesize\ttfamily \label{class_main_window_a3fc24291c04fabe272d9939dccad2919} 
+void Main\+Window\+::\+Help (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8cpp_source_l00549}{549}} of file \mbox{\hyperlink{mainwindow_8cpp_source}{mainwindow.\+cpp}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_a3fc24291c04fabe272d9939dccad2919_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_main_window_a8d2b1aeb0de2a49dda87dd86270d9911}\index{MainWindow@{MainWindow}!InitConnections@{InitConnections}}
+\index{InitConnections@{InitConnections}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{InitConnections()}{InitConnections()}}
+{\footnotesize\ttfamily \label{class_main_window_a8d2b1aeb0de2a49dda87dd86270d9911} 
+void Main\+Window\+::\+Init\+Connections (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8cpp_source_l00104}{104}} of file \mbox{\hyperlink{mainwindow_8cpp_source}{mainwindow.\+cpp}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_a8d2b1aeb0de2a49dda87dd86270d9911_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_a8d2b1aeb0de2a49dda87dd86270d9911_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_main_window_a982e82152ed34823d42fd976e45c2c10}\index{MainWindow@{MainWindow}!InitEngine@{InitEngine}}
+\index{InitEngine@{InitEngine}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{InitEngine()}{InitEngine()}}
+{\footnotesize\ttfamily \label{class_main_window_a982e82152ed34823d42fd976e45c2c10} 
+void Main\+Window\+::\+Init\+Engine (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8cpp_source_l00078}{78}} of file \mbox{\hyperlink{mainwindow_8cpp_source}{mainwindow.\+cpp}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{class_main_window_a982e82152ed34823d42fd976e45c2c10_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_a982e82152ed34823d42fd976e45c2c10_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_main_window_a99f1c7af9374206fd52fa14a95ff9771}\index{MainWindow@{MainWindow}!InitWidgets@{InitWidgets}}
+\index{InitWidgets@{InitWidgets}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{InitWidgets()}{InitWidgets()}}
+{\footnotesize\ttfamily \label{class_main_window_a99f1c7af9374206fd52fa14a95ff9771} 
+void Main\+Window\+::\+Init\+Widgets (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8cpp_source_l00158}{158}} of file \mbox{\hyperlink{mainwindow_8cpp_source}{mainwindow.\+cpp}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_a99f1c7af9374206fd52fa14a95ff9771_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_a99f1c7af9374206fd52fa14a95ff9771_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_main_window_ac8f4e5450339f2d5c377789df15628c2}\index{MainWindow@{MainWindow}!LoadPGNFile@{LoadPGNFile}}
+\index{LoadPGNFile@{LoadPGNFile}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{LoadPGNFile()}{LoadPGNFile()}}
+{\footnotesize\ttfamily \label{class_main_window_ac8f4e5450339f2d5c377789df15628c2} 
+QFile \texorpdfstring{$\ast$}{*} Main\+Window\+::\+Load\+PGNFile (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8cpp_source_l00343}{343}} of file \mbox{\hyperlink{mainwindow_8cpp_source}{mainwindow.\+cpp}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_ac8f4e5450339f2d5c377789df15628c2_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_main_window_aeb618fd72f5e0cccc8c70d2740bfbcef}\index{MainWindow@{MainWindow}!Newgame@{Newgame}}
+\index{Newgame@{Newgame}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{Newgame}{Newgame}}
+{\footnotesize\ttfamily \label{class_main_window_aeb618fd72f5e0cccc8c70d2740bfbcef} 
+void Main\+Window\+::\+Newgame (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8cpp_source_l00656}{656}} of file \mbox{\hyperlink{mainwindow_8cpp_source}{mainwindow.\+cpp}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_aeb618fd72f5e0cccc8c70d2740bfbcef_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_aeb618fd72f5e0cccc8c70d2740bfbcef_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_main_window_af6a741a12422fb7067ba57a317504202}\index{MainWindow@{MainWindow}!NodesPerSecond@{NodesPerSecond}}
+\index{NodesPerSecond@{NodesPerSecond}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{NodesPerSecond}{NodesPerSecond}}
+{\footnotesize\ttfamily \label{class_main_window_af6a741a12422fb7067ba57a317504202} 
+void Main\+Window\+::\+Nodes\+Per\+Second (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8cpp_source_l00707}{707}} of file \mbox{\hyperlink{mainwindow_8cpp_source}{mainwindow.\+cpp}}.
+
+\Hypertarget{class_main_window_a6e5a4e6a7aa3263b6cf734c01ade5e10}\index{MainWindow@{MainWindow}!Open@{Open}}
+\index{Open@{Open}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{Open}{Open}}
+{\footnotesize\ttfamily \label{class_main_window_a6e5a4e6a7aa3263b6cf734c01ade5e10} 
+void Main\+Window\+::\+Open (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8cpp_source_l00363}{363}} of file \mbox{\hyperlink{mainwindow_8cpp_source}{mainwindow.\+cpp}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_a6e5a4e6a7aa3263b6cf734c01ade5e10_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_a6e5a4e6a7aa3263b6cf734c01ade5e10_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_main_window_adf38bac0123352d8015272f7ffdb6dac}\index{MainWindow@{MainWindow}!OpenSettings@{OpenSettings}}
+\index{OpenSettings@{OpenSettings}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{OpenSettings}{OpenSettings}}
+{\footnotesize\ttfamily \label{class_main_window_adf38bac0123352d8015272f7ffdb6dac} 
+void Main\+Window\+::\+Open\+Settings (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8cpp_source_l00581}{581}} of file \mbox{\hyperlink{mainwindow_8cpp_source}{mainwindow.\+cpp}}.
+
+\Hypertarget{class_main_window_a9787024a36b41fe8e6a78d4f3ede1aa8}\index{MainWindow@{MainWindow}!PaintFromThread@{PaintFromThread}}
+\index{PaintFromThread@{PaintFromThread}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{PaintFromThread}{PaintFromThread}}
+{\footnotesize\ttfamily \label{class_main_window_a9787024a36b41fe8e6a78d4f3ede1aa8} 
+void Main\+Window\+::\+Paint\+From\+Thread (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\Hypertarget{class_main_window_ad7a5af1eb3dcf12f17aad165e66af04c}\index{MainWindow@{MainWindow}!PaintFromThreadSlot@{PaintFromThreadSlot}}
+\index{PaintFromThreadSlot@{PaintFromThreadSlot}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{PaintFromThreadSlot}{PaintFromThreadSlot}}
+{\footnotesize\ttfamily \label{class_main_window_ad7a5af1eb3dcf12f17aad165e66af04c} 
+void Main\+Window\+::\+Paint\+From\+Thread\+Slot (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8cpp_source_l00681}{681}} of file \mbox{\hyperlink{mainwindow_8cpp_source}{mainwindow.\+cpp}}.
+
+\Hypertarget{class_main_window_ae3f320db9a54bcd83f202e61255fe2d9}\index{MainWindow@{MainWindow}!PlayNow@{PlayNow}}
+\index{PlayNow@{PlayNow}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{PlayNow}{PlayNow}}
+{\footnotesize\ttfamily \label{class_main_window_ae3f320db9a54bcd83f202e61255fe2d9} 
+void Main\+Window\+::\+Play\+Now (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8cpp_source_l00555}{555}} of file \mbox{\hyperlink{mainwindow_8cpp_source}{mainwindow.\+cpp}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{class_main_window_ae3f320db9a54bcd83f202e61255fe2d9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_ae3f320db9a54bcd83f202e61255fe2d9_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_main_window_a6ef4e337876946048c435882a0a1daac}\index{MainWindow@{MainWindow}!PutPGNOnBoard@{PutPGNOnBoard}}
+\index{PutPGNOnBoard@{PutPGNOnBoard}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{PutPGNOnBoard()}{PutPGNOnBoard()}}
+{\footnotesize\ttfamily \label{class_main_window_a6ef4e337876946048c435882a0a1daac} 
+void Main\+Window\+::\+Put\+PGNOn\+Board (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8cpp_source_l00424}{424}} of file \mbox{\hyperlink{mainwindow_8cpp_source}{mainwindow.\+cpp}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_a6ef4e337876946048c435882a0a1daac_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_a6ef4e337876946048c435882a0a1daac_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_main_window_a8a9ba8171eea4b546da364a9aa3a2760}\index{MainWindow@{MainWindow}!ReadPGNData@{ReadPGNData}}
+\index{ReadPGNData@{ReadPGNData}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{ReadPGNData()}{ReadPGNData()}}
+{\footnotesize\ttfamily \label{class_main_window_a8a9ba8171eea4b546da364a9aa3a2760} 
+void Main\+Window\+::\+Read\+PGNData (\begin{DoxyParamCaption}\item[{QString}]{data}{}\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8cpp_source_l00380}{380}} of file \mbox{\hyperlink{mainwindow_8cpp_source}{mainwindow.\+cpp}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_a8a9ba8171eea4b546da364a9aa3a2760_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_main_window_aaa627b5bef0df35b757441ba3a527440}\index{MainWindow@{MainWindow}!Save@{Save}}
+\index{Save@{Save}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{Save}{Save}}
+{\footnotesize\ttfamily \label{class_main_window_aaa627b5bef0df35b757441ba3a527440} 
+void Main\+Window\+::\+Save (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8cpp_source_l00466}{466}} of file \mbox{\hyperlink{mainwindow_8cpp_source}{mainwindow.\+cpp}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_aaa627b5bef0df35b757441ba3a527440_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_main_window_aa1ee0f61769b0eb06ccf2a44a3a8510c}\index{MainWindow@{MainWindow}!ToggleGameView@{ToggleGameView}}
+\index{ToggleGameView@{ToggleGameView}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{ToggleGameView}{ToggleGameView}}
+{\footnotesize\ttfamily \label{class_main_window_aa1ee0f61769b0eb06ccf2a44a3a8510c} 
+void Main\+Window\+::\+Toggle\+Game\+View (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8cpp_source_l00513}{513}} of file \mbox{\hyperlink{mainwindow_8cpp_source}{mainwindow.\+cpp}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_aa1ee0f61769b0eb06ccf2a44a3a8510c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_main_window_a5481aaedad5ae03da94c91c3033f69ed}\index{MainWindow@{MainWindow}!togglePiecesView@{togglePiecesView}}
+\index{togglePiecesView@{togglePiecesView}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{togglePiecesView}{togglePiecesView}}
+{\footnotesize\ttfamily \label{class_main_window_a5481aaedad5ae03da94c91c3033f69ed} 
+void Main\+Window\+::toggle\+Pieces\+View (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8cpp_source_l00702}{702}} of file \mbox{\hyperlink{mainwindow_8cpp_source}{mainwindow.\+cpp}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_main_window_a5481aaedad5ae03da94c91c3033f69ed_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_main_window_a6f046d69b21dc7a9a84329eff8435163}\index{MainWindow@{MainWindow}!UpdateFromThreadSlot@{UpdateFromThreadSlot}}
+\index{UpdateFromThreadSlot@{UpdateFromThreadSlot}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{UpdateFromThreadSlot}{UpdateFromThreadSlot}}
+{\footnotesize\ttfamily \label{class_main_window_a6f046d69b21dc7a9a84329eff8435163} 
+void Main\+Window\+::\+Update\+From\+Thread\+Slot (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8cpp_source_l00693}{693}} of file \mbox{\hyperlink{mainwindow_8cpp_source}{mainwindow.\+cpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_main_window_abac1af36838a23369dd1d56eb96c64cd}\index{MainWindow@{MainWindow}!engine@{engine}}
+\index{engine@{engine}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{engine}{engine}}
+{\footnotesize\ttfamily \label{class_main_window_abac1af36838a23369dd1d56eb96c64cd} 
+QScoped\+Pointer$<$\mbox{\hyperlink{class_engine}{Engine}}$>$ Main\+Window\+::engine}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8h_source_l00096}{96}} of file \mbox{\hyperlink{mainwindow_8h_source}{mainwindow.\+h}}.
+
+\Hypertarget{class_main_window_a86808000829d73879a78f0398573cc5f}\index{MainWindow@{MainWindow}!uci@{uci}}
+\index{uci@{uci}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{uci}{uci}}
+{\footnotesize\ttfamily \label{class_main_window_a86808000829d73879a78f0398573cc5f} 
+QScoped\+Pointer$<$\mbox{\hyperlink{class_u_c_i}{UCI}}$>$ Main\+Window\+::uci}
+
+
+
+Definition at line \mbox{\hyperlink{mainwindow_8h_source_l00095}{95}} of file \mbox{\hyperlink{mainwindow_8h_source}{mainwindow.\+h}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/\mbox{\hyperlink{mainwindow_8h}{mainwindow.\+h}}\item 
+F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/\mbox{\hyperlink{mainwindow_8cpp}{mainwindow.\+cpp}}\end{DoxyCompactItemize}

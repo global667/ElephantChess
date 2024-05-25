@@ -1,0 +1,137 @@
+\doxysection{F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/cchess\+\_\+rules.h File Reference}
+\hypertarget{cchess__rules_8h}{}\label{cchess__rules_8h}\index{F:/source/CLionProjects/ElephantChess/sources/cchess\_rules.h@{F:/source/CLionProjects/ElephantChess/sources/cchess\_rules.h}}
+{\ttfamily \#include $<$QDebug$>$}\newline
+{\ttfamily \#include $<$QObject$>$}\newline
+{\ttfamily \#include $<$QString$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+Include dependency graph for cchess\+\_\+rules.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cchess__rules_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cchess__rules_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_point}{Point}}
+\item 
+class \mbox{\hyperlink{class_piece}{Piece}}
+\item 
+class \mbox{\hyperlink{class_general}{General}}
+\item 
+class \mbox{\hyperlink{class_advisor}{Advisor}}
+\item 
+class \mbox{\hyperlink{class_elephant}{Elephant}}
+\item 
+class \mbox{\hyperlink{class_horse}{Horse}}
+\item 
+class \mbox{\hyperlink{class_chariot}{Chariot}}
+\item 
+class \mbox{\hyperlink{class_cannon}{Cannon}}
+\item 
+class \mbox{\hyperlink{class_soldier}{Soldier}}
+\item 
+class \mbox{\hyperlink{class_board}{Board}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021}{Piece\+Type}} \{ \newline
+\mbox{\hyperlink{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021a0db377921f4ce762c62526131097968f}{General}}
+, \mbox{\hyperlink{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021a8ac836af7d9b979587d7f0aea41bed31}{Advisor}}
+, \mbox{\hyperlink{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021af6cf83978d6a8e7ac57444bb38a540a7}{Elephant}}
+, \mbox{\hyperlink{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021a38069b4eb64e325cb7ac65bd641b2188}{Horse}}
+, \newline
+\mbox{\hyperlink{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021a88ba9066926c3d917bb1a7b60fb1ea85}{Chariot}}
+, \mbox{\hyperlink{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021a22ef5d9468d7aa2f806d865b88a27a52}{Cannon}}
+, \mbox{\hyperlink{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021ade75f2eb439368d9b39281bd0c4bdabb}{Soldier}}
+, \mbox{\hyperlink{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021ace2c8aed9c2fa0cfbed56cbda4d8bf07}{Empty}}
+ \}
+\item 
+enum class \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}} \{ \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Red}}
+, \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de}{Black}}
+, \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1ca6adf97f83acf6453d4a6a4b1070f3754}{None}}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}\index{cchess\_rules.h@{cchess\_rules.h}!Color@{Color}}
+\index{Color@{Color}!cchess\_rules.h@{cchess\_rules.h}}
+\doxysubsubsection{\texorpdfstring{Color}{Color}}
+{\footnotesize\ttfamily \label{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c} 
+enum class \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Red@{Red}!cchess\_rules.h@{cchess\_rules.h}}\index{cchess\_rules.h@{cchess\_rules.h}!Red@{Red}}}\Hypertarget{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}\label{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c} 
+Red&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Black@{Black}!cchess\_rules.h@{cchess\_rules.h}}\index{cchess\_rules.h@{cchess\_rules.h}!Black@{Black}}}\Hypertarget{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de}\label{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c} 
+Black&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{None@{None}!cchess\_rules.h@{cchess\_rules.h}}\index{cchess\_rules.h@{cchess\_rules.h}!None@{None}}}\Hypertarget{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1ca6adf97f83acf6453d4a6a4b1070f3754}\label{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c} 
+None&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8h_source_l00015}{15}} of file \mbox{\hyperlink{cchess__rules_8h_source}{cchess\+\_\+rules.\+h}}.
+
+\Hypertarget{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021}\index{cchess\_rules.h@{cchess\_rules.h}!PieceType@{PieceType}}
+\index{PieceType@{PieceType}!cchess\_rules.h@{cchess\_rules.h}}
+\doxysubsubsection{\texorpdfstring{PieceType}{PieceType}}
+{\footnotesize\ttfamily \label{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021} 
+enum class \mbox{\hyperlink{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021}{Piece\+Type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{General@{General}!cchess\_rules.h@{cchess\_rules.h}}\index{cchess\_rules.h@{cchess\_rules.h}!General@{General}}}\Hypertarget{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021a0db377921f4ce762c62526131097968f}\label{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021} 
+General&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Advisor@{Advisor}!cchess\_rules.h@{cchess\_rules.h}}\index{cchess\_rules.h@{cchess\_rules.h}!Advisor@{Advisor}}}\Hypertarget{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021a8ac836af7d9b979587d7f0aea41bed31}\label{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021} 
+Advisor&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Elephant@{Elephant}!cchess\_rules.h@{cchess\_rules.h}}\index{cchess\_rules.h@{cchess\_rules.h}!Elephant@{Elephant}}}\Hypertarget{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021af6cf83978d6a8e7ac57444bb38a540a7}\label{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021} 
+Elephant&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Horse@{Horse}!cchess\_rules.h@{cchess\_rules.h}}\index{cchess\_rules.h@{cchess\_rules.h}!Horse@{Horse}}}\Hypertarget{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021a38069b4eb64e325cb7ac65bd641b2188}\label{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021} 
+Horse&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Chariot@{Chariot}!cchess\_rules.h@{cchess\_rules.h}}\index{cchess\_rules.h@{cchess\_rules.h}!Chariot@{Chariot}}}\Hypertarget{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021a88ba9066926c3d917bb1a7b60fb1ea85}\label{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021} 
+Chariot&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Cannon@{Cannon}!cchess\_rules.h@{cchess\_rules.h}}\index{cchess\_rules.h@{cchess\_rules.h}!Cannon@{Cannon}}}\Hypertarget{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021a22ef5d9468d7aa2f806d865b88a27a52}\label{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021} 
+Cannon&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Soldier@{Soldier}!cchess\_rules.h@{cchess\_rules.h}}\index{cchess\_rules.h@{cchess\_rules.h}!Soldier@{Soldier}}}\Hypertarget{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021ade75f2eb439368d9b39281bd0c4bdabb}\label{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021} 
+Soldier&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Empty@{Empty}!cchess\_rules.h@{cchess\_rules.h}}\index{cchess\_rules.h@{cchess\_rules.h}!Empty@{Empty}}}\Hypertarget{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021ace2c8aed9c2fa0cfbed56cbda4d8bf07}\label{cchess__rules_8h_a12ed9719bbdf7bc596ff7a6f4bf3f021} 
+Empty&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8h_source_l00011}{11}} of file \mbox{\hyperlink{cchess__rules_8h_source}{cchess\+\_\+rules.\+h}}.
+

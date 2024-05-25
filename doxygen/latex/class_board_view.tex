@@ -1,0 +1,174 @@
+\doxysection{Board\+View Class Reference}
+\hypertarget{class_board_view}{}\label{class_board_view}\index{BoardView@{BoardView}}
+
+
+{\ttfamily \#include $<$boardview.\+h$>$}
+
+
+
+Inheritance diagram for Board\+View\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=143pt]{class_board_view__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Board\+View\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=143pt]{class_board_view__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_board_view_a5711399b7300446ba86563df5189d1f3}{update\+View}} (\mbox{\hyperlink{struct_point}{Point}} from, \mbox{\hyperlink{struct_point}{Point}} to, \mbox{\hyperlink{struct_base_model_a807ded17e69384e3bd5403130d4a095a}{Base\+Model\+::\+Mode}} mode)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_board_view_a53b7557bdb4455479979db1588e178d9}{Board\+View}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_board_view_a68d3050df0494ca43827f0dccb390045}{Prepare\+Euro\+Piece}} (QPicture \texorpdfstring{$\ast$}{*}picture, int i, int i1, int height, int width)
+\item 
+void \mbox{\hyperlink{class_board_view_a6ea62d61f2e3f9b6ecb772b89e60a0a2}{paint\+Event}} (QPaint\+Event \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_board_view_a17b55a5a70add565f7d32d41fa042438}{event}}) override
+\item 
+void \mbox{\hyperlink{class_board_view_aea3b7f52ba2c5958f3a36e09191642fd}{mouse\+Press\+Event}} (QMouse\+Event \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_board_view_a17b55a5a70add565f7d32d41fa042438}{event}}) override
+\item 
+void \mbox{\hyperlink{class_board_view_a1dd1800ab06833d5b9433c20aca6d6f4}{context\+Menu\+Event}} (QContext\+Menu\+Event \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{class_board_view_a17b55a5a70add565f7d32d41fa042438}{event}}) override
+\item 
+bool \mbox{\hyperlink{class_board_view_a17b55a5a70add565f7d32d41fa042438}{event}} (QEvent \texorpdfstring{$\ast$}{*}event) override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{boardview_8h_source_l00034}{34}} of file \mbox{\hyperlink{boardview_8h_source}{boardview.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_board_view_a53b7557bdb4455479979db1588e178d9}\index{BoardView@{BoardView}!BoardView@{BoardView}}
+\index{BoardView@{BoardView}!BoardView@{BoardView}}
+\doxysubsubsection{\texorpdfstring{BoardView()}{BoardView()}}
+{\footnotesize\ttfamily \label{class_board_view_a53b7557bdb4455479979db1588e178d9} 
+Board\+View\+::\+Board\+View (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Definition at line \mbox{\hyperlink{boardview_8cpp_source_l00037}{37}} of file \mbox{\hyperlink{boardview_8cpp_source}{boardview.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_board_view_a1dd1800ab06833d5b9433c20aca6d6f4}\index{BoardView@{BoardView}!contextMenuEvent@{contextMenuEvent}}
+\index{contextMenuEvent@{contextMenuEvent}!BoardView@{BoardView}}
+\doxysubsubsection{\texorpdfstring{contextMenuEvent()}{contextMenuEvent()}}
+{\footnotesize\ttfamily \label{class_board_view_a1dd1800ab06833d5b9433c20aca6d6f4} 
+void Board\+View\+::context\+Menu\+Event (\begin{DoxyParamCaption}\item[{QContext\+Menu\+Event \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{boardview_8cpp_source_l00083}{83}} of file \mbox{\hyperlink{boardview_8cpp_source}{boardview.\+cpp}}.
+
+\Hypertarget{class_board_view_a17b55a5a70add565f7d32d41fa042438}\index{BoardView@{BoardView}!event@{event}}
+\index{event@{event}!BoardView@{BoardView}}
+\doxysubsubsection{\texorpdfstring{event()}{event()}}
+{\footnotesize\ttfamily \label{class_board_view_a17b55a5a70add565f7d32d41fa042438} 
+bool Board\+View\+::event (\begin{DoxyParamCaption}\item[{QEvent \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{boardview_8cpp_source_l00326}{326}} of file \mbox{\hyperlink{boardview_8cpp_source}{boardview.\+cpp}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=171pt]{class_board_view_a17b55a5a70add565f7d32d41fa042438_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=171pt]{class_board_view_a17b55a5a70add565f7d32d41fa042438_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_board_view_aea3b7f52ba2c5958f3a36e09191642fd}\index{BoardView@{BoardView}!mousePressEvent@{mousePressEvent}}
+\index{mousePressEvent@{mousePressEvent}!BoardView@{BoardView}}
+\doxysubsubsection{\texorpdfstring{mousePressEvent()}{mousePressEvent()}}
+{\footnotesize\ttfamily \label{class_board_view_aea3b7f52ba2c5958f3a36e09191642fd} 
+void Board\+View\+::mouse\+Press\+Event (\begin{DoxyParamCaption}\item[{QMouse\+Event \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{boardview_8cpp_source_l00455}{455}} of file \mbox{\hyperlink{boardview_8cpp_source}{boardview.\+cpp}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_board_view_aea3b7f52ba2c5958f3a36e09191642fd_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_board_view_a6ea62d61f2e3f9b6ecb772b89e60a0a2}\index{BoardView@{BoardView}!paintEvent@{paintEvent}}
+\index{paintEvent@{paintEvent}!BoardView@{BoardView}}
+\doxysubsubsection{\texorpdfstring{paintEvent()}{paintEvent()}}
+{\footnotesize\ttfamily \label{class_board_view_a6ea62d61f2e3f9b6ecb772b89e60a0a2} 
+void Board\+View\+::paint\+Event (\begin{DoxyParamCaption}\item[{QPaint\+Event \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{boardview_8cpp_source_l00093}{93}} of file \mbox{\hyperlink{boardview_8cpp_source}{boardview.\+cpp}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_board_view_a6ea62d61f2e3f9b6ecb772b89e60a0a2_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_board_view_a68d3050df0494ca43827f0dccb390045}\index{BoardView@{BoardView}!PrepareEuroPiece@{PrepareEuroPiece}}
+\index{PrepareEuroPiece@{PrepareEuroPiece}!BoardView@{BoardView}}
+\doxysubsubsection{\texorpdfstring{PrepareEuroPiece()}{PrepareEuroPiece()}}
+{\footnotesize\ttfamily \label{class_board_view_a68d3050df0494ca43827f0dccb390045} 
+void Board\+View\+::\+Prepare\+Euro\+Piece (\begin{DoxyParamCaption}\item[{QPicture \texorpdfstring{$\ast$}{*}}]{picture}{, }\item[{int}]{i}{, }\item[{int}]{i1}{, }\item[{int}]{height}{, }\item[{int}]{width}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{boardview_8cpp_source_l00043}{43}} of file \mbox{\hyperlink{boardview_8cpp_source}{boardview.\+cpp}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_board_view_a68d3050df0494ca43827f0dccb390045_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_board_view_a5711399b7300446ba86563df5189d1f3}\index{BoardView@{BoardView}!updateView@{updateView}}
+\index{updateView@{updateView}!BoardView@{BoardView}}
+\doxysubsubsection{\texorpdfstring{updateView}{updateView}}
+{\footnotesize\ttfamily \label{class_board_view_a5711399b7300446ba86563df5189d1f3} 
+void Board\+View\+::update\+View (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_point}{Point}}}]{from}{, }\item[{\mbox{\hyperlink{struct_point}{Point}}}]{to}{, }\item[{\mbox{\hyperlink{struct_base_model_a807ded17e69384e3bd5403130d4a095a}{Base\+Model\+::\+Mode}}}]{mode}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/\mbox{\hyperlink{boardview_8h}{boardview.\+h}}\item 
+F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/\mbox{\hyperlink{boardview_8cpp}{boardview.\+cpp}}\end{DoxyCompactItemize}

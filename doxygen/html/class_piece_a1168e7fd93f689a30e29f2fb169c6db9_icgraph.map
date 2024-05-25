@@ -1,0 +1,9 @@
+<map id="Piece::getColor" name="Piece::getColor">
+<area shape="rect" id="Node000001" title=" " alt="" coords="197,56,307,83"/>
+<area shape="rect" id="Node000002" href="$class_advisor.html#afb1a2a73278a6b61fe2a376c4ee4b4f8" title=" " alt="" coords="7,5,147,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,54,125,35,126,30,189,48"/>
+<area shape="rect" id="Node000003" href="$class_general.html#a0c78c4faa694a996d1c9fce7dbddb49b" title=" " alt="" coords="5,56,149,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="181,72,149,72,149,67,181,67"/>
+<area shape="rect" id="Node000004" href="$class_soldier.html#afa197d674eaf1f3c6d68703fb709832f" title=" " alt="" coords="8,107,146,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="189,90,126,109,125,104,188,85"/>
+</map>

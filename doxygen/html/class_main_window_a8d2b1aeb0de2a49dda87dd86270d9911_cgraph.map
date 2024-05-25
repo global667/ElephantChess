@@ -1,0 +1,7 @@
+<map id="MainWindow::InitConnections" name="MainWindow::InitConnections">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,198,32"/>
+<area shape="rect" id="Node000002" href="$class_main_window.html#ac6136a0ee920b5bc8e6d27821892c136" title=" " alt="" coords="246,5,413,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,16,230,16,230,21,198,21"/>
+<area shape="rect" id="Node000003" href="$struct_base_model.html#a0329ee37221a6900b73f1131b3597a9b" title=" " alt="" coords="461,5,611,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="413,16,446,16,446,21,413,21"/>
+</map>

@@ -1,0 +1,72 @@
+\doxysection{F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/aboutview.cpp}
+\hypertarget{aboutview_8cpp_source}{}\label{aboutview_8cpp_source}\mbox{\hyperlink{aboutview_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{aboutview_8h}{aboutview.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <QFile>}}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <QIODeviceBase>}}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <QTextBrowser>}}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <QTextEdit>}}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <QTextStream>}}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <QVBoxLayout>}}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00011}\mbox{\hyperlink{class_about_view_aadfa627522334a8036c0426e06bca939}{00011}}\ \mbox{\hyperlink{class_about_view_aadfa627522334a8036c0426e06bca939}{AboutView::AboutView}}(QWidget\ *parent)}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00012}00012\ \ \ \ \ :\ QTabWidget\{parent\}}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00013}00013\ \{}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00014}00014\ \ \ \ \ setGeometry(100,\ 100,\ 400,\ 400);}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00016}00016\ \ \ \ \ \textcolor{comment}{//tabview\ =\ new\ QTabWidget;}}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00017}00017\ \ \ \ \ tabwidget1\ =\ \textcolor{keyword}{new}\ QWidget();}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00018}00018\ \ \ \ \ \textcolor{keyword}{auto}\ *tab1layout\ =\ \textcolor{keyword}{new}\ QVBoxLayout();}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00020}00020\ \ \ \ \ QFile\ license(\textcolor{stringliteral}{"{}:/COPYING"{}});}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00021}00021\ \ \ \ \ license.open(QIODeviceBase::ReadOnly\ |\ QIODeviceBase::Text);}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00022}00022\ \ \ \ \ QTextStream\ licenseStream(\&license);}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00023}00023\ \ \ \ \ \textcolor{keyword}{auto}\ *licenseView\ =\ \textcolor{keyword}{new}\ QTextEdit();}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00024}00024\ \ \ \ \ licenseView-\/>setWordWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere);}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00025}00025\ \ \ \ \ licenseView-\/>setReadOnly(\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00026}00026\ \ \ \ \ licenseView-\/>setPlainText(licenseStream.readAll());}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00027}00027\ \ \ \ \ tab1layout-\/>addWidget(licenseView);}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00028}00028\ \ \ \ \ license.close();}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00030}00030\ \ \ \ \ tabwidget1-\/>setLayout(tab1layout);}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00032}00032\ \ \ \ \ tabwidget2\ =\ \textcolor{keyword}{new}\ QWidget();}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00033}00033\ \ \ \ \ \textcolor{keyword}{auto}\ *tab2layout\ =\ \textcolor{keyword}{new}\ QVBoxLayout();}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00035}00035\ \ \ \ \ QFile\ credits(\textcolor{stringliteral}{"{}:/CREDITS"{}});}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00036}00036\ \ \ \ \ credits.open(QIODeviceBase::ReadOnly\ |\ QIODeviceBase::Text);}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00037}00037\ \ \ \ \ QTextStream\ creditsStream(\&credits);}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00038}00038\ \ \ \ \ \textcolor{keyword}{auto}\ *creditsView\ =\ \textcolor{keyword}{new}\ QTextBrowser();}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00039}00039\ \ \ \ \ creditsView-\/>setReadOnly(\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00040}00040\ \ \ \ \ creditsView-\/>setOpenExternalLinks(\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00041}00041\ \ \ \ \ creditsView-\/>setTextInteractionFlags(Qt::TextBrowserInteraction);}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00042}00042\ \ \ \ \ creditsView-\/>setWordWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere);}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00043}00043\ \ \ \ \ creditsView-\/>setHtml(creditsStream.readAll());}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00044}00044\ \ \ \ \ tab2layout-\/>addWidget(creditsView);}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00045}00045\ \ \ \ \ credits.close();}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00047}00047\ \ \ \ \ tabwidget2-\/>setLayout(tab2layout);}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00049}00049\ \ \ \ \ tabwidget3\ =\ \textcolor{keyword}{new}\ QWidget();}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00051}00051\ \ \ \ \ \textcolor{comment}{//\ add\ Krita-\/like\ about-\/widget\ layout}}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00052}00052\ \ \ \ \ \textcolor{keyword}{auto}\ *tab3layout\ =\ \textcolor{keyword}{new}\ QVBoxLayout();}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00054}00054\ \ \ \ \ \textcolor{keyword}{auto}\ *qtButton\ =\ \textcolor{keyword}{new}\ QPushButton(\textcolor{stringliteral}{"{}About\ Qt"{}});}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00055}00055\ \ \ \ \ QObject::connect(qtButton,\ \&QPushButton::pressed,\ [=]()\ \{}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ QMessageBox::aboutQt(\textcolor{keyword}{nullptr},\ \textcolor{stringliteral}{"{}Information"{}});}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00057}00057\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00059}00059\ \ \ \ \ tab3layout-\/>addWidget(qtButton);}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00060}00060\ \ \ \ \ tabwidget3-\/>setLayout(tab3layout);}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00061}00061\ \ \ \ \ \textcolor{comment}{//\ tabview}}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00062}00062\ \ \ \ \ addTab(tabwidget1,\ \textcolor{stringliteral}{"{}License"{}});}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00063}00063\ \ \ \ \ addTab(tabwidget2,\ \textcolor{stringliteral}{"{}Credits"{}});}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00064}00064\ \ \ \ \ addTab(tabwidget3,\ \textcolor{stringliteral}{"{}About"{}});}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00066}00066\ \ \ \ \ show();}
+\DoxyCodeLine{\Hypertarget{aboutview_8cpp_source_l00067}00067\ \}}
+
+\end{DoxyCode}

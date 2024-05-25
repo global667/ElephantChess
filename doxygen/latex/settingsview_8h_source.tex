@@ -1,0 +1,63 @@
+\doxysection{F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/settingsview.h}
+\hypertarget{settingsview_8h_source}{}\label{settingsview_8h_source}\mbox{\hyperlink{settingsview_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00002}00002\ \textcolor{comment}{\ \ ElephantChess,\ a\ UCI\ chinese\ chess\ playing\ GUI\ with\ builtin\ engine}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00003}00003\ \textcolor{comment}{\ \ Copyright\ (C)\ 2022-\/2023\ Wolf\ S.\ Kappesser}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00004}00004\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00005}00005\ \textcolor{comment}{\ \ ElephantChess\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00006}00006\ \textcolor{comment}{\ \ it\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00007}00007\ \textcolor{comment}{\ \ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00008}00008\ \textcolor{comment}{\ \ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00009}00009\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00010}00010\ \textcolor{comment}{\ \ ElephantChess\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00011}00011\ \textcolor{comment}{\ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00012}00012\ \textcolor{comment}{\ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00013}00013\ \textcolor{comment}{\ \ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00014}00014\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00015}00015\ \textcolor{comment}{\ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00016}00016\ \textcolor{comment}{\ \ along\ with\ this\ program.\ \ If\ not,\ see\ <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00017}00017\ \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00019}00019\ \textcolor{preprocessor}{\#ifndef\ SETTINGSVIEW\_H}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00020}00020\ \textcolor{preprocessor}{\#define\ SETTINGSVIEW\_H}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00022}00022\ \textcolor{preprocessor}{\#include\ <QComboBox>}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00023}00023\ \textcolor{preprocessor}{\#include\ <QDialog>}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00024}00024\ \textcolor{preprocessor}{\#include\ <QFileDialog>}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00025}00025\ \textcolor{preprocessor}{\#include\ <QGroupBox>}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00026}00026\ \textcolor{preprocessor}{\#include\ <QInputDialog>}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00027}00027\ \textcolor{preprocessor}{\#include\ <QMessageBox>}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00028}00028\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00030}00030\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{basemodel_8h}{basemodel.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00032}\mbox{\hyperlink{class_settings_view}{00032}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_settings_view}{SettingsView}}\ :\ \textcolor{keyword}{public}\ QFrame}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00033}00033\ \{}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00034}00034\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00035}00035\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00036}00036\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_settings_view_a4b22f39018ca1c051b4d88f6d2636683}{SettingsView}}(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00037}00037\ \ \ \ \ \mbox{\hyperlink{class_settings_view_a3287e7c87008472a93bbc10fe331b6c2}{\string~SettingsView}}();}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00038}00038\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00039}00039\ \ \ \ \ QComboBox\ *enginesComboBox;}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00040}00040\ \ \ \ \ QPushButton\ *engineButton;}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00041}00041\ \ \ \ \ QPushButton\ *styleButton;}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00042}00042\ \ \ \ \ QPushButton\ *boardStyleButton;}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00044}00044\ \ \ \ \ \textcolor{keywordtype}{void}\ ChooseEngine();}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00045}00045\ \ \ \ \ \textcolor{keywordtype}{void}\ ChooseStyle();}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00046}00046\ \ \ \ \ \textcolor{keywordtype}{void}\ ChooseBoardStyle();}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00048}00048\ \ \ \ \ QPushButton\ *saveButton;}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00049}00049\ \ \ \ \ \textcolor{keywordtype}{void}\ save();}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00050}00050\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00051}00051\ \ \ \ \ \textcolor{comment}{//void\ comboBoxSetEngineName();}}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00053}00053\ signals:}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00054}\mbox{\hyperlink{class_settings_view_a52adb68449ff91725aa8b10b1900e7be}{00054}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_settings_view_a52adb68449ff91725aa8b10b1900e7be}{boardStyleChanged}}();}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00055}\mbox{\hyperlink{class_settings_view_a58f660913a4c13bd2df811dce179f852}{00055}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_settings_view_a58f660913a4c13bd2df811dce179f852}{finished}}();}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00056}00056\ \};}
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{settingsview_8h_source_l00058}00058\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SETTINGSVIEW\_H}}
+
+\end{DoxyCode}

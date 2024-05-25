@@ -1,0 +1,51 @@
+\doxysection{F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/game.h}
+\hypertarget{game_8h_source}{}\label{game_8h_source}\mbox{\hyperlink{game_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ wolfk\ on\ 05.05.2024.}}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00005}00005\ \textcolor{preprocessor}{\#ifndef\ GAME\_H}}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ GAME\_H}}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <QThread>}}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <QTreeWidget>}}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{basemodel_8h}{basemodel.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{mainwindow_8h}{mainwindow.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{engine_8h}{engine.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{uci_8h}{uci.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00016}\mbox{\hyperlink{class_game}{00016}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_game}{Game}}\ final\ :\ \textcolor{keyword}{public}\ QThread\ \{}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00018}00018\ \ \ \ \ Q\_OBJECT;}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00019}00019\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00020}00020\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_game_ab0109140fc560b6a083dbb64b448b1b2}{Game}}(QTreeWidget\ *table,\ \ \mbox{\hyperlink{class_main_window}{MainWindow}}\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00022}00022\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_game_a11dd04c2c94caa95d4f819e8a3f49649}{run}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00024}00024\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00025}00025\ \ \ \ \ \textcolor{keywordtype}{bool}\ isMouseClicked\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00026}00026\ \ \ \ \ QMutex\ mutex;}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00028}00028\ \ \ \ \ \textcolor{keywordtype}{void}\ YouLose();}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00030}00030\ \ \ \ \ \textcolor{keywordtype}{void}\ YouWin();}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00032}00032\ \ \ \ \ \textcolor{keywordtype}{void}\ AddMoveToList(std::pair<Point,\ Point>\ move)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00034}00034\ \ \ \ \ \textcolor{keywordtype}{void}\ AddMoveToHistory();}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00036}00036\ \ \ \ \ \textcolor{keywordtype}{void}\ ResetToHistory();}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00038}00038\ \ \ \ \ QTreeWidget\ *table;}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00039}00039\ \ \ \ \ \mbox{\hyperlink{class_main_window}{MainWindow}}\ *parent;}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00041}00041\ \ \ \ \ QTimer\ *timer\{\},\ *timer2\{\};}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00042}00042\ \};}
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{game_8h_source_l00046}00046\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//GAME\_H}}
+
+\end{DoxyCode}

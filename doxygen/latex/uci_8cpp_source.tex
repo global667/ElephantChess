@@ -1,0 +1,144 @@
+\doxysection{F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/uci.cpp}
+\hypertarget{uci_8cpp_source}{}\label{uci_8cpp_source}\mbox{\hyperlink{uci_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00002}00002\ \textcolor{comment}{\ \ ElephantChess,\ a\ UCI\ chinese\ chess\ playing\ GUI\ with\ builtin\ engine}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00003}00003\ \textcolor{comment}{\ \ Copyright\ (C)\ 2022-\/2023\ Wolf\ S.\ Kappesser}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00004}00004\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00005}00005\ \textcolor{comment}{\ \ ElephantChess\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00006}00006\ \textcolor{comment}{\ \ it\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00007}00007\ \textcolor{comment}{\ \ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00008}00008\ \textcolor{comment}{\ \ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00009}00009\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00010}00010\ \textcolor{comment}{\ \ ElephantChess\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00011}00011\ \textcolor{comment}{\ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00012}00012\ \textcolor{comment}{\ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00013}00013\ \textcolor{comment}{\ \ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00014}00014\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00015}00015\ \textcolor{comment}{\ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00016}00016\ \textcolor{comment}{\ \ along\ with\ this\ program.\ \ If\ not,\ see\ <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00017}00017\ \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00019}00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{uci_8h}{uci.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00021}00021\ \textcolor{preprocessor}{\#include\ <QDir>}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00023}00023\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{struct_base_model}{BaseModel}}\ \mbox{\hyperlink{uci_8cpp_adf4157fe06dcb77da8c055332783d34d}{basemodel}};}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00025}\mbox{\hyperlink{class_u_c_i_a7fa01fb3c0adabfa3eef287fcebdf7c5}{00025}}\ \mbox{\hyperlink{class_u_c_i_a7fa01fb3c0adabfa3eef287fcebdf7c5}{UCI::UCI}}()}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00026}00026\ \ \ \ \ :\ waitForReadyOK(true)}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00027}00027\ \ \ \ \ \ \ ,\ newGame(true)\ \{}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00028}00028\ \ \ \ \ connect(\&\mbox{\hyperlink{class_u_c_i_a5ce14f945ae25b9e980736a10b8868f1}{engine}},\ SIGNAL(readyRead()),\ SLOT(\mbox{\hyperlink{class_u_c_i_a0aa83551cf230b3e49b70eb9645bf53d}{readData}}()));}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00029}00029\ \ \ \ \ connect(\&\mbox{\hyperlink{class_u_c_i_a5ce14f945ae25b9e980736a10b8868f1}{engine}},}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ SIGNAL(errorOccurred(QProcess::ProcessError)),}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ SLOT(\mbox{\hyperlink{class_u_c_i_a8e102841cb1f79b1c6d87e1e044b8990}{anError}}(QProcess::ProcessError)));}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00033}00033\ \ \ \ \ QStringList\ list\ =\ \mbox{\hyperlink{basemodel_8cpp_adf4157fe06dcb77da8c055332783d34d}{basemodel}}.\mbox{\hyperlink{struct_base_model_ac0ab3a88ecb9e70e678cac5d67837e41}{engineData}}.\mbox{\hyperlink{struct_base_model_1_1_engine_data_a5ea6a6d3a1653d2a99cf88f42e5d6326}{engineName}}.split(\textcolor{charliteral}{'/'});}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00034}00034\ \ \ \ \ \textcolor{comment}{//QString\ path\ =\ list.mid(0,\ list.size()\ -\/\ 1).join('/');}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00035}00035\ \ \ \ \ \textcolor{keyword}{const}\ QString\ engineName\ =\ list.last();}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00037}00037\ \ \ \ \ \mbox{\hyperlink{basemodel_8cpp_adf4157fe06dcb77da8c055332783d34d}{basemodel}}.\mbox{\hyperlink{struct_base_model_ac0ab3a88ecb9e70e678cac5d67837e41}{engineData}}.\mbox{\hyperlink{struct_base_model_1_1_engine_data_a5ea6a6d3a1653d2a99cf88f42e5d6326}{engineName}}\ =\ engineName;}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00039}00039\ \ \ \ \ \textcolor{comment}{//\ Set\ the\ program\ for\ the\ engine}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00040}00040\ \ \ \ \ qDebug()\ <<\ QDir::currentPath()\ +\ \textcolor{stringliteral}{"{}/"{}}\ +\ engineName;}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00041}00041\ \ \ \ \ \mbox{\hyperlink{class_u_c_i_a5ce14f945ae25b9e980736a10b8868f1}{engine}}.setProgram(QDir::currentPath()\ +\ \textcolor{stringliteral}{"{}/"{}}\ +\ engineName);}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00042}00042\ \ \ \ \ \textcolor{comment}{//"{}F:/source/XiangQi/Pikafish/pikafish.exe"{});//"{}pikafish.exe"{});//}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00043}00043\ \ \ \ \ \mbox{\hyperlink{class_u_c_i_a5ce14f945ae25b9e980736a10b8868f1}{engine}}.setWorkingDirectory(QDir::currentPath());\ \textcolor{comment}{//"{}F:/source/XiangQi/Pikafish/"{});}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00044}00044\ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Starting\ uci\ engine:"{}}\ <<\ \mbox{\hyperlink{basemodel_8cpp_adf4157fe06dcb77da8c055332783d34d}{basemodel}}.\mbox{\hyperlink{struct_base_model_ac0ab3a88ecb9e70e678cac5d67837e41}{engineData}}.\mbox{\hyperlink{struct_base_model_1_1_engine_data_a5ea6a6d3a1653d2a99cf88f42e5d6326}{engineName}};}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00045}00045\ \ \ \ \ \mbox{\hyperlink{class_u_c_i_a5ce14f945ae25b9e980736a10b8868f1}{engine}}.setReadChannel(QProcess::StandardOutput);}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00047}00047\ \ \ \ \ \mbox{\hyperlink{class_u_c_i_a5ce14f945ae25b9e980736a10b8868f1}{engine}}.start(QIODevice::Text\ |\ QIODevice::ReadWrite);}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00048}00048\ \ \ \ \ \mbox{\hyperlink{class_u_c_i_a5ce14f945ae25b9e980736a10b8868f1}{engine}}.waitForStarted();}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00049}00049\ \ \ \ \ \mbox{\hyperlink{class_u_c_i_a5ce14f945ae25b9e980736a10b8868f1}{engine}}.waitForReadyRead();}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00050}00050\ \ \ \ \ \textcolor{comment}{//\ Wait\ for\ the\ engine\ to\ be\ ready}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00051}00051\ \ \ \ \ \mbox{\hyperlink{class_u_c_i_a6dcf26743318c1ec27c921a8599c618a}{writeDatas}}(\textcolor{stringliteral}{"{}uci"{}});}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00052}00052\ \ \ \ \ \mbox{\hyperlink{class_u_c_i_a6dcf26743318c1ec27c921a8599c618a}{writeDatas}}(\textcolor{stringliteral}{"{}isready"{}});}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00053}00053\ \}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00055}\mbox{\hyperlink{class_u_c_i_ad8e7ec428a09959e3a6302ce59ce2736}{00055}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_u_c_i_ad8e7ec428a09959e3a6302ce59ce2736}{UCI::start}}()\ \{}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00056}00056\ \ \ \ \ \textcolor{comment}{//\ Start\ the\ UCI\ communication}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00057}00057\ \}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00059}\mbox{\hyperlink{class_u_c_i_a0aa83551cf230b3e49b70eb9645bf53d}{00059}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_u_c_i_a0aa83551cf230b3e49b70eb9645bf53d}{UCI::readData}}()\ \{}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00060}00060\ \ \ \ \ QByteArray\ data;}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00061}00061\ \ \ \ \ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{class_u_c_i_a5ce14f945ae25b9e980736a10b8868f1}{engine}}.canReadLine())\ \{}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ data\ =\ \mbox{\hyperlink{class_u_c_i_a5ce14f945ae25b9e980736a10b8868f1}{engine}}.readAll();}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Data\ read:\ "{}}\ <<\ data;}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&c:\ data.split(\textcolor{charliteral}{'\(\backslash\)n'}))\ \{}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*if\ (c.contains("{}readyok"{})\ \&\&\ waitForReadyOK)\ \{}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00066}00066\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ (newGame)\ \{}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00067}00067\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //\ Start\ a\ new\ game}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00068}00068\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ writeDatas("{}ucinewgame"{});}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00069}00069\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ writeDatas("{}position\ startpos"{});}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00070}00070\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newGame\ =\ false;}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00071}00071\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ else\ \{}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00072}00072\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //\ Stop\ the\ engine}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00073}00073\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //writeDatas("{}stop"{});}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00074}00074\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ waitForReadyOK\ =\ false;}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00075}00075\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00076}00076\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \}\ */}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ add\ name\ of\ engine\ to\ basemodel}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (c.contains(\textcolor{stringliteral}{"{}id\ name"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{basemodel_8cpp_adf4157fe06dcb77da8c055332783d34d}{basemodel}}.\mbox{\hyperlink{struct_base_model_ac0ab3a88ecb9e70e678cac5d67837e41}{engineData}}.\mbox{\hyperlink{struct_base_model_1_1_engine_data_a5ea6a6d3a1653d2a99cf88f42e5d6326}{engineName}}\ =\ c.split(\textcolor{charliteral}{'\ '}).at(2)\ +\ \textcolor{stringliteral}{"{}\ "{}}\ +\ c.split(\textcolor{charliteral}{'\ '}).at(3);}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Engine\ name:\ "{}}\ <<\ \mbox{\hyperlink{basemodel_8cpp_adf4157fe06dcb77da8c055332783d34d}{basemodel}}.\mbox{\hyperlink{struct_base_model_ac0ab3a88ecb9e70e678cac5d67837e41}{engineData}}.\mbox{\hyperlink{struct_base_model_1_1_engine_data_a5ea6a6d3a1653d2a99cf88f42e5d6326}{engineName}};}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (c.contains(\textcolor{stringliteral}{"{}uciok"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ engine\ is\ ready}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//writeDatas("{}isready"{});}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//waitForReadyOK\ =\ true;}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_u_c_i_a6dcf26743318c1ec27c921a8599c618a}{writeDatas}}(\textcolor{stringliteral}{"{}ucinewgame"{}});}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_u_c_i_a6dcf26743318c1ec27c921a8599c618a}{writeDatas}}(\textcolor{stringliteral}{"{}position\ startpos"{}});}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (c.contains(\textcolor{stringliteral}{"{}bestmove"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Received\ a\ move\ from\ the\ engine}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QByteArray\ mv\ =\ c.split(\textcolor{charliteral}{'\ '}).at(1);;}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ fx\ =\ (mv.at(0)\ -\/\ \textcolor{charliteral}{'a'});}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ fy\ =\ (mv.at(1)\ -\/\ \textcolor{charliteral}{'0'});}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ tx\ =\ (mv.at(2)\ -\/\ \textcolor{charliteral}{'a'});}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ty\ =\ (mv.at(3)\ -\/\ \textcolor{charliteral}{'0'});}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{basemodel_8cpp_adf4157fe06dcb77da8c055332783d34d}{basemodel}}.\mbox{\hyperlink{struct_base_model_ae7e667dc3c8833b3fe9ecc26bc7a1dbd}{fromUCI}}.\mbox{\hyperlink{struct_point_a8c779e11e694b20e0946105a9f5de842}{x}}\ =\ fy;}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{basemodel_8cpp_adf4157fe06dcb77da8c055332783d34d}{basemodel}}.\mbox{\hyperlink{struct_base_model_ae7e667dc3c8833b3fe9ecc26bc7a1dbd}{fromUCI}}.\mbox{\hyperlink{struct_point_a2e1b5fb2b2a83571f5c0bc0f66a73cf7}{y}}\ =\ fx;}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{basemodel_8cpp_adf4157fe06dcb77da8c055332783d34d}{basemodel}}.\mbox{\hyperlink{struct_base_model_adf870baad86ea72a5d7487f8261293e9}{toUCI}}.\mbox{\hyperlink{struct_point_a8c779e11e694b20e0946105a9f5de842}{x}}\ =\ ty;}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{basemodel_8cpp_adf4157fe06dcb77da8c055332783d34d}{basemodel}}.\mbox{\hyperlink{struct_base_model_adf870baad86ea72a5d7487f8261293e9}{toUCI}}.\mbox{\hyperlink{struct_point_a2e1b5fb2b2a83571f5c0bc0f66a73cf7}{y}}\ =\ tx;}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (tipp\ ==\ \textcolor{keyword}{false})\ \{}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ruft\ gameloop\ auf}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//emit\ updateView(Point(fy,\ fx),\ Point(ty,\ tx),\ BaseModel::Mode::human);}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//emit\ giveTipp(Point(fy,\ fx),\ Point(ty,\ tx));}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (c.contains(\textcolor{stringliteral}{"{}info"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ qDebug()\ <<\ c;}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Handle\ other\ cases\ (if\ necessary)}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}readData:\ "{}}\ <<\ c;}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Q\_ASSERT(1);}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00112}00112\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00113}00113\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00114}00114\ \}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00116}\mbox{\hyperlink{class_u_c_i_ad0c198ce07a14204da14a245604c562b}{00116}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_u_c_i_ad0c198ce07a14204da14a245604c562b}{UCI::engineGo}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ tipp)\ \{}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00117}00117\ \ \ \ \ this-\/>tipp\ =\ tipp;}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00118}00118\ \ \ \ \ \textcolor{comment}{//\ get\ a\ move}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00119}00119\ \ \ \ \ \mbox{\hyperlink{class_u_c_i_a6dcf26743318c1ec27c921a8599c618a}{writeDatas}}(\textcolor{stringliteral}{"{}position\ startpos\ moves\ "{}}\ +\ \mbox{\hyperlink{basemodel_8cpp_adf4157fe06dcb77da8c055332783d34d}{basemodel}}.\mbox{\hyperlink{struct_base_model_a86ca20ca22f7a4ff1086a95be62299af}{moves}}.join(\textcolor{stringliteral}{"{}\ "{}}).toUtf8());}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00120}00120\ \ \ \ \ \mbox{\hyperlink{class_u_c_i_a6dcf26743318c1ec27c921a8599c618a}{writeDatas}}(\textcolor{stringliteral}{"{}go\ depth\ 3"{}});}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00121}00121\ \ \ \ \ \mbox{\hyperlink{class_u_c_i_a6dcf26743318c1ec27c921a8599c618a}{writeDatas}}(\textcolor{stringliteral}{"{}isready"{}});}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00122}00122\ \}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00124}\mbox{\hyperlink{class_u_c_i_a6dcf26743318c1ec27c921a8599c618a}{00124}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_u_c_i_a6dcf26743318c1ec27c921a8599c618a}{UCI::writeDatas}}(\textcolor{keyword}{const}\ QByteArray\ \&d)\ \{}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00125}00125\ \ \ \ \ qint64\ bytesWritten\ =\ \mbox{\hyperlink{class_u_c_i_a5ce14f945ae25b9e980736a10b8868f1}{engine}}.write(d\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00126}00126\ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Data\ written:"{}}\ <<\ bytesWritten\ <<\ d;}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00127}00127\ \}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00129}\mbox{\hyperlink{class_u_c_i_a8e102841cb1f79b1c6d87e1e044b8990}{00129}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_u_c_i_a8e102841cb1f79b1c6d87e1e044b8990}{UCI::anError}}(QProcess::ProcessError\ error)\ \{}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00130}00130\ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Error:"{}}\ <<\ error;}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00131}00131\ \}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00133}\mbox{\hyperlink{class_u_c_i_a51f1ff1ad113e5c30dc8f671c8c7e96e}{00133}}\ \mbox{\hyperlink{class_u_c_i_a51f1ff1ad113e5c30dc8f671c8c7e96e}{UCI::\string~UCI}}()\ \{}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00134}00134\ \ \ \ \ \textcolor{comment}{//\ Stop\ the\ engine\ and\ close\ the\ process}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00135}00135\ \ \ \ \ \mbox{\hyperlink{class_u_c_i_a6dcf26743318c1ec27c921a8599c618a}{writeDatas}}(\textcolor{stringliteral}{"{}quit"{}});}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00136}00136\ \ \ \ \ \mbox{\hyperlink{class_u_c_i_a5ce14f945ae25b9e980736a10b8868f1}{engine}}.waitForFinished();}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00137}00137\ \ \ \ \ \mbox{\hyperlink{class_u_c_i_a5ce14f945ae25b9e980736a10b8868f1}{engine}}.close();}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00138}00138\ \textcolor{comment}{//emit\ engine.finished(0);}}
+\DoxyCodeLine{\Hypertarget{uci_8cpp_source_l00139}00139\ \}}
+
+\end{DoxyCode}

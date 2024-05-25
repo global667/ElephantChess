@@ -1,0 +1,11 @@
+<map id="BaseModel::posToken" name="BaseModel::posToken">
+<area shape="rect" id="Node000001" title=" " alt="" coords="686,31,837,57"/>
+<area shape="rect" id="Node000002" href="$class_engine.html#aef2d2874eef0750216b626685fccf214" title=" " alt="" coords="493,5,617,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="671,36,617,29,617,24,671,30"/>
+<area shape="rect" id="Node000003" href="$class_main_window.html#ac6136a0ee920b5bc8e6d27821892c136" title=" " alt="" coords="471,56,638,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="671,58,639,62,639,56,671,52"/>
+<area shape="rect" id="Node000004" href="$class_main_window.html#a8d2b1aeb0de2a49dda87dd86270d9911" title=" " alt="" coords="231,56,423,83"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="456,72,423,72,423,67,456,67"/>
+<area shape="rect" id="Node000005" href="$class_main_window.html#a996c5a2b6f77944776856f08ec30858d" title=" " alt="" coords="5,56,183,83"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="215,72,183,72,183,67,215,67"/>
+</map>

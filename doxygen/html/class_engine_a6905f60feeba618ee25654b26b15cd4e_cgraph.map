@@ -1,0 +1,16 @@
+<map id="Engine::GetBestMove" name="Engine::GetBestMove">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,157,153,184"/>
+<area shape="rect" id="Node000002" href="$class_board.html#a0f9283a745f45911aa1f9de21e914544" title=" " alt="" coords="201,120,363,147"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,154,191,147,191,153,154,160"/>
+<area shape="rect" id="Node000005" href="$class_board.html#a2222769b9257ec798f6ec6800060507e" title=" " alt="" coords="412,208,538,235"/>
+<area shape="poly" id="edge7_Node000001_Node000005" title=" " alt="" coords="153,177,397,209,396,214,153,183"/>
+<area shape="rect" id="Node000003" href="$class_board.html#a1bce818087213faff4bce6d5eaf5d597" title=" " alt="" coords="420,5,530,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="299,117,347,81,410,42,420,36,423,41,412,46,350,86,302,122"/>
+<area shape="rect" id="Node000004" href="$class_board.html#a85971cfdadb2b1313a67e87fc02bb077" title=" " alt="" coords="413,56,537,83"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="324,117,417,86,419,91,325,122"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="311,145,412,194,426,199,424,204,410,198,309,150"/>
+<area shape="rect" id="Node000006" href="$class_board.html#a73de5ce398e7306dd11f15ce40428746" title=" " alt="" coords="411,107,539,133"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="363,125,395,123,395,128,364,130"/>
+<area shape="rect" id="Node000007" href="$class_board.html#ac4acab226328b0fdf620895bbac18bc2" title=" " alt="" coords="415,157,536,184"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="355,145,399,153,398,159,354,150"/>
+</map>

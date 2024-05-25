@@ -1,0 +1,11 @@
+<map id="Board::undoMove" name="Board::undoMove">
+<area shape="rect" id="Node000001" title=" " alt="" coords="632,31,754,57"/>
+<area shape="rect" id="Node000002" href="$class_board.html#a0f9283a745f45911aa1f9de21e914544" title=" " alt="" coords="422,31,584,57"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="617,47,585,47,585,41,617,41"/>
+<area shape="rect" id="Node000003" href="$class_engine.html#a6905f60feeba618ee25654b26b15cd4e" title=" " alt="" coords="202,5,350,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="406,36,350,30,350,24,407,31"/>
+<area shape="rect" id="Node000005" href="$class_board_view.html#aea3b7f52ba2c5958f3a36e09191642fd" title=" " alt="" coords="178,56,374,83"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="406,57,375,61,374,56,406,52"/>
+<area shape="rect" id="Node000004" href="$class_engine.html#aef2d2874eef0750216b626685fccf214" title=" " alt="" coords="5,5,130,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="187,21,130,21,130,16,187,16"/>
+</map>

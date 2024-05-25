@@ -1,0 +1,256 @@
+\doxysection{UCI Class Reference}
+\hypertarget{class_u_c_i}{}\label{class_u_c_i}\index{UCI@{UCI}}
+
+
+{\ttfamily \#include $<$uci.\+h$>$}
+
+
+
+Inheritance diagram for UCI\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=132pt]{class_u_c_i__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for UCI\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=132pt]{class_u_c_i__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_u_c_i_ad8e7ec428a09959e3a6302ce59ce2736}{start}} ()
+\item 
+void \mbox{\hyperlink{class_u_c_i_a0aa83551cf230b3e49b70eb9645bf53d}{read\+Data}} ()
+\item 
+static void \mbox{\hyperlink{class_u_c_i_a8e102841cb1f79b1c6d87e1e044b8990}{an\+Error}} (QProcess\+::\+Process\+Error error)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_u_c_i_a4e41298dba72a05fa60942ed405610b4}{update\+View}} (\mbox{\hyperlink{struct_point}{Point}} from, \mbox{\hyperlink{struct_point}{Point}} to, \mbox{\hyperlink{struct_base_model_a807ded17e69384e3bd5403130d4a095a}{Base\+Model\+::\+Mode}})
+\item 
+void \mbox{\hyperlink{class_u_c_i_a93963ddda46f1f871dff3029a56aac25}{board\+Changed}} (int fromX, int fromY, int toX, int toY)
+\item 
+void \mbox{\hyperlink{class_u_c_i_ac4630dd4961f2d01be3e1cbc91be8479}{give\+Tipp}} (\mbox{\hyperlink{struct_point}{Point}} point, \mbox{\hyperlink{struct_point}{Point}} point1)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_u_c_i_a7fa01fb3c0adabfa3eef287fcebdf7c5}{UCI}} ()
+\item 
+\mbox{\hyperlink{class_u_c_i_a51f1ff1ad113e5c30dc8f671c8c7e96e}{\texorpdfstring{$\sim$}{\string~}\+UCI}} () override
+\item 
+void \mbox{\hyperlink{class_u_c_i_a6dcf26743318c1ec27c921a8599c618a}{write\+Datas}} (const QByte\+Array \&d)
+\item 
+void \mbox{\hyperlink{class_u_c_i_ad0c198ce07a14204da14a245604c562b}{engine\+Go}} (bool tipp)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+QProcess \mbox{\hyperlink{class_u_c_i_a5ce14f945ae25b9e980736a10b8868f1}{engine}}
+\item 
+QString\+List \mbox{\hyperlink{class_u_c_i_aee00731da3358735e441ad0931b31839}{moves}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{uci_8h_source_l00033}{33}} of file \mbox{\hyperlink{uci_8h_source}{uci.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_u_c_i_a7fa01fb3c0adabfa3eef287fcebdf7c5}\index{UCI@{UCI}!UCI@{UCI}}
+\index{UCI@{UCI}!UCI@{UCI}}
+\doxysubsubsection{\texorpdfstring{UCI()}{UCI()}}
+{\footnotesize\ttfamily \label{class_u_c_i_a7fa01fb3c0adabfa3eef287fcebdf7c5} 
+UCI\+::\+UCI (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Definition at line \mbox{\hyperlink{uci_8cpp_source_l00025}{25}} of file \mbox{\hyperlink{uci_8cpp_source}{uci.\+cpp}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_u_c_i_a7fa01fb3c0adabfa3eef287fcebdf7c5_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_u_c_i_a51f1ff1ad113e5c30dc8f671c8c7e96e}\index{UCI@{UCI}!````~UCI@{\texorpdfstring{$\sim$}{\string~}UCI}}
+\index{````~UCI@{\texorpdfstring{$\sim$}{\string~}UCI}!UCI@{UCI}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}UCI()}{\string~UCI()}}
+{\footnotesize\ttfamily \label{class_u_c_i_a51f1ff1ad113e5c30dc8f671c8c7e96e} 
+UCI\+::\texorpdfstring{$\sim$}{\string~}\+UCI (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Definition at line \mbox{\hyperlink{uci_8cpp_source_l00133}{133}} of file \mbox{\hyperlink{uci_8cpp_source}{uci.\+cpp}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{class_u_c_i_a51f1ff1ad113e5c30dc8f671c8c7e96e_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_u_c_i_a8e102841cb1f79b1c6d87e1e044b8990}\index{UCI@{UCI}!anError@{anError}}
+\index{anError@{anError}!UCI@{UCI}}
+\doxysubsubsection{\texorpdfstring{anError}{anError}}
+{\footnotesize\ttfamily \label{class_u_c_i_a8e102841cb1f79b1c6d87e1e044b8990} 
+void UCI\+::an\+Error (\begin{DoxyParamCaption}\item[{QProcess\+::\+Process\+Error}]{error}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [slot]}}
+
+
+
+Definition at line \mbox{\hyperlink{uci_8cpp_source_l00129}{129}} of file \mbox{\hyperlink{uci_8cpp_source}{uci.\+cpp}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=239pt]{class_u_c_i_a8e102841cb1f79b1c6d87e1e044b8990_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_u_c_i_a93963ddda46f1f871dff3029a56aac25}\index{UCI@{UCI}!boardChanged@{boardChanged}}
+\index{boardChanged@{boardChanged}!UCI@{UCI}}
+\doxysubsubsection{\texorpdfstring{boardChanged}{boardChanged}}
+{\footnotesize\ttfamily \label{class_u_c_i_a93963ddda46f1f871dff3029a56aac25} 
+void UCI\+::board\+Changed (\begin{DoxyParamCaption}\item[{int}]{fromX}{, }\item[{int}]{fromY}{, }\item[{int}]{toX}{, }\item[{int}]{toY}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\Hypertarget{class_u_c_i_ad0c198ce07a14204da14a245604c562b}\index{UCI@{UCI}!engineGo@{engineGo}}
+\index{engineGo@{engineGo}!UCI@{UCI}}
+\doxysubsubsection{\texorpdfstring{engineGo()}{engineGo()}}
+{\footnotesize\ttfamily \label{class_u_c_i_ad0c198ce07a14204da14a245604c562b} 
+void UCI\+::engine\+Go (\begin{DoxyParamCaption}\item[{bool}]{tipp}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uci_8cpp_source_l00116}{116}} of file \mbox{\hyperlink{uci_8cpp_source}{uci.\+cpp}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=279pt]{class_u_c_i_ad0c198ce07a14204da14a245604c562b_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_u_c_i_ac4630dd4961f2d01be3e1cbc91be8479}\index{UCI@{UCI}!giveTipp@{giveTipp}}
+\index{giveTipp@{giveTipp}!UCI@{UCI}}
+\doxysubsubsection{\texorpdfstring{giveTipp}{giveTipp}}
+{\footnotesize\ttfamily \label{class_u_c_i_ac4630dd4961f2d01be3e1cbc91be8479} 
+void UCI\+::give\+Tipp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_point}{Point}}}]{point}{, }\item[{\mbox{\hyperlink{struct_point}{Point}}}]{point1}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\Hypertarget{class_u_c_i_a0aa83551cf230b3e49b70eb9645bf53d}\index{UCI@{UCI}!readData@{readData}}
+\index{readData@{readData}!UCI@{UCI}}
+\doxysubsubsection{\texorpdfstring{readData}{readData}}
+{\footnotesize\ttfamily \label{class_u_c_i_a0aa83551cf230b3e49b70eb9645bf53d} 
+void UCI\+::read\+Data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Definition at line \mbox{\hyperlink{uci_8cpp_source_l00059}{59}} of file \mbox{\hyperlink{uci_8cpp_source}{uci.\+cpp}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{class_u_c_i_a0aa83551cf230b3e49b70eb9645bf53d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{class_u_c_i_a0aa83551cf230b3e49b70eb9645bf53d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_u_c_i_ad8e7ec428a09959e3a6302ce59ce2736}\index{UCI@{UCI}!start@{start}}
+\index{start@{start}!UCI@{UCI}}
+\doxysubsubsection{\texorpdfstring{start}{start}}
+{\footnotesize\ttfamily \label{class_u_c_i_ad8e7ec428a09959e3a6302ce59ce2736} 
+void UCI\+::start (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [slot]}}
+
+
+
+Definition at line \mbox{\hyperlink{uci_8cpp_source_l00055}{55}} of file \mbox{\hyperlink{uci_8cpp_source}{uci.\+cpp}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_u_c_i_ad8e7ec428a09959e3a6302ce59ce2736_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_u_c_i_a4e41298dba72a05fa60942ed405610b4}\index{UCI@{UCI}!updateView@{updateView}}
+\index{updateView@{updateView}!UCI@{UCI}}
+\doxysubsubsection{\texorpdfstring{updateView}{updateView}}
+{\footnotesize\ttfamily \label{class_u_c_i_a4e41298dba72a05fa60942ed405610b4} 
+void UCI\+::update\+View (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_point}{Point}}}]{from}{, }\item[{\mbox{\hyperlink{struct_point}{Point}}}]{to}{, }\item[{\mbox{\hyperlink{struct_base_model_a807ded17e69384e3bd5403130d4a095a}{Base\+Model\+::\+Mode}}}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\Hypertarget{class_u_c_i_a6dcf26743318c1ec27c921a8599c618a}\index{UCI@{UCI}!writeDatas@{writeDatas}}
+\index{writeDatas@{writeDatas}!UCI@{UCI}}
+\doxysubsubsection{\texorpdfstring{writeDatas()}{writeDatas()}}
+{\footnotesize\ttfamily \label{class_u_c_i_a6dcf26743318c1ec27c921a8599c618a} 
+void UCI\+::write\+Datas (\begin{DoxyParamCaption}\item[{const QByte\+Array \&}]{d}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uci_8cpp_source_l00124}{124}} of file \mbox{\hyperlink{uci_8cpp_source}{uci.\+cpp}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_u_c_i_a6dcf26743318c1ec27c921a8599c618a_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_u_c_i_a5ce14f945ae25b9e980736a10b8868f1}\index{UCI@{UCI}!engine@{engine}}
+\index{engine@{engine}!UCI@{UCI}}
+\doxysubsubsection{\texorpdfstring{engine}{engine}}
+{\footnotesize\ttfamily \label{class_u_c_i_a5ce14f945ae25b9e980736a10b8868f1} 
+QProcess UCI\+::engine}
+
+
+
+Definition at line \mbox{\hyperlink{uci_8h_source_l00043}{43}} of file \mbox{\hyperlink{uci_8h_source}{uci.\+h}}.
+
+\Hypertarget{class_u_c_i_aee00731da3358735e441ad0931b31839}\index{UCI@{UCI}!moves@{moves}}
+\index{moves@{moves}!UCI@{UCI}}
+\doxysubsubsection{\texorpdfstring{moves}{moves}}
+{\footnotesize\ttfamily \label{class_u_c_i_aee00731da3358735e441ad0931b31839} 
+QString\+List UCI\+::moves}
+
+
+
+Definition at line \mbox{\hyperlink{uci_8h_source_l00047}{47}} of file \mbox{\hyperlink{uci_8h_source}{uci.\+h}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/\mbox{\hyperlink{uci_8h}{uci.\+h}}\item 
+F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/\mbox{\hyperlink{uci_8cpp}{uci.\+cpp}}\end{DoxyCompactItemize}

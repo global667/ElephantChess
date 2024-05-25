@@ -1,0 +1,264 @@
+\doxysection{F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/contexmenu.cpp}
+\hypertarget{contexmenu_8cpp_source}{}\label{contexmenu_8cpp_source}\mbox{\hyperlink{contexmenu_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00002}00002\ \textcolor{comment}{\ \ ElephantChess,\ a\ UCI\ chinese\ chess\ playing\ GUI\ with\ builtin\ engine}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00003}00003\ \textcolor{comment}{\ \ Copyright\ (C)\ 2022-\/2023\ Wolf\ S.\ Kappesser}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00004}00004\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00005}00005\ \textcolor{comment}{\ \ ElephantChess\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00006}00006\ \textcolor{comment}{\ \ it\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00007}00007\ \textcolor{comment}{\ \ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00008}00008\ \textcolor{comment}{\ \ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00009}00009\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00010}00010\ \textcolor{comment}{\ \ ElephantChess\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00011}00011\ \textcolor{comment}{\ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00012}00012\ \textcolor{comment}{\ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00013}00013\ \textcolor{comment}{\ \ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00014}00014\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00015}00015\ \textcolor{comment}{\ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00016}00016\ \textcolor{comment}{\ \ along\ with\ this\ program.\ \ If\ not,\ see\ <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00017}00017\ \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00019}00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{contexmenu_8h}{contexmenu.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00021}00021\ \textcolor{preprocessor}{\#include\ <QPoint>}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00023}00023\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{struct_base_model}{BaseModel}}\ \mbox{\hyperlink{contexmenu_8cpp_adf4157fe06dcb77da8c055332783d34d}{basemodel}};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00025}\mbox{\hyperlink{class_contex_menu_a6777bb29dc2bf3c8345fc4d0b7d69d58}{00025}}\ \mbox{\hyperlink{class_contex_menu_a6777bb29dc2bf3c8345fc4d0b7d69d58}{ContexMenu::ContexMenu}}(QWidget\ *parent)}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00026}00026\ \ \ \ \ :\ QMenu(parent)}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00027}00027\ \ \ \ \ ,\ parent(parent)}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00028}00028\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00029}00029\ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00031}00031\ \ \ \ \ QAction\ *a0\ =\ addAction(\textcolor{stringliteral}{"{}Clear\ board"{}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00032}00032\ \ \ \ \ QMenu\ *redPiecesMenu\ =\ \textcolor{keyword}{new}\ QMenu(\textcolor{stringliteral}{"{}Pieces\ (Red)"{}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00033}00033\ \ \ \ \ QAction\ *a11\ =\ redPiecesMenu-\/>addAction(\textcolor{stringliteral}{"{}General"{}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00034}00034\ \ \ \ \ QAction\ *a12\ =\ redPiecesMenu-\/>addAction(\textcolor{stringliteral}{"{}Advisor"{}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00035}00035\ \ \ \ \ QAction\ *a13\ =\ redPiecesMenu-\/>addAction(\textcolor{stringliteral}{"{}Elephant"{}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00036}00036\ \ \ \ \ QAction\ *a14\ =\ redPiecesMenu-\/>addAction(\textcolor{stringliteral}{"{}Horse"{}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00037}00037\ \ \ \ \ QAction\ *a15\ =\ redPiecesMenu-\/>addAction(\textcolor{stringliteral}{"{}Cannon"{}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00038}00038\ \ \ \ \ QAction\ *a16\ =\ redPiecesMenu-\/>addAction(\textcolor{stringliteral}{"{}Soldier"{}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00039}00039\ \ \ \ \ QAction\ *a17\ =\ redPiecesMenu-\/>addAction(\textcolor{stringliteral}{"{}Chariot"{}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00040}00040\ \ \ \ \ connect(a11,\ \&QAction::triggered,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_contex_menu_a3db4056f74569844236b88de9f517ebd}{ContexMenu::GeneralRot}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00041}00041\ \ \ \ \ connect(a12,\ \&QAction::triggered,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_contex_menu_ab99f2c898e2d2287555013bd6f4e57e5}{ContexMenu::BeraterRot}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00042}00042\ \ \ \ \ connect(a13,\ \&QAction::triggered,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_contex_menu_a93eedebb28ac5477517d6846caa26852}{ContexMenu::ElefantRot}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00043}00043\ \ \ \ \ connect(a14,\ \&QAction::triggered,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_contex_menu_ab82f544ba71e433c80eb706bd55cbc70}{ContexMenu::PferdRot}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00044}00044\ \ \ \ \ connect(a15,\ \&QAction::triggered,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_contex_menu_ac6afddc6601652d81f2e6c42c224f0de}{ContexMenu::KanoneRot}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00045}00045\ \ \ \ \ connect(a16,\ \&QAction::triggered,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_contex_menu_a8879c98eb8e250f0f83bfa2c8605a55d}{ContexMenu::SoldatRot}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00046}00046\ \ \ \ \ connect(a17,\ \&QAction::triggered,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_contex_menu_a01c8251d4715143daf09ac44c08d9d42}{ContexMenu::TurmRot}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00047}00047\ \ \ \ \ QMenu\ *blackPiecesMenu\ =\ \textcolor{keyword}{new}\ QMenu(\textcolor{stringliteral}{"{}Pieces\ (Black)"{}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00048}00048\ \ \ \ \ QAction\ *a21\ =\ blackPiecesMenu-\/>addAction(\textcolor{stringliteral}{"{}General"{}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00049}00049\ \ \ \ \ QAction\ *a22\ =\ blackPiecesMenu-\/>addAction(\textcolor{stringliteral}{"{}Advisor"{}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00050}00050\ \ \ \ \ QAction\ *a23\ =\ blackPiecesMenu-\/>addAction(\textcolor{stringliteral}{"{}Elephant"{}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00051}00051\ \ \ \ \ QAction\ *a24\ =\ blackPiecesMenu-\/>addAction(\textcolor{stringliteral}{"{}Horse"{}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00052}00052\ \ \ \ \ QAction\ *a25\ =\ blackPiecesMenu-\/>addAction(\textcolor{stringliteral}{"{}Cannon"{}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00053}00053\ \ \ \ \ QAction\ *a26\ =\ blackPiecesMenu-\/>addAction(\textcolor{stringliteral}{"{}Soldier"{}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00054}00054\ \ \ \ \ QAction\ *a27\ =\ blackPiecesMenu-\/>addAction(\textcolor{stringliteral}{"{}Chariot"{}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00055}00055\ \ \ \ \ connect(a21,\ \&QAction::triggered,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_contex_menu_a09693092d12b48ac8746f83ed80452e9}{ContexMenu::GeneralSchwarz}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00056}00056\ \ \ \ \ connect(a22,\ \&QAction::triggered,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_contex_menu_a1355183fb9253f8ec40af7ce5fa9f2c0}{ContexMenu::BeraterSchwarz}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00057}00057\ \ \ \ \ connect(a23,\ \&QAction::triggered,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_contex_menu_ad676f37af28103f7c12771fc5ebd7dca}{ContexMenu::ElefantSchwarz}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00058}00058\ \ \ \ \ connect(a24,\ \&QAction::triggered,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_contex_menu_a0b0f8102c2230a926635da8edc4ab6ee}{ContexMenu::PferdSchwarz}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00059}00059\ \ \ \ \ connect(a25,\ \&QAction::triggered,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_contex_menu_a984637815e833a80d63159c286ca013a}{ContexMenu::KanoneSchwarz}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00060}00060\ \ \ \ \ connect(a26,\ \&QAction::triggered,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_contex_menu_a86ab1ea5678997e097c55b436e0e3d67}{ContexMenu::SoldatSchwarz}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00061}00061\ \ \ \ \ connect(a27,\ \&QAction::triggered,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_contex_menu_a871164e0bd5e79fdfa4e2937679fa508}{ContexMenu::TurmSchwarz}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00062}00062\ \ \ \ \ addMenu(blackPiecesMenu);}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00063}00063\ \ \ \ \ addMenu(redPiecesMenu);}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00064}00064\ \ \ \ \ \textcolor{comment}{//QAction\ *action\ =\ contextMenu-\/>addAction("{}Kreuz"{});}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00065}00065\ \ \ \ \ QAction\ *action2\ =\ addAction(\textcolor{stringliteral}{"{}Circle"{}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00066}00066\ \ \ \ \ \textcolor{comment}{//QAction\ *action3\ =\ contextMenu-\/>addAction("{}Dreieck"{});}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00067}00067\ \ \ \ \ QAction\ *action4\ =\ addAction(\textcolor{stringliteral}{"{}Quad"{}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00068}00068\ \ \ \ \ QAction\ *action5\ =\ addAction(\textcolor{stringliteral}{"{}Line"{}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00069}00069\ \ \ \ \ QAction\ *action6\ =\ addAction(\textcolor{stringliteral}{"{}Line\ end"{}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00070}00070\ \ \ \ \ QAction\ *action7\ =\ addAction(\textcolor{stringliteral}{"{}Clear\ symbols"{}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00072}00072\ \ \ \ \ connect(a0,\ \&QAction::triggered,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_contex_menu_ab2e4897c0dc0b2c7b1b9ffea303a9bc9}{ContexMenu::clearBoard}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00073}00073\ \ \ \ \ \textcolor{comment}{//connect(action,\ \&QAction::triggered,\ this,\ \&BoardView::Kreuz);}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00074}00074\ \ \ \ \ connect(action5,\ \&QAction::triggered,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_contex_menu_ae9d8a054ed69fa55a0aa1565550c8f24}{ContexMenu::Linie}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00075}00075\ \ \ \ \ connect(action2,\ \&QAction::triggered,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_contex_menu_a33b0ba575b29d7ab86867feb34cbcd27}{ContexMenu::Kreis}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00076}00076\ \ \ \ \ \textcolor{comment}{//connect(action3,\ \&QAction::triggered,\ this,\ \&BoardView::Dreieck);}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00077}00077\ \ \ \ \ connect(action4,\ \&QAction::triggered,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_contex_menu_a43c8668023ae4534319729a128420350}{ContexMenu::Viereck}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00078}00078\ \ \ \ \ connect(action6,\ \&QAction::triggered,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_contex_menu_a8e30d632f0b5904975555253538bcc2a}{ContexMenu::Linienende}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00079}00079\ \ \ \ \ connect(action7,\ \&QAction::triggered,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_contex_menu_a09263d94e5b586ea18f92b592fa0c8d3}{ContexMenu::clearMarkers}});}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00080}00080\ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00082}\mbox{\hyperlink{class_contex_menu_ab2e4897c0dc0b2c7b1b9ffea303a9bc9}{00082}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_ab2e4897c0dc0b2c7b1b9ffea303a9bc9}{ContexMenu::clearBoard}}()}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00083}00083\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00084}00084\ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00085}00085\ \ \ \ \ \textcolor{comment}{//if\ (!\&pieces)}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00086}00086\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_a825a041785bc655baf932c759e751352}{pieces}}.clear();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00088}00088\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ row\ =\ 0;\ row\ <\ ROWS;\ ++row)\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ col\ =\ 0;\ col\ <\ COLS;\ ++col)\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//basemodel.position.board[row][col].piece\ =\ new\ PPiece\{\ PieceType::Empty\ ,Color::Red,\ QImage()\ \ ,\ \{row,\ col\},"{}"{}\};}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00092}00092\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00094}00094\ \ \ \ \ \textcolor{comment}{//if\ (\&basemodel.moveHistory)}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00095}00095\ \ \ \ \ \mbox{\hyperlink{basemodel_8cpp_adf4157fe06dcb77da8c055332783d34d}{basemodel}}.\mbox{\hyperlink{struct_base_model_af522db0ac8795196d0c4a64754c8b7c8}{moveHistory}}.clear();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00096}00096\ \ \ \ \ \textcolor{comment}{//model-\/>clear();}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00097}00097\ \ \ \ \ \textcolor{comment}{//column\ =\ 0;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00098}00098\ \ \ \ \ \mbox{\hyperlink{basemodel_8cpp_adf4157fe06dcb77da8c055332783d34d}{basemodel}}.\mbox{\hyperlink{struct_base_model_a490bd673f50d8c7aeffb7bbbd5384b6a}{currentMove}}\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00099}00099\ \ \ \ \ \textcolor{comment}{//basemodel.fromHuman\ =\ \{-\/1,\ -\/1\};}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00100}00100\ \ \ \ \ \textcolor{comment}{//basemodel.toHuman\ =\ \{-\/1,\ -\/1\};}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00101}00101\ \ \ \ \ \textcolor{comment}{//basemodel.fromUCI\ =\ \{-\/1,\ -\/1\};}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00102}00102\ \ \ \ \ \textcolor{comment}{//basemodel.toUCI\ =\ \{-\/1,\ -\/1\};}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00103}00103\ \ \ \ \ \mbox{\hyperlink{basemodel_8cpp_adf4157fe06dcb77da8c055332783d34d}{basemodel}}.\mbox{\hyperlink{struct_base_model_a1acdc9a20b6947f749ac59970235d713}{position}}.\mbox{\hyperlink{class_board_a5d5cb514dc33c0a80cb849508112b7b6}{players\_color}}\ =\ \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color::Red}};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00105}00105\ \ \ \ \ \textcolor{comment}{//if\ (!\&basemodel.moves)}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00106}00106\ \ \ \ \ \mbox{\hyperlink{basemodel_8cpp_adf4157fe06dcb77da8c055332783d34d}{basemodel}}.\mbox{\hyperlink{struct_base_model_a86ca20ca22f7a4ff1086a95be62299af}{moves}}.clear();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00107}00107\ \ \ \ \ \textcolor{comment}{//basemodel.moveHistory.append(basemodel.board);}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00108}00108\ \ \ \ \ \mbox{\hyperlink{basemodel_8cpp_adf4157fe06dcb77da8c055332783d34d}{basemodel}}.\mbox{\hyperlink{struct_base_model_a490bd673f50d8c7aeffb7bbbd5384b6a}{currentMove}}++;}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00110}00110\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_a091fcf9e87258cefefc5213a144ff535}{parent}}-\/>repaint();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00111}00111\ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00113}\mbox{\hyperlink{class_contex_menu_a3db4056f74569844236b88de9f517ebd}{00113}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a3db4056f74569844236b88de9f517ebd}{ContexMenu::GeneralRot}}()}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00114}00114\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00115}00115\ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;\ //QPoint\ cur\ =\ QCursor::pos();}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00116}00116\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ cur\ =\ \{\mbox{\hyperlink{class_contex_menu_aea31fdc6845386c159e1089aa27337de}{contextMenuX}},\ \mbox{\hyperlink{class_contex_menu_ac86112367ed141f9d61c47852877ba88}{contextMenuY}}\};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00117}00117\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_a825a041785bc655baf932c759e751352}{pieces}}.append(std::make\_pair(cur,\ \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea2c9d9a63b12e7f9c0bad73a8f51313e8}{completePieceType::GeneralRot}}));}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00118}00118\ \ \ \ \ repaint();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00119}00119\ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00121}\mbox{\hyperlink{class_contex_menu_a09693092d12b48ac8746f83ed80452e9}{00121}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a09693092d12b48ac8746f83ed80452e9}{ContexMenu::GeneralSchwarz}}()}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00122}00122\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00123}00123\ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00124}00124\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ cur\ =\ \{\mbox{\hyperlink{class_contex_menu_aea31fdc6845386c159e1089aa27337de}{contextMenuX}},\ \mbox{\hyperlink{class_contex_menu_ac86112367ed141f9d61c47852877ba88}{contextMenuY}}\};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00125}00125\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_a825a041785bc655baf932c759e751352}{pieces}}.append(std::make\_pair(cur,\ \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea54390f7556fb3287350d7af59df25e75}{completePieceType::GeneralSchwarz}}));}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00126}00126\ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00128}\mbox{\hyperlink{class_contex_menu_ab99f2c898e2d2287555013bd6f4e57e5}{00128}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_ab99f2c898e2d2287555013bd6f4e57e5}{ContexMenu::BeraterRot}}()}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00129}00129\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00130}00130\ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00131}00131\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ cur\ =\ \{\mbox{\hyperlink{class_contex_menu_aea31fdc6845386c159e1089aa27337de}{contextMenuX}},\ \mbox{\hyperlink{class_contex_menu_ac86112367ed141f9d61c47852877ba88}{contextMenuY}}\};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00132}00132\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_a825a041785bc655baf932c759e751352}{pieces}}.append(std::make\_pair(cur,\ \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002ead5d2981e90b59bbcb5d234e0109c199a}{completePieceType::AdvisorRot}}));}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00133}00133\ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00135}\mbox{\hyperlink{class_contex_menu_a1355183fb9253f8ec40af7ce5fa9f2c0}{00135}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a1355183fb9253f8ec40af7ce5fa9f2c0}{ContexMenu::BeraterSchwarz}}()}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00136}00136\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00137}00137\ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00138}00138\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ cur\ =\ \{\mbox{\hyperlink{class_contex_menu_aea31fdc6845386c159e1089aa27337de}{contextMenuX}},\ \mbox{\hyperlink{class_contex_menu_ac86112367ed141f9d61c47852877ba88}{contextMenuY}}\};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00139}00139\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_a825a041785bc655baf932c759e751352}{pieces}}.append(std::make\_pair(cur,\ \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002eae4bf17f89077dc287f193caa32877cb9}{completePieceType::AdvisorSchwarz}}));}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00140}00140\ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00142}\mbox{\hyperlink{class_contex_menu_ab82f544ba71e433c80eb706bd55cbc70}{00142}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_ab82f544ba71e433c80eb706bd55cbc70}{ContexMenu::PferdRot}}()}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00143}00143\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00144}00144\ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00145}00145\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ cur\ =\ \{\mbox{\hyperlink{class_contex_menu_aea31fdc6845386c159e1089aa27337de}{contextMenuX}},\ \mbox{\hyperlink{class_contex_menu_ac86112367ed141f9d61c47852877ba88}{contextMenuY}}\};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00146}00146\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_a825a041785bc655baf932c759e751352}{pieces}}.append(std::make\_pair(cur,\ \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea49e62cc61c0d663f84d12914c65b5894}{completePieceType::HorseRot}}));}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00147}00147\ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00148}00148\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00149}\mbox{\hyperlink{class_contex_menu_a0b0f8102c2230a926635da8edc4ab6ee}{00149}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a0b0f8102c2230a926635da8edc4ab6ee}{ContexMenu::PferdSchwarz}}()}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00150}00150\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00151}00151\ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00152}00152\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ cur\ =\ \{\mbox{\hyperlink{class_contex_menu_aea31fdc6845386c159e1089aa27337de}{contextMenuX}},\ \mbox{\hyperlink{class_contex_menu_ac86112367ed141f9d61c47852877ba88}{contextMenuY}}\};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00153}00153\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_a825a041785bc655baf932c759e751352}{pieces}}.append(std::make\_pair(cur,\ \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002eabd3e260f75148dbb94e30d7728eb533a}{completePieceType::HorseSchwarz}}));}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00154}00154\ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00156}\mbox{\hyperlink{class_contex_menu_a93eedebb28ac5477517d6846caa26852}{00156}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a93eedebb28ac5477517d6846caa26852}{ContexMenu::ElefantRot}}()}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00157}00157\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00158}00158\ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00159}00159\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ cur\ =\ \{\mbox{\hyperlink{class_contex_menu_aea31fdc6845386c159e1089aa27337de}{contextMenuX}},\ \mbox{\hyperlink{class_contex_menu_ac86112367ed141f9d61c47852877ba88}{contextMenuY}}\};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00160}00160\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_a825a041785bc655baf932c759e751352}{pieces}}.append(std::make\_pair(cur,\ \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea1ca200a903de47b8dbe5467170dbea7d}{completePieceType::ElephantRot}}));}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00161}00161\ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00163}\mbox{\hyperlink{class_contex_menu_ad676f37af28103f7c12771fc5ebd7dca}{00163}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_ad676f37af28103f7c12771fc5ebd7dca}{ContexMenu::ElefantSchwarz}}()}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00164}00164\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00165}00165\ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00166}00166\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ cur\ =\ \{\mbox{\hyperlink{class_contex_menu_aea31fdc6845386c159e1089aa27337de}{contextMenuX}},\ \mbox{\hyperlink{class_contex_menu_ac86112367ed141f9d61c47852877ba88}{contextMenuY}}\};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00167}00167\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_a825a041785bc655baf932c759e751352}{pieces}}.append(std::make\_pair(cur,\ \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea60c450de8b42d1df5fc86aa9ad7b28ef}{completePieceType::ElephantSchwarz}}));}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00168}00168\ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00170}\mbox{\hyperlink{class_contex_menu_ac6afddc6601652d81f2e6c42c224f0de}{00170}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_ac6afddc6601652d81f2e6c42c224f0de}{ContexMenu::KanoneRot}}()}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00171}00171\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00172}00172\ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00173}00173\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ cur\ =\ \{\mbox{\hyperlink{class_contex_menu_aea31fdc6845386c159e1089aa27337de}{contextMenuX}},\ \mbox{\hyperlink{class_contex_menu_ac86112367ed141f9d61c47852877ba88}{contextMenuY}}\};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00174}00174\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_a825a041785bc655baf932c759e751352}{pieces}}.append(std::make\_pair(cur,\ \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea65bfa657784b5a2a0f1e2772de55a1ee}{completePieceType::CannonRot}}));}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00175}00175\ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00176}00176\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00177}\mbox{\hyperlink{class_contex_menu_a984637815e833a80d63159c286ca013a}{00177}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a984637815e833a80d63159c286ca013a}{ContexMenu::KanoneSchwarz}}()}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00178}00178\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00179}00179\ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00180}00180\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ cur\ =\ \{\mbox{\hyperlink{class_contex_menu_aea31fdc6845386c159e1089aa27337de}{contextMenuX}},\ \mbox{\hyperlink{class_contex_menu_ac86112367ed141f9d61c47852877ba88}{contextMenuY}}\};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00181}00181\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_a825a041785bc655baf932c759e751352}{pieces}}.append(std::make\_pair(cur,\ \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002eaf8d6efc784cdc2765027e3e9cba1ce94}{completePieceType::CannonSchwarz}}));}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00182}00182\ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00184}\mbox{\hyperlink{class_contex_menu_a8879c98eb8e250f0f83bfa2c8605a55d}{00184}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a8879c98eb8e250f0f83bfa2c8605a55d}{ContexMenu::SoldatRot}}()}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00185}00185\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00186}00186\ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00187}00187\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ cur\ =\ \{\mbox{\hyperlink{class_contex_menu_aea31fdc6845386c159e1089aa27337de}{contextMenuX}},\ \mbox{\hyperlink{class_contex_menu_ac86112367ed141f9d61c47852877ba88}{contextMenuY}}\};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00188}00188\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_a825a041785bc655baf932c759e751352}{pieces}}.append(std::make\_pair(cur,\ \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002eaea59182fb0c2059e57ef8fa78b83d64d}{completePieceType::SoldierRot}}));}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00189}00189\ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00191}\mbox{\hyperlink{class_contex_menu_a86ab1ea5678997e097c55b436e0e3d67}{00191}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a86ab1ea5678997e097c55b436e0e3d67}{ContexMenu::SoldatSchwarz}}()}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00192}00192\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00193}00193\ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00194}00194\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ cur\ =\ \{\mbox{\hyperlink{class_contex_menu_aea31fdc6845386c159e1089aa27337de}{contextMenuX}},\ \mbox{\hyperlink{class_contex_menu_ac86112367ed141f9d61c47852877ba88}{contextMenuY}}\};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00195}00195\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_a825a041785bc655baf932c759e751352}{pieces}}.append(std::make\_pair(cur,\ \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea8bb94b9957588009ef004b0162d56ef7}{completePieceType::SoldierSchwarz}}));}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00196}00196\ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00197}00197\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00198}\mbox{\hyperlink{class_contex_menu_a01c8251d4715143daf09ac44c08d9d42}{00198}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a01c8251d4715143daf09ac44c08d9d42}{ContexMenu::TurmRot}}()}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00199}00199\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00200}00200\ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00201}00201\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ cur\ =\ \{\mbox{\hyperlink{class_contex_menu_aea31fdc6845386c159e1089aa27337de}{contextMenuX}},\ \mbox{\hyperlink{class_contex_menu_ac86112367ed141f9d61c47852877ba88}{contextMenuY}}\};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00202}00202\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_a825a041785bc655baf932c759e751352}{pieces}}.append(std::make\_pair(cur,\ \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea088d15e28472f6d44324d10ca85eb4a2}{completePieceType::ChariotRot}}));}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00203}00203\ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00204}00204\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00205}\mbox{\hyperlink{class_contex_menu_a871164e0bd5e79fdfa4e2937679fa508}{00205}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a871164e0bd5e79fdfa4e2937679fa508}{ContexMenu::TurmSchwarz}}()}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00206}00206\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00207}00207\ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00208}00208\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ cur\ =\ \{\mbox{\hyperlink{class_contex_menu_aea31fdc6845386c159e1089aa27337de}{contextMenuX}},\ \mbox{\hyperlink{class_contex_menu_ac86112367ed141f9d61c47852877ba88}{contextMenuY}}\};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00209}00209\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_a825a041785bc655baf932c759e751352}{pieces}}.append(std::make\_pair(cur,\ \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea4bfad3562b535105c5bc186dce1a6472}{completePieceType::ChariotSchwarz}}));}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00210}00210\ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00211}00211\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00212}\mbox{\hyperlink{class_contex_menu_a09263d94e5b586ea18f92b592fa0c8d3}{00212}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a09263d94e5b586ea18f92b592fa0c8d3}{ContexMenu::clearMarkers}}()}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00213}00213\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00214}00214\ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00215}00215\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_adda23ab340386e5d080eb48b67030835}{markers}}.clear();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00216}00216\ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00217}00217\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00218}\mbox{\hyperlink{class_contex_menu_a43c8668023ae4534319729a128420350}{00218}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a43c8668023ae4534319729a128420350}{ContexMenu::Viereck}}()}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00219}00219\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00220}00220\ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00221}00221\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ cur\ =\ \{\mbox{\hyperlink{class_contex_menu_aea31fdc6845386c159e1089aa27337de}{contextMenuX}},\ \mbox{\hyperlink{class_contex_menu_ac86112367ed141f9d61c47852877ba88}{contextMenuY}}\};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00222}00222\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_adda23ab340386e5d080eb48b67030835}{markers}}.append(std::make\_pair(cur,\ \mbox{\hyperlink{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4aeb8b7b4e0019bc5d0f3acd33df1b0641}{markerType::Viereck}}));}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00223}00223\ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00224}00224\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00225}\mbox{\hyperlink{class_contex_menu_adf1251ae050b4e867640bb5fa15bb704}{00225}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_adf1251ae050b4e867640bb5fa15bb704}{ContexMenu::Dreieck}}()}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00226}00226\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00227}00227\ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00228}00228\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ cur\ =\ \{\mbox{\hyperlink{class_contex_menu_aea31fdc6845386c159e1089aa27337de}{contextMenuX}},\ \mbox{\hyperlink{class_contex_menu_ac86112367ed141f9d61c47852877ba88}{contextMenuY}}\};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00229}00229\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_adda23ab340386e5d080eb48b67030835}{markers}}.append(std::make\_pair(cur,\ \mbox{\hyperlink{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4aa544a1e3619542949545de93d90e4aa4}{markerType::Dreieck}}));}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00230}00230\ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00231}00231\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00232}\mbox{\hyperlink{class_contex_menu_a33b0ba575b29d7ab86867feb34cbcd27}{00232}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a33b0ba575b29d7ab86867feb34cbcd27}{ContexMenu::Kreis}}()}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00233}00233\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00234}00234\ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00235}00235\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ cur\ =\ \{\mbox{\hyperlink{class_contex_menu_aea31fdc6845386c159e1089aa27337de}{contextMenuX}},\ \mbox{\hyperlink{class_contex_menu_ac86112367ed141f9d61c47852877ba88}{contextMenuY}}\};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00236}00236\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_adda23ab340386e5d080eb48b67030835}{markers}}.append(std::make\_pair(cur,\ \mbox{\hyperlink{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4a684fa5bc4389328564394fe081f9288f}{markerType::Kreis}}));}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00237}00237\ \ \ \ \ repaint();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00238}00238\ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00239}00239\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00240}\mbox{\hyperlink{class_contex_menu_ae9d8a054ed69fa55a0aa1565550c8f24}{00240}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_ae9d8a054ed69fa55a0aa1565550c8f24}{ContexMenu::Linie}}()}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00241}00241\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00242}00242\ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00243}00243\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ cur\ =\ \{\mbox{\hyperlink{class_contex_menu_aea31fdc6845386c159e1089aa27337de}{contextMenuX}},\ \mbox{\hyperlink{class_contex_menu_ac86112367ed141f9d61c47852877ba88}{contextMenuY}}\};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00244}00244\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_adda23ab340386e5d080eb48b67030835}{markers}}.append(std::make\_pair(cur,\ \mbox{\hyperlink{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4a8b33328e6e2c9fa5365ce9d0015b3f3d}{markerType::Linie}}));}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00245}00245\ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00246}00246\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00247}\mbox{\hyperlink{class_contex_menu_a8e30d632f0b5904975555253538bcc2a}{00247}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a8e30d632f0b5904975555253538bcc2a}{ContexMenu::Linienende}}()}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00248}00248\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00249}00249\ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00250}00250\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ cur\ =\ \{\mbox{\hyperlink{class_contex_menu_aea31fdc6845386c159e1089aa27337de}{contextMenuX}},\ \mbox{\hyperlink{class_contex_menu_ac86112367ed141f9d61c47852877ba88}{contextMenuY}}\};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00251}00251\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_adda23ab340386e5d080eb48b67030835}{markers}}.append(std::make\_pair(cur,\ \mbox{\hyperlink{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4aaae2e4d690651a13d98495ea30fedf1a}{markerType::Linienende}}));}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00252}00252\ \}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00253}00253\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00254}\mbox{\hyperlink{class_contex_menu_abfc937ca3179098273a5dda11c4f44e2}{00254}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_abfc937ca3179098273a5dda11c4f44e2}{ContexMenu::Kreuz}}()}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00255}00255\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00256}00256\ \ \ \ \textcolor{comment}{//qDebug()\ <<\ \_\_PRETTY\_FUNCTION\_\_;}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00257}00257\ \ \ \ \ \mbox{\hyperlink{struct_point}{Point}}\ cur\ =\ \{\mbox{\hyperlink{class_contex_menu_aea31fdc6845386c159e1089aa27337de}{contextMenuX}},\ \mbox{\hyperlink{class_contex_menu_ac86112367ed141f9d61c47852877ba88}{contextMenuY}}\};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00258}00258\ \ \ \ \ \mbox{\hyperlink{class_contex_menu_adda23ab340386e5d080eb48b67030835}{markers}}.append(std::make\_pair(cur,\ \mbox{\hyperlink{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4ac60bfc7e77949e9a1887a756626fd6fd}{markerType::Kreuz}}));}
+\DoxyCodeLine{\Hypertarget{contexmenu_8cpp_source_l00259}00259\ \}}
+
+\end{DoxyCode}

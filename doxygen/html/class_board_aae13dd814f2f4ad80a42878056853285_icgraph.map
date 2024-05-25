@@ -1,0 +1,16 @@
+<map id="Board::setupInitialPositions" name="Board::setupInitialPositions">
+<area shape="rect" id="Node000001" title=" " alt="" coords="906,56,1085,83"/>
+<area shape="rect" id="Node000002" href="$class_board.html#a9ee491d4fea680cf69b033374a9fdfcb" title=" " alt="" coords="708,5,805,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="914,55,805,32,806,26,915,50"/>
+<area shape="rect" id="Node000003" href="$class_main_window.html#aeb618fd72f5e0cccc8c70d2740bfbcef" title=" " alt="" coords="447,56,607,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="890,72,608,72,608,67,890,67"/>
+<area shape="rect" id="Node000006" href="$class_main_window.html#a6ef4e337876946048c435882a0a1daac" title=" " alt="" coords="655,107,858,133"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="915,89,823,109,822,103,914,84"/>
+<area shape="rect" id="Node000004" href="$class_main_window.html#a99f1c7af9374206fd52fa14a95ff9771" title=" " alt="" coords="231,81,399,108"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="432,83,400,87,399,82,431,78"/>
+<area shape="rect" id="Node000005" href="$class_main_window.html#a996c5a2b6f77944776856f08ec30858d" title=" " alt="" coords="5,81,183,108"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="215,97,183,97,183,92,215,92"/>
+<area shape="rect" id="Node000007" href="$class_main_window.html#a6e5a4e6a7aa3263b6cf734c01ade5e10" title=" " alt="" coords="460,107,594,133"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="640,123,595,123,595,117,640,117"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="444,113,399,107,400,102,445,108"/>
+</map>

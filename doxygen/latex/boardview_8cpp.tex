@@ -1,0 +1,147 @@
+\doxysection{F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/boardview.cpp File Reference}
+\hypertarget{boardview_8cpp}{}\label{boardview_8cpp}\index{F:/source/CLionProjects/ElephantChess/sources/boardview.cpp@{F:/source/CLionProjects/ElephantChess/sources/boardview.cpp}}
+{\ttfamily \#include "{}boardview.\+h"{}}\newline
+{\ttfamily \#include "{}basemodel.\+h"{}}\newline
+{\ttfamily \#include "{}QPicture"{}}\newline
+{\ttfamily \#include "{}uci.\+h"{}}\newline
+{\ttfamily \#include $<$QFont\+Database$>$}\newline
+{\ttfamily \#include $<$QImage\+Reader$>$}\newline
+{\ttfamily \#include $<$QObject$>$}\newline
+{\ttfamily \#include $<$QPainter$>$}\newline
+{\ttfamily \#include $<$QPoint$>$}\newline
+{\ttfamily \#include $<$QRadial\+Gradient$>$}\newline
+{\ttfamily \#include $<$QText\+Item$>$}\newline
+Include dependency graph for boardview.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{boardview_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_base_model}{Base\+Model}} \mbox{\hyperlink{boardview_8cpp_adf4157fe06dcb77da8c055332783d34d}{basemodel}}
+\item 
+constexpr int \mbox{\hyperlink{boardview_8cpp_a9e5486b3554d2fe8733eb5079b07412e}{FONT\+\_\+\+POINT\+\_\+\+SIZE}} = 30
+\item 
+constexpr int \mbox{\hyperlink{boardview_8cpp_a9644a97637a29fd6442b88677962149e}{PEN\+\_\+\+WIDTH}} = 3
+\item 
+constexpr qreal \mbox{\hyperlink{boardview_8cpp_a69370ffb8030eb94ef5c686483be193e}{PIECE\+\_\+\+SCALE\+\_\+\+FACTOR}} = 1.\+3
+\item 
+constexpr float \mbox{\hyperlink{boardview_8cpp_a3bdf4d9295fdfbf3a218bf41e5bed537}{LEFT\+\_\+\+MARGIN}} = 50.\+0f
+\item 
+constexpr float \mbox{\hyperlink{boardview_8cpp_a757611a8d3d999db4c117ec4624c7e0b}{RIGHT\+\_\+\+MARGIN}} = 50.\+0f
+\item 
+constexpr float \mbox{\hyperlink{boardview_8cpp_a17cb6ada130cea1252f71e78fcf7449f}{TOP\+\_\+\+MARGIN}} = 50.\+0f
+\item 
+constexpr float \mbox{\hyperlink{boardview_8cpp_ae396d1540fc1e62769e9c5dbd672af90}{BOTTOM\+\_\+\+MARGIN}} = 100.\+0f
+\item 
+constexpr float \mbox{\hyperlink{boardview_8cpp_aec17512efb8d37d304cf6cda9e117439}{BOARD\+\_\+\+COL\+\_\+\+POINTS}} = \mbox{\hyperlink{struct_base_model_aa908bbe5af10d2cf828aac542a53d926}{Base\+Model\+::\+Board\+Col\+Points}}
+\item 
+constexpr float \mbox{\hyperlink{boardview_8cpp_a369d70a2cf46f8d1db58ee5437061a2e}{BOARD\+\_\+\+ROW\+\_\+\+POINTS}} = \mbox{\hyperlink{struct_base_model_a7695a763dac390905fb35b9392b93360}{Base\+Model\+::\+Board\+Row\+Points}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{boardview_8cpp_adf4157fe06dcb77da8c055332783d34d}\index{boardview.cpp@{boardview.cpp}!basemodel@{basemodel}}
+\index{basemodel@{basemodel}!boardview.cpp@{boardview.cpp}}
+\doxysubsubsection{\texorpdfstring{basemodel}{basemodel}}
+{\footnotesize\ttfamily \label{boardview_8cpp_adf4157fe06dcb77da8c055332783d34d} 
+\mbox{\hyperlink{struct_base_model}{Base\+Model}} basemodel\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{basemodel_8cpp_source_l00021}{21}} of file \mbox{\hyperlink{basemodel_8cpp_source}{basemodel.\+cpp}}.
+
+\Hypertarget{boardview_8cpp_aec17512efb8d37d304cf6cda9e117439}\index{boardview.cpp@{boardview.cpp}!BOARD\_COL\_POINTS@{BOARD\_COL\_POINTS}}
+\index{BOARD\_COL\_POINTS@{BOARD\_COL\_POINTS}!boardview.cpp@{boardview.cpp}}
+\doxysubsubsection{\texorpdfstring{BOARD\_COL\_POINTS}{BOARD\_COL\_POINTS}}
+{\footnotesize\ttfamily \label{boardview_8cpp_aec17512efb8d37d304cf6cda9e117439} 
+float BOARD\+\_\+\+COL\+\_\+\+POINTS = \mbox{\hyperlink{struct_base_model_aa908bbe5af10d2cf828aac542a53d926}{Base\+Model\+::\+Board\+Col\+Points}}\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{boardview_8cpp_source_l00505}{505}} of file \mbox{\hyperlink{boardview_8cpp_source}{boardview.\+cpp}}.
+
+\Hypertarget{boardview_8cpp_a369d70a2cf46f8d1db58ee5437061a2e}\index{boardview.cpp@{boardview.cpp}!BOARD\_ROW\_POINTS@{BOARD\_ROW\_POINTS}}
+\index{BOARD\_ROW\_POINTS@{BOARD\_ROW\_POINTS}!boardview.cpp@{boardview.cpp}}
+\doxysubsubsection{\texorpdfstring{BOARD\_ROW\_POINTS}{BOARD\_ROW\_POINTS}}
+{\footnotesize\ttfamily \label{boardview_8cpp_a369d70a2cf46f8d1db58ee5437061a2e} 
+float BOARD\+\_\+\+ROW\+\_\+\+POINTS = \mbox{\hyperlink{struct_base_model_a7695a763dac390905fb35b9392b93360}{Base\+Model\+::\+Board\+Row\+Points}}\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{boardview_8cpp_source_l00506}{506}} of file \mbox{\hyperlink{boardview_8cpp_source}{boardview.\+cpp}}.
+
+\Hypertarget{boardview_8cpp_ae396d1540fc1e62769e9c5dbd672af90}\index{boardview.cpp@{boardview.cpp}!BOTTOM\_MARGIN@{BOTTOM\_MARGIN}}
+\index{BOTTOM\_MARGIN@{BOTTOM\_MARGIN}!boardview.cpp@{boardview.cpp}}
+\doxysubsubsection{\texorpdfstring{BOTTOM\_MARGIN}{BOTTOM\_MARGIN}}
+{\footnotesize\ttfamily \label{boardview_8cpp_ae396d1540fc1e62769e9c5dbd672af90} 
+float BOTTOM\+\_\+\+MARGIN = 100.\+0f\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{boardview_8cpp_source_l00504}{504}} of file \mbox{\hyperlink{boardview_8cpp_source}{boardview.\+cpp}}.
+
+\Hypertarget{boardview_8cpp_a9e5486b3554d2fe8733eb5079b07412e}\index{boardview.cpp@{boardview.cpp}!FONT\_POINT\_SIZE@{FONT\_POINT\_SIZE}}
+\index{FONT\_POINT\_SIZE@{FONT\_POINT\_SIZE}!boardview.cpp@{boardview.cpp}}
+\doxysubsubsection{\texorpdfstring{FONT\_POINT\_SIZE}{FONT\_POINT\_SIZE}}
+{\footnotesize\ttfamily \label{boardview_8cpp_a9e5486b3554d2fe8733eb5079b07412e} 
+int FONT\+\_\+\+POINT\+\_\+\+SIZE = 30\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{boardview_8cpp_source_l00033}{33}} of file \mbox{\hyperlink{boardview_8cpp_source}{boardview.\+cpp}}.
+
+\Hypertarget{boardview_8cpp_a3bdf4d9295fdfbf3a218bf41e5bed537}\index{boardview.cpp@{boardview.cpp}!LEFT\_MARGIN@{LEFT\_MARGIN}}
+\index{LEFT\_MARGIN@{LEFT\_MARGIN}!boardview.cpp@{boardview.cpp}}
+\doxysubsubsection{\texorpdfstring{LEFT\_MARGIN}{LEFT\_MARGIN}}
+{\footnotesize\ttfamily \label{boardview_8cpp_a3bdf4d9295fdfbf3a218bf41e5bed537} 
+float LEFT\+\_\+\+MARGIN = 50.\+0f\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{boardview_8cpp_source_l00501}{501}} of file \mbox{\hyperlink{boardview_8cpp_source}{boardview.\+cpp}}.
+
+\Hypertarget{boardview_8cpp_a9644a97637a29fd6442b88677962149e}\index{boardview.cpp@{boardview.cpp}!PEN\_WIDTH@{PEN\_WIDTH}}
+\index{PEN\_WIDTH@{PEN\_WIDTH}!boardview.cpp@{boardview.cpp}}
+\doxysubsubsection{\texorpdfstring{PEN\_WIDTH}{PEN\_WIDTH}}
+{\footnotesize\ttfamily \label{boardview_8cpp_a9644a97637a29fd6442b88677962149e} 
+int PEN\+\_\+\+WIDTH = 3\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{boardview_8cpp_source_l00034}{34}} of file \mbox{\hyperlink{boardview_8cpp_source}{boardview.\+cpp}}.
+
+\Hypertarget{boardview_8cpp_a69370ffb8030eb94ef5c686483be193e}\index{boardview.cpp@{boardview.cpp}!PIECE\_SCALE\_FACTOR@{PIECE\_SCALE\_FACTOR}}
+\index{PIECE\_SCALE\_FACTOR@{PIECE\_SCALE\_FACTOR}!boardview.cpp@{boardview.cpp}}
+\doxysubsubsection{\texorpdfstring{PIECE\_SCALE\_FACTOR}{PIECE\_SCALE\_FACTOR}}
+{\footnotesize\ttfamily \label{boardview_8cpp_a69370ffb8030eb94ef5c686483be193e} 
+qreal PIECE\+\_\+\+SCALE\+\_\+\+FACTOR = 1.\+3\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{boardview_8cpp_source_l00035}{35}} of file \mbox{\hyperlink{boardview_8cpp_source}{boardview.\+cpp}}.
+
+\Hypertarget{boardview_8cpp_a757611a8d3d999db4c117ec4624c7e0b}\index{boardview.cpp@{boardview.cpp}!RIGHT\_MARGIN@{RIGHT\_MARGIN}}
+\index{RIGHT\_MARGIN@{RIGHT\_MARGIN}!boardview.cpp@{boardview.cpp}}
+\doxysubsubsection{\texorpdfstring{RIGHT\_MARGIN}{RIGHT\_MARGIN}}
+{\footnotesize\ttfamily \label{boardview_8cpp_a757611a8d3d999db4c117ec4624c7e0b} 
+float RIGHT\+\_\+\+MARGIN = 50.\+0f\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{boardview_8cpp_source_l00502}{502}} of file \mbox{\hyperlink{boardview_8cpp_source}{boardview.\+cpp}}.
+
+\Hypertarget{boardview_8cpp_a17cb6ada130cea1252f71e78fcf7449f}\index{boardview.cpp@{boardview.cpp}!TOP\_MARGIN@{TOP\_MARGIN}}
+\index{TOP\_MARGIN@{TOP\_MARGIN}!boardview.cpp@{boardview.cpp}}
+\doxysubsubsection{\texorpdfstring{TOP\_MARGIN}{TOP\_MARGIN}}
+{\footnotesize\ttfamily \label{boardview_8cpp_a17cb6ada130cea1252f71e78fcf7449f} 
+float TOP\+\_\+\+MARGIN = 50.\+0f\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{boardview_8cpp_source_l00503}{503}} of file \mbox{\hyperlink{boardview_8cpp_source}{boardview.\+cpp}}.
+

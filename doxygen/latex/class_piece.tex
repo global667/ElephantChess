@@ -1,0 +1,240 @@
+\doxysection{Piece Class Reference}
+\hypertarget{class_piece}{}\label{class_piece}\index{Piece@{Piece}}
+
+
+{\ttfamily \#include $<$cchess\+\_\+rules.\+h$>$}
+
+
+
+Inheritance diagram for Piece\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_piece__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_piece_a1cdab808545f4b11699aa9138f5a017d}{Piece}} (\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}} \mbox{\hyperlink{class_piece_a4cf5b29a9e13dcb93b616b11160c2abc}{color}}, QString \mbox{\hyperlink{class_piece_ab25d40b629e95dd220682c4f0f830eec}{name}})
+\item 
+virtual \mbox{\hyperlink{class_piece_a5d7a4f6bade94cb33b6f634de8aa7918}{\texorpdfstring{$\sim$}{\string~}\+Piece}} ()
+\item 
+virtual bool \mbox{\hyperlink{class_piece_a43c8999c0f9e4b33ee29da5ad6e18111}{is\+Valid\+Move}} (const \mbox{\hyperlink{struct_point}{Point}} \&from, const \mbox{\hyperlink{struct_point}{Point}} \&to, const std\+::vector$<$ std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ $>$ $>$ \&board)
+\item 
+virtual std\+::vector$<$ std\+::pair$<$ \mbox{\hyperlink{struct_point}{Point}}, \mbox{\hyperlink{struct_point}{Point}} $>$ $>$ \mbox{\hyperlink{class_piece_a9a964fa6a4ef3b9c878050b900d635b6}{generate\+Valid\+Moves}} (const \mbox{\hyperlink{struct_point}{Point}} \&position, const std\+::vector$<$ std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ $>$ $>$ \&board)
+\item 
+\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}} \mbox{\hyperlink{class_piece_a1168e7fd93f689a30e29f2fb169c6db9}{get\+Color}} () const
+\item 
+QString \mbox{\hyperlink{class_piece_ac91487b9ed6ac4f3bdeed681f3ffbaaa}{get\+Name}} () const
+\item 
+QString \mbox{\hyperlink{class_piece_a78086a44a114b0f53d5b4b1099f9b030}{get\+Euro\+Name}} () const
+\item 
+QString \mbox{\hyperlink{class_piece_aa800a15554d6123fe2b30593280d39b0}{get\+Euro\+Name\+Desc}} () const
+\item 
+int \mbox{\hyperlink{class_piece_ad67133f2d7563df69a0912c47ae0cc6f}{get\+Id}} () const
+\item 
+auto \mbox{\hyperlink{class_piece_a2fac2b5f2cba79d7981ceb0a7aae9e77}{operator=}} (const \mbox{\hyperlink{class_piece}{Piece}} \&other) -\/$>$ \mbox{\hyperlink{class_piece}{Piece}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}} \mbox{\hyperlink{class_piece_a4cf5b29a9e13dcb93b616b11160c2abc}{color}}
+\item 
+QString \mbox{\hyperlink{class_piece_ab25d40b629e95dd220682c4f0f830eec}{name}}
+\item 
+QString \mbox{\hyperlink{class_piece_a40c7407b132a07c5639792fd95cd42a4}{euro\+Name}}
+\item 
+QString \mbox{\hyperlink{class_piece_a4fe5fd826f5bdd32852a06642d63da32}{euro\+Name\+Desc}}
+\item 
+int \mbox{\hyperlink{class_piece_ac40cffee50da10a50361ff4791fdd528}{id}} \{\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8h_source_l00063}{63}} of file \mbox{\hyperlink{cchess__rules_8h_source}{cchess\+\_\+rules.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_piece_a1cdab808545f4b11699aa9138f5a017d}\index{Piece@{Piece}!Piece@{Piece}}
+\index{Piece@{Piece}!Piece@{Piece}}
+\doxysubsubsection{\texorpdfstring{Piece()}{Piece()}}
+{\footnotesize\ttfamily \label{class_piece_a1cdab808545f4b11699aa9138f5a017d} 
+Piece\+::\+Piece (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}}}]{color}{, }\item[{QString}]{name}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8cpp_source_l00007}{7}} of file \mbox{\hyperlink{cchess__rules_8cpp_source}{cchess\+\_\+rules.\+cpp}}.
+
+\Hypertarget{class_piece_a5d7a4f6bade94cb33b6f634de8aa7918}\index{Piece@{Piece}!````~Piece@{\texorpdfstring{$\sim$}{\string~}Piece}}
+\index{````~Piece@{\texorpdfstring{$\sim$}{\string~}Piece}!Piece@{Piece}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Piece()}{\string~Piece()}}
+{\footnotesize\ttfamily \label{class_piece_a5d7a4f6bade94cb33b6f634de8aa7918} 
+Piece\+::\texorpdfstring{$\sim$}{\string~}\+Piece (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8cpp_source_l00009}{9}} of file \mbox{\hyperlink{cchess__rules_8cpp_source}{cchess\+\_\+rules.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_piece_a9a964fa6a4ef3b9c878050b900d635b6}\index{Piece@{Piece}!generateValidMoves@{generateValidMoves}}
+\index{generateValidMoves@{generateValidMoves}!Piece@{Piece}}
+\doxysubsubsection{\texorpdfstring{generateValidMoves()}{generateValidMoves()}}
+{\footnotesize\ttfamily \label{class_piece_a9a964fa6a4ef3b9c878050b900d635b6} 
+auto Piece\+::generate\+Valid\+Moves (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_point}{Point}} \&}]{position}{, }\item[{const std\+::vector$<$ std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ $>$ $>$ \&}]{board}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{class_chariot_a8ec41d12a3d27e54aa733a5c1a8f8777}{Chariot}}, and \mbox{\hyperlink{class_soldier_a45a7556d66de19c415ec9de58f2bdc8d}{Soldier}}.
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8cpp_source_l00013}{13}} of file \mbox{\hyperlink{cchess__rules_8cpp_source}{cchess\+\_\+rules.\+cpp}}.
+
+\Hypertarget{class_piece_a1168e7fd93f689a30e29f2fb169c6db9}\index{Piece@{Piece}!getColor@{getColor}}
+\index{getColor@{getColor}!Piece@{Piece}}
+\doxysubsubsection{\texorpdfstring{getColor()}{getColor()}}
+{\footnotesize\ttfamily \label{class_piece_a1168e7fd93f689a30e29f2fb169c6db9} 
+\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}} Piece\+::get\+Color (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [nodiscard]}}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8cpp_source_l00030}{30}} of file \mbox{\hyperlink{cchess__rules_8cpp_source}{cchess\+\_\+rules.\+cpp}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{class_piece_a1168e7fd93f689a30e29f2fb169c6db9_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_piece_a78086a44a114b0f53d5b4b1099f9b030}\index{Piece@{Piece}!getEuroName@{getEuroName}}
+\index{getEuroName@{getEuroName}!Piece@{Piece}}
+\doxysubsubsection{\texorpdfstring{getEuroName()}{getEuroName()}}
+{\footnotesize\ttfamily \label{class_piece_a78086a44a114b0f53d5b4b1099f9b030} 
+QString Piece\+::get\+Euro\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [nodiscard]}}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8cpp_source_l00034}{34}} of file \mbox{\hyperlink{cchess__rules_8cpp_source}{cchess\+\_\+rules.\+cpp}}.
+
+\Hypertarget{class_piece_aa800a15554d6123fe2b30593280d39b0}\index{Piece@{Piece}!getEuroNameDesc@{getEuroNameDesc}}
+\index{getEuroNameDesc@{getEuroNameDesc}!Piece@{Piece}}
+\doxysubsubsection{\texorpdfstring{getEuroNameDesc()}{getEuroNameDesc()}}
+{\footnotesize\ttfamily \label{class_piece_aa800a15554d6123fe2b30593280d39b0} 
+QString Piece\+::get\+Euro\+Name\+Desc (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [nodiscard]}}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8cpp_source_l00036}{36}} of file \mbox{\hyperlink{cchess__rules_8cpp_source}{cchess\+\_\+rules.\+cpp}}.
+
+\Hypertarget{class_piece_ad67133f2d7563df69a0912c47ae0cc6f}\index{Piece@{Piece}!getId@{getId}}
+\index{getId@{getId}!Piece@{Piece}}
+\doxysubsubsection{\texorpdfstring{getId()}{getId()}}
+{\footnotesize\ttfamily \label{class_piece_ad67133f2d7563df69a0912c47ae0cc6f} 
+int Piece\+::get\+Id (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [nodiscard]}}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8cpp_source_l00038}{38}} of file \mbox{\hyperlink{cchess__rules_8cpp_source}{cchess\+\_\+rules.\+cpp}}.
+
+\Hypertarget{class_piece_ac91487b9ed6ac4f3bdeed681f3ffbaaa}\index{Piece@{Piece}!getName@{getName}}
+\index{getName@{getName}!Piece@{Piece}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily \label{class_piece_ac91487b9ed6ac4f3bdeed681f3ffbaaa} 
+QString Piece\+::get\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [nodiscard]}}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8cpp_source_l00032}{32}} of file \mbox{\hyperlink{cchess__rules_8cpp_source}{cchess\+\_\+rules.\+cpp}}.
+
+\Hypertarget{class_piece_a43c8999c0f9e4b33ee29da5ad6e18111}\index{Piece@{Piece}!isValidMove@{isValidMove}}
+\index{isValidMove@{isValidMove}!Piece@{Piece}}
+\doxysubsubsection{\texorpdfstring{isValidMove()}{isValidMove()}}
+{\footnotesize\ttfamily \label{class_piece_a43c8999c0f9e4b33ee29da5ad6e18111} 
+bool Piece\+::is\+Valid\+Move (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_point}{Point}} \&}]{from}{, }\item[{const \mbox{\hyperlink{struct_point}{Point}} \&}]{to}{, }\item[{const std\+::vector$<$ std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ $>$ $>$ \&}]{board}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{class_advisor_afb1a2a73278a6b61fe2a376c4ee4b4f8}{Advisor}}, \mbox{\hyperlink{class_cannon_af0f0a0af8401d3c4ce7dc28a6fada4f8}{Cannon}}, \mbox{\hyperlink{class_chariot_acf380de40c269c66218c1c09ec17d4fd}{Chariot}}, \mbox{\hyperlink{class_elephant_ac534eb93829032e5dbfda0ab2db348e3}{Elephant}}, \mbox{\hyperlink{class_general_a0c78c4faa694a996d1c9fce7dbddb49b}{General}}, \mbox{\hyperlink{class_horse_a927b7e67b1b779727253cc40727245b7}{Horse}}, and \mbox{\hyperlink{class_soldier_afa197d674eaf1f3c6d68703fb709832f}{Soldier}}.
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8cpp_source_l00011}{11}} of file \mbox{\hyperlink{cchess__rules_8cpp_source}{cchess\+\_\+rules.\+cpp}}.
+
+\Hypertarget{class_piece_a2fac2b5f2cba79d7981ceb0a7aae9e77}\index{Piece@{Piece}!operator=@{operator=}}
+\index{operator=@{operator=}!Piece@{Piece}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \label{class_piece_a2fac2b5f2cba79d7981ceb0a7aae9e77} 
+\mbox{\hyperlink{class_piece}{Piece}} Piece\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_piece}{Piece}} \&}]{other}{}\end{DoxyParamCaption}) -\/$>$ \mbox{\hyperlink{class_piece}{Piece}}}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8cpp_source_l00040}{40}} of file \mbox{\hyperlink{cchess__rules_8cpp_source}{cchess\+\_\+rules.\+cpp}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_piece_a4cf5b29a9e13dcb93b616b11160c2abc}\index{Piece@{Piece}!color@{color}}
+\index{color@{color}!Piece@{Piece}}
+\doxysubsubsection{\texorpdfstring{color}{color}}
+{\footnotesize\ttfamily \label{class_piece_a4cf5b29a9e13dcb93b616b11160c2abc} 
+\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}} Piece\+::color}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8h_source_l00065}{65}} of file \mbox{\hyperlink{cchess__rules_8h_source}{cchess\+\_\+rules.\+h}}.
+
+\Hypertarget{class_piece_a40c7407b132a07c5639792fd95cd42a4}\index{Piece@{Piece}!euroName@{euroName}}
+\index{euroName@{euroName}!Piece@{Piece}}
+\doxysubsubsection{\texorpdfstring{euroName}{euroName}}
+{\footnotesize\ttfamily \label{class_piece_a40c7407b132a07c5639792fd95cd42a4} 
+QString Piece\+::euro\+Name}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8h_source_l00067}{67}} of file \mbox{\hyperlink{cchess__rules_8h_source}{cchess\+\_\+rules.\+h}}.
+
+\Hypertarget{class_piece_a4fe5fd826f5bdd32852a06642d63da32}\index{Piece@{Piece}!euroNameDesc@{euroNameDesc}}
+\index{euroNameDesc@{euroNameDesc}!Piece@{Piece}}
+\doxysubsubsection{\texorpdfstring{euroNameDesc}{euroNameDesc}}
+{\footnotesize\ttfamily \label{class_piece_a4fe5fd826f5bdd32852a06642d63da32} 
+QString Piece\+::euro\+Name\+Desc}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8h_source_l00068}{68}} of file \mbox{\hyperlink{cchess__rules_8h_source}{cchess\+\_\+rules.\+h}}.
+
+\Hypertarget{class_piece_ac40cffee50da10a50361ff4791fdd528}\index{Piece@{Piece}!id@{id}}
+\index{id@{id}!Piece@{Piece}}
+\doxysubsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily \label{class_piece_ac40cffee50da10a50361ff4791fdd528} 
+int Piece\+::id \{\}}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8h_source_l00069}{69}} of file \mbox{\hyperlink{cchess__rules_8h_source}{cchess\+\_\+rules.\+h}}.
+
+\Hypertarget{class_piece_ab25d40b629e95dd220682c4f0f830eec}\index{Piece@{Piece}!name@{name}}
+\index{name@{name}!Piece@{Piece}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily \label{class_piece_ab25d40b629e95dd220682c4f0f830eec} 
+QString Piece\+::name}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8h_source_l00066}{66}} of file \mbox{\hyperlink{cchess__rules_8h_source}{cchess\+\_\+rules.\+h}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/\mbox{\hyperlink{cchess__rules_8h}{cchess\+\_\+rules.\+h}}\item 
+F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/\mbox{\hyperlink{cchess__rules_8cpp}{cchess\+\_\+rules.\+cpp}}\end{DoxyCompactItemize}

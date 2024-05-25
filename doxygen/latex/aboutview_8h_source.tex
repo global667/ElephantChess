@@ -1,0 +1,109 @@
+\doxysection{F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/aboutview.h}
+\hypertarget{aboutview_8h_source}{}\label{aboutview_8h_source}\mbox{\hyperlink{aboutview_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ ABOUTVIEW\_H}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ ABOUTVIEW\_H}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <QDir>}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <QFile>}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <QMessageBox>}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <QNetworkAccessManager>}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <QNetworkReply>}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <QProcess>}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <QTabWidget>}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <QWidget>}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <QProgressDialog>}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <QtZlib/zlib.h>}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00016}\mbox{\hyperlink{class_about_view}{00016}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_about_view}{AboutView}}\ final\ :\ \textcolor{keyword}{public}\ QTabWidget}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00017}00017\ \{}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00018}00018\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00019}00019\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00020}00020\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_about_view_aadfa627522334a8036c0426e06bca939}{AboutView}}(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00022}00022\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00023}00023\ \ \ \ \ \textcolor{comment}{//QTabWidget\ *tabview;}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00024}00024\ \ \ \ \ QWidget\ *tabwidget1;}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00025}00025\ \ \ \ \ QWidget\ *tabwidget2;}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00026}00026\ \ \ \ \ QWidget\ *tabwidget3;}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00028}00028\ signals:}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00029}00029\ \};}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00031}\mbox{\hyperlink{class_download_view}{00031}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_download_view}{DownloadView}}\ final\ :\ \textcolor{keyword}{public}\ QWidget\ \{}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00032}00032\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00033}00033\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00034}\mbox{\hyperlink{class_download_view_a16aecfa15bf9ddaef5e7a4dade2d2629}{00034}}\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_download_view_a16aecfa15bf9ddaef5e7a4dade2d2629}{DownloadView}}(\ QWidget\ *parent\ =\ \textcolor{keyword}{nullptr},\ QUrl\ link\ =\ QUrl(\textcolor{stringliteral}{"{}https://www.elephant-\/chess.com/wp-\/content/uploads/2024/04/pikafish.zip"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00035}00035\ \ \ \ \ \ \ \ \ this-\/>parent\ =\ parent;}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00036}00036\ \ \ \ \ \ \ \ \ progressbar\ =\ \textcolor{keyword}{new}\ QProgressDialog(\textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00037}00037\ \ \ \ \ \ \ \ \ progressbar-\/>show();}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00038}00038\ \ \ \ \ \ \ \ \ url\ =\ \textcolor{keyword}{new}\ QUrl(std::move(link));}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00039}00039\ \ \ \ \ \ \ \ \ request\ =\ \textcolor{keyword}{new}\ QNetworkRequest(*url);}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00040}00040\ \ \ \ \ \ \ \ \ manager\ =\ \textcolor{keyword}{new}\ QNetworkAccessManager();}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00041}00041\ \ \ \ \ \ \ \ \ reply\ =\ manager-\/>get(*request);}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00042}00042\ \ \ \ \ \ \ \ \ QObject::connect(reply,\ SIGNAL(finished()),\ \textcolor{keyword}{this},SLOT(downloadFinished()));}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00043}00043\ \ \ \ \ \ \ \ \ QObject::connect(reply,\ SIGNAL(downloadProgress(qint64,qint64)),\ \textcolor{keyword}{this},\ SLOT(downloadProgress(qint64,qint64)));}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00044}00044\ \ \ \ \ \ \ \ \ QObject::connect(\textcolor{keyword}{this},\ SIGNAL(\mbox{\hyperlink{class_download_view_a311221290af304c7c722921f7991e611}{downloaded}}(QString)),\ parent,\ SLOT(onDownloaded(QString)));}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00045}00045\ \ \ \ \ \ \ \ \ progressbar-\/>setWindowTitle(\textcolor{stringliteral}{"{}Downloading\ Pikafish"{}});}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00046}00046\ \ \ \ \ \ \ \ \ progressbar-\/>setLabelText(\textcolor{stringliteral}{"{}Downloading\ Pikafish"{}});}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00047}00047\ \ \ \ \ \ \ \ \ progressbar-\/>setMinimum(0);}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00048}00048\ \ \ \ \ \ \ \ \ progressbar-\/>setValue(0);}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00049}00049\ \ \ \ \ \ \ \ \ progressbar-\/>setWindowModality(Qt::WindowModal);}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00050}00050\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00052}00052\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00053}00053\ \ \ \ \ QNetworkRequest\ *request;}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00054}00054\ \ \ \ \ QNetworkAccessManager\ *manager;}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00055}00055\ \ \ \ \ QUrl\ *\ url;}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00056}00056\ \ \ \ \ QNetworkReply\ *reply;}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00057}00057\ \ \ \ \ QObject\ *parent;}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00058}00058\ \ \ \ \ QProgressDialog\ *\ progressbar;}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00060}00060\ signals:}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00061}\mbox{\hyperlink{class_download_view_a311221290af304c7c722921f7991e611}{00061}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_download_view_a311221290af304c7c722921f7991e611}{downloaded}}(QString\ filename)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00063}00063\ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ downloadFinished()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (reply-\/>error())\ \{}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Error:\ "{}}\ <<\ reply-\/>errorString();}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ QDir\ dir;}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00069}00069\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ (!dir.exists("{}engines"{}))\ \{}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00070}00070\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dir.mkdir("{}engines"{});}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00071}00071\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00072}00072\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//QFile\ file("{}engines/pikafish.zip"{});}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QFile\ file(QDir::currentPath()\ +\ \textcolor{stringliteral}{"{}./pikafish.zip"{}});}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ qDebug()\ <<\ QDir::currentPath();}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (file.open(QFile::WriteOnly))\ \{}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file.write(reply-\/>readAll());}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file.close();}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}File\ downloaded"{}};}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Error:\ Unable\ to\ open\ file\ for\ writing"{}};}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ reply-\/>deleteLater();}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00085}00085\ \ \ \ \ QProcess\ process;}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00086}00086\ \ \ \ \ process.setWorkingDirectory(QDir::currentPath());}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00087}00087\ \ \ \ \ \textcolor{comment}{//process.setArguments(\{"{}tar"{},"{}-\/x"{},\ "{}pikafish.zip"{}\});}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00088}00088\ \ \ \ \ process.start(\textcolor{stringliteral}{"{}cmd.exe\ start\ /c\ tar\ -\/x\ pikafish.zip"{}});}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00089}00089\ \ \ \ \ process.waitForFinished(-\/1);}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00090}00090\ \ \ \ \ \textcolor{comment}{//QFile::remove("{}pikafish.zip"{});}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ emit\ \mbox{\hyperlink{class_download_view_a311221290af304c7c722921f7991e611}{downloaded}}(\textcolor{stringliteral}{"{}pikafish.exe"{}});}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00093}00093\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00095}00095\ \ \ \ \ \textcolor{keywordtype}{void}\ downloadProgress(\textcolor{keyword}{const}\ qint64\ bytesReceived,\ \textcolor{keyword}{const}\ qint64\ bytesTotal)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Downloaded\ "{}}\ <<\ bytesReceived\ <<\ \textcolor{stringliteral}{"{}\ of\ "{}}\ <<\ bytesTotal\ <<\ \textcolor{stringliteral}{"{}\ bytes"{}};}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ progressbar-\/>setMaximum(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(bytesTotal));}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ progressbar-\/>setValue(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(bytesReceived));}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00099}00099\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00100}00100\ \};}
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{aboutview_8h_source_l00104}00104\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ABOUTVIEW\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,91 @@
+\doxysection{F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/boardview.h}
+\hypertarget{boardview_8h_source}{}\label{boardview_8h_source}\mbox{\hyperlink{boardview_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00002}00002\ \textcolor{comment}{\ \ ElephantChess,\ a\ UCI\ chinese\ chess\ playing\ GUI\ with\ builtin\ engine}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00003}00003\ \textcolor{comment}{\ \ Copyright\ (C)\ 2022-\/2023\ Wolf\ S.\ Kappesser}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00004}00004\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00005}00005\ \textcolor{comment}{\ \ ElephantChess\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00006}00006\ \textcolor{comment}{\ \ it\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00007}00007\ \textcolor{comment}{\ \ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00008}00008\ \textcolor{comment}{\ \ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00009}00009\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00010}00010\ \textcolor{comment}{\ \ ElephantChess\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00011}00011\ \textcolor{comment}{\ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00012}00012\ \textcolor{comment}{\ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00013}00013\ \textcolor{comment}{\ \ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00014}00014\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00015}00015\ \textcolor{comment}{\ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00016}00016\ \textcolor{comment}{\ \ along\ with\ this\ program.\ \ If\ not,\ see\ <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00017}00017\ \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00019}00019\ \textcolor{preprocessor}{\#ifndef\ BOARDVIEW\_H}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00020}00020\ \textcolor{preprocessor}{\#define\ BOARDVIEW\_H}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00022}00022\ \textcolor{preprocessor}{\#include\ <QMenu>}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00023}00023\ \textcolor{preprocessor}{\#include\ <QMouseEvent>}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00024}00024\ \textcolor{preprocessor}{\#include\ <QPainter>}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00025}00025\ \textcolor{preprocessor}{\#include\ <QWidget>}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00026}00026\ \textcolor{preprocessor}{\#include\ <QToolTip>}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00028}00028\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{contexmenu_8h}{contexmenu.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00030}00030\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{basemodel_8h}{basemodel.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00032}00032\ \textcolor{comment}{//\ This\ class\ is\ the\ 2D-\/view\ of\ the\ board.\ It\ is\ a\ QWidget\ and\ draws\ the\ board\ and\ the\ pieces.}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00033}00033\ \textcolor{comment}{//\ Handles\ the\ mouse\ input\ and\ the\ context\ menu.}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00034}\mbox{\hyperlink{class_board_view}{00034}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_board_view}{BoardView}}\ final\ :\ \textcolor{keyword}{public}\ QWidget\ \{}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00035}00035\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00037}00037\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00038}00038\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_board_view_a53b7557bdb4455479979db1588e178d9}{BoardView}}(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00040}00040\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00041}00041\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_board_view_a68d3050df0494ca43827f0dccb390045}{PrepareEuroPiece}}(QPicture\ *\ picture,\ \textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ i1,\ \textcolor{keywordtype}{int}\ height,\ \textcolor{keywordtype}{int}\ width);}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00043}00043\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_board_view_a6ea62d61f2e3f9b6ecb772b89e60a0a2}{paintEvent}}(QPaintEvent\ *\mbox{\hyperlink{class_board_view_a17b55a5a70add565f7d32d41fa042438}{event}})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00045}00045\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_board_view_aea3b7f52ba2c5958f3a36e09191642fd}{mousePressEvent}}(QMouseEvent\ *\mbox{\hyperlink{class_board_view_a17b55a5a70add565f7d32d41fa042438}{event}})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00047}00047\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_board_view_a1dd1800ab06833d5b9433c20aca6d6f4}{contextMenuEvent}}(QContextMenuEvent\ *\mbox{\hyperlink{class_board_view_a17b55a5a70add565f7d32d41fa042438}{event}})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00049}00049\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_board_view_a17b55a5a70add565f7d32d41fa042438}{event}}(QEvent\ *\mbox{\hyperlink{class_board_view_a17b55a5a70add565f7d32d41fa042438}{event}})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00051}00051\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00052}00052\ \ \ \ \ \textcolor{keywordtype}{void}\ PaintBoard(QPainter\ *p)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00054}00054\ \ \ \ \ \textcolor{keywordtype}{void}\ PaintMarker(QPainter\ *p)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00056}00056\ \ \ \ \ \textcolor{keywordtype}{void}\ PrepareNativePiece(QPicture\ *p,\ \textcolor{keywordtype}{int}\ row,\ \textcolor{keywordtype}{int}\ col,\ \textcolor{keywordtype}{int}\ h,\ \textcolor{keywordtype}{int}\ w)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00058}00058\ \ \ \ \ \textcolor{keywordtype}{void}\ PaintSelectedPieces(QPainter\ *p)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00060}00060\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawEngineMoves(QPainter\ *painter)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00062}00062\ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{struct_point}{Point}}\ CalcBoardCoords(\mbox{\hyperlink{struct_point}{Point}}\ r)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00064}00064\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SetEditorPieces();}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00066}00066\ \ \ \ \ \textcolor{comment}{//\ controls\ the\ mouse\ input}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00067}00067\ \ \ \ \ \textcolor{keywordtype}{bool}\ pressed\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00068}00068\ \ \ \ \ \textcolor{keywordtype}{bool}\ secondclick\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00069}00069\ \ \ \ \ \textcolor{keywordtype}{bool}\ smoothChange\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00070}00070\ \ \ \ \ \textcolor{comment}{//\ Cutting\ points\ of\ the\ board}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00071}00071\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ cutpWidth\ =\ \mbox{\hyperlink{struct_base_model_aa908bbe5af10d2cf828aac542a53d926}{BaseModel::BoardColPoints}};\ \textcolor{comment}{//8;}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00072}00072\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ cutpHeight\ =\ \mbox{\hyperlink{struct_base_model_a7695a763dac390905fb35b9392b93360}{BaseModel::BoardRowPoints}};\ \textcolor{comment}{//9;}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00073}00073\ \ \ \ \ \textcolor{comment}{//Es\ befindet\ sich\ auf\ der\ Seite\ des\ Brettes,\ die\ dem\ Spieler\ mit\ den\ roten\ Figuren\ gehört.}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00074}00074\ \ \ \ \ QString\ redRiver\ =\ QString::fromUtf8(\textcolor{stringliteral}{"{}\(\backslash\)u695a\(\backslash\)u6cb3"{}});}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00075}00075\ \ \ \ \ \textcolor{comment}{//"{}楚\ 河"{};\ //\ (Chǔ\ hé)\ -\/\ Dieser\ Schriftzug\ bedeutet\ "{}Fluss\ von\ Chu"{}.}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00076}00076\ \ \ \ \ \textcolor{comment}{//Es\ befindet\ sich\ auf\ der\ Seite\ des\ Brettes,\ die\ dem\ Spieler\ mit\ den\ schwarzen\ Figuren\ gehört.}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00077}00077\ \ \ \ \ QString\ blackRiver\ =\ QString::fromUtf8(\textcolor{stringliteral}{"{}\(\backslash\)u6f22\(\backslash\)u754c"{}});}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00078}00078\ \ \ \ \ \textcolor{comment}{//"{}漢\ 界"{};\ //\ \ (Hàn\ jiè)\ -\/\ Dieser\ Schriftzug\ bedeutet\ "{}Grenze\ von\ Han"{}.}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00079}00079\ \ \ \ \ \textcolor{comment}{//\ Kontexmenue\ mit\ Figuren\ und\ Marker}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00080}00080\ \ \ \ \ \mbox{\hyperlink{class_contex_menu}{ContexMenu}}\ *contextMenu;}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00081}00081\ signals:}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00082}00082\ \ \ \ \ \textcolor{comment}{//\ signal\ to\ the\ controller\ Mainwindow}}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00083}\mbox{\hyperlink{class_board_view_a5711399b7300446ba86563df5189d1f3}{00083}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_board_view_a5711399b7300446ba86563df5189d1f3}{updateView}}(\mbox{\hyperlink{struct_point}{Point}}\ from,\ \mbox{\hyperlink{struct_point}{Point}}\ to,\ \mbox{\hyperlink{struct_base_model_a807ded17e69384e3bd5403130d4a095a}{BaseModel::Mode}}\ mode);}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00084}00084\ \};}
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{boardview_8h_source_l00086}00086\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ BOARDVIEW\_H}}
+
+\end{DoxyCode}

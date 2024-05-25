@@ -1,0 +1,9 @@
+<map id="MainWindow::LoadPGNFile" name="MainWindow::LoadPGNFile">
+<area shape="rect" id="Node000001" title=" " alt="" coords="629,5,810,32"/>
+<area shape="rect" id="Node000002" href="$class_main_window.html#a6e5a4e6a7aa3263b6cf734c01ade5e10" title=" " alt="" coords="447,5,581,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="614,21,582,21,582,16,614,16"/>
+<area shape="rect" id="Node000003" href="$class_main_window.html#a99f1c7af9374206fd52fa14a95ff9771" title=" " alt="" coords="231,5,399,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="432,21,399,21,399,16,432,16"/>
+<area shape="rect" id="Node000004" href="$class_main_window.html#a996c5a2b6f77944776856f08ec30858d" title=" " alt="" coords="5,5,183,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="215,21,183,21,183,16,215,16"/>
+</map>

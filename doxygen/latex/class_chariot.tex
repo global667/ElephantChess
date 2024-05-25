@@ -1,0 +1,124 @@
+\doxysection{Chariot Class Reference}
+\hypertarget{class_chariot}{}\label{class_chariot}\index{Chariot@{Chariot}}
+
+
+{\ttfamily \#include $<$cchess\+\_\+rules.\+h$>$}
+
+
+
+Inheritance diagram for Chariot\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=127pt]{class_chariot__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Chariot\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=127pt]{class_chariot__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_chariot_aa04a9cc7e452fb494a714d83727ee9da}{Chariot}} (const \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}} \mbox{\hyperlink{class_piece_a4cf5b29a9e13dcb93b616b11160c2abc}{color}}, const QString \&\mbox{\hyperlink{class_piece_ab25d40b629e95dd220682c4f0f830eec}{name}})
+\item 
+bool \mbox{\hyperlink{class_chariot_acf380de40c269c66218c1c09ec17d4fd}{is\+Valid\+Move}} (const \mbox{\hyperlink{struct_point}{Point}} \&from, const \mbox{\hyperlink{struct_point}{Point}} \&to, const std\+::vector$<$ std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ $>$ $>$ \&board) override
+\item 
+std\+::vector$<$ std\+::pair$<$ \mbox{\hyperlink{struct_point}{Point}}, \mbox{\hyperlink{struct_point}{Point}} $>$ $>$ \mbox{\hyperlink{class_chariot_a8ec41d12a3d27e54aa733a5c1a8f8777}{generate\+Valid\+Moves}} (const \mbox{\hyperlink{struct_point}{Point}} \&position, const std\+::vector$<$ std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ $>$ $>$ \&board) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_piece}{Piece}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_piece_a1cdab808545f4b11699aa9138f5a017d}{Piece}} (\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}} \mbox{\hyperlink{class_piece_a4cf5b29a9e13dcb93b616b11160c2abc}{color}}, QString \mbox{\hyperlink{class_piece_ab25d40b629e95dd220682c4f0f830eec}{name}})
+\item 
+virtual \mbox{\hyperlink{class_piece_a5d7a4f6bade94cb33b6f634de8aa7918}{\texorpdfstring{$\sim$}{\string~}\+Piece}} ()
+\item 
+\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}} \mbox{\hyperlink{class_piece_a1168e7fd93f689a30e29f2fb169c6db9}{get\+Color}} () const
+\item 
+QString \mbox{\hyperlink{class_piece_ac91487b9ed6ac4f3bdeed681f3ffbaaa}{get\+Name}} () const
+\item 
+QString \mbox{\hyperlink{class_piece_a78086a44a114b0f53d5b4b1099f9b030}{get\+Euro\+Name}} () const
+\item 
+QString \mbox{\hyperlink{class_piece_aa800a15554d6123fe2b30593280d39b0}{get\+Euro\+Name\+Desc}} () const
+\item 
+int \mbox{\hyperlink{class_piece_ad67133f2d7563df69a0912c47ae0cc6f}{get\+Id}} () const
+\item 
+auto \mbox{\hyperlink{class_piece_a2fac2b5f2cba79d7981ceb0a7aae9e77}{operator=}} (const \mbox{\hyperlink{class_piece}{Piece}} \&other) -\/$>$ \mbox{\hyperlink{class_piece}{Piece}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_piece}{Piece}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}} \mbox{\hyperlink{class_piece_a4cf5b29a9e13dcb93b616b11160c2abc}{color}}
+\item 
+QString \mbox{\hyperlink{class_piece_ab25d40b629e95dd220682c4f0f830eec}{name}}
+\item 
+QString \mbox{\hyperlink{class_piece_a40c7407b132a07c5639792fd95cd42a4}{euro\+Name}}
+\item 
+QString \mbox{\hyperlink{class_piece_a4fe5fd826f5bdd32852a06642d63da32}{euro\+Name\+Desc}}
+\item 
+int \mbox{\hyperlink{class_piece_ac40cffee50da10a50361ff4791fdd528}{id}} \{\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8h_source_l00214}{214}} of file \mbox{\hyperlink{cchess__rules_8h_source}{cchess\+\_\+rules.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_chariot_aa04a9cc7e452fb494a714d83727ee9da}\index{Chariot@{Chariot}!Chariot@{Chariot}}
+\index{Chariot@{Chariot}!Chariot@{Chariot}}
+\doxysubsubsection{\texorpdfstring{Chariot()}{Chariot()}}
+{\footnotesize\ttfamily \label{class_chariot_aa04a9cc7e452fb494a714d83727ee9da} 
+Chariot\+::\+Chariot (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}}}]{color}{, }\item[{const QString \&}]{name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8h_source_l00216}{216}} of file \mbox{\hyperlink{cchess__rules_8h_source}{cchess\+\_\+rules.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_chariot_a8ec41d12a3d27e54aa733a5c1a8f8777}\index{Chariot@{Chariot}!generateValidMoves@{generateValidMoves}}
+\index{generateValidMoves@{generateValidMoves}!Chariot@{Chariot}}
+\doxysubsubsection{\texorpdfstring{generateValidMoves()}{generateValidMoves()}}
+{\footnotesize\ttfamily \label{class_chariot_a8ec41d12a3d27e54aa733a5c1a8f8777} 
+std\+::vector$<$ std\+::pair$<$ \mbox{\hyperlink{struct_point}{Point}}, \mbox{\hyperlink{struct_point}{Point}} $>$ $>$ Chariot\+::generate\+Valid\+Moves (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_point}{Point}} \&}]{position}{, }\item[{const std\+::vector$<$ std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ $>$ $>$ \&}]{board}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_piece_a9a964fa6a4ef3b9c878050b900d635b6}{Piece}}.
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8h_source_l00252}{252}} of file \mbox{\hyperlink{cchess__rules_8h_source}{cchess\+\_\+rules.\+h}}.
+
+\Hypertarget{class_chariot_acf380de40c269c66218c1c09ec17d4fd}\index{Chariot@{Chariot}!isValidMove@{isValidMove}}
+\index{isValidMove@{isValidMove}!Chariot@{Chariot}}
+\doxysubsubsection{\texorpdfstring{isValidMove()}{isValidMove()}}
+{\footnotesize\ttfamily \label{class_chariot_acf380de40c269c66218c1c09ec17d4fd} 
+bool Chariot\+::is\+Valid\+Move (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_point}{Point}} \&}]{from}{, }\item[{const \mbox{\hyperlink{struct_point}{Point}} \&}]{to}{, }\item[{const std\+::vector$<$ std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ $>$ $>$ \&}]{board}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_piece_a43c8999c0f9e4b33ee29da5ad6e18111}{Piece}}.
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8h_source_l00221}{221}} of file \mbox{\hyperlink{cchess__rules_8h_source}{cchess\+\_\+rules.\+h}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/\mbox{\hyperlink{cchess__rules_8h}{cchess\+\_\+rules.\+h}}\end{DoxyCompactItemize}

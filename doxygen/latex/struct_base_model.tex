@@ -1,0 +1,374 @@
+\doxysection{Base\+Model Struct Reference}
+\hypertarget{struct_base_model}{}\label{struct_base_model}\index{BaseModel@{BaseModel}}
+
+
+{\ttfamily \#include $<$basemodel.\+h$>$}
+
+
+
+Collaboration diagram for Base\+Model\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=319pt]{struct_base_model__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_base_model_1_1_engine_data}{Engine\+Data}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{struct_base_model_a90f6e1de057f802c9b4bd548514a8aa6}{view\+Style\+Mode}} \{ \mbox{\hyperlink{struct_base_model_a90f6e1de057f802c9b4bd548514a8aa6a20c69e2d7dfbc08090ca82aa52917ed3}{traditional\+\_\+native}}
+, \mbox{\hyperlink{struct_base_model_a90f6e1de057f802c9b4bd548514a8aa6a7f0fd3fe62d60e58ab36c13852753ef9}{traditional\+\_\+png}}
+, \mbox{\hyperlink{struct_base_model_a90f6e1de057f802c9b4bd548514a8aa6ae4dfb82c0355b857e9c2d7078005ed7c}{western\+\_\+png}}
+ \}
+\item 
+enum class \mbox{\hyperlink{struct_base_model_a807ded17e69384e3bd5403130d4a095a}{Mode}} \{ \mbox{\hyperlink{struct_base_model_a807ded17e69384e3bd5403130d4a095aa99e9bae675b12967251c175696f00a70}{human}}
+, \mbox{\hyperlink{struct_base_model_a807ded17e69384e3bd5403130d4a095aaad1943a9fd6d3d7ee1e6af41a5b0d3e7}{engine}}
+, \mbox{\hyperlink{struct_base_model_a807ded17e69384e3bd5403130d4a095aae208ca42644926ebb0dc4fe7167f25d7}{uci}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_base_model_a8e9c9d6d5ff39a7db2788affdd2c9de2}{Base\+Model}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static QByte\+Array \mbox{\hyperlink{struct_base_model_a0329ee37221a6900b73f1131b3597a9b}{pos\+Token}} (const int fromX, const int fromY, const int toX, const int toY)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_board}{Board}} \mbox{\hyperlink{struct_base_model_a1acdc9a20b6947f749ac59970235d713}{position}}
+\item 
+\mbox{\hyperlink{struct_base_model_a90f6e1de057f802c9b4bd548514a8aa6}{view\+Style\+Mode}} \mbox{\hyperlink{struct_base_model_a085f30455414d873398f5dbc32a5e9fa}{view\+Style\+Mode\+Var}} = \mbox{\hyperlink{struct_base_model_a90f6e1de057f802c9b4bd548514a8aa6a20c69e2d7dfbc08090ca82aa52917ed3}{view\+Style\+Mode\+::traditional\+\_\+native}}
+\item 
+bool \mbox{\hyperlink{struct_base_model_a3b0ab8b5875aab3be91c7995b7c6af76}{native\+Pieces}} = true
+\item 
+int \mbox{\hyperlink{struct_base_model_a490bd673f50d8c7aeffb7bbbd5384b6a}{current\+Move}} = 0
+\item 
+QString\+List \mbox{\hyperlink{struct_base_model_a86ca20ca22f7a4ff1086a95be62299af}{moves}}
+\item 
+QList$<$ \mbox{\hyperlink{class_board}{Board}} $>$ \mbox{\hyperlink{struct_base_model_af522db0ac8795196d0c4a64754c8b7c8}{move\+History}} \{\}
+\item 
+\mbox{\hyperlink{struct_base_model_a807ded17e69384e3bd5403130d4a095a}{Mode}} \mbox{\hyperlink{struct_base_model_ac0efea594046d0696caf34297bf7a789}{mode}} = \mbox{\hyperlink{struct_base_model_a807ded17e69384e3bd5403130d4a095aa99e9bae675b12967251c175696f00a70}{Mode\+::human}}
+\item 
+QList$<$ QPair$<$ \mbox{\hyperlink{struct_point}{Point}}, \mbox{\hyperlink{struct_point}{Point}} $>$ $>$ \mbox{\hyperlink{struct_base_model_a02f6556688f966ac6c2eac1058cf0cce}{current\+Moves}}
+\item 
+\mbox{\hyperlink{struct_point}{Point}} \mbox{\hyperlink{struct_base_model_a7f6c18647308d0fd48f57a456f637f34}{from\+Human}} = \{-\/1, -\/1\}
+\item 
+\mbox{\hyperlink{struct_point}{Point}} \mbox{\hyperlink{struct_base_model_a85686dbed12f16d17a446b91b08fd2b3}{to\+Human}} = \{-\/1, -\/1\}
+\item 
+\mbox{\hyperlink{struct_point}{Point}} \mbox{\hyperlink{struct_base_model_ae7e667dc3c8833b3fe9ecc26bc7a1dbd}{from\+UCI}} = \{-\/1, -\/1\}
+\item 
+\mbox{\hyperlink{struct_point}{Point}} \mbox{\hyperlink{struct_base_model_adf870baad86ea72a5d7487f8261293e9}{to\+UCI}} = \{-\/1, -\/1\}
+\item 
+\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}} \mbox{\hyperlink{struct_base_model_a5a31ec7590137edc717b75a94de0c46e}{game\+View}} = \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color\+::\+Red}}
+\item 
+long \mbox{\hyperlink{struct_base_model_a918c3e28ac4d54d642f76594d6a53723}{nodes}}
+\item 
+struct \mbox{\hyperlink{struct_base_model_1_1_engine_data}{Base\+Model\+::\+Engine\+Data}} \mbox{\hyperlink{struct_base_model_ac0ab3a88ecb9e70e678cac5d67837e41}{engine\+Data}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr short \mbox{\hyperlink{struct_base_model_ab4583f71798a2ceb7062e4f4e78d09be}{Board\+Rows}} = ROWS
+\item 
+static constexpr short \mbox{\hyperlink{struct_base_model_a888365d858f442e245e2e2eb7cf0e49b}{Board\+Cols}} = COLS
+\item 
+static constexpr short \mbox{\hyperlink{struct_base_model_a7695a763dac390905fb35b9392b93360}{Board\+Row\+Points}} = \mbox{\hyperlink{struct_base_model_ab4583f71798a2ceb7062e4f4e78d09be}{Board\+Rows}} -\/ 1
+\item 
+static constexpr short \mbox{\hyperlink{struct_base_model_aa908bbe5af10d2cf828aac542a53d926}{Board\+Col\+Points}} = \mbox{\hyperlink{struct_base_model_a888365d858f442e245e2e2eb7cf0e49b}{Board\+Cols}} -\/ 1
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00041}{41}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+
+
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{struct_base_model_a807ded17e69384e3bd5403130d4a095a}\index{BaseModel@{BaseModel}!Mode@{Mode}}
+\index{Mode@{Mode}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{Mode}{Mode}}
+{\footnotesize\ttfamily \label{struct_base_model_a807ded17e69384e3bd5403130d4a095a} 
+enum class \mbox{\hyperlink{struct_base_model_a807ded17e69384e3bd5403130d4a095a}{Base\+Model\+::\+Mode}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{human@{human}!BaseModel@{BaseModel}}\index{BaseModel@{BaseModel}!human@{human}}}\Hypertarget{struct_base_model_a807ded17e69384e3bd5403130d4a095aa99e9bae675b12967251c175696f00a70}\label{struct_base_model_a807ded17e69384e3bd5403130d4a095a} 
+human&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{engine@{engine}!BaseModel@{BaseModel}}\index{BaseModel@{BaseModel}!engine@{engine}}}\Hypertarget{struct_base_model_a807ded17e69384e3bd5403130d4a095aaad1943a9fd6d3d7ee1e6af41a5b0d3e7}\label{struct_base_model_a807ded17e69384e3bd5403130d4a095a} 
+engine&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{uci@{uci}!BaseModel@{BaseModel}}\index{BaseModel@{BaseModel}!uci@{uci}}}\Hypertarget{struct_base_model_a807ded17e69384e3bd5403130d4a095aae208ca42644926ebb0dc4fe7167f25d7}\label{struct_base_model_a807ded17e69384e3bd5403130d4a095a} 
+uci&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00073}{73}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+\Hypertarget{struct_base_model_a90f6e1de057f802c9b4bd548514a8aa6}\index{BaseModel@{BaseModel}!viewStyleMode@{viewStyleMode}}
+\index{viewStyleMode@{viewStyleMode}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{viewStyleMode}{viewStyleMode}}
+{\footnotesize\ttfamily \label{struct_base_model_a90f6e1de057f802c9b4bd548514a8aa6} 
+enum class \mbox{\hyperlink{struct_base_model_a90f6e1de057f802c9b4bd548514a8aa6}{Base\+Model\+::view\+Style\+Mode}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{traditional\_native@{traditional\_native}!BaseModel@{BaseModel}}\index{BaseModel@{BaseModel}!traditional\_native@{traditional\_native}}}\Hypertarget{struct_base_model_a90f6e1de057f802c9b4bd548514a8aa6a20c69e2d7dfbc08090ca82aa52917ed3}\label{struct_base_model_a90f6e1de057f802c9b4bd548514a8aa6} 
+traditional\+\_\+native&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{traditional\_png@{traditional\_png}!BaseModel@{BaseModel}}\index{BaseModel@{BaseModel}!traditional\_png@{traditional\_png}}}\Hypertarget{struct_base_model_a90f6e1de057f802c9b4bd548514a8aa6a7f0fd3fe62d60e58ab36c13852753ef9}\label{struct_base_model_a90f6e1de057f802c9b4bd548514a8aa6} 
+traditional\+\_\+png&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{western\_png@{western\_png}!BaseModel@{BaseModel}}\index{BaseModel@{BaseModel}!western\_png@{western\_png}}}\Hypertarget{struct_base_model_a90f6e1de057f802c9b4bd548514a8aa6ae4dfb82c0355b857e9c2d7078005ed7c}\label{struct_base_model_a90f6e1de057f802c9b4bd548514a8aa6} 
+western\+\_\+png&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00062}{62}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_base_model_a8e9c9d6d5ff39a7db2788affdd2c9de2}\index{BaseModel@{BaseModel}!BaseModel@{BaseModel}}
+\index{BaseModel@{BaseModel}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{BaseModel()}{BaseModel()}}
+{\footnotesize\ttfamily \label{struct_base_model_a8e9c9d6d5ff39a7db2788affdd2c9de2} 
+Base\+Model\+::\+Base\+Model (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00045}{45}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_base_model_a0329ee37221a6900b73f1131b3597a9b}\index{BaseModel@{BaseModel}!posToken@{posToken}}
+\index{posToken@{posToken}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{posToken()}{posToken()}}
+{\footnotesize\ttfamily \label{struct_base_model_a0329ee37221a6900b73f1131b3597a9b} 
+static QByte\+Array Base\+Model\+::pos\+Token (\begin{DoxyParamCaption}\item[{const int}]{fromX}{, }\item[{const int}]{fromY}{, }\item[{const int}]{toX}{, }\item[{const int}]{toY}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00087}{87}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{struct_base_model_a0329ee37221a6900b73f1131b3597a9b_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_base_model_aa908bbe5af10d2cf828aac542a53d926}\index{BaseModel@{BaseModel}!BoardColPoints@{BoardColPoints}}
+\index{BoardColPoints@{BoardColPoints}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{BoardColPoints}{BoardColPoints}}
+{\footnotesize\ttfamily \label{struct_base_model_aa908bbe5af10d2cf828aac542a53d926} 
+short Base\+Model\+::\+Board\+Col\+Points = \mbox{\hyperlink{struct_base_model_a888365d858f442e245e2e2eb7cf0e49b}{Board\+Cols}} -\/ 1\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00057}{57}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+\Hypertarget{struct_base_model_a888365d858f442e245e2e2eb7cf0e49b}\index{BaseModel@{BaseModel}!BoardCols@{BoardCols}}
+\index{BoardCols@{BoardCols}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{BoardCols}{BoardCols}}
+{\footnotesize\ttfamily \label{struct_base_model_a888365d858f442e245e2e2eb7cf0e49b} 
+short Base\+Model\+::\+Board\+Cols = COLS\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00055}{55}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+\Hypertarget{struct_base_model_a7695a763dac390905fb35b9392b93360}\index{BaseModel@{BaseModel}!BoardRowPoints@{BoardRowPoints}}
+\index{BoardRowPoints@{BoardRowPoints}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{BoardRowPoints}{BoardRowPoints}}
+{\footnotesize\ttfamily \label{struct_base_model_a7695a763dac390905fb35b9392b93360} 
+short Base\+Model\+::\+Board\+Row\+Points = \mbox{\hyperlink{struct_base_model_ab4583f71798a2ceb7062e4f4e78d09be}{Board\+Rows}} -\/ 1\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00056}{56}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+\Hypertarget{struct_base_model_ab4583f71798a2ceb7062e4f4e78d09be}\index{BaseModel@{BaseModel}!BoardRows@{BoardRows}}
+\index{BoardRows@{BoardRows}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{BoardRows}{BoardRows}}
+{\footnotesize\ttfamily \label{struct_base_model_ab4583f71798a2ceb7062e4f4e78d09be} 
+short Base\+Model\+::\+Board\+Rows = ROWS\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00054}{54}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+\Hypertarget{struct_base_model_a490bd673f50d8c7aeffb7bbbd5384b6a}\index{BaseModel@{BaseModel}!currentMove@{currentMove}}
+\index{currentMove@{currentMove}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{currentMove}{currentMove}}
+{\footnotesize\ttfamily \label{struct_base_model_a490bd673f50d8c7aeffb7bbbd5384b6a} 
+int Base\+Model\+::current\+Move = 0}
+
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00067}{67}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+\Hypertarget{struct_base_model_a02f6556688f966ac6c2eac1058cf0cce}\index{BaseModel@{BaseModel}!currentMoves@{currentMoves}}
+\index{currentMoves@{currentMoves}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{currentMoves}{currentMoves}}
+{\footnotesize\ttfamily \label{struct_base_model_a02f6556688f966ac6c2eac1058cf0cce} 
+QList$<$QPair$<$\mbox{\hyperlink{struct_point}{Point}}, \mbox{\hyperlink{struct_point}{Point}}$>$ $>$ Base\+Model\+::current\+Moves}
+
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00077}{77}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+\Hypertarget{struct_base_model_ac0ab3a88ecb9e70e678cac5d67837e41}\index{BaseModel@{BaseModel}!engineData@{engineData}}
+\index{engineData@{engineData}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{engineData}{engineData}}
+{\footnotesize\ttfamily \label{struct_base_model_ac0ab3a88ecb9e70e678cac5d67837e41} 
+struct \mbox{\hyperlink{struct_base_model_1_1_engine_data}{Base\+Model\+::\+Engine\+Data}} Base\+Model\+::engine\+Data}
+
+\Hypertarget{struct_base_model_a7f6c18647308d0fd48f57a456f637f34}\index{BaseModel@{BaseModel}!fromHuman@{fromHuman}}
+\index{fromHuman@{fromHuman}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{fromHuman}{fromHuman}}
+{\footnotesize\ttfamily \label{struct_base_model_a7f6c18647308d0fd48f57a456f637f34} 
+\mbox{\hyperlink{struct_point}{Point}} Base\+Model\+::from\+Human = \{-\/1, -\/1\}}
+
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00078}{78}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+\Hypertarget{struct_base_model_ae7e667dc3c8833b3fe9ecc26bc7a1dbd}\index{BaseModel@{BaseModel}!fromUCI@{fromUCI}}
+\index{fromUCI@{fromUCI}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{fromUCI}{fromUCI}}
+{\footnotesize\ttfamily \label{struct_base_model_ae7e667dc3c8833b3fe9ecc26bc7a1dbd} 
+\mbox{\hyperlink{struct_point}{Point}} Base\+Model\+::from\+UCI = \{-\/1, -\/1\}}
+
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00080}{80}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+\Hypertarget{struct_base_model_a5a31ec7590137edc717b75a94de0c46e}\index{BaseModel@{BaseModel}!gameView@{gameView}}
+\index{gameView@{gameView}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{gameView}{gameView}}
+{\footnotesize\ttfamily \label{struct_base_model_a5a31ec7590137edc717b75a94de0c46e} 
+\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}} Base\+Model\+::game\+View = \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47}{Color\+::\+Red}}}
+
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00085}{85}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+\Hypertarget{struct_base_model_ac0efea594046d0696caf34297bf7a789}\index{BaseModel@{BaseModel}!mode@{mode}}
+\index{mode@{mode}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{mode}{mode}}
+{\footnotesize\ttfamily \label{struct_base_model_ac0efea594046d0696caf34297bf7a789} 
+\mbox{\hyperlink{struct_base_model_a807ded17e69384e3bd5403130d4a095a}{Mode}} Base\+Model\+::mode = \mbox{\hyperlink{struct_base_model_a807ded17e69384e3bd5403130d4a095aa99e9bae675b12967251c175696f00a70}{Mode\+::human}}}
+
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00075}{75}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+\Hypertarget{struct_base_model_af522db0ac8795196d0c4a64754c8b7c8}\index{BaseModel@{BaseModel}!moveHistory@{moveHistory}}
+\index{moveHistory@{moveHistory}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{moveHistory}{moveHistory}}
+{\footnotesize\ttfamily \label{struct_base_model_af522db0ac8795196d0c4a64754c8b7c8} 
+QList$<$\mbox{\hyperlink{class_board}{Board}}$>$ Base\+Model\+::move\+History \{\}}
+
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00070}{70}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+\Hypertarget{struct_base_model_a86ca20ca22f7a4ff1086a95be62299af}\index{BaseModel@{BaseModel}!moves@{moves}}
+\index{moves@{moves}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{moves}{moves}}
+{\footnotesize\ttfamily \label{struct_base_model_a86ca20ca22f7a4ff1086a95be62299af} 
+QString\+List Base\+Model\+::moves}
+
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00068}{68}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+\Hypertarget{struct_base_model_a3b0ab8b5875aab3be91c7995b7c6af76}\index{BaseModel@{BaseModel}!nativePieces@{nativePieces}}
+\index{nativePieces@{nativePieces}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{nativePieces}{nativePieces}}
+{\footnotesize\ttfamily \label{struct_base_model_a3b0ab8b5875aab3be91c7995b7c6af76} 
+bool Base\+Model\+::native\+Pieces = true}
+
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00065}{65}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+\Hypertarget{struct_base_model_a918c3e28ac4d54d642f76594d6a53723}\index{BaseModel@{BaseModel}!nodes@{nodes}}
+\index{nodes@{nodes}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{nodes}{nodes}}
+{\footnotesize\ttfamily \label{struct_base_model_a918c3e28ac4d54d642f76594d6a53723} 
+long Base\+Model\+::nodes}
+
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00096}{96}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+\Hypertarget{struct_base_model_a1acdc9a20b6947f749ac59970235d713}\index{BaseModel@{BaseModel}!position@{position}}
+\index{position@{position}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{position}{position}}
+{\footnotesize\ttfamily \label{struct_base_model_a1acdc9a20b6947f749ac59970235d713} 
+\mbox{\hyperlink{class_board}{Board}} Base\+Model\+::position}
+
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00060}{60}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+\Hypertarget{struct_base_model_a85686dbed12f16d17a446b91b08fd2b3}\index{BaseModel@{BaseModel}!toHuman@{toHuman}}
+\index{toHuman@{toHuman}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{toHuman}{toHuman}}
+{\footnotesize\ttfamily \label{struct_base_model_a85686dbed12f16d17a446b91b08fd2b3} 
+\mbox{\hyperlink{struct_point}{Point}} Base\+Model\+::to\+Human = \{-\/1, -\/1\}}
+
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00079}{79}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+\Hypertarget{struct_base_model_adf870baad86ea72a5d7487f8261293e9}\index{BaseModel@{BaseModel}!toUCI@{toUCI}}
+\index{toUCI@{toUCI}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{toUCI}{toUCI}}
+{\footnotesize\ttfamily \label{struct_base_model_adf870baad86ea72a5d7487f8261293e9} 
+\mbox{\hyperlink{struct_point}{Point}} Base\+Model\+::to\+UCI = \{-\/1, -\/1\}}
+
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00081}{81}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+\Hypertarget{struct_base_model_a085f30455414d873398f5dbc32a5e9fa}\index{BaseModel@{BaseModel}!viewStyleModeVar@{viewStyleModeVar}}
+\index{viewStyleModeVar@{viewStyleModeVar}!BaseModel@{BaseModel}}
+\doxysubsubsection{\texorpdfstring{viewStyleModeVar}{viewStyleModeVar}}
+{\footnotesize\ttfamily \label{struct_base_model_a085f30455414d873398f5dbc32a5e9fa} 
+\mbox{\hyperlink{struct_base_model_a90f6e1de057f802c9b4bd548514a8aa6}{view\+Style\+Mode}} Base\+Model\+::view\+Style\+Mode\+Var = \mbox{\hyperlink{struct_base_model_a90f6e1de057f802c9b4bd548514a8aa6a20c69e2d7dfbc08090ca82aa52917ed3}{view\+Style\+Mode\+::traditional\+\_\+native}}}
+
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00064}{64}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/\mbox{\hyperlink{basemodel_8h}{basemodel.\+h}}\end{DoxyCompactItemize}

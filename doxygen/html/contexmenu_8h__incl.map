@@ -1,0 +1,23 @@
+<map id="F:/source/CLionProjects/ElephantChess/sources/contexmenu.h" name="F:/source/CLionProjects/ElephantChess/sources/contexmenu.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="42,5,205,64"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,112,69,139"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,66,62,103,58,99,94,62"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="93,112,154,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="126,64,126,96,121,96,121,64"/>
+<area shape="rect" id="Node000004" href="$basemodel_8h.html" title=" " alt="" coords="179,112,274,139"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="158,62,202,99,198,104,155,66"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="99,261,167,288"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="221,141,151,249,147,247,216,138"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="192,261,261,288"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="229,139,229,246,224,246,224,139"/>
+<area shape="rect" id="Node000007" href="$cchess__rules_8h.html" title=" " alt="" coords="264,187,373,213"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="244,137,292,175,289,179,241,141"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="287,216,180,258,179,253,285,211"/>
+<area shape="poly" id="edge8_Node000007_Node000006" title=" " alt="" coords="304,216,256,254,252,250,301,212"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="286,261,351,288"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="321,214,321,246,316,246,316,214"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="375,261,430,288"/>
+<area shape="poly" id="edge10_Node000007_Node000009" title=" " alt="" coords="335,212,378,249,375,253,331,216"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="454,261,522,288"/>
+<area shape="poly" id="edge11_Node000007_Node000010" title=" " alt="" coords="349,211,445,252,443,257,347,216"/>
+</map>

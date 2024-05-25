@@ -1,0 +1,20 @@
+<map id="F:/source/CLionProjects/ElephantChess/sources/contexmenu.h" name="F:/source/CLionProjects/ElephantChess/sources/contexmenu.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="192,5,355,64"/>
+<area shape="rect" id="Node000002" href="$boardview_8h.html" title=" " alt="" coords="99,112,262,171"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="240,77,208,113,204,110,236,74"/>
+<area shape="rect" id="Node000009" href="$contexmenu_8cpp.html" title=" " alt="" coords="287,112,450,171"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="312,74,344,110,341,113,308,77"/>
+<area shape="rect" id="Node000003" href="$boardview_8cpp.html" title=" " alt="" coords="5,219,169,277"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="147,184,114,220,110,217,143,180"/>
+<area shape="rect" id="Node000004" href="$mainwindow_8h.html" title=" " alt="" coords="193,219,357,277"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="218,180,251,216,247,220,214,184"/>
+<area shape="rect" id="Node000005" href="$game_8h.html" title=" " alt="" coords="75,325,238,384"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="233,290,190,327,187,323,229,286"/>
+<area shape="rect" id="Node000007" href="$mainwindow_8cpp.html" title=" " alt="" coords="193,432,357,491"/>
+<area shape="poly" id="edge8_Node000004_Node000007" title=" " alt="" coords="278,293,278,431,272,431,272,293"/>
+<area shape="rect" id="Node000008" href="$main_8cpp.html" title=" " alt="" coords="312,325,475,384"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="321,286,363,323,360,327,317,290"/>
+<area shape="rect" id="Node000006" href="$game_8cpp.html" title=" " alt="" coords="5,432,169,491"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="131,399,108,433,104,430,127,396"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="202,392,244,430,241,434,198,396"/>
+</map>

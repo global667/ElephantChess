@@ -1,0 +1,7 @@
+<map id="MainWindow::GiveTipp" name="MainWindow::GiveTipp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="447,5,599,32"/>
+<area shape="rect" id="Node000002" href="$class_main_window.html#a99f1c7af9374206fd52fa14a95ff9771" title=" " alt="" coords="231,5,399,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="431,21,400,21,400,16,431,16"/>
+<area shape="rect" id="Node000003" href="$class_main_window.html#a996c5a2b6f77944776856f08ec30858d" title=" " alt="" coords="5,5,183,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="215,21,183,21,183,16,215,16"/>
+</map>

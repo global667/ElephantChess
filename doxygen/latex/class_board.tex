@@ -1,0 +1,273 @@
+\doxysection{Board Class Reference}
+\hypertarget{class_board}{}\label{class_board}\index{Board@{Board}}
+
+
+{\ttfamily \#include $<$cchess\+\_\+rules.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_board_a9ee491d4fea680cf69b033374a9fdfcb}{Board}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ \mbox{\hyperlink{class_board_aae078a1923ad54b385c34c04e373827a}{get\+Piece\+At}} (const \mbox{\hyperlink{struct_point}{Point}} \&position) const
+\item 
+void \mbox{\hyperlink{class_board_aae13dd814f2f4ad80a42878056853285}{setup\+Initial\+Positions}} ()
+\item 
+void \mbox{\hyperlink{class_board_a73de5ce398e7306dd11f15ce40428746}{toggle\+Color}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::vector$<$ std\+::pair$<$ \mbox{\hyperlink{struct_point}{Point}}, \mbox{\hyperlink{struct_point}{Point}} $>$ $>$ \mbox{\hyperlink{class_board_a0f9283a745f45911aa1f9de21e914544}{get\+All\+Valid\+Moves}} (\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}} color, const std\+::vector$<$ std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ $>$ $>$ \&\mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}})
+\item 
+static bool \mbox{\hyperlink{class_board_a2222769b9257ec798f6ec6800060507e}{move\+Piece}} (const \mbox{\hyperlink{struct_point}{Point}} \&from, const \mbox{\hyperlink{struct_point}{Point}} \&to, std\+::vector$<$ std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ $>$ $>$ \&\mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}})
+\item 
+static void \mbox{\hyperlink{class_board_ac4acab226328b0fdf620895bbac18bc2}{undo\+Move}} (const \mbox{\hyperlink{struct_point}{Point}} \&from, const \mbox{\hyperlink{struct_point}{Point}} \&to, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ \&piece, std\+::vector$<$ std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ $>$ $>$ \&\mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}})
+\item 
+static \mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}} \mbox{\hyperlink{class_board_aec3a7e579d8de4a6d933ec3038851bab}{toggle\+Color}} (\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}} color)
+\item 
+static bool \mbox{\hyperlink{class_board_a1bce818087213faff4bce6d5eaf5d597}{is\+Check}} (\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}} color, const std\+::vector$<$ std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ $>$ $>$ \&\mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}})
+\item 
+static bool \mbox{\hyperlink{class_board_a85971cfdadb2b1313a67e87fc02bb077}{is\+Evil\+Glare}} (\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}} color, const std\+::vector$<$ std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ $>$ $>$ \&\mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}})
+\item 
+static bool \mbox{\hyperlink{class_board_a42cded8d0584128aed453f088e8679e3}{is\+Checkmate}} (\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}} color, const std\+::vector$<$ std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ $>$ $>$ \&\mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ $>$ $>$ \mbox{\hyperlink{class_board_afb64136a0dfa785a59639ddece48dc8f}{board}}
+\item 
+\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}} \mbox{\hyperlink{class_board_a5d5cb514dc33c0a80cb849508112b7b6}{players\+\_\+color}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8h_source_l00536}{536}} of file \mbox{\hyperlink{cchess__rules_8h_source}{cchess\+\_\+rules.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_board_a9ee491d4fea680cf69b033374a9fdfcb}\index{Board@{Board}!Board@{Board}}
+\index{Board@{Board}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{Board()}{Board()}}
+{\footnotesize\ttfamily \label{class_board_a9ee491d4fea680cf69b033374a9fdfcb} 
+Board\+::\+Board (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8cpp_source_l00046}{46}} of file \mbox{\hyperlink{cchess__rules_8cpp_source}{cchess\+\_\+rules.\+cpp}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{class_board_a9ee491d4fea680cf69b033374a9fdfcb_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_board_a0f9283a745f45911aa1f9de21e914544}\index{Board@{Board}!getAllValidMoves@{getAllValidMoves}}
+\index{getAllValidMoves@{getAllValidMoves}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{getAllValidMoves()}{getAllValidMoves()}}
+{\footnotesize\ttfamily \label{class_board_a0f9283a745f45911aa1f9de21e914544} 
+std\+::vector$<$ std\+::pair$<$ \mbox{\hyperlink{struct_point}{Point}}, \mbox{\hyperlink{struct_point}{Point}} $>$ $>$ Board\+::get\+All\+Valid\+Moves (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}}}]{color}{, }\item[{const std\+::vector$<$ std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ $>$ $>$ \&}]{board}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8cpp_source_l00056}{56}} of file \mbox{\hyperlink{cchess__rules_8cpp_source}{cchess\+\_\+rules.\+cpp}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{class_board_a0f9283a745f45911aa1f9de21e914544_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_board_a0f9283a745f45911aa1f9de21e914544_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_board_aae078a1923ad54b385c34c04e373827a}\index{Board@{Board}!getPieceAt@{getPieceAt}}
+\index{getPieceAt@{getPieceAt}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{getPieceAt()}{getPieceAt()}}
+{\footnotesize\ttfamily \label{class_board_aae078a1923ad54b385c34c04e373827a} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ Board\+::get\+Piece\+At (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_point}{Point}} \&}]{position}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [nodiscard]}}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8cpp_source_l00052}{52}} of file \mbox{\hyperlink{cchess__rules_8cpp_source}{cchess\+\_\+rules.\+cpp}}.
+
+\Hypertarget{class_board_a1bce818087213faff4bce6d5eaf5d597}\index{Board@{Board}!isCheck@{isCheck}}
+\index{isCheck@{isCheck}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{isCheck()}{isCheck()}}
+{\footnotesize\ttfamily \label{class_board_a1bce818087213faff4bce6d5eaf5d597} 
+bool Board\+::is\+Check (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}}}]{color}{, }\item[{const std\+::vector$<$ std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ $>$ $>$ \&}]{board}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8cpp_source_l00170}{170}} of file \mbox{\hyperlink{cchess__rules_8cpp_source}{cchess\+\_\+rules.\+cpp}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_board_a1bce818087213faff4bce6d5eaf5d597_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_board_a42cded8d0584128aed453f088e8679e3}\index{Board@{Board}!isCheckmate@{isCheckmate}}
+\index{isCheckmate@{isCheckmate}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{isCheckmate()}{isCheckmate()}}
+{\footnotesize\ttfamily \label{class_board_a42cded8d0584128aed453f088e8679e3} 
+bool Board\+::is\+Checkmate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}}}]{color}{, }\item[{const std\+::vector$<$ std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ $>$ $>$ \&}]{board}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8cpp_source_l00246}{246}} of file \mbox{\hyperlink{cchess__rules_8cpp_source}{cchess\+\_\+rules.\+cpp}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=303pt]{class_board_a42cded8d0584128aed453f088e8679e3_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_board_a85971cfdadb2b1313a67e87fc02bb077}\index{Board@{Board}!isEvilGlare@{isEvilGlare}}
+\index{isEvilGlare@{isEvilGlare}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{isEvilGlare()}{isEvilGlare()}}
+{\footnotesize\ttfamily \label{class_board_a85971cfdadb2b1313a67e87fc02bb077} 
+bool Board\+::is\+Evil\+Glare (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}}}]{color}{, }\item[{const std\+::vector$<$ std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ $>$ $>$ \&}]{board}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8cpp_source_l00217}{217}} of file \mbox{\hyperlink{cchess__rules_8cpp_source}{cchess\+\_\+rules.\+cpp}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_board_a85971cfdadb2b1313a67e87fc02bb077_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_board_a2222769b9257ec798f6ec6800060507e}\index{Board@{Board}!movePiece@{movePiece}}
+\index{movePiece@{movePiece}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{movePiece()}{movePiece()}}
+{\footnotesize\ttfamily \label{class_board_a2222769b9257ec798f6ec6800060507e} 
+bool Board\+::move\+Piece (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_point}{Point}} \&}]{from}{, }\item[{const \mbox{\hyperlink{struct_point}{Point}} \&}]{to}{, }\item[{std\+::vector$<$ std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ $>$ $>$ \&}]{board}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8cpp_source_l00096}{96}} of file \mbox{\hyperlink{cchess__rules_8cpp_source}{cchess\+\_\+rules.\+cpp}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_board_a2222769b9257ec798f6ec6800060507e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_board_aae13dd814f2f4ad80a42878056853285}\index{Board@{Board}!setupInitialPositions@{setupInitialPositions}}
+\index{setupInitialPositions@{setupInitialPositions}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{setupInitialPositions()}{setupInitialPositions()}}
+{\footnotesize\ttfamily \label{class_board_aae13dd814f2f4ad80a42878056853285} 
+void Board\+::setup\+Initial\+Positions (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8cpp_source_l00114}{114}} of file \mbox{\hyperlink{cchess__rules_8cpp_source}{cchess\+\_\+rules.\+cpp}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_board_aae13dd814f2f4ad80a42878056853285_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_board_a73de5ce398e7306dd11f15ce40428746}\index{Board@{Board}!toggleColor@{toggleColor}}
+\index{toggleColor@{toggleColor}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{toggleColor()}{toggleColor()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_board_a73de5ce398e7306dd11f15ce40428746} 
+void Board\+::toggle\+Color (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8cpp_source_l00162}{162}} of file \mbox{\hyperlink{cchess__rules_8cpp_source}{cchess\+\_\+rules.\+cpp}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_board_a73de5ce398e7306dd11f15ce40428746_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_board_aec3a7e579d8de4a6d933ec3038851bab}\index{Board@{Board}!toggleColor@{toggleColor}}
+\index{toggleColor@{toggleColor}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{toggleColor()}{toggleColor()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_board_aec3a7e579d8de4a6d933ec3038851bab} 
+\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}} Board\+::toggle\+Color (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}}}]{color}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8cpp_source_l00166}{166}} of file \mbox{\hyperlink{cchess__rules_8cpp_source}{cchess\+\_\+rules.\+cpp}}.
+
+\Hypertarget{class_board_ac4acab226328b0fdf620895bbac18bc2}\index{Board@{Board}!undoMove@{undoMove}}
+\index{undoMove@{undoMove}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{undoMove()}{undoMove()}}
+{\footnotesize\ttfamily \label{class_board_ac4acab226328b0fdf620895bbac18bc2} 
+void Board\+::undo\+Move (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_point}{Point}} \&}]{from}{, }\item[{const \mbox{\hyperlink{struct_point}{Point}} \&}]{to}{, }\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ \&}]{piece}{, }\item[{std\+::vector$<$ std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_piece}{Piece}} $>$ $>$ $>$ \&}]{board}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8cpp_source_l00109}{109}} of file \mbox{\hyperlink{cchess__rules_8cpp_source}{cchess\+\_\+rules.\+cpp}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_board_ac4acab226328b0fdf620895bbac18bc2_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_board_afb64136a0dfa785a59639ddece48dc8f}\index{Board@{Board}!board@{board}}
+\index{board@{board}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{board}{board}}
+{\footnotesize\ttfamily \label{class_board_afb64136a0dfa785a59639ddece48dc8f} 
+std\+::vector$<$std\+::vector$<$std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{class_piece}{Piece}}$>$ $>$ $>$ Board\+::board}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8h_source_l00538}{538}} of file \mbox{\hyperlink{cchess__rules_8h_source}{cchess\+\_\+rules.\+h}}.
+
+\Hypertarget{class_board_a5d5cb514dc33c0a80cb849508112b7b6}\index{Board@{Board}!players\_color@{players\_color}}
+\index{players\_color@{players\_color}!Board@{Board}}
+\doxysubsubsection{\texorpdfstring{players\_color}{players\_color}}
+{\footnotesize\ttfamily \label{class_board_a5d5cb514dc33c0a80cb849508112b7b6} 
+\mbox{\hyperlink{cchess__rules_8h_ab87bacfdad76e61b9412d7124be44c1c}{Color}} Board\+::players\+\_\+color}
+
+
+
+Definition at line \mbox{\hyperlink{cchess__rules_8h_source_l00539}{539}} of file \mbox{\hyperlink{cchess__rules_8h_source}{cchess\+\_\+rules.\+h}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/\mbox{\hyperlink{cchess__rules_8h}{cchess\+\_\+rules.\+h}}\item 
+F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/\mbox{\hyperlink{cchess__rules_8cpp}{cchess\+\_\+rules.\+cpp}}\end{DoxyCompactItemize}

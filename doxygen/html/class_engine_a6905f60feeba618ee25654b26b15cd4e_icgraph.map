@@ -1,0 +1,5 @@
+<map id="Engine::GetBestMove" name="Engine::GetBestMove">
+<area shape="rect" id="Node000001" title=" " alt="" coords="178,5,325,32"/>
+<area shape="rect" id="Node000002" href="$class_engine.html#aef2d2874eef0750216b626685fccf214" title=" " alt="" coords="5,5,130,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,21,130,21,130,16,162,16"/>
+</map>

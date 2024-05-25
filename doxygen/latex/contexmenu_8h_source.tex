@@ -1,0 +1,70 @@
+\doxysection{F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/contexmenu.h}
+\hypertarget{contexmenu_8h_source}{}\label{contexmenu_8h_source}\mbox{\hyperlink{contexmenu_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00002}00002\ \textcolor{comment}{\ \ ElephantChess,\ a\ UCI\ chinese\ chess\ playing\ GUI\ with\ builtin\ engine}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00003}00003\ \textcolor{comment}{\ \ Copyright\ (C)\ 2022-\/2023\ Wolf\ S.\ Kappesser}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00004}00004\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00005}00005\ \textcolor{comment}{\ \ ElephantChess\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00006}00006\ \textcolor{comment}{\ \ it\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00007}00007\ \textcolor{comment}{\ \ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00008}00008\ \textcolor{comment}{\ \ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00009}00009\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00010}00010\ \textcolor{comment}{\ \ ElephantChess\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00011}00011\ \textcolor{comment}{\ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00012}00012\ \textcolor{comment}{\ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00013}00013\ \textcolor{comment}{\ \ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00014}00014\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00015}00015\ \textcolor{comment}{\ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00016}00016\ \textcolor{comment}{\ \ along\ with\ this\ program.\ \ If\ not,\ see\ <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00017}00017\ \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00019}00019\ \textcolor{preprocessor}{\#ifndef\ CONTEXMENU\_H}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00020}00020\ \textcolor{preprocessor}{\#define\ CONTEXMENU\_H}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00022}00022\ \textcolor{preprocessor}{\#include\ <QMenu>}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00023}00023\ \textcolor{preprocessor}{\#include\ <QPoint>}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00025}00025\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{basemodel_8h}{basemodel.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00027}\mbox{\hyperlink{class_contex_menu}{00027}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_contex_menu}{ContexMenu}}\ :\ \textcolor{keyword}{public}\ QMenu}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00028}00028\ \{}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00029}00029\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00030}00030\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00031}00031\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_contex_menu_a6777bb29dc2bf3c8345fc4d0b7d69d58}{ContexMenu}}(QWidget\ *\mbox{\hyperlink{class_contex_menu_a091fcf9e87258cefefc5213a144ff535}{parent}}\ =\ 0);}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00033}\mbox{\hyperlink{class_contex_menu_adda23ab340386e5d080eb48b67030835}{00033}}\ \ \ \ \ QList<QPair<Point,\ markerType>>\ \mbox{\hyperlink{class_contex_menu_adda23ab340386e5d080eb48b67030835}{markers}};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00034}\mbox{\hyperlink{class_contex_menu_a825a041785bc655baf932c759e751352}{00034}}\ \ \ \ \ QList<QPair<Point,\ completePieceType>>\ \mbox{\hyperlink{class_contex_menu_a825a041785bc655baf932c759e751352}{pieces}};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00035}\mbox{\hyperlink{class_contex_menu_aea31fdc6845386c159e1089aa27337de}{00035}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_contex_menu_aea31fdc6845386c159e1089aa27337de}{contextMenuX}};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00036}\mbox{\hyperlink{class_contex_menu_ac86112367ed141f9d61c47852877ba88}{00036}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_contex_menu_ac86112367ed141f9d61c47852877ba88}{contextMenuY}};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00037}\mbox{\hyperlink{class_contex_menu_a091fcf9e87258cefefc5213a144ff535}{00037}}\ \ \ \ \ QWidget\ *\mbox{\hyperlink{class_contex_menu_a091fcf9e87258cefefc5213a144ff535}{parent}};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00038}00038\ \ \ \ \ \textcolor{comment}{//\ TODO:\ Use\ Pattern\ (Flyweigth?)}}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00039}00039\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00040}00040\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_abfc937ca3179098273a5dda11c4f44e2}{Kreuz}}();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00041}00041\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a33b0ba575b29d7ab86867feb34cbcd27}{Kreis}}();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00042}00042\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_adf1251ae050b4e867640bb5fa15bb704}{Dreieck}}();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00043}00043\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_ae9d8a054ed69fa55a0aa1565550c8f24}{Linie}}();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00044}00044\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a8e30d632f0b5904975555253538bcc2a}{Linienende}}();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00045}00045\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a43c8668023ae4534319729a128420350}{Viereck}}();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00046}00046\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a09263d94e5b586ea18f92b592fa0c8d3}{clearMarkers}}();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00048}00048\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a3db4056f74569844236b88de9f517ebd}{GeneralRot}}();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00049}00049\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a09693092d12b48ac8746f83ed80452e9}{GeneralSchwarz}}();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00050}00050\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_ab99f2c898e2d2287555013bd6f4e57e5}{BeraterRot}}();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00051}00051\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a1355183fb9253f8ec40af7ce5fa9f2c0}{BeraterSchwarz}}();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00052}00052\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_ab82f544ba71e433c80eb706bd55cbc70}{PferdRot}}();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00053}00053\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a0b0f8102c2230a926635da8edc4ab6ee}{PferdSchwarz}}();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00054}00054\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a93eedebb28ac5477517d6846caa26852}{ElefantRot}}();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00055}00055\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_ad676f37af28103f7c12771fc5ebd7dca}{ElefantSchwarz}}();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00056}00056\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_ac6afddc6601652d81f2e6c42c224f0de}{KanoneRot}}();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00057}00057\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a984637815e833a80d63159c286ca013a}{KanoneSchwarz}}();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00058}00058\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a8879c98eb8e250f0f83bfa2c8605a55d}{SoldatRot}}();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00059}00059\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a86ab1ea5678997e097c55b436e0e3d67}{SoldatSchwarz}}();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00060}00060\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a01c8251d4715143daf09ac44c08d9d42}{TurmRot}}();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00061}00061\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_a871164e0bd5e79fdfa4e2937679fa508}{TurmSchwarz}}();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00062}00062\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_contex_menu_ab2e4897c0dc0b2c7b1b9ffea303a9bc9}{clearBoard}}();}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00063}00063\ \};}
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{contexmenu_8h_source_l00065}00065\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CONTEXMENU\_H}}
+
+\end{DoxyCode}

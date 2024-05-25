@@ -1,0 +1,9 @@
+<map id="MainWindow::PutPGNOnBoard" name="MainWindow::PutPGNOnBoard">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,56,208,83"/>
+<area shape="rect" id="Node000002" href="$class_board.html#a2222769b9257ec798f6ec6800060507e" title=" " alt="" coords="282,5,409,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,53,266,33,267,38,174,58"/>
+<area shape="rect" id="Node000003" href="$class_board.html#aae13dd814f2f4ad80a42878056853285" title=" " alt="" coords="256,56,435,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="208,67,240,67,240,72,208,72"/>
+<area shape="rect" id="Node000004" href="$class_board.html#a73de5ce398e7306dd11f15ce40428746" title=" " alt="" coords="281,107,410,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="174,81,266,101,265,106,172,86"/>
+</map>

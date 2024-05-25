@@ -1,0 +1,263 @@
+\doxysection{F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/engine.cpp File Reference}
+\hypertarget{engine_8cpp}{}\label{engine_8cpp}\index{F:/source/CLionProjects/ElephantChess/sources/engine.cpp@{F:/source/CLionProjects/ElephantChess/sources/engine.cpp}}
+{\ttfamily \#include $<$QFuture$>$}\newline
+{\ttfamily \#include $<$Qt\+Concurrent/\+Qt\+Concurrent$>$}\newline
+{\ttfamily \#include "{}engine.\+h"{}}\newline
+Include dependency graph for engine.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{engine_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_base_model}{Base\+Model}} \mbox{\hyperlink{engine_8cpp_adf4157fe06dcb77da8c055332783d34d}{basemodel}}
+\item 
+std\+::vector$<$ std\+::vector$<$ int $>$ $>$ \mbox{\hyperlink{engine_8cpp_a0db12ae0b00f2fb59e51ed9de50c689a}{soldier\+Value\+Table}}
+\item 
+const std\+::vector$<$ std\+::vector$<$ int $>$ $>$ \mbox{\hyperlink{engine_8cpp_aa046d797439b466f925f7499ef4378cc}{general\+Value\+Table}}
+\item 
+const std\+::vector$<$ std\+::vector$<$ int $>$ $>$ \mbox{\hyperlink{engine_8cpp_a0219b6b2276568d3857d2a05af177a6d}{advisor\+Value\+Table}}
+\item 
+const std\+::vector$<$ std\+::vector$<$ int $>$ $>$ \mbox{\hyperlink{engine_8cpp_a9d258aa5407092ca48f55523b974350e}{elephant\+Value\+Table}}
+\item 
+const std\+::vector$<$ std\+::vector$<$ int $>$ $>$ \mbox{\hyperlink{engine_8cpp_a39c35565bd2cca71271480438d0565b4}{horse\+Value\+Table}}
+\item 
+std\+::vector$<$ std\+::vector$<$ int $>$ $>$ \mbox{\hyperlink{engine_8cpp_a540a9f27a5306365c4847a6d9aa148ea}{cannon\+Value\+Table}}
+\item 
+const std\+::vector$<$ std\+::vector$<$ int $>$ $>$ \mbox{\hyperlink{engine_8cpp_a429afd523decb0bc0a238af271fee818}{chariot\+Value\+Table}}
+\item 
+constexpr int \mbox{\hyperlink{engine_8cpp_af38aab5355813b60462083a9435665e6}{k\+Board\+Size}} = 10\texorpdfstring{$\ast$}{*}9
+\item 
+constexpr int \mbox{\hyperlink{engine_8cpp_a717c456dc74471f95f8122c8de478d38}{k\+Piece\+Types}} = 14
+\item 
+std\+::array$<$ std\+::array$<$ uint64\+\_\+t, \mbox{\hyperlink{engine_8cpp_af38aab5355813b60462083a9435665e6}{k\+Board\+Size}} $>$, \mbox{\hyperlink{engine_8cpp_a717c456dc74471f95f8122c8de478d38}{k\+Piece\+Types}} $>$ \mbox{\hyperlink{engine_8cpp_a385c44fb374ed2c8fe952e46af7d9d37}{zobrist\+Table}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{engine_8cpp_a0219b6b2276568d3857d2a05af177a6d}\index{engine.cpp@{engine.cpp}!advisorValueTable@{advisorValueTable}}
+\index{advisorValueTable@{advisorValueTable}!engine.cpp@{engine.cpp}}
+\doxysubsubsection{\texorpdfstring{advisorValueTable}{advisorValueTable}}
+{\footnotesize\ttfamily \label{engine_8cpp_a0219b6b2276568d3857d2a05af177a6d} 
+const std\+::vector$<$std\+::vector$<$int$>$ $>$ advisor\+Value\+Table}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 6,\ 0,\ 6,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 9,\ 0,\ 8,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 6,\ 0,\ 6,\ 0,\ 0,\ 0\}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{engine_8cpp_source_l00053}{53}} of file \mbox{\hyperlink{engine_8cpp_source}{engine.\+cpp}}.
+
+\Hypertarget{engine_8cpp_adf4157fe06dcb77da8c055332783d34d}\index{engine.cpp@{engine.cpp}!basemodel@{basemodel}}
+\index{basemodel@{basemodel}!engine.cpp@{engine.cpp}}
+\doxysubsubsection{\texorpdfstring{basemodel}{basemodel}}
+{\footnotesize\ttfamily \label{engine_8cpp_adf4157fe06dcb77da8c055332783d34d} 
+\mbox{\hyperlink{struct_base_model}{Base\+Model}} basemodel\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{basemodel_8cpp_source_l00021}{21}} of file \mbox{\hyperlink{basemodel_8cpp_source}{basemodel.\+cpp}}.
+
+\Hypertarget{engine_8cpp_a540a9f27a5306365c4847a6d9aa148ea}\index{engine.cpp@{engine.cpp}!cannonValueTable@{cannonValueTable}}
+\index{cannonValueTable@{cannonValueTable}!engine.cpp@{engine.cpp}}
+\doxysubsubsection{\texorpdfstring{cannonValueTable}{cannonValueTable}}
+{\footnotesize\ttfamily \label{engine_8cpp_a540a9f27a5306365c4847a6d9aa148ea} 
+std\+::vector$<$std\+::vector$<$int$>$ $>$ cannon\+Value\+Table}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{6,\ 6,\ 6,\ 6,\ 6,\ 6,\ 6,\ 6,\ 6\},}
+\DoxyCodeLine{\ \ \ \ \{8,\ 8,\ 8,\ 8,\ 8,\ 8,\ 8,\ 8,\ 8\},}
+\DoxyCodeLine{\ \ \ \ \{10,\ 10,\ 10,\ 10,\ 10,\ 10,\ 10,\ 10,\ 10\},}
+\DoxyCodeLine{\ \ \ \ \{14,\ 14,\ 14,\ 14,\ 14,\ 14,\ 14,\ 14,\ 14\},}
+\DoxyCodeLine{\ \ \ \ \{18,\ 18,\ 18,\ 18,\ 18,\ 18,\ 18,\ 18,\ 18\}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{engine_8cpp_source_l00093}{93}} of file \mbox{\hyperlink{engine_8cpp_source}{engine.\+cpp}}.
+
+\Hypertarget{engine_8cpp_a429afd523decb0bc0a238af271fee818}\index{engine.cpp@{engine.cpp}!chariotValueTable@{chariotValueTable}}
+\index{chariotValueTable@{chariotValueTable}!engine.cpp@{engine.cpp}}
+\doxysubsubsection{\texorpdfstring{chariotValueTable}{chariotValueTable}}
+{\footnotesize\ttfamily \label{engine_8cpp_a429afd523decb0bc0a238af271fee818} 
+const std\+::vector$<$std\+::vector$<$int$>$ $>$ chariot\+Value\+Table}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ \{8,\ 8,\ 8,\ 8,\ 8,\ 8,\ 8,\ 8,\ 8\},}
+\DoxyCodeLine{\ \ \ \ \{8,\ 8,\ 8,\ 8,\ 8,\ 8,\ 8,\ 8,\ 8\},}
+\DoxyCodeLine{\ \ \ \ \{8,\ 8,\ 8,\ 8,\ 8,\ 8,\ 8,\ 8,\ 8\},}
+\DoxyCodeLine{\ \ \ \ \{8,\ 8,\ 8,\ 8,\ 8,\ 8,\ 8,\ 8,\ 8\},}
+\DoxyCodeLine{\ \ \ \ \{8,\ 8,\ 8,\ 8,\ 8,\ 8,\ 8,\ 8,\ 8\},}
+\DoxyCodeLine{\ \ \ \ \{8,\ 8,\ 8,\ 8,\ 8,\ 8,\ 8,\ 8,\ 8\},}
+\DoxyCodeLine{\ \ \ \ \{10,\ 10,\ 10,\ 10,\ 10,\ 10,\ 10,\ 10,\ 10\},}
+\DoxyCodeLine{\ \ \ \ \{12,\ 12,\ 12,\ 12,\ 12,\ 12,\ 12,\ 12,\ 12\},}
+\DoxyCodeLine{\ \ \ \ \{15,\ 15,\ 15,\ 15,\ 15,\ 15,\ 15,\ 15,\ 15\},}
+\DoxyCodeLine{\ \ \ \ \{20,\ 20,\ 20,\ 20,\ 20,\ 20,\ 20,\ 20,\ 20\}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{engine_8cpp_source_l00106}{106}} of file \mbox{\hyperlink{engine_8cpp_source}{engine.\+cpp}}.
+
+\Hypertarget{engine_8cpp_a9d258aa5407092ca48f55523b974350e}\index{engine.cpp@{engine.cpp}!elephantValueTable@{elephantValueTable}}
+\index{elephantValueTable@{elephantValueTable}!engine.cpp@{engine.cpp}}
+\doxysubsubsection{\texorpdfstring{elephantValueTable}{elephantValueTable}}
+{\footnotesize\ttfamily \label{engine_8cpp_a9d258aa5407092ca48f55523b974350e} 
+const std\+::vector$<$std\+::vector$<$int$>$ $>$ elephant\+Value\+Table}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 15,\ 0,\ 0,\ 0,\ 15,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{5,\ 0,\ 0,\ 0,\ 15,\ 0,\ 0,\ 0,\ 5\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 10,\ 0,\ 0,\ 0,\ 10,\ 0,\ 0\}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{engine_8cpp_source_l00066}{66}} of file \mbox{\hyperlink{engine_8cpp_source}{engine.\+cpp}}.
+
+\Hypertarget{engine_8cpp_aa046d797439b466f925f7499ef4378cc}\index{engine.cpp@{engine.cpp}!generalValueTable@{generalValueTable}}
+\index{generalValueTable@{generalValueTable}!engine.cpp@{engine.cpp}}
+\doxysubsubsection{\texorpdfstring{generalValueTable}{generalValueTable}}
+{\footnotesize\ttfamily \label{engine_8cpp_aa046d797439b466f925f7499ef4378cc} 
+const std\+::vector$<$std\+::vector$<$int$>$ $>$ general\+Value\+Table}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 10,\ 12,\ 10,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 8,\ 10,\ 8,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 10,\ 12,\ 10,\ 0,\ 0,\ 0\}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{engine_8cpp_source_l00040}{40}} of file \mbox{\hyperlink{engine_8cpp_source}{engine.\+cpp}}.
+
+\Hypertarget{engine_8cpp_a39c35565bd2cca71271480438d0565b4}\index{engine.cpp@{engine.cpp}!horseValueTable@{horseValueTable}}
+\index{horseValueTable@{horseValueTable}!engine.cpp@{engine.cpp}}
+\doxysubsubsection{\texorpdfstring{horseValueTable}{horseValueTable}}
+{\footnotesize\ttfamily \label{engine_8cpp_a39c35565bd2cca71271480438d0565b4} 
+const std\+::vector$<$std\+::vector$<$int$>$ $>$ horse\+Value\+Table}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ \{4,\ 12,\ 14,\ 16,\ 18,\ 16,\ 14,\ 12,\ 4\},}
+\DoxyCodeLine{\ \ \ \ \{4,\ 12,\ 14,\ 16,\ 18,\ 16,\ 14,\ 12,\ 4\},}
+\DoxyCodeLine{\ \ \ \ \{4,\ 12,\ 14,\ 16,\ 18,\ 16,\ 14,\ 12,\ 4\},}
+\DoxyCodeLine{\ \ \ \ \{4,\ 12,\ 14,\ 16,\ 18,\ 16,\ 14,\ 12,\ 4\},}
+\DoxyCodeLine{\ \ \ \ \{4,\ 12,\ 14,\ 16,\ 18,\ 16,\ 14,\ 12,\ 4\},}
+\DoxyCodeLine{\ \ \ \ \{4,\ 12,\ 14,\ 16,\ 18,\ 16,\ 14,\ 12,\ 4\},}
+\DoxyCodeLine{\ \ \ \ \{4,\ 10,\ 12,\ 14,\ 16,\ 14,\ 12,\ 10,\ 4\},}
+\DoxyCodeLine{\ \ \ \ \{4,\ 8,\ 10,\ 12,\ 14,\ 12,\ 10,\ 8,\ 4\},}
+\DoxyCodeLine{\ \ \ \ \{4,\ 6,\ 8,\ 10,\ 12,\ 10,\ 8,\ 6,\ 4\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 4,\ 4,\ 4,\ 4,\ 4,\ 4,\ 4,\ 0\}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{engine_8cpp_source_l00079}{79}} of file \mbox{\hyperlink{engine_8cpp_source}{engine.\+cpp}}.
+
+\Hypertarget{engine_8cpp_af38aab5355813b60462083a9435665e6}\index{engine.cpp@{engine.cpp}!kBoardSize@{kBoardSize}}
+\index{kBoardSize@{kBoardSize}!engine.cpp@{engine.cpp}}
+\doxysubsubsection{\texorpdfstring{kBoardSize}{kBoardSize}}
+{\footnotesize\ttfamily \label{engine_8cpp_af38aab5355813b60462083a9435665e6} 
+int k\+Board\+Size = 10\texorpdfstring{$\ast$}{*}9\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8cpp_source_l00121}{121}} of file \mbox{\hyperlink{engine_8cpp_source}{engine.\+cpp}}.
+
+\Hypertarget{engine_8cpp_a717c456dc74471f95f8122c8de478d38}\index{engine.cpp@{engine.cpp}!kPieceTypes@{kPieceTypes}}
+\index{kPieceTypes@{kPieceTypes}!engine.cpp@{engine.cpp}}
+\doxysubsubsection{\texorpdfstring{kPieceTypes}{kPieceTypes}}
+{\footnotesize\ttfamily \label{engine_8cpp_a717c456dc74471f95f8122c8de478d38} 
+int k\+Piece\+Types = 14\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8cpp_source_l00122}{122}} of file \mbox{\hyperlink{engine_8cpp_source}{engine.\+cpp}}.
+
+\Hypertarget{engine_8cpp_a0db12ae0b00f2fb59e51ed9de50c689a}\index{engine.cpp@{engine.cpp}!soldierValueTable@{soldierValueTable}}
+\index{soldierValueTable@{soldierValueTable}!engine.cpp@{engine.cpp}}
+\doxysubsubsection{\texorpdfstring{soldierValueTable}{soldierValueTable}}
+{\footnotesize\ttfamily \label{engine_8cpp_a0db12ae0b00f2fb59e51ed9de50c689a} 
+std\+::vector$<$std\+::vector$<$int$>$ $>$ soldier\+Value\+Table}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ \{32,\ 34,\ 36,\ 38,\ 40,\ 38,\ 36,\ 34,\ 32\},}
+\DoxyCodeLine{\ \ \ \ \{30,\ 32,\ 34,\ 36,\ 38,\ 36,\ 34,\ 32,\ 30\},}
+\DoxyCodeLine{\ \ \ \ \{28,\ 30,\ 32,\ 34,\ 36,\ 34,\ 32,\ 30,\ 28\},}
+\DoxyCodeLine{\ \ \ \ \{26,\ 28,\ 30,\ 32,\ 34,\ 32,\ 30,\ 28,\ 26\},}
+\DoxyCodeLine{\ \ \ \ \{24,\ 26,\ 28,\ 30,\ 32,\ 30,\ 28,\ 26,\ 24\},}
+\DoxyCodeLine{\ \ \ \ \{22,\ 24,\ 26,\ 28,\ 30,\ 28,\ 26,\ 24,\ 22\},}
+\DoxyCodeLine{\ \ \ \ \{20,\ 22,\ 24,\ 26,\ 28,\ 26,\ 24,\ 22,\ 20\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{engine_8cpp_source_l00026}{26}} of file \mbox{\hyperlink{engine_8cpp_source}{engine.\+cpp}}.
+
+\Hypertarget{engine_8cpp_a385c44fb374ed2c8fe952e46af7d9d37}\index{engine.cpp@{engine.cpp}!zobristTable@{zobristTable}}
+\index{zobristTable@{zobristTable}!engine.cpp@{engine.cpp}}
+\doxysubsubsection{\texorpdfstring{zobristTable}{zobristTable}}
+{\footnotesize\ttfamily \label{engine_8cpp_a385c44fb374ed2c8fe952e46af7d9d37} 
+std\+::array$<$std\+::array$<$uint64\+\_\+t, \mbox{\hyperlink{engine_8cpp_af38aab5355813b60462083a9435665e6}{k\+Board\+Size}}$>$, \mbox{\hyperlink{engine_8cpp_a717c456dc74471f95f8122c8de478d38}{k\+Piece\+Types}}$>$ zobrist\+Table}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8cpp_source_l00123}{123}} of file \mbox{\hyperlink{engine_8cpp_source}{engine.\+cpp}}.
+

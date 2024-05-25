@@ -1,0 +1,13 @@
+<map id="Board::getAllValidMoves" name="Board::getAllValidMoves">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,107,168,133"/>
+<area shape="rect" id="Node000002" href="$class_board.html#a1bce818087213faff4bce6d5eaf5d597" title=" " alt="" coords="225,5,335,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,104,156,74,214,42,227,36,229,41,217,46,158,79,110,108"/>
+<area shape="rect" id="Node000003" href="$class_board.html#a85971cfdadb2b1313a67e87fc02bb077" title=" " alt="" coords="218,56,342,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="140,103,211,84,213,90,141,109"/>
+<area shape="rect" id="Node000004" href="$class_board.html#a2222769b9257ec798f6ec6800060507e" title=" " alt="" coords="217,107,343,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="168,117,201,117,201,123,168,123"/>
+<area shape="rect" id="Node000005" href="$class_board.html#a73de5ce398e7306dd11f15ce40428746" title=" " alt="" coords="216,157,344,184"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="141,131,213,150,211,156,140,137"/>
+<area shape="rect" id="Node000006" href="$class_board.html#ac4acab226328b0fdf620895bbac18bc2" title=" " alt="" coords="219,208,341,235"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="110,132,158,161,217,194,229,199,227,204,214,198,156,166,108,136"/>
+</map>

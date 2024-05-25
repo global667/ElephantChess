@@ -1,0 +1,1361 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML><HEAD></HEAD><BODY>
+<OBJECT type="text/site properties">
+<param name="FrameName" value="right">
+</OBJECT>
+<UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#acb789dac6a35383ad1d7bb6f652c7cee"><param name="Name" value="About()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_about_view.html"><param name="Name" value="AboutView"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_about_view.html#aadfa627522334a8036c0426e06bca939"><param name="Name" value="AboutView(QWidget *parent=nullptr)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_about_view.html#aadfa627522334a8036c0426e06bca939"><param name="Name" value="AboutView"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_advisor.html"><param name="Name" value="Advisor"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_advisor.html#aa550d62034f18a02fb388b446469df62"><param name="Name" value="Advisor(const Color color, const QString &amp;name)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_advisor.html"><param name="Name" value="Advisor"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_advisor.html#aa550d62034f18a02fb388b446469df62"><param name="Name" value="Advisor(const Color color, const QString &amp;name)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021a8ac836af7d9b979587d7f0aea41bed31"><param name="Name" value="Advisor"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021a8ac836af7d9b979587d7f0aea41bed31"><param name="Name" value="cchess_rules.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_advisor.html"><param name="Name" value="Advisor"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_advisor.html#afb1a2a73278a6b61fe2a376c4ee4b4f8"><param name="Name" value="isValidMove(const Point &amp;from, const Point &amp;to, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board) override"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002ead5d2981e90b59bbcb5d234e0109c199a"><param name="Name" value="AdvisorRot"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002eae4bf17f89077dc287f193caa32877cb9"><param name="Name" value="AdvisorSchwarz"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html#a0219b6b2276568d3857d2a05af177a6d"><param name="Name" value="advisorValueTable"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#a8e102841cb1f79b1c6d87e1e044b8990"><param name="Name" value="anError(QProcess::ProcessError error)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a8e9c9d6d5ff39a7db2788affdd2c9de2"><param name="Name" value="BaseModel()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8cpp.html#adf4157fe06dcb77da8c055332783d34d"><param name="Name" value="basemodel.cpp"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html"><param name="Name" value="basemodel.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002ead5d2981e90b59bbcb5d234e0109c199a"><param name="Name" value="AdvisorRot"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html"><param name="Name" value="basemodel.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002eae4bf17f89077dc287f193caa32877cb9"><param name="Name" value="AdvisorSchwarz"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html"><param name="Name" value="basemodel.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002ea65bfa657784b5a2a0f1e2772de55a1ee"><param name="Name" value="CannonRot"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html"><param name="Name" value="basemodel.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002eaf8d6efc784cdc2765027e3e9cba1ce94"><param name="Name" value="CannonSchwarz"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html"><param name="Name" value="basemodel.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002ea088d15e28472f6d44324d10ca85eb4a2"><param name="Name" value="ChariotRot"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html"><param name="Name" value="basemodel.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002ea4bfad3562b535105c5bc186dce1a6472"><param name="Name" value="ChariotSchwarz"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html"><param name="Name" value="basemodel.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002e"><param name="Name" value="completePieceType"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html"><param name="Name" value="basemodel.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a3f2f433cc45b9a2bb94ec8e0c96846d4aa544a1e3619542949545de93d90e4aa4"><param name="Name" value="Dreieck"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html"><param name="Name" value="basemodel.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002ea1ca200a903de47b8dbe5467170dbea7d"><param name="Name" value="ElephantRot"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html"><param name="Name" value="basemodel.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002ea60c450de8b42d1df5fc86aa9ad7b28ef"><param name="Name" value="ElephantSchwarz"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html"><param name="Name" value="basemodel.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002ea2c9d9a63b12e7f9c0bad73a8f51313e8"><param name="Name" value="GeneralRot"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html"><param name="Name" value="basemodel.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002ea54390f7556fb3287350d7af59df25e75"><param name="Name" value="GeneralSchwarz"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html"><param name="Name" value="basemodel.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002ea49e62cc61c0d663f84d12914c65b5894"><param name="Name" value="HorseRot"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html"><param name="Name" value="basemodel.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002eabd3e260f75148dbb94e30d7728eb533a"><param name="Name" value="HorseSchwarz"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html"><param name="Name" value="basemodel.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a3f2f433cc45b9a2bb94ec8e0c96846d4a684fa5bc4389328564394fe081f9288f"><param name="Name" value="Kreis"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html"><param name="Name" value="basemodel.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a3f2f433cc45b9a2bb94ec8e0c96846d4ac60bfc7e77949e9a1887a756626fd6fd"><param name="Name" value="Kreuz"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html"><param name="Name" value="basemodel.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a3f2f433cc45b9a2bb94ec8e0c96846d4a8b33328e6e2c9fa5365ce9d0015b3f3d"><param name="Name" value="Linie"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html"><param name="Name" value="basemodel.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a3f2f433cc45b9a2bb94ec8e0c96846d4aaae2e4d690651a13d98495ea30fedf1a"><param name="Name" value="Linienende"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html"><param name="Name" value="basemodel.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a3f2f433cc45b9a2bb94ec8e0c96846d4"><param name="Name" value="markerType"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html"><param name="Name" value="basemodel.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002eaea59182fb0c2059e57ef8fa78b83d64d"><param name="Name" value="SoldierRot"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html"><param name="Name" value="basemodel.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002ea8bb94b9957588009ef004b0162d56ef7"><param name="Name" value="SoldierSchwarz"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html"><param name="Name" value="basemodel.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a3f2f433cc45b9a2bb94ec8e0c96846d4aeb8b7b4e0019bc5d0f3acd33df1b0641"><param name="Name" value="Viereck"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model_1_1_engine_data.html"><param name="Name" value="BaseModel::EngineData"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model_1_1_engine_data.html"><param name="Name" value="BaseModel::EngineData"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model_1_1_engine_data.html#afda75c850dcd878398f9aaf1e8f94f06"><param name="Name" value="bestMove"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model_1_1_engine_data.html"><param name="Name" value="BaseModel::EngineData"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model_1_1_engine_data.html#a5ea6a6d3a1653d2a99cf88f42e5d6326"><param name="Name" value="engineName"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model_1_1_engine_data.html"><param name="Name" value="BaseModel::EngineData"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model_1_1_engine_data.html#a413406b7e113816f1b52f9f11f61ae0f"><param name="Name" value="evaluation"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model_1_1_engine_data.html"><param name="Name" value="BaseModel::EngineData"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model_1_1_engine_data.html#ae0ac940e082977e4da7c4e7b439be541"><param name="Name" value="nodes"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model_1_1_engine_data.html"><param name="Name" value="BaseModel::EngineData"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model_1_1_engine_data.html#af0813bdd4c9a64e275f87d22ff5bb799"><param name="Name" value="searchDepth"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a8e9c9d6d5ff39a7db2788affdd2c9de2"><param name="Name" value="BaseModel"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8cpp.html#adf4157fe06dcb77da8c055332783d34d"><param name="Name" value="basemodel"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#aa908bbe5af10d2cf828aac542a53d926"><param name="Name" value="BoardColPoints"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a888365d858f442e245e2e2eb7cf0e49b"><param name="Name" value="BoardCols"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a7695a763dac390905fb35b9392b93360"><param name="Name" value="BoardRowPoints"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#ab4583f71798a2ceb7062e4f4e78d09be"><param name="Name" value="BoardRows"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html#adf4157fe06dcb77da8c055332783d34d"><param name="Name" value="basemodel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html#adf4157fe06dcb77da8c055332783d34d"><param name="Name" value="boardview.cpp"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="contexmenu_8cpp.html#adf4157fe06dcb77da8c055332783d34d"><param name="Name" value="basemodel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="contexmenu_8cpp.html#adf4157fe06dcb77da8c055332783d34d"><param name="Name" value="contexmenu.cpp"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a490bd673f50d8c7aeffb7bbbd5384b6a"><param name="Name" value="currentMove"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a02f6556688f966ac6c2eac1058cf0cce"><param name="Name" value="currentMoves"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a807ded17e69384e3bd5403130d4a095aaad1943a9fd6d3d7ee1e6af41a5b0d3e7"><param name="Name" value="engine"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html#adf4157fe06dcb77da8c055332783d34d"><param name="Name" value="basemodel"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#ac0ab3a88ecb9e70e678cac5d67837e41"><param name="Name" value="engineData"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a7f6c18647308d0fd48f57a456f637f34"><param name="Name" value="fromHuman"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#ae7e667dc3c8833b3fe9ecc26bc7a1dbd"><param name="Name" value="fromUCI"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="game_8cpp.html#adf4157fe06dcb77da8c055332783d34d"><param name="Name" value="basemodel"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a5a31ec7590137edc717b75a94de0c46e"><param name="Name" value="gameView"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a807ded17e69384e3bd5403130d4a095aa99e9bae675b12967251c175696f00a70"><param name="Name" value="human"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="mainwindow_8cpp.html#adf4157fe06dcb77da8c055332783d34d"><param name="Name" value="basemodel"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a807ded17e69384e3bd5403130d4a095a"><param name="Name" value="Mode"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#ac0efea594046d0696caf34297bf7a789"><param name="Name" value="mode"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#af522db0ac8795196d0c4a64754c8b7c8"><param name="Name" value="moveHistory"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a86ca20ca22f7a4ff1086a95be62299af"><param name="Name" value="moves"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a3b0ab8b5875aab3be91c7995b7c6af76"><param name="Name" value="nativePieces"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a918c3e28ac4d54d642f76594d6a53723"><param name="Name" value="nodes"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a1acdc9a20b6947f749ac59970235d713"><param name="Name" value="position"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a0329ee37221a6900b73f1131b3597a9b"><param name="Name" value="posToken(const int fromX, const int fromY, const int toX, const int toY)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="settingsview_8cpp.html#adf4157fe06dcb77da8c055332783d34d"><param name="Name" value="basemodel"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a85686dbed12f16d17a446b91b08fd2b3"><param name="Name" value="toHuman"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#adf870baad86ea72a5d7487f8261293e9"><param name="Name" value="toUCI"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a90f6e1de057f802c9b4bd548514a8aa6a20c69e2d7dfbc08090ca82aa52917ed3"><param name="Name" value="traditional_native"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a90f6e1de057f802c9b4bd548514a8aa6a7f0fd3fe62d60e58ab36c13852753ef9"><param name="Name" value="traditional_png"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a807ded17e69384e3bd5403130d4a095aae208ca42644926ebb0dc4fe7167f25d7"><param name="Name" value="uci"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="uci_8cpp.html#adf4157fe06dcb77da8c055332783d34d"><param name="Name" value="basemodel"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a90f6e1de057f802c9b4bd548514a8aa6"><param name="Name" value="viewStyleMode"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a085f30455414d873398f5dbc32a5e9fa"><param name="Name" value="viewStyleModeVar"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html"><param name="Name" value="BaseModel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a90f6e1de057f802c9b4bd548514a8aa6ae4dfb82c0355b857e9c2d7078005ed7c"><param name="Name" value="western_png"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#ab99f2c898e2d2287555013bd6f4e57e5"><param name="Name" value="BeraterRot()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a1355183fb9253f8ec40af7ce5fa9f2c0"><param name="Name" value="BeraterSchwarz()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model_1_1_engine_data.html#afda75c850dcd878398f9aaf1e8f94f06"><param name="Name" value="bestMove"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de"><param name="Name" value="Black"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#aaccc94c0de2268962677d66f123ddfd0"><param name="Name" value="bMove"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html"><param name="Name" value="Board"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#a9ee491d4fea680cf69b033374a9fdfcb"><param name="Name" value="Board()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#afb64136a0dfa785a59639ddece48dc8f"><param name="Name" value="Board"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#afb64136a0dfa785a59639ddece48dc8f"><param name="Name" value="board"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html"><param name="Name" value="Board"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#a9ee491d4fea680cf69b033374a9fdfcb"><param name="Name" value="Board()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html"><param name="Name" value="Board"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#a0f9283a745f45911aa1f9de21e914544"><param name="Name" value="getAllValidMoves(Color color, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html"><param name="Name" value="Board"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#aae078a1923ad54b385c34c04e373827a"><param name="Name" value="getPieceAt(const Point &amp;position) const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html"><param name="Name" value="Board"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#a1bce818087213faff4bce6d5eaf5d597"><param name="Name" value="isCheck(Color color, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html"><param name="Name" value="Board"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#a42cded8d0584128aed453f088e8679e3"><param name="Name" value="isCheckmate(Color color, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html"><param name="Name" value="Board"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#a85971cfdadb2b1313a67e87fc02bb077"><param name="Name" value="isEvilGlare(Color color, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html"><param name="Name" value="Board"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#a2222769b9257ec798f6ec6800060507e"><param name="Name" value="movePiece(const Point &amp;from, const Point &amp;to, std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html"><param name="Name" value="Board"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#a5d5cb514dc33c0a80cb849508112b7b6"><param name="Name" value="players_color"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html"><param name="Name" value="Board"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#aae13dd814f2f4ad80a42878056853285"><param name="Name" value="setupInitialPositions()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html"><param name="Name" value="Board"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#a73de5ce398e7306dd11f15ce40428746"><param name="Name" value="toggleColor()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html"><param name="Name" value="Board"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#aec3a7e579d8de4a6d933ec3038851bab"><param name="Name" value="toggleColor(Color color)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html"><param name="Name" value="Board"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#ac4acab226328b0fdf620895bbac18bc2"><param name="Name" value="undoMove(const Point &amp;from, const Point &amp;to, const std::shared_ptr&lt; Piece &gt; &amp;piece, std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html#aec17512efb8d37d304cf6cda9e117439"><param name="Name" value="BOARD_COL_POINTS"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html#a369d70a2cf46f8d1db58ee5437061a2e"><param name="Name" value="BOARD_ROW_POINTS"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#a93963ddda46f1f871dff3029a56aac25"><param name="Name" value="boardChanged(int fromX, int fromY, int toX, int toY)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#aa908bbe5af10d2cf828aac542a53d926"><param name="Name" value="BoardColPoints"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a888365d858f442e245e2e2eb7cf0e49b"><param name="Name" value="BoardCols"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a7695a763dac390905fb35b9392b93360"><param name="Name" value="BoardRowPoints"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#ab4583f71798a2ceb7062e4f4e78d09be"><param name="Name" value="BoardRows"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_settings_view.html#a52adb68449ff91725aa8b10b1900e7be"><param name="Name" value="boardStyleChanged()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board_view.html"><param name="Name" value="BoardView"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board_view.html#a53b7557bdb4455479979db1588e178d9"><param name="Name" value="BoardView(QWidget *parent=nullptr)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html"><param name="Name" value="boardview.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html#adf4157fe06dcb77da8c055332783d34d"><param name="Name" value="basemodel"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html"><param name="Name" value="boardview.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html#aec17512efb8d37d304cf6cda9e117439"><param name="Name" value="BOARD_COL_POINTS"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html"><param name="Name" value="boardview.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html#a369d70a2cf46f8d1db58ee5437061a2e"><param name="Name" value="BOARD_ROW_POINTS"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html"><param name="Name" value="boardview.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html#ae396d1540fc1e62769e9c5dbd672af90"><param name="Name" value="BOTTOM_MARGIN"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html"><param name="Name" value="boardview.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html#a9e5486b3554d2fe8733eb5079b07412e"><param name="Name" value="FONT_POINT_SIZE"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html"><param name="Name" value="boardview.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html#a3bdf4d9295fdfbf3a218bf41e5bed537"><param name="Name" value="LEFT_MARGIN"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html"><param name="Name" value="boardview.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html#a9644a97637a29fd6442b88677962149e"><param name="Name" value="PEN_WIDTH"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html"><param name="Name" value="boardview.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html#a69370ffb8030eb94ef5c686483be193e"><param name="Name" value="PIECE_SCALE_FACTOR"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html"><param name="Name" value="boardview.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html#a757611a8d3d999db4c117ec4624c7e0b"><param name="Name" value="RIGHT_MARGIN"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html"><param name="Name" value="boardview.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html#a17cb6ada130cea1252f71e78fcf7449f"><param name="Name" value="TOP_MARGIN"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board_view.html"><param name="Name" value="BoardView"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board_view.html#a53b7557bdb4455479979db1588e178d9"><param name="Name" value="BoardView(QWidget *parent=nullptr)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board_view.html"><param name="Name" value="BoardView"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board_view.html#a1dd1800ab06833d5b9433c20aca6d6f4"><param name="Name" value="contextMenuEvent(QContextMenuEvent *event) override"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board_view.html"><param name="Name" value="BoardView"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board_view.html#a17b55a5a70add565f7d32d41fa042438"><param name="Name" value="event(QEvent *event) override"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board_view.html"><param name="Name" value="BoardView"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board_view.html#aea3b7f52ba2c5958f3a36e09191642fd"><param name="Name" value="mousePressEvent(QMouseEvent *event) override"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board_view.html"><param name="Name" value="BoardView"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board_view.html#a6ea62d61f2e3f9b6ecb772b89e60a0a2"><param name="Name" value="paintEvent(QPaintEvent *event) override"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board_view.html"><param name="Name" value="BoardView"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board_view.html#a68d3050df0494ca43827f0dccb390045"><param name="Name" value="PrepareEuroPiece(QPicture *picture, int i, int i1, int height, int width)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board_view.html"><param name="Name" value="BoardView"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board_view.html#a5711399b7300446ba86563df5189d1f3"><param name="Name" value="updateView(Point from, Point to, BaseModel::Mode mode)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html#ae396d1540fc1e62769e9c5dbd672af90"><param name="Name" value="BOTTOM_MARGIN"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cannon.html"><param name="Name" value="Cannon"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cannon.html#a2bf9d1394064342c7e070b21df414db5"><param name="Name" value="Cannon(const Color color, const QString &amp;name)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cannon.html"><param name="Name" value="Cannon"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cannon.html#a2bf9d1394064342c7e070b21df414db5"><param name="Name" value="Cannon(const Color color, const QString &amp;name)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021a22ef5d9468d7aa2f806d865b88a27a52"><param name="Name" value="Cannon"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021a22ef5d9468d7aa2f806d865b88a27a52"><param name="Name" value="cchess_rules.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cannon.html"><param name="Name" value="Cannon"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cannon.html#af0f0a0af8401d3c4ce7dc28a6fada4f8"><param name="Name" value="isValidMove(const Point &amp;from, const Point &amp;to, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board) override"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002ea65bfa657784b5a2a0f1e2772de55a1ee"><param name="Name" value="CannonRot"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002eaf8d6efc784cdc2765027e3e9cba1ce94"><param name="Name" value="CannonSchwarz"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html#a540a9f27a5306365c4847a6d9aa148ea"><param name="Name" value="cannonValueTable"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html"><param name="Name" value="cchess_rules.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021a8ac836af7d9b979587d7f0aea41bed31"><param name="Name" value="Advisor"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html"><param name="Name" value="cchess_rules.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#ab87bacfdad76e61b9412d7124be44c1cae90dfb84e30edf611e326eeb04d680de"><param name="Name" value="Black"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html"><param name="Name" value="cchess_rules.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021a22ef5d9468d7aa2f806d865b88a27a52"><param name="Name" value="Cannon"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html"><param name="Name" value="cchess_rules.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021a88ba9066926c3d917bb1a7b60fb1ea85"><param name="Name" value="Chariot"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html"><param name="Name" value="cchess_rules.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#ab87bacfdad76e61b9412d7124be44c1c"><param name="Name" value="Color"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html"><param name="Name" value="cchess_rules.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021af6cf83978d6a8e7ac57444bb38a540a7"><param name="Name" value="Elephant"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html"><param name="Name" value="cchess_rules.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021ace2c8aed9c2fa0cfbed56cbda4d8bf07"><param name="Name" value="Empty"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html"><param name="Name" value="cchess_rules.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021a0db377921f4ce762c62526131097968f"><param name="Name" value="General"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html"><param name="Name" value="cchess_rules.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021a38069b4eb64e325cb7ac65bd641b2188"><param name="Name" value="Horse"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html"><param name="Name" value="cchess_rules.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#ab87bacfdad76e61b9412d7124be44c1ca6adf97f83acf6453d4a6a4b1070f3754"><param name="Name" value="None"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html"><param name="Name" value="cchess_rules.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021"><param name="Name" value="PieceType"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html"><param name="Name" value="cchess_rules.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47"><param name="Name" value="Red"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html"><param name="Name" value="cchess_rules.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021ade75f2eb439368d9b39281bd0c4bdabb"><param name="Name" value="Soldier"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_chariot.html"><param name="Name" value="Chariot"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_chariot.html#aa04a9cc7e452fb494a714d83727ee9da"><param name="Name" value="Chariot(const Color color, const QString &amp;name)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021a88ba9066926c3d917bb1a7b60fb1ea85"><param name="Name" value="Chariot"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021a88ba9066926c3d917bb1a7b60fb1ea85"><param name="Name" value="cchess_rules.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_chariot.html"><param name="Name" value="Chariot"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_chariot.html#aa04a9cc7e452fb494a714d83727ee9da"><param name="Name" value="Chariot(const Color color, const QString &amp;name)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_chariot.html"><param name="Name" value="Chariot"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_chariot.html#a8ec41d12a3d27e54aa733a5c1a8f8777"><param name="Name" value="generateValidMoves(const Point &amp;position, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board) override"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_chariot.html"><param name="Name" value="Chariot"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_chariot.html#acf380de40c269c66218c1c09ec17d4fd"><param name="Name" value="isValidMove(const Point &amp;from, const Point &amp;to, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board) override"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002ea088d15e28472f6d44324d10ca85eb4a2"><param name="Name" value="ChariotRot"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002ea4bfad3562b535105c5bc186dce1a6472"><param name="Name" value="ChariotSchwarz"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html#a429afd523decb0bc0a238af271fee818"><param name="Name" value="chariotValueTable"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#ab2e4897c0dc0b2c7b1b9ffea303a9bc9"><param name="Name" value="clearBoard()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a09263d94e5b586ea18f92b592fa0c8d3"><param name="Name" value="clearMarkers()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#ab87bacfdad76e61b9412d7124be44c1c"><param name="Name" value="Color"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#a4cf5b29a9e13dcb93b616b11160c2abc"><param name="Name" value="color"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002e"><param name="Name" value="completePieceType"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a6777bb29dc2bf3c8345fc4d0b7d69d58"><param name="Name" value="ContexMenu(QWidget *parent=0)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="contexmenu_8cpp.html#adf4157fe06dcb77da8c055332783d34d"><param name="Name" value="contexmenu.cpp"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#ab99f2c898e2d2287555013bd6f4e57e5"><param name="Name" value="BeraterRot()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a1355183fb9253f8ec40af7ce5fa9f2c0"><param name="Name" value="BeraterSchwarz()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#ab2e4897c0dc0b2c7b1b9ffea303a9bc9"><param name="Name" value="clearBoard()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a09263d94e5b586ea18f92b592fa0c8d3"><param name="Name" value="clearMarkers()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a6777bb29dc2bf3c8345fc4d0b7d69d58"><param name="Name" value="ContexMenu(QWidget *parent=0)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#aea31fdc6845386c159e1089aa27337de"><param name="Name" value="contextMenuX"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#ac86112367ed141f9d61c47852877ba88"><param name="Name" value="contextMenuY"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#adf1251ae050b4e867640bb5fa15bb704"><param name="Name" value="Dreieck()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a93eedebb28ac5477517d6846caa26852"><param name="Name" value="ElefantRot()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#ad676f37af28103f7c12771fc5ebd7dca"><param name="Name" value="ElefantSchwarz()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a3db4056f74569844236b88de9f517ebd"><param name="Name" value="GeneralRot()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a09693092d12b48ac8746f83ed80452e9"><param name="Name" value="GeneralSchwarz()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#ac6afddc6601652d81f2e6c42c224f0de"><param name="Name" value="KanoneRot()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a984637815e833a80d63159c286ca013a"><param name="Name" value="KanoneSchwarz()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a33b0ba575b29d7ab86867feb34cbcd27"><param name="Name" value="Kreis()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#abfc937ca3179098273a5dda11c4f44e2"><param name="Name" value="Kreuz()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#ae9d8a054ed69fa55a0aa1565550c8f24"><param name="Name" value="Linie()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a8e30d632f0b5904975555253538bcc2a"><param name="Name" value="Linienende()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#adda23ab340386e5d080eb48b67030835"><param name="Name" value="markers"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a091fcf9e87258cefefc5213a144ff535"><param name="Name" value="parent"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#ab82f544ba71e433c80eb706bd55cbc70"><param name="Name" value="PferdRot()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a0b0f8102c2230a926635da8edc4ab6ee"><param name="Name" value="PferdSchwarz()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a825a041785bc655baf932c759e751352"><param name="Name" value="pieces"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a8879c98eb8e250f0f83bfa2c8605a55d"><param name="Name" value="SoldatRot()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a86ab1ea5678997e097c55b436e0e3d67"><param name="Name" value="SoldatSchwarz()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a01c8251d4715143daf09ac44c08d9d42"><param name="Name" value="TurmRot()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a871164e0bd5e79fdfa4e2937679fa508"><param name="Name" value="TurmSchwarz()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html"><param name="Name" value="ContexMenu"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a43c8668023ae4534319729a128420350"><param name="Name" value="Viereck()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board_view.html#a1dd1800ab06833d5b9433c20aca6d6f4"><param name="Name" value="contextMenuEvent(QContextMenuEvent *event) override"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#aea31fdc6845386c159e1089aa27337de"><param name="Name" value="contextMenuX"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#ac86112367ed141f9d61c47852877ba88"><param name="Name" value="contextMenuY"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a490bd673f50d8c7aeffb7bbbd5384b6a"><param name="Name" value="currentMove"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a02f6556688f966ac6c2eac1058cf0cce"><param name="Name" value="currentMoves"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#a7ca25863997116280fc26abcd563a7f9"><param name="Name" value="depth"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#a7ca25863997116280fc26abcd563a7f9"><param name="Name" value="Engine"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_t_t_entry.html#a73396baff5b97fb589bec4d13117ebdf"><param name="Name" value="depth"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_t_t_entry.html#a73396baff5b97fb589bec4d13117ebdf"><param name="Name" value="TTEntry"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_download_view.html#a311221290af304c7c722921f7991e611"><param name="Name" value="downloaded(QString filename) const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_download_view.html"><param name="Name" value="DownloadView"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_download_view.html#a16aecfa15bf9ddaef5e7a4dade2d2629"><param name="Name" value="DownloadView(QWidget *parent=nullptr, QUrl link=QUrl(&quot;https://www.elephant-chess.com/wp-content/uploads/2024/04/pikafish.zip&quot;))"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_download_view.html"><param name="Name" value="DownloadView"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_download_view.html#a311221290af304c7c722921f7991e611"><param name="Name" value="downloaded(QString filename) const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_download_view.html"><param name="Name" value="DownloadView"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_download_view.html#a16aecfa15bf9ddaef5e7a4dade2d2629"><param name="Name" value="DownloadView(QWidget *parent=nullptr, QUrl link=QUrl(&quot;https://www.elephant-chess.com/wp-content/uploads/2024/04/pikafish.zip&quot;))"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#adf1251ae050b4e867640bb5fa15bb704"><param name="Name" value="Dreieck()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a3f2f433cc45b9a2bb94ec8e0c96846d4aa544a1e3619542949545de93d90e4aa4"><param name="Name" value="Dreieck"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a93eedebb28ac5477517d6846caa26852"><param name="Name" value="ElefantRot()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#ad676f37af28103f7c12771fc5ebd7dca"><param name="Name" value="ElefantSchwarz()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_elephant.html"><param name="Name" value="Elephant"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_elephant.html#a4cfc6773140ee548d3da5907fdc81af8"><param name="Name" value="Elephant(const Color color, const QString &amp;name)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021af6cf83978d6a8e7ac57444bb38a540a7"><param name="Name" value="Elephant"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021af6cf83978d6a8e7ac57444bb38a540a7"><param name="Name" value="cchess_rules.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_elephant.html"><param name="Name" value="Elephant"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_elephant.html#a4cfc6773140ee548d3da5907fdc81af8"><param name="Name" value="Elephant(const Color color, const QString &amp;name)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_elephant.html"><param name="Name" value="Elephant"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_elephant.html#ac534eb93829032e5dbfda0ab2db348e3"><param name="Name" value="isValidMove(const Point &amp;from, const Point &amp;to, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board) override"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002ea1ca200a903de47b8dbe5467170dbea7d"><param name="Name" value="ElephantRot"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002ea60c450de8b42d1df5fc86aa9ad7b28ef"><param name="Name" value="ElephantSchwarz"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html#a9d258aa5407092ca48f55523b974350e"><param name="Name" value="elephantValueTable"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021ace2c8aed9c2fa0cfbed56cbda4d8bf07"><param name="Name" value="Empty"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html"><param name="Name" value="Engine"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#a8c98683b0a3aa28d8ab72a8bcd0d52f2"><param name="Name" value="Engine()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html"><param name="Name" value="engine.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html#a0219b6b2276568d3857d2a05af177a6d"><param name="Name" value="advisorValueTable"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html"><param name="Name" value="engine.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html#adf4157fe06dcb77da8c055332783d34d"><param name="Name" value="basemodel"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html"><param name="Name" value="engine.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html#a540a9f27a5306365c4847a6d9aa148ea"><param name="Name" value="cannonValueTable"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html"><param name="Name" value="engine.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html#a429afd523decb0bc0a238af271fee818"><param name="Name" value="chariotValueTable"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html"><param name="Name" value="engine.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html#a9d258aa5407092ca48f55523b974350e"><param name="Name" value="elephantValueTable"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html"><param name="Name" value="engine.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html#aa046d797439b466f925f7499ef4378cc"><param name="Name" value="generalValueTable"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html"><param name="Name" value="engine.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html#a39c35565bd2cca71271480438d0565b4"><param name="Name" value="horseValueTable"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html"><param name="Name" value="engine.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html#af38aab5355813b60462083a9435665e6"><param name="Name" value="kBoardSize"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html"><param name="Name" value="engine.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html#a717c456dc74471f95f8122c8de478d38"><param name="Name" value="kPieceTypes"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html"><param name="Name" value="engine.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html#a0db12ae0b00f2fb59e51ed9de50c689a"><param name="Name" value="soldierValueTable"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html"><param name="Name" value="engine.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html#a385c44fb374ed2c8fe952e46af7d9d37"><param name="Name" value="zobristTable"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8h.html#afe7b976c835280e8412d89ab714e04ff"><param name="Name" value="engine.h"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a807ded17e69384e3bd5403130d4a095aaad1943a9fd6d3d7ee1e6af41a5b0d3e7"><param name="Name" value="engine"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html"><param name="Name" value="Engine"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#aaccc94c0de2268962677d66f123ddfd0"><param name="Name" value="bMove"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html"><param name="Name" value="Engine"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#a7ca25863997116280fc26abcd563a7f9"><param name="Name" value="depth"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html"><param name="Name" value="Engine"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#a8c98683b0a3aa28d8ab72a8bcd0d52f2"><param name="Name" value="Engine()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html"><param name="Name" value="Engine"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#aef2d2874eef0750216b626685fccf214"><param name="Name" value="engineGo()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html"><param name="Name" value="Engine"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#a05b34fffd70b21c7d47546cc6ae67d6a"><param name="Name" value="evaluation"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html"><param name="Name" value="Engine"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#a6905f60feeba618ee25654b26b15cd4e"><param name="Name" value="GetBestMove(Color color)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html"><param name="Name" value="Engine"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#a95bd85661749230718c8a96ce582ee85"><param name="Name" value="hashed"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#abac1af36838a23369dd1d56eb96c64cd"><param name="Name" value="engine"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html"><param name="Name" value="Engine"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#a61d6fdcb1c51239f344bb5e322f1e268"><param name="Name" value="name"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html"><param name="Name" value="Engine"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#af81e7253bb098cfefdd6e5857dd508d8"><param name="Name" value="nodes"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html"><param name="Name" value="Engine"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#aadb4c3669e6a13ba4c5736d7714adb99"><param name="Name" value="nodesPerSecond() const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html"><param name="Name" value="Engine"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#ad185ed8c5d7afc9e4a91f6c312b6d888"><param name="Name" value="paintFromThread()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#a5ce14f945ae25b9e980736a10b8868f1"><param name="Name" value="engine"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html"><param name="Name" value="Engine"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#a318d924a7f209f21a5af7bdd37bb00fe"><param name="Name" value="updateFromThread()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html"><param name="Name" value="Engine"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#a77200d479a7649687c669e0d59bca540"><param name="Name" value="updateView(Point from, Point to, BaseModel::Mode)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html"><param name="Name" value="Engine"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#a11f791f3b49728bec8288ba122e4a9ff"><param name="Name" value="~Engine() override"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#ac0ab3a88ecb9e70e678cac5d67837e41"><param name="Name" value="engineData"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#aef2d2874eef0750216b626685fccf214"><param name="Name" value="engineGo()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#ad0c198ce07a14204da14a245604c562b"><param name="Name" value="engineGo(bool tipp)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model_1_1_engine_data.html#a5ea6a6d3a1653d2a99cf88f42e5d6326"><param name="Name" value="engineName"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#ac6136a0ee920b5bc8e6d27821892c136"><param name="Name" value="EngineTipp(Point from, Point to)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#a40c7407b132a07c5639792fd95cd42a4"><param name="Name" value="euroName"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#a4fe5fd826f5bdd32852a06642d63da32"><param name="Name" value="euroNameDesc"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model_1_1_engine_data.html#a413406b7e113816f1b52f9f11f61ae0f"><param name="Name" value="evaluation"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model_1_1_engine_data.html#a413406b7e113816f1b52f9f11f61ae0f"><param name="Name" value="BaseModel::EngineData"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#a05b34fffd70b21c7d47546cc6ae67d6a"><param name="Name" value="evaluation"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#a05b34fffd70b21c7d47546cc6ae67d6a"><param name="Name" value="Engine"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board_view.html#a17b55a5a70add565f7d32d41fa042438"><param name="Name" value="event(QEvent *event) override"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_settings_view.html#a58f660913a4c13bd2df811dce179f852"><param name="Name" value="finished()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html#a9e5486b3554d2fe8733eb5079b07412e"><param name="Name" value="FONT_POINT_SIZE"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a7f6c18647308d0fd48f57a456f637f34"><param name="Name" value="fromHuman"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#ae7e667dc3c8833b3fe9ecc26bc7a1dbd"><param name="Name" value="fromUCI"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_game.html"><param name="Name" value="Game"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_game.html#ab0109140fc560b6a083dbb64b448b1b2"><param name="Name" value="Game(QTreeWidget *table, MainWindow *parent=nullptr)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="game_8cpp.html#adf4157fe06dcb77da8c055332783d34d"><param name="Name" value="game.cpp"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_game.html"><param name="Name" value="Game"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_game.html#ab0109140fc560b6a083dbb64b448b1b2"><param name="Name" value="Game(QTreeWidget *table, MainWindow *parent=nullptr)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_game.html"><param name="Name" value="Game"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_game.html#a11dd04c2c94caa95d4f819e8a3f49649"><param name="Name" value="run() override"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a5a31ec7590137edc717b75a94de0c46e"><param name="Name" value="gameView"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_general.html"><param name="Name" value="General"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_general.html#a142d0039d3e475b33e0f57d421765748"><param name="Name" value="General(const Color color, const QString &amp;name)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021a0db377921f4ce762c62526131097968f"><param name="Name" value="General"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021a0db377921f4ce762c62526131097968f"><param name="Name" value="cchess_rules.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_general.html"><param name="Name" value="General"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_general.html#a142d0039d3e475b33e0f57d421765748"><param name="Name" value="General(const Color color, const QString &amp;name)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_general.html"><param name="Name" value="General"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_general.html#a0c78c4faa694a996d1c9fce7dbddb49b"><param name="Name" value="isValidMove(const Point &amp;from, const Point &amp;to, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board) override"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a3db4056f74569844236b88de9f517ebd"><param name="Name" value="GeneralRot()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002ea2c9d9a63b12e7f9c0bad73a8f51313e8"><param name="Name" value="GeneralRot"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a09693092d12b48ac8746f83ed80452e9"><param name="Name" value="GeneralSchwarz()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002ea54390f7556fb3287350d7af59df25e75"><param name="Name" value="GeneralSchwarz"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html#aa046d797439b466f925f7499ef4378cc"><param name="Name" value="generalValueTable"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_chariot.html#a8ec41d12a3d27e54aa733a5c1a8f8777"><param name="Name" value="generateValidMoves(const Point &amp;position, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board) override"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_chariot.html#a8ec41d12a3d27e54aa733a5c1a8f8777"><param name="Name" value="Chariot"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_soldier.html#a45a7556d66de19c415ec9de58f2bdc8d"><param name="Name" value="generateValidMoves(const Point &amp;position, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board) override"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_soldier.html#a45a7556d66de19c415ec9de58f2bdc8d"><param name="Name" value="Soldier"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#a9a964fa6a4ef3b9c878050b900d635b6"><param name="Name" value="generateValidMoves(const Point &amp;position, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#a0f9283a745f45911aa1f9de21e914544"><param name="Name" value="getAllValidMoves(Color color, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#a6905f60feeba618ee25654b26b15cd4e"><param name="Name" value="GetBestMove(Color color)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#a1168e7fd93f689a30e29f2fb169c6db9"><param name="Name" value="getColor() const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#a78086a44a114b0f53d5b4b1099f9b030"><param name="Name" value="getEuroName() const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#aa800a15554d6123fe2b30593280d39b0"><param name="Name" value="getEuroNameDesc() const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#ad67133f2d7563df69a0912c47ae0cc6f"><param name="Name" value="getId() const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#ac91487b9ed6ac4f3bdeed681f3ffbaaa"><param name="Name" value="getName() const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#aae078a1923ad54b385c34c04e373827a"><param name="Name" value="getPieceAt(const Point &amp;position) const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a373aaecd2eb83ec0326716de4ad51d1e"><param name="Name" value="GiveTipp() const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#ac4630dd4961f2d01be3e1cbc91be8479"><param name="Name" value="giveTipp(Point point, Point point1)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a6d4925c2c0abc365f08b1ff304b49e22"><param name="Name" value="GiveUpGame()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#a95bd85661749230718c8a96ce582ee85"><param name="Name" value="hashed"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a3fc24291c04fabe272d9939dccad2919"><param name="Name" value="Help() const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_horse.html"><param name="Name" value="Horse"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_horse.html#a9f047473e53e029efcb5dc07b4d3740a"><param name="Name" value="Horse(const Color color, const QString &amp;name)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021a38069b4eb64e325cb7ac65bd641b2188"><param name="Name" value="Horse"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021a38069b4eb64e325cb7ac65bd641b2188"><param name="Name" value="cchess_rules.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_horse.html"><param name="Name" value="Horse"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_horse.html#a9f047473e53e029efcb5dc07b4d3740a"><param name="Name" value="Horse(const Color color, const QString &amp;name)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_horse.html"><param name="Name" value="Horse"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_horse.html#a927b7e67b1b779727253cc40727245b7"><param name="Name" value="isValidMove(const Point &amp;from, const Point &amp;to, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board) override"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002ea49e62cc61c0d663f84d12914c65b5894"><param name="Name" value="HorseRot"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002eabd3e260f75148dbb94e30d7728eb533a"><param name="Name" value="HorseSchwarz"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html#a39c35565bd2cca71271480438d0565b4"><param name="Name" value="horseValueTable"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a807ded17e69384e3bd5403130d4a095aa99e9bae675b12967251c175696f00a70"><param name="Name" value="human"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#ac40cffee50da10a50361ff4791fdd528"><param name="Name" value="id"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a8d2b1aeb0de2a49dda87dd86270d9911"><param name="Name" value="InitConnections()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a982e82152ed34823d42fd976e45c2c10"><param name="Name" value="InitEngine()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a99f1c7af9374206fd52fa14a95ff9771"><param name="Name" value="InitWidgets()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#a1bce818087213faff4bce6d5eaf5d597"><param name="Name" value="isCheck(Color color, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#a42cded8d0584128aed453f088e8679e3"><param name="Name" value="isCheckmate(Color color, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#a85971cfdadb2b1313a67e87fc02bb077"><param name="Name" value="isEvilGlare(Color color, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a46b2947baf3ce978ab99811a3a9e7ae5"><param name="Name" value="isValid() const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_advisor.html#afb1a2a73278a6b61fe2a376c4ee4b4f8"><param name="Name" value="isValidMove(const Point &amp;from, const Point &amp;to, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board) override"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_advisor.html#afb1a2a73278a6b61fe2a376c4ee4b4f8"><param name="Name" value="Advisor"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cannon.html#af0f0a0af8401d3c4ce7dc28a6fada4f8"><param name="Name" value="isValidMove(const Point &amp;from, const Point &amp;to, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board) override"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_cannon.html#af0f0a0af8401d3c4ce7dc28a6fada4f8"><param name="Name" value="Cannon"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_chariot.html#acf380de40c269c66218c1c09ec17d4fd"><param name="Name" value="isValidMove(const Point &amp;from, const Point &amp;to, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board) override"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_chariot.html#acf380de40c269c66218c1c09ec17d4fd"><param name="Name" value="Chariot"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_elephant.html#ac534eb93829032e5dbfda0ab2db348e3"><param name="Name" value="isValidMove(const Point &amp;from, const Point &amp;to, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board) override"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_elephant.html#ac534eb93829032e5dbfda0ab2db348e3"><param name="Name" value="Elephant"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_general.html#a0c78c4faa694a996d1c9fce7dbddb49b"><param name="Name" value="isValidMove(const Point &amp;from, const Point &amp;to, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board) override"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_general.html#a0c78c4faa694a996d1c9fce7dbddb49b"><param name="Name" value="General"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_horse.html#a927b7e67b1b779727253cc40727245b7"><param name="Name" value="isValidMove(const Point &amp;from, const Point &amp;to, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board) override"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_horse.html#a927b7e67b1b779727253cc40727245b7"><param name="Name" value="Horse"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_soldier.html#afa197d674eaf1f3c6d68703fb709832f"><param name="Name" value="isValidMove(const Point &amp;from, const Point &amp;to, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board) override"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_soldier.html#afa197d674eaf1f3c6d68703fb709832f"><param name="Name" value="Soldier"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#a43c8999c0f9e4b33ee29da5ad6e18111"><param name="Name" value="isValidMove(const Point &amp;from, const Point &amp;to, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#ac6afddc6601652d81f2e6c42c224f0de"><param name="Name" value="KanoneRot()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a984637815e833a80d63159c286ca013a"><param name="Name" value="KanoneSchwarz()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html#af38aab5355813b60462083a9435665e6"><param name="Name" value="kBoardSize"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html#a717c456dc74471f95f8122c8de478d38"><param name="Name" value="kPieceTypes"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a33b0ba575b29d7ab86867feb34cbcd27"><param name="Name" value="Kreis()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a3f2f433cc45b9a2bb94ec8e0c96846d4a684fa5bc4389328564394fe081f9288f"><param name="Name" value="Kreis"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#abfc937ca3179098273a5dda11c4f44e2"><param name="Name" value="Kreuz()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a3f2f433cc45b9a2bb94ec8e0c96846d4ac60bfc7e77949e9a1887a756626fd6fd"><param name="Name" value="Kreuz"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html#a3bdf4d9295fdfbf3a218bf41e5bed537"><param name="Name" value="LEFT_MARGIN"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#ae9d8a054ed69fa55a0aa1565550c8f24"><param name="Name" value="Linie()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a3f2f433cc45b9a2bb94ec8e0c96846d4a8b33328e6e2c9fa5365ce9d0015b3f3d"><param name="Name" value="Linie"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a8e30d632f0b5904975555253538bcc2a"><param name="Name" value="Linienende()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a3f2f433cc45b9a2bb94ec8e0c96846d4aaae2e4d690651a13d98495ea30fedf1a"><param name="Name" value="Linienende"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#ac8f4e5450339f2d5c377789df15628c2"><param name="Name" value="LoadPGNFile()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97"><param name="Name" value="main(int argc, char *argv[])"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97"><param name="Name" value="main.cpp"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a996c5a2b6f77944776856f08ec30858d"><param name="Name" value="MainWindow(QWidget *parent=nullptr)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="mainwindow_8cpp.html"><param name="Name" value="mainwindow.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="mainwindow_8cpp.html#adf4157fe06dcb77da8c055332783d34d"><param name="Name" value="basemodel"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="mainwindow_8cpp.html"><param name="Name" value="mainwindow.cpp"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="mainwindow_8cpp.html#a8a5a9c0b8c5e52a3f4ab5afd594352a7"><param name="Name" value="q_url"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#acb789dac6a35383ad1d7bb6f652c7cee"><param name="Name" value="About()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#abac1af36838a23369dd1d56eb96c64cd"><param name="Name" value="engine"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#ac6136a0ee920b5bc8e6d27821892c136"><param name="Name" value="EngineTipp(Point from, Point to)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a373aaecd2eb83ec0326716de4ad51d1e"><param name="Name" value="GiveTipp() const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a6d4925c2c0abc365f08b1ff304b49e22"><param name="Name" value="GiveUpGame()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a3fc24291c04fabe272d9939dccad2919"><param name="Name" value="Help() const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a8d2b1aeb0de2a49dda87dd86270d9911"><param name="Name" value="InitConnections()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a982e82152ed34823d42fd976e45c2c10"><param name="Name" value="InitEngine()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a99f1c7af9374206fd52fa14a95ff9771"><param name="Name" value="InitWidgets()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#ac8f4e5450339f2d5c377789df15628c2"><param name="Name" value="LoadPGNFile()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a996c5a2b6f77944776856f08ec30858d"><param name="Name" value="MainWindow(QWidget *parent=nullptr)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#aeb618fd72f5e0cccc8c70d2740bfbcef"><param name="Name" value="Newgame()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#af6a741a12422fb7067ba57a317504202"><param name="Name" value="NodesPerSecond() const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a6e5a4e6a7aa3263b6cf734c01ade5e10"><param name="Name" value="Open()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#adf38bac0123352d8015272f7ffdb6dac"><param name="Name" value="OpenSettings()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a9787024a36b41fe8e6a78d4f3ede1aa8"><param name="Name" value="PaintFromThread()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#ad7a5af1eb3dcf12f17aad165e66af04c"><param name="Name" value="PaintFromThreadSlot()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#ae3f320db9a54bcd83f202e61255fe2d9"><param name="Name" value="PlayNow()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a6ef4e337876946048c435882a0a1daac"><param name="Name" value="PutPGNOnBoard()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a8a9ba8171eea4b546da364a9aa3a2760"><param name="Name" value="ReadPGNData(QString data) const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#aaa627b5bef0df35b757441ba3a527440"><param name="Name" value="Save()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#aa1ee0f61769b0eb06ccf2a44a3a8510c"><param name="Name" value="ToggleGameView()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a5481aaedad5ae03da94c91c3033f69ed"><param name="Name" value="togglePiecesView()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a86808000829d73879a78f0398573cc5f"><param name="Name" value="uci"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a6f046d69b21dc7a9a84329eff8435163"><param name="Name" value="UpdateFromThreadSlot() const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html"><param name="Name" value="MainWindow"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a4fb3de67ebec6c1920c8296bda45c993"><param name="Name" value="~MainWindow() override=default"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#adda23ab340386e5d080eb48b67030835"><param name="Name" value="markers"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a3f2f433cc45b9a2bb94ec8e0c96846d4"><param name="Name" value="markerType"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a807ded17e69384e3bd5403130d4a095a"><param name="Name" value="Mode"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#ac0efea594046d0696caf34297bf7a789"><param name="Name" value="mode"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board_view.html#aea3b7f52ba2c5958f3a36e09191642fd"><param name="Name" value="mousePressEvent(QMouseEvent *event) override"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#af522db0ac8795196d0c4a64754c8b7c8"><param name="Name" value="moveHistory"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#a2222769b9257ec798f6ec6800060507e"><param name="Name" value="movePiece(const Point &amp;from, const Point &amp;to, std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a86ca20ca22f7a4ff1086a95be62299af"><param name="Name" value="moves"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a86ca20ca22f7a4ff1086a95be62299af"><param name="Name" value="BaseModel"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#aee00731da3358735e441ad0931b31839"><param name="Name" value="moves"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#aee00731da3358735e441ad0931b31839"><param name="Name" value="UCI"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#a61d6fdcb1c51239f344bb5e322f1e268"><param name="Name" value="name"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#a61d6fdcb1c51239f344bb5e322f1e268"><param name="Name" value="Engine"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#ab25d40b629e95dd220682c4f0f830eec"><param name="Name" value="name"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#ab25d40b629e95dd220682c4f0f830eec"><param name="Name" value="Piece"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a3b0ab8b5875aab3be91c7995b7c6af76"><param name="Name" value="nativePieces"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#aeb618fd72f5e0cccc8c70d2740bfbcef"><param name="Name" value="Newgame()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a918c3e28ac4d54d642f76594d6a53723"><param name="Name" value="nodes"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a918c3e28ac4d54d642f76594d6a53723"><param name="Name" value="BaseModel"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model_1_1_engine_data.html#ae0ac940e082977e4da7c4e7b439be541"><param name="Name" value="nodes"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model_1_1_engine_data.html#ae0ac940e082977e4da7c4e7b439be541"><param name="Name" value="BaseModel::EngineData"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#af81e7253bb098cfefdd6e5857dd508d8"><param name="Name" value="nodes"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#af81e7253bb098cfefdd6e5857dd508d8"><param name="Name" value="Engine"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#aadb4c3669e6a13ba4c5736d7714adb99"><param name="Name" value="nodesPerSecond() const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#af6a741a12422fb7067ba57a317504202"><param name="Name" value="NodesPerSecond() const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#ab87bacfdad76e61b9412d7124be44c1ca6adf97f83acf6453d4a6a4b1070f3754"><param name="Name" value="None"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a6e5a4e6a7aa3263b6cf734c01ade5e10"><param name="Name" value="Open()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#adf38bac0123352d8015272f7ffdb6dac"><param name="Name" value="OpenSettings()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a3a6e3ab3998a4e26c11736cbdbc832ac"><param name="Name" value="operator!=(const Point &amp;other) const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a53a6b27b70535a309c5384c77484c492"><param name="Name" value="operator*(const Point &amp;other) const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a8bc39ec95c27d83d84e1df3fd8124fa2"><param name="Name" value="operator+(const Point &amp;other) const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a17b65599126120074e6295ddad1ca906"><param name="Name" value="operator-(const Point &amp;other) const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a6a306c072ba949017332d99b87e73db8"><param name="Name" value="operator&lt;(const Point &amp;other) const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a927e448d963f892987bce0ae95a4d29c"><param name="Name" value="operator&lt;=(const Point &amp;other) const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#a2fac2b5f2cba79d7981ceb0a7aae9e77"><param name="Name" value="operator=(const Piece &amp;other) -&gt; Piece"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a9c29cd36d1ce448b8e1e56a204fe2b95"><param name="Name" value="operator==(const Point &amp;other) const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a5b7c6e57d67faf4772f47a23ba016095"><param name="Name" value="operator&gt;(const Point &amp;other) const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a26fad78d75d1f43543d146db030cdb00"><param name="Name" value="operator&gt;=(const Point &amp;other) const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board_view.html#a6ea62d61f2e3f9b6ecb772b89e60a0a2"><param name="Name" value="paintEvent(QPaintEvent *event) override"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#ad185ed8c5d7afc9e4a91f6c312b6d888"><param name="Name" value="paintFromThread()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a9787024a36b41fe8e6a78d4f3ede1aa8"><param name="Name" value="PaintFromThread()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#ad7a5af1eb3dcf12f17aad165e66af04c"><param name="Name" value="PaintFromThreadSlot()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a091fcf9e87258cefefc5213a144ff535"><param name="Name" value="parent"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html#a9644a97637a29fd6442b88677962149e"><param name="Name" value="PEN_WIDTH"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#ab82f544ba71e433c80eb706bd55cbc70"><param name="Name" value="PferdRot()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a0b0f8102c2230a926635da8edc4ab6ee"><param name="Name" value="PferdSchwarz()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html"><param name="Name" value="Piece"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#a1cdab808545f4b11699aa9138f5a017d"><param name="Name" value="Piece(Color color, QString name)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html"><param name="Name" value="Piece"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#a4cf5b29a9e13dcb93b616b11160c2abc"><param name="Name" value="color"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html"><param name="Name" value="Piece"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#a40c7407b132a07c5639792fd95cd42a4"><param name="Name" value="euroName"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html"><param name="Name" value="Piece"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#a4fe5fd826f5bdd32852a06642d63da32"><param name="Name" value="euroNameDesc"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html"><param name="Name" value="Piece"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#a9a964fa6a4ef3b9c878050b900d635b6"><param name="Name" value="generateValidMoves(const Point &amp;position, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html"><param name="Name" value="Piece"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#a1168e7fd93f689a30e29f2fb169c6db9"><param name="Name" value="getColor() const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html"><param name="Name" value="Piece"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#a78086a44a114b0f53d5b4b1099f9b030"><param name="Name" value="getEuroName() const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html"><param name="Name" value="Piece"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#aa800a15554d6123fe2b30593280d39b0"><param name="Name" value="getEuroNameDesc() const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html"><param name="Name" value="Piece"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#ad67133f2d7563df69a0912c47ae0cc6f"><param name="Name" value="getId() const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html"><param name="Name" value="Piece"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#ac91487b9ed6ac4f3bdeed681f3ffbaaa"><param name="Name" value="getName() const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html"><param name="Name" value="Piece"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#ac40cffee50da10a50361ff4791fdd528"><param name="Name" value="id"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html"><param name="Name" value="Piece"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#a43c8999c0f9e4b33ee29da5ad6e18111"><param name="Name" value="isValidMove(const Point &amp;from, const Point &amp;to, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html"><param name="Name" value="Piece"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#ab25d40b629e95dd220682c4f0f830eec"><param name="Name" value="name"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html"><param name="Name" value="Piece"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#a2fac2b5f2cba79d7981ceb0a7aae9e77"><param name="Name" value="operator=(const Piece &amp;other) -&gt; Piece"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html"><param name="Name" value="Piece"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#a1cdab808545f4b11699aa9138f5a017d"><param name="Name" value="Piece(Color color, QString name)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html"><param name="Name" value="Piece"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#a5d7a4f6bade94cb33b6f634de8aa7918"><param name="Name" value="~Piece()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html#a69370ffb8030eb94ef5c686483be193e"><param name="Name" value="PIECE_SCALE_FACTOR"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a825a041785bc655baf932c759e751352"><param name="Name" value="pieces"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021"><param name="Name" value="PieceType"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#a5d5cb514dc33c0a80cb849508112b7b6"><param name="Name" value="players_color"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#ae3f320db9a54bcd83f202e61255fe2d9"><param name="Name" value="PlayNow()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html"><param name="Name" value="Point"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a99f24bd725b70abe18129cd804200f6f"><param name="Name" value="Point(const int x=0, const int y=0)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html"><param name="Name" value="Point"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a46b2947baf3ce978ab99811a3a9e7ae5"><param name="Name" value="isValid() const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html"><param name="Name" value="Point"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a3a6e3ab3998a4e26c11736cbdbc832ac"><param name="Name" value="operator!=(const Point &amp;other) const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html"><param name="Name" value="Point"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a53a6b27b70535a309c5384c77484c492"><param name="Name" value="operator*(const Point &amp;other) const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html"><param name="Name" value="Point"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a8bc39ec95c27d83d84e1df3fd8124fa2"><param name="Name" value="operator+(const Point &amp;other) const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html"><param name="Name" value="Point"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a17b65599126120074e6295ddad1ca906"><param name="Name" value="operator-(const Point &amp;other) const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html"><param name="Name" value="Point"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a6a306c072ba949017332d99b87e73db8"><param name="Name" value="operator&lt;(const Point &amp;other) const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html"><param name="Name" value="Point"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a927e448d963f892987bce0ae95a4d29c"><param name="Name" value="operator&lt;=(const Point &amp;other) const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html"><param name="Name" value="Point"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a9c29cd36d1ce448b8e1e56a204fe2b95"><param name="Name" value="operator==(const Point &amp;other) const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html"><param name="Name" value="Point"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a5b7c6e57d67faf4772f47a23ba016095"><param name="Name" value="operator&gt;(const Point &amp;other) const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html"><param name="Name" value="Point"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a26fad78d75d1f43543d146db030cdb00"><param name="Name" value="operator&gt;=(const Point &amp;other) const"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html"><param name="Name" value="Point"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a99f24bd725b70abe18129cd804200f6f"><param name="Name" value="Point(const int x=0, const int y=0)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html"><param name="Name" value="Point"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a8c779e11e694b20e0946105a9f5de842"><param name="Name" value="x"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html"><param name="Name" value="Point"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a2e1b5fb2b2a83571f5c0bc0f66a73cf7"><param name="Name" value="y"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a1acdc9a20b6947f749ac59970235d713"><param name="Name" value="position"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a0329ee37221a6900b73f1131b3597a9b"><param name="Name" value="posToken(const int fromX, const int fromY, const int toX, const int toY)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board_view.html#a68d3050df0494ca43827f0dccb390045"><param name="Name" value="PrepareEuroPiece(QPicture *picture, int i, int i1, int height, int width)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a6ef4e337876946048c435882a0a1daac"><param name="Name" value="PutPGNOnBoard()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="mainwindow_8cpp.html#a8a5a9c0b8c5e52a3f4ab5afd594352a7"><param name="Name" value="q_url"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#a0aa83551cf230b3e49b70eb9645bf53d"><param name="Name" value="readData()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a8a9ba8171eea4b546da364a9aa3a2760"><param name="Name" value="ReadPGNData(QString data) const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#ab87bacfdad76e61b9412d7124be44c1caee38e4d5dd68c4e440825018d549cb47"><param name="Name" value="Red"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html#a757611a8d3d999db4c117ec4624c7e0b"><param name="Name" value="RIGHT_MARGIN"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_game.html#a11dd04c2c94caa95d4f819e8a3f49649"><param name="Name" value="run() override"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#aaa627b5bef0df35b757441ba3a527440"><param name="Name" value="Save()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model_1_1_engine_data.html#af0813bdd4c9a64e275f87d22ff5bb799"><param name="Name" value="searchDepth"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_settings_view.html"><param name="Name" value="SettingsView"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_settings_view.html#a4b22f39018ca1c051b4d88f6d2636683"><param name="Name" value="SettingsView(QWidget *parent=nullptr)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="settingsview_8cpp.html#adf4157fe06dcb77da8c055332783d34d"><param name="Name" value="settingsview.cpp"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_settings_view.html"><param name="Name" value="SettingsView"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_settings_view.html#a52adb68449ff91725aa8b10b1900e7be"><param name="Name" value="boardStyleChanged()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_settings_view.html"><param name="Name" value="SettingsView"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_settings_view.html#a58f660913a4c13bd2df811dce179f852"><param name="Name" value="finished()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_settings_view.html"><param name="Name" value="SettingsView"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_settings_view.html#a4b22f39018ca1c051b4d88f6d2636683"><param name="Name" value="SettingsView(QWidget *parent=nullptr)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_settings_view.html"><param name="Name" value="SettingsView"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_settings_view.html#a3287e7c87008472a93bbc10fe331b6c2"><param name="Name" value="~SettingsView()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#aae13dd814f2f4ad80a42878056853285"><param name="Name" value="setupInitialPositions()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a8879c98eb8e250f0f83bfa2c8605a55d"><param name="Name" value="SoldatRot()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a86ab1ea5678997e097c55b436e0e3d67"><param name="Name" value="SoldatSchwarz()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_soldier.html"><param name="Name" value="Soldier"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_soldier.html#a752b1818bebe4133de5b7a6c8add4632"><param name="Name" value="Soldier(const Color color, const QString &amp;name)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021ade75f2eb439368d9b39281bd0c4bdabb"><param name="Name" value="Soldier"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="cchess__rules_8h.html#a12ed9719bbdf7bc596ff7a6f4bf3f021ade75f2eb439368d9b39281bd0c4bdabb"><param name="Name" value="cchess_rules.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_soldier.html"><param name="Name" value="Soldier"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_soldier.html#a45a7556d66de19c415ec9de58f2bdc8d"><param name="Name" value="generateValidMoves(const Point &amp;position, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board) override"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_soldier.html"><param name="Name" value="Soldier"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_soldier.html#afa197d674eaf1f3c6d68703fb709832f"><param name="Name" value="isValidMove(const Point &amp;from, const Point &amp;to, const std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board) override"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_soldier.html"><param name="Name" value="Soldier"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_soldier.html#a752b1818bebe4133de5b7a6c8add4632"><param name="Name" value="Soldier(const Color color, const QString &amp;name)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002eaea59182fb0c2059e57ef8fa78b83d64d"><param name="Name" value="SoldierRot"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a35429091f006d2e20cdc28d2c428002ea8bb94b9957588009ef004b0162d56ef7"><param name="Name" value="SoldierSchwarz"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html#a0db12ae0b00f2fb59e51ed9de50c689a"><param name="Name" value="soldierValueTable"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#ad8e7ec428a09959e3a6302ce59ce2736"><param name="Name" value="start()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#a73de5ce398e7306dd11f15ce40428746"><param name="Name" value="toggleColor()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#aec3a7e579d8de4a6d933ec3038851bab"><param name="Name" value="toggleColor(Color color)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#aa1ee0f61769b0eb06ccf2a44a3a8510c"><param name="Name" value="ToggleGameView()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a5481aaedad5ae03da94c91c3033f69ed"><param name="Name" value="togglePiecesView()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a85686dbed12f16d17a446b91b08fd2b3"><param name="Name" value="toHuman"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="boardview_8cpp.html#a17cb6ada130cea1252f71e78fcf7449f"><param name="Name" value="TOP_MARGIN"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#adf870baad86ea72a5d7487f8261293e9"><param name="Name" value="toUCI"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a90f6e1de057f802c9b4bd548514a8aa6a20c69e2d7dfbc08090ca82aa52917ed3"><param name="Name" value="traditional_native"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a90f6e1de057f802c9b4bd548514a8aa6a7f0fd3fe62d60e58ab36c13852753ef9"><param name="Name" value="traditional_png"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8h.html#afe7b976c835280e8412d89ab714e04ff"><param name="Name" value="TranspositionTable"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_t_t_entry.html"><param name="Name" value="TTEntry"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_t_t_entry.html"><param name="Name" value="TTEntry"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_t_t_entry.html#a73396baff5b97fb589bec4d13117ebdf"><param name="Name" value="depth"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_t_t_entry.html"><param name="Name" value="TTEntry"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_t_t_entry.html#a4b8734ad1ba8ffd6a344e70fbb74442d"><param name="Name" value="value"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a01c8251d4715143daf09ac44c08d9d42"><param name="Name" value="TurmRot()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a871164e0bd5e79fdfa4e2937679fa508"><param name="Name" value="TurmSchwarz()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html"><param name="Name" value="UCI"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#a7fa01fb3c0adabfa3eef287fcebdf7c5"><param name="Name" value="UCI()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="uci_8cpp.html#adf4157fe06dcb77da8c055332783d34d"><param name="Name" value="uci.cpp"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#a8e102841cb1f79b1c6d87e1e044b8990"><param name="Name" value="UCI"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a807ded17e69384e3bd5403130d4a095aae208ca42644926ebb0dc4fe7167f25d7"><param name="Name" value="uci"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html"><param name="Name" value="UCI"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#a93963ddda46f1f871dff3029a56aac25"><param name="Name" value="boardChanged(int fromX, int fromY, int toX, int toY)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html"><param name="Name" value="UCI"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#a5ce14f945ae25b9e980736a10b8868f1"><param name="Name" value="engine"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html"><param name="Name" value="UCI"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#ad0c198ce07a14204da14a245604c562b"><param name="Name" value="engineGo(bool tipp)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html"><param name="Name" value="UCI"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#ac4630dd4961f2d01be3e1cbc91be8479"><param name="Name" value="giveTipp(Point point, Point point1)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a86808000829d73879a78f0398573cc5f"><param name="Name" value="uci"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html"><param name="Name" value="UCI"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#aee00731da3358735e441ad0931b31839"><param name="Name" value="moves"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html"><param name="Name" value="UCI"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#a0aa83551cf230b3e49b70eb9645bf53d"><param name="Name" value="readData()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html"><param name="Name" value="UCI"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#ad8e7ec428a09959e3a6302ce59ce2736"><param name="Name" value="start()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html"><param name="Name" value="UCI"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#a7fa01fb3c0adabfa3eef287fcebdf7c5"><param name="Name" value="UCI()"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html"><param name="Name" value="UCI"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#a4e41298dba72a05fa60942ed405610b4"><param name="Name" value="updateView(Point from, Point to, BaseModel::Mode)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html"><param name="Name" value="UCI"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#a6dcf26743318c1ec27c921a8599c618a"><param name="Name" value="writeDatas(const QByteArray &amp;d)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html"><param name="Name" value="UCI"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#a51f1ff1ad113e5c30dc8f671c8c7e96e"><param name="Name" value="~UCI() override"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board.html#ac4acab226328b0fdf620895bbac18bc2"><param name="Name" value="undoMove(const Point &amp;from, const Point &amp;to, const std::shared_ptr&lt; Piece &gt; &amp;piece, std::vector&lt; std::vector&lt; std::shared_ptr&lt; Piece &gt; &gt; &gt; &amp;board)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#a318d924a7f209f21a5af7bdd37bb00fe"><param name="Name" value="updateFromThread()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a6f046d69b21dc7a9a84329eff8435163"><param name="Name" value="UpdateFromThreadSlot() const"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_board_view.html#a5711399b7300446ba86563df5189d1f3"><param name="Name" value="updateView(Point from, Point to, BaseModel::Mode mode)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#a77200d479a7649687c669e0d59bca540"><param name="Name" value="updateView(Point from, Point to, BaseModel::Mode)"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#a77200d479a7649687c669e0d59bca540"><param name="Name" value="Engine"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#a4e41298dba72a05fa60942ed405610b4"><param name="Name" value="updateView(Point from, Point to, BaseModel::Mode)"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#a4e41298dba72a05fa60942ed405610b4"><param name="Name" value="UCI"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_t_t_entry.html#a4b8734ad1ba8ffd6a344e70fbb74442d"><param name="Name" value="value"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_contex_menu.html#a43c8668023ae4534319729a128420350"><param name="Name" value="Viereck()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="basemodel_8h.html#a3f2f433cc45b9a2bb94ec8e0c96846d4aeb8b7b4e0019bc5d0f3acd33df1b0641"><param name="Name" value="Viereck"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a90f6e1de057f802c9b4bd548514a8aa6"><param name="Name" value="viewStyleMode"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a085f30455414d873398f5dbc32a5e9fa"><param name="Name" value="viewStyleModeVar"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_base_model.html#a90f6e1de057f802c9b4bd548514a8aa6ae4dfb82c0355b857e9c2d7078005ed7c"><param name="Name" value="western_png"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#a6dcf26743318c1ec27c921a8599c618a"><param name="Name" value="writeDatas(const QByteArray &amp;d)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a8c779e11e694b20e0946105a9f5de842"><param name="Name" value="x"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_point.html#a2e1b5fb2b2a83571f5c0bc0f66a73cf7"><param name="Name" value="y"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="engine_8cpp.html#a385c44fb374ed2c8fe952e46af7d9d37"><param name="Name" value="zobristTable"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_engine.html#a11f791f3b49728bec8288ba122e4a9ff"><param name="Name" value="~Engine() override"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_main_window.html#a4fb3de67ebec6c1920c8296bda45c993"><param name="Name" value="~MainWindow() override=default"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_piece.html#a5d7a4f6bade94cb33b6f634de8aa7918"><param name="Name" value="~Piece()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_settings_view.html#a3287e7c87008472a93bbc10fe331b6c2"><param name="Name" value="~SettingsView()"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="class_u_c_i.html#a51f1ff1ad113e5c30dc8f671c8c7e96e"><param name="Name" value="~UCI() override"></OBJECT>
+</UL>
+</BODY>
+</HTML>

@@ -1,0 +1,168 @@
+\doxysection{F\+:/source/\+CLion\+Projects/\+Elephant\+Chess/sources/basemodel.h File Reference}
+\hypertarget{basemodel_8h}{}\label{basemodel_8h}\index{F:/source/CLionProjects/ElephantChess/sources/basemodel.h@{F:/source/CLionProjects/ElephantChess/sources/basemodel.h}}
+{\ttfamily \#include $<$QDebug$>$}\newline
+{\ttfamily \#include $<$QObject$>$}\newline
+{\ttfamily \#include "{}cchess\+\_\+rules.\+h"{}}\newline
+Include dependency graph for basemodel.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{basemodel_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{basemodel_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_base_model}{Base\+Model}}
+\item 
+struct \mbox{\hyperlink{struct_base_model_1_1_engine_data}{Base\+Model\+::\+Engine\+Data}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4}{marker\+Type}} \{ \newline
+\mbox{\hyperlink{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4ac60bfc7e77949e9a1887a756626fd6fd}{Kreuz}}
+, \mbox{\hyperlink{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4a684fa5bc4389328564394fe081f9288f}{Kreis}}
+, \mbox{\hyperlink{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4aa544a1e3619542949545de93d90e4aa4}{Dreieck}}
+, \mbox{\hyperlink{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4a8b33328e6e2c9fa5365ce9d0015b3f3d}{Linie}}
+, \newline
+\mbox{\hyperlink{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4aaae2e4d690651a13d98495ea30fedf1a}{Linienende}}
+, \mbox{\hyperlink{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4aeb8b7b4e0019bc5d0f3acd33df1b0641}{Viereck}}
+ \}
+\item 
+enum class \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002e}{complete\+Piece\+Type}} \{ \newline
+\mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea2c9d9a63b12e7f9c0bad73a8f51313e8}{General\+Rot}}
+, \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002ead5d2981e90b59bbcb5d234e0109c199a}{Advisor\+Rot}}
+, \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea1ca200a903de47b8dbe5467170dbea7d}{Elephant\+Rot}}
+, \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea49e62cc61c0d663f84d12914c65b5894}{Horse\+Rot}}
+, \newline
+\mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea088d15e28472f6d44324d10ca85eb4a2}{Chariot\+Rot}}
+, \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea65bfa657784b5a2a0f1e2772de55a1ee}{Cannon\+Rot}}
+, \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002eaea59182fb0c2059e57ef8fa78b83d64d}{Soldier\+Rot}}
+, \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea54390f7556fb3287350d7af59df25e75}{General\+Schwarz}}
+, \newline
+\mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002eae4bf17f89077dc287f193caa32877cb9}{Advisor\+Schwarz}}
+, \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea60c450de8b42d1df5fc86aa9ad7b28ef}{Elephant\+Schwarz}}
+, \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002eabd3e260f75148dbb94e30d7728eb533a}{Horse\+Schwarz}}
+, \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea4bfad3562b535105c5bc186dce1a6472}{Chariot\+Schwarz}}
+, \newline
+\mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002eaf8d6efc784cdc2765027e3e9cba1ce94}{Cannon\+Schwarz}}
+, \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea8bb94b9957588009ef004b0162d56ef7}{Soldier\+Schwarz}}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{basemodel_8h_a35429091f006d2e20cdc28d2c428002e}\index{basemodel.h@{basemodel.h}!completePieceType@{completePieceType}}
+\index{completePieceType@{completePieceType}!basemodel.h@{basemodel.h}}
+\doxysubsubsection{\texorpdfstring{completePieceType}{completePieceType}}
+{\footnotesize\ttfamily \label{basemodel_8h_a35429091f006d2e20cdc28d2c428002e} 
+enum class \mbox{\hyperlink{basemodel_8h_a35429091f006d2e20cdc28d2c428002e}{complete\+Piece\+Type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GeneralRot@{GeneralRot}!basemodel.h@{basemodel.h}}\index{basemodel.h@{basemodel.h}!GeneralRot@{GeneralRot}}}\Hypertarget{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea2c9d9a63b12e7f9c0bad73a8f51313e8}\label{basemodel_8h_a35429091f006d2e20cdc28d2c428002e} 
+General\+Rot&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AdvisorRot@{AdvisorRot}!basemodel.h@{basemodel.h}}\index{basemodel.h@{basemodel.h}!AdvisorRot@{AdvisorRot}}}\Hypertarget{basemodel_8h_a35429091f006d2e20cdc28d2c428002ead5d2981e90b59bbcb5d234e0109c199a}\label{basemodel_8h_a35429091f006d2e20cdc28d2c428002e} 
+Advisor\+Rot&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ElephantRot@{ElephantRot}!basemodel.h@{basemodel.h}}\index{basemodel.h@{basemodel.h}!ElephantRot@{ElephantRot}}}\Hypertarget{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea1ca200a903de47b8dbe5467170dbea7d}\label{basemodel_8h_a35429091f006d2e20cdc28d2c428002e} 
+Elephant\+Rot&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HorseRot@{HorseRot}!basemodel.h@{basemodel.h}}\index{basemodel.h@{basemodel.h}!HorseRot@{HorseRot}}}\Hypertarget{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea49e62cc61c0d663f84d12914c65b5894}\label{basemodel_8h_a35429091f006d2e20cdc28d2c428002e} 
+Horse\+Rot&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ChariotRot@{ChariotRot}!basemodel.h@{basemodel.h}}\index{basemodel.h@{basemodel.h}!ChariotRot@{ChariotRot}}}\Hypertarget{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea088d15e28472f6d44324d10ca85eb4a2}\label{basemodel_8h_a35429091f006d2e20cdc28d2c428002e} 
+Chariot\+Rot&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CannonRot@{CannonRot}!basemodel.h@{basemodel.h}}\index{basemodel.h@{basemodel.h}!CannonRot@{CannonRot}}}\Hypertarget{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea65bfa657784b5a2a0f1e2772de55a1ee}\label{basemodel_8h_a35429091f006d2e20cdc28d2c428002e} 
+Cannon\+Rot&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SoldierRot@{SoldierRot}!basemodel.h@{basemodel.h}}\index{basemodel.h@{basemodel.h}!SoldierRot@{SoldierRot}}}\Hypertarget{basemodel_8h_a35429091f006d2e20cdc28d2c428002eaea59182fb0c2059e57ef8fa78b83d64d}\label{basemodel_8h_a35429091f006d2e20cdc28d2c428002e} 
+Soldier\+Rot&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GeneralSchwarz@{GeneralSchwarz}!basemodel.h@{basemodel.h}}\index{basemodel.h@{basemodel.h}!GeneralSchwarz@{GeneralSchwarz}}}\Hypertarget{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea54390f7556fb3287350d7af59df25e75}\label{basemodel_8h_a35429091f006d2e20cdc28d2c428002e} 
+General\+Schwarz&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AdvisorSchwarz@{AdvisorSchwarz}!basemodel.h@{basemodel.h}}\index{basemodel.h@{basemodel.h}!AdvisorSchwarz@{AdvisorSchwarz}}}\Hypertarget{basemodel_8h_a35429091f006d2e20cdc28d2c428002eae4bf17f89077dc287f193caa32877cb9}\label{basemodel_8h_a35429091f006d2e20cdc28d2c428002e} 
+Advisor\+Schwarz&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ElephantSchwarz@{ElephantSchwarz}!basemodel.h@{basemodel.h}}\index{basemodel.h@{basemodel.h}!ElephantSchwarz@{ElephantSchwarz}}}\Hypertarget{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea60c450de8b42d1df5fc86aa9ad7b28ef}\label{basemodel_8h_a35429091f006d2e20cdc28d2c428002e} 
+Elephant\+Schwarz&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HorseSchwarz@{HorseSchwarz}!basemodel.h@{basemodel.h}}\index{basemodel.h@{basemodel.h}!HorseSchwarz@{HorseSchwarz}}}\Hypertarget{basemodel_8h_a35429091f006d2e20cdc28d2c428002eabd3e260f75148dbb94e30d7728eb533a}\label{basemodel_8h_a35429091f006d2e20cdc28d2c428002e} 
+Horse\+Schwarz&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ChariotSchwarz@{ChariotSchwarz}!basemodel.h@{basemodel.h}}\index{basemodel.h@{basemodel.h}!ChariotSchwarz@{ChariotSchwarz}}}\Hypertarget{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea4bfad3562b535105c5bc186dce1a6472}\label{basemodel_8h_a35429091f006d2e20cdc28d2c428002e} 
+Chariot\+Schwarz&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CannonSchwarz@{CannonSchwarz}!basemodel.h@{basemodel.h}}\index{basemodel.h@{basemodel.h}!CannonSchwarz@{CannonSchwarz}}}\Hypertarget{basemodel_8h_a35429091f006d2e20cdc28d2c428002eaf8d6efc784cdc2765027e3e9cba1ce94}\label{basemodel_8h_a35429091f006d2e20cdc28d2c428002e} 
+Cannon\+Schwarz&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SoldierSchwarz@{SoldierSchwarz}!basemodel.h@{basemodel.h}}\index{basemodel.h@{basemodel.h}!SoldierSchwarz@{SoldierSchwarz}}}\Hypertarget{basemodel_8h_a35429091f006d2e20cdc28d2c428002ea8bb94b9957588009ef004b0162d56ef7}\label{basemodel_8h_a35429091f006d2e20cdc28d2c428002e} 
+Soldier\+Schwarz&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00032}{32}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+
+\Hypertarget{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4}\index{basemodel.h@{basemodel.h}!markerType@{markerType}}
+\index{markerType@{markerType}!basemodel.h@{basemodel.h}}
+\doxysubsubsection{\texorpdfstring{markerType}{markerType}}
+{\footnotesize\ttfamily \label{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4} 
+enum class \mbox{\hyperlink{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4}{marker\+Type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Kreuz@{Kreuz}!basemodel.h@{basemodel.h}}\index{basemodel.h@{basemodel.h}!Kreuz@{Kreuz}}}\Hypertarget{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4ac60bfc7e77949e9a1887a756626fd6fd}\label{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4} 
+Kreuz&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Kreis@{Kreis}!basemodel.h@{basemodel.h}}\index{basemodel.h@{basemodel.h}!Kreis@{Kreis}}}\Hypertarget{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4a684fa5bc4389328564394fe081f9288f}\label{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4} 
+Kreis&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Dreieck@{Dreieck}!basemodel.h@{basemodel.h}}\index{basemodel.h@{basemodel.h}!Dreieck@{Dreieck}}}\Hypertarget{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4aa544a1e3619542949545de93d90e4aa4}\label{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4} 
+Dreieck&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Linie@{Linie}!basemodel.h@{basemodel.h}}\index{basemodel.h@{basemodel.h}!Linie@{Linie}}}\Hypertarget{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4a8b33328e6e2c9fa5365ce9d0015b3f3d}\label{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4} 
+Linie&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Linienende@{Linienende}!basemodel.h@{basemodel.h}}\index{basemodel.h@{basemodel.h}!Linienende@{Linienende}}}\Hypertarget{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4aaae2e4d690651a13d98495ea30fedf1a}\label{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4} 
+Linienende&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Viereck@{Viereck}!basemodel.h@{basemodel.h}}\index{basemodel.h@{basemodel.h}!Viereck@{Viereck}}}\Hypertarget{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4aeb8b7b4e0019bc5d0f3acd33df1b0641}\label{basemodel_8h_a3f2f433cc45b9a2bb94ec8e0c96846d4} 
+Viereck&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{basemodel_8h_source_l00027}{27}} of file \mbox{\hyperlink{basemodel_8h_source}{basemodel.\+h}}.
+

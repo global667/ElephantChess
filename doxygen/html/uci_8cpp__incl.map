@@ -1,0 +1,37 @@
+<map id="F:/source/CLionProjects/ElephantChess/sources/uci.cpp" name="F:/source/CLionProjects/ElephantChess/sources/uci.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="436,5,600,64"/>
+<area shape="rect" id="Node000002" href="$uci_8h.html" title=" " alt="" coords="457,112,507,139"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="509,65,495,99,490,97,504,63"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="530,112,578,139"/>
+<area shape="poly" id="edge19_Node000001_Node000016" title=" " alt="" coords="532,63,546,97,541,99,527,65"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,187,95,213"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="457,133,114,189,110,190,109,185,114,184,457,128"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="71,336,139,363"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="457,131,415,136,360,147,301,164,245,189,205,219,170,255,142,292,121,324,117,321,137,289,166,251,201,215,242,184,299,159,359,141,414,131,457,126"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="456,187,508,213"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="485,139,485,171,479,171,479,139"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="423,336,493,363"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="473,140,458,162,446,187,440,223,441,258,452,320,447,321,435,259,435,222,441,186,453,159,469,137"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="532,187,611,213"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="499,137,546,175,542,179,496,141"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="635,187,721,213"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="508,133,630,178,629,183,506,138"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="746,187,832,213"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="508,133,519,136,731,183,730,189,517,141,506,138"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="856,187,927,213"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="508,133,519,136,607,153,678,162,750,169,841,184,841,189,749,175,677,167,606,159,517,141,506,138"/>
+<area shape="rect" id="Node000011" href="$basemodel_8h.html" title=" " alt="" coords="256,187,351,213"/>
+<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="458,139,349,183,347,178,456,134"/>
+<area shape="poly" id="edge11_Node000011_Node000004" title=" " alt="" coords="283,216,210,263,132,328,128,323,207,259,280,212"/>
+<area shape="poly" id="edge12_Node000011_Node000006" title=" " alt="" coords="318,212,436,323,432,327,315,216"/>
+<area shape="rect" id="Node000012" href="$cchess__rules_8h.html" title=" " alt="" coords="221,261,330,288"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="301,215,288,248,283,246,296,213"/>
+<area shape="poly" id="edge14_Node000012_Node000004" title=" " alt="" coords="247,291,150,332,148,327,245,286"/>
+<area shape="poly" id="edge15_Node000012_Node000006" title=" " alt="" coords="308,286,413,327,411,332,306,291"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="333,336,399,363"/>
+<area shape="poly" id="edge16_Node000012_Node000013" title=" " alt="" coords="293,286,340,324,337,328,289,291"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="162,336,218,363"/>
+<area shape="poly" id="edge17_Node000012_Node000014" title=" " alt="" coords="262,291,218,328,214,324,259,287"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="241,336,310,363"/>
+<area shape="poly" id="edge18_Node000012_Node000015" title=" " alt="" coords="278,289,278,320,273,320,273,289"/>
+</map>
