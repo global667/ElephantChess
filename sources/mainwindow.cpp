@@ -95,7 +95,7 @@ void MainWindow::InitEngine() {
         uci->engine.waitForReadyRead();
     } else {
         QMessageBox::information(this, "Information",
-                                 "Download the engine from the releases page on \nhttps://www.elephant-chess.com\nand put it in the program folder\n"
+                                 "Download the engine from the releases page on \nhttps://github.com/global667/Pikafish\nand put it in the program folder\n"
                                  + QDir::currentPath() + "\n");
         exit(0);
     }
@@ -237,7 +237,7 @@ void MainWindow::InitWidgets() {
     opponents->addWidget(opp2);
     location = new QHBoxLayout;
     loca = new QLineEdit(gameinfosh->widget());
-    loca->setPlaceholderText("hometown masters");
+    loca->setPlaceholderText("home masters");
     location->addWidget(loca);
     location->addWidget(new QLabel(", round"));
     round = new QLineEdit(gameinfosh->widget());

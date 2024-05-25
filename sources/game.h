@@ -29,7 +29,7 @@ private:
 
     void YouWin();
 
-    void AddMoveToList(std::pair<Point, Point> move) const;
+    void AddMoveToList(std::pair<Point, Point> move);
 
     void AddMoveToHistory();
 
