@@ -94,10 +94,37 @@ void MainWindow::InitEngine() {
         UCI::start();
         uci->engine.waitForReadyRead();
     } else {
-        QMessageBox::information(this, "Information",
-                                 "Download the engine from the releases page on \nhttps://github.com/global667/Pikafish\nand put it in the program folder\n"
+        if (!QDir::currentPath().contains("pikafish.zip")) {
+            QMessageBox::information(this, "Information",
+                                 "Download the engine from the releases page on \nhttps://github.com/global667/Pikafish\nand put it in the program folder. Then restart the Program.\n"
                                  + QDir::currentPath() + "\n");
-        exit(0);
+            QProcess *wget = new QProcess();
+            if (!wget->startDetached("wget",QStringList("https://github.com/global667/Pikafish/releases/download/latest/pikafish.zip"), "./")) {
+                qDebug() << "wget not found";
+                delete wget;
+            } else
+                while (wget->waitForFinished(1000)) {
+                    qDebug() << "wget finished";
+                    delete wget;
+                    break;
+                }
+        }
+        QProcess *powershell = new QProcess();
+        if (powershell->startDetached("powershell", QStringList({"-command", "Expand-Archive", "-Force", "./pikafish.zip", "./"})))
+        {
+            while (powershell->waitForFinished(1000)) {
+                qDebug() << "powershell finished";
+                break;
+            }
+            qDebug() << "pikafish.zip downloaded and extracted";
+            delete powershell;
+            exit(0);
+        }
+        else
+        {
+            qDebug() << "powershell not found";
+            delete powershell;
+        }
     }
 }
 

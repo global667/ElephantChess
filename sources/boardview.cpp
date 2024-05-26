@@ -459,31 +459,31 @@ void BoardView::mousePressEvent(QMouseEvent *event) {
     const Point coord{10 - boardPos.y, boardPos.x - 1}; // Simplified coordinate conversion
     if (!pressed) {
         pressed = true;
-        basemodel.fromHuman = coord;
-
         if (const Piece piece = *basemodel.position.board[coord.x][coord.y];
-            piece.getName().isEmpty() || piece.getColor() != basemodel.position.players_color) {
+            piece.getName().isEmpty()|| piece.getColor() != basemodel.position.players_color) {
             pressed = false; // Reset if invalid piece or color
             return;
         }
+        basemodel.fromHuman = coord;
         update(); // Refresh to show selected piece
     } else {
-        basemodel.toHuman = coord;
-        if (basemodel.toHuman.x == basemodel.fromHuman.x && basemodel.toHuman.y == basemodel.fromHuman.y) {
+
+        if (coord.x == basemodel.fromHuman.x && coord.y == basemodel.fromHuman.y) {
             pressed = false;
             update(); // Refresh to show changes or revert view
             return;
         }
-        if (basemodel.position.board[basemodel.toHuman.x][basemodel.toHuman.y]->getColor() == basemodel.position.
+        if (basemodel.position.board[coord.x][coord.y]->getColor() == basemodel.position.
             players_color) {
-            basemodel.fromHuman = basemodel.toHuman; // Move the selected piece to the new square
+            basemodel.fromHuman = coord; // Move the selected piece to the new square
             update(); // Refresh to show changes or revert view
             return;
         }
+
         pressed = false;
         auto all_moves = Board::getAllValidMoves(basemodel.position.players_color, basemodel.position.board);
         for (const auto &[from, to]: all_moves) {
-            if (from == basemodel.fromHuman && to == basemodel.toHuman) {
+            if (from == basemodel.fromHuman && to == coord) {
                 //emit updateView(basemodel.fromHuman, basemodel.toHuman, basemodel.mode);
                 basemodel.fromHuman = from;
                 basemodel.toHuman = to;
