@@ -5,13 +5,12 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <QMutex>
 #include <QThread>
 #include <QTreeWidget>
 
-#include "basemodel.h"
-#include "mainwindow.h"
-#include "engine.h"
-#include "uci.h"
+class MainWindow;
+struct Point;
 
 class Game final : public QThread {
 
@@ -23,6 +22,7 @@ public:
 
 private:
     bool isMouseClicked = false;
+
     QMutex mutex;
 
     void YouLose();

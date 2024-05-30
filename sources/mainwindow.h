@@ -67,7 +67,10 @@
 #include "engine.h"
 //#include "renderview.h"
 //#include "settingsview.h"
+
 #include "uci.h"
+
+class Game;
 
 class MainWindow final : public QMainWindow {
     Q_OBJECT
@@ -133,6 +136,7 @@ private:
     int column = 0;
     int isTableClicked = 0;
     bool tipp = false;
+    Game *game;
 
 public slots:
     void Open();
@@ -165,6 +169,8 @@ public slots:
     void UpdateFromThreadSlot() const;
 
     void togglePiecesView();
+
+    void ResetToHistory();
 
 private slots:
     void OnDownloaded(const QString &filename = {});

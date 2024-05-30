@@ -9,8 +9,11 @@
 #include <QTreeWidgetItem>
 
 #include "game.h"
+#include "engine.h"
+#include "basemodel.h"
+#include "uci.h"
 
-#include <QMainWindow>
+#include "mainwindow.h"
 
 extern BaseModel basemodel;
 
@@ -185,17 +188,6 @@ void Game::AddMoveToList(const std::pair<Point, Point> move) {
     // table->addTopLevelItem(item);
     // }
 }
-void Game::ResetToHistory() {
-
-    basemodel.position = basemodel.moveHistory[basemodel.currentMove];
-    basemodel.fromHuman = {-1, -1};
-    basemodel.toHuman = {-1, -1};
-    basemodel.fromUCI = {-1, -1};
-    basemodel.toUCI = {-1, -1};
-
-    parent->repaint();
-}
-
 // You win message
 void Game::YouWin() {
     QMessageBox msgBox;

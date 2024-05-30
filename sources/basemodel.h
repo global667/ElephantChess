@@ -23,6 +23,7 @@
 #include <QObject>
 
 #include "cchess_rules.h"
+//#include "game.h"
 
 enum class markerType { Kreuz, Kreis, Dreieck, Linie, Linienende, Viereck };
 

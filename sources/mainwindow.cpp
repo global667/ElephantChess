@@ -17,13 +17,14 @@
 */
 
 #include "mainwindow.h"
+#include "sources/game.h"
 #undef THREE_D_VIEW
 #undef ENGINE
 // #ifdef TEST
 // #endif
 #include <QDesktopServices>
 
-#include "game.h"
+//#include "game.h"
 //#include <QtQuick/QQuickView>
 //#include <QtQuick3D/qquick3d.h>
 //#include <QQmlApplicationEngine>
@@ -71,7 +72,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     //loggingTextView->insertPlainText(basemodel.position.perftTest(3));
     //loggingTextView->insertPlainText(basemodel.position.perftTest(4));
     //loggingTextView->insertPlainText(basemodel.position.perftTest(5));
-    Game *game = new Game(table, this);
+
     game->start();
 }
 
@@ -150,7 +151,7 @@ void MainWindow::InitConnections() {
         lleft, &QPushButton::pressed, this,
         [=]() {
             basemodel.currentMove = 0;
-            //ResetToHistory();
+            ResetToHistory();
         },
         Qt::AutoConnection);
     connect(
@@ -160,7 +161,7 @@ void MainWindow::InitConnections() {
             if (basemodel.currentMove <= 0) {
                 basemodel.currentMove = 0;
             }
-            //ResetToHistory();
+            ResetToHistory();
         },
         Qt::AutoConnection);
     connect(
@@ -170,14 +171,14 @@ void MainWindow::InitConnections() {
             if (basemodel.currentMove >= basemodel.moveHistory.size() - 1) {
                 basemodel.currentMove = basemodel.moveHistory.size() - 1;
             }
-            //ResetToHistory();
+            ResetToHistory();
         },
         Qt::AutoConnection);
     connect(
         rright, &QPushButton::pressed, this,
         [=]() {
             basemodel.currentMove = static_cast<int>(basemodel.moveHistory.size()) - 1;
-            //ResetToHistory();
+            ResetToHistory();
         },
         Qt::AutoConnection);
 }
@@ -363,6 +364,7 @@ void MainWindow::InitWidgets() {
                         &QCoreApplication::quit)
             ->setToolTip("Exit the application");
     toolbar->addSeparator();
+    game = new Game(table, this);
 }
 
 void MainWindow::Debug() const { loggingTextView->insertPlainText("Test,test,test"); }
@@ -701,9 +703,19 @@ void MainWindow::Newgame() {
     repaint();
 }
 
+
 // End Toolbar slots
 
+void MainWindow::ResetToHistory() {
 
+    basemodel.position = basemodel.moveHistory[basemodel.currentMove];
+    basemodel.fromHuman = {-1, -1};
+    basemodel.toHuman = {-1, -1};
+    basemodel.fromUCI = {-1, -1};
+    basemodel.toUCI = {-1, -1};
+
+    repaint();
+}
 
 void MainWindow::PaintFromThreadSlot() {
     repaint();
