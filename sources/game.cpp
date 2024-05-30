@@ -8,9 +8,9 @@
 #include <QStringList>
 #include <QTreeWidgetItem>
 
-#include "game.h"
-#include "engine.h"
 #include "basemodel.h"
+#include "engine.h"
+#include "game.h"
 #include "uci.h"
 
 #include "mainwindow.h"
@@ -26,43 +26,47 @@ void Game::run() {
     // basemodel.currentMoves.push_back({from, to});
     do {
         /*    Point from; Point to; const BaseModel::Mode mode = basemodel.mode;
-        std::pair<Point, Point> move = std::make_pair(from, to);
+    std::pair<Point, Point> move = std::make_pair(from, to);
 
-        if (from.x == -1 && from.y == -1 && to.x == -1 && to.y == -1) {
-            YouLose();
-            return;
+    if (from.x == -1 && from.y == -1 && to.x == -1 && to.y == -1) {
+        YouLose();
+        return;
+    }
+    if (!basemodel.position.board[from.x][from.y]) {
+        qDebug() << "Error in ToMove" << from.x << " " << from.y;
+        return;
+    }
+
+    //TODO: Fix PlayNow bug
+
+    int j=basemodel.currentMove;
+    int l = basemodel.moveHistory.size();
+    bool isBackMove = (j < l-1);
+    if (isBackMove) {
+        table->clear();
+        basemodel.moves.clear();
+
+        for (int i = j; i < l-1 ; i++) {
+            //table->takeTopLevelItem(i);
+            basemodel.moveHistory.removeLast();
         }
-        if (!basemodel.position.board[from.x][from.y]) {
-            qDebug() << "Error in ToMove" << from.x << " " << from.y;
-            return;
-        }
+        //basemodel.currentMove = j;
+        basemodel.position = basemodel.moveHistory.last();
+        parent->update();
+    } */
 
-        //TODO: Fix PlayNow bug
-
-        int j=basemodel.currentMove;
-        int l = basemodel.moveHistory.size();
-        bool isBackMove = (j < l-1);
-        if (isBackMove) {
-            table->clear();
-            basemodel.moves.clear();
-
-            for (int i = j; i < l-1 ; i++) {
-                //table->takeTopLevelItem(i);
-                basemodel.moveHistory.removeLast();
-            }
-            //basemodel.currentMove = j;
-            basemodel.position = basemodel.moveHistory.last();
-            parent->update();
-        } */
-
+    //  Human moves
     if (basemodel.position.players_color == Color::Red &&
             basemodel.fromHuman.x != -1 && basemodel.fromHuman.y != -1 &&
             basemodel.toHuman.x != -1 && basemodel.toHuman.y != -1) {
-            mutex.lock();
+
+        mutex.lock();
+
         auto move = std::make_pair(basemodel.fromHuman, basemodel.toHuman);
             Board::movePiece({move.first.x, move.first.y},
                          {move.second.x, move.second.y},
                          basemodel.position.board);
+        basemodel.currentMoves.push_back(move);
         AddMoveToList(move);
             // AddMoveToHistory();
 
@@ -77,11 +81,13 @@ void Game::run() {
         mutex.unlock();
     }
 
+    // Engine moves
     if (basemodel.position.players_color == Color::Black &&
         basemodel.fromUCI.x != -1 && basemodel.fromUCI.y != -1 &&
         basemodel.toUCI.x != -1 && basemodel.toUCI.y != -1) {
-        //mutex.lock();
+        // mutex.lock();
         auto move = std::make_pair(basemodel.fromUCI, basemodel.toUCI);
+        basemodel.currentMoves.push_back(move);
         Board::movePiece({move.first.x, move.first.y},
                          {move.second.x, move.second.y},
                          basemodel.position.board);
@@ -94,7 +100,7 @@ void Game::run() {
         // isMouseClicked = false;
         basemodel.position.toggleColor();
         parent->update();
-        //mutex.unlock();
+        // mutex.unlock();
     }
 
     /*     if (mode == BaseModel::Mode::engine) {
@@ -148,27 +154,33 @@ void Game::AddMoveToHistory() {
 void Game::AddMoveToList(const std::pair<Point, Point> move) {
     if (move.first.x == -1 || basemodel.moveHistory.isEmpty())
         return;
-      const QString name =
-            basemodel.moveHistory.last().board[move.first.x][move.first.y]->getName();
-    const QString beaten =
-    basemodel.moveHistory.last().board[move.second.x][move.second.y]->getName().isEmpty()
+    const QString name =
+        basemodel.moveHistory.last().board[move.first.x][move.first.y]->getName();
+    const QString beaten = basemodel.moveHistory.last()
+                                   .board[move.second.x][move.second.y]
+                                   ->getName()
+                                   .isEmpty()
                                ? "-"
-                               : "x"; // If there is no piece on the target field, then it is not a beaten move
+                               : "x"; // If there is no piece on the target field,
+        // then it is not a beaten move
 
     const QByteArray moveAsString = BaseModel::posToken(
         move.first.x, move.first.y, move.second.x, move.second.y);
     basemodel.moves.append(moveAsString);
 
-      QStringList mv;
+    QStringList mv;
     mv << name << QString(basemodel.moves.last().at(0))
-            << QString(basemodel.moves.last().at(1)) << beaten
-            << QString(basemodel.moves.last().at(2))
-            << QString(basemodel.moves.last().at(3))
-            << (!Board::isCheck(basemodel.position.players_color,
-    basemodel.position.board) ? QString("") : QString("+"));
+       << QString(basemodel.moves.last().at(1)) << beaten
+       << QString(basemodel.moves.last().at(2))
+       << QString(basemodel.moves.last().at(3))
+       << (!Board::isCheck(basemodel.position.players_color,
+                           basemodel.position.board)
+               ? QString("")
+               : QString("+"));
 
     auto *item = new QTreeWidgetItem(table);
-    item->setText(0, QString::number(basemodel.currentMove+1) + ". " + mv.join(" "));
+    item->setText(0, QString::number(basemodel.currentMove + 1) + ". " +
+                         mv.join(" "));
     table->addTopLevelItem(item);
 
     AddMoveToHistory();
@@ -178,13 +190,13 @@ void Game::AddMoveToList(const std::pair<Point, Point> move) {
     // "));
 
     /* if (isTableClicked) {
-       if (0 == ply) {
-           table->addTopLevelItem(item);
-       } else {
-           table->setCurrentItem(item);
-           //table->addTopLevelItem(item); // Insert the item at the top
-       }
-   } else { */
+     if (0 == ply) {
+         table->addTopLevelItem(item);
+     } else {
+         table->setCurrentItem(item);
+         //table->addTopLevelItem(item); // Insert the item at the top
+     }
+ } else { */
     // table->addTopLevelItem(item);
     // }
 }
