@@ -688,7 +688,7 @@ void MainWindow::Newgame() {
     //model->clear();
     // row = 0,
     column = 0;
-    basemodel.currentMove = 1;
+    basemodel.currentMove = 0;
     basemodel.fromHuman = {-1, -1};
     basemodel.toHuman = {-1, -1};
     basemodel.fromUCI = {-1, -1};
@@ -699,7 +699,7 @@ void MainWindow::Newgame() {
     }
     basemodel.moves.clear();
     basemodel.moveHistory.append(basemodel.position);
-    basemodel.currentMove++;
+    //basemodel.currentMove++;
     repaint();
 }
 
