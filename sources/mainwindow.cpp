@@ -451,43 +451,45 @@ void MainWindow::ReadPGNData(QString data) const {
 }
 
 void MainWindow::PutPGNOnBoard() {
-    basemodel.position.setupInitialPositions();
+ /*   basemodel.position.setupInitialPositions();
     basemodel.moveHistory.clear();
     //for (const auto & m : model->findItems("*", Qt::MatchWildcard)) {
     //     model->removeRow(m->row());
     // }
     //table->clear();
     // model->clear();
-    auto moves = basemodel.moves;
+
     basemodel.moves.clear();
     table->clear();
     //AddMoveToHistory();
     basemodel.currentMove = 0;
     int c = 0;
-
+*/
+    auto moves = basemodel.moves;
+    Newgame();
     for (auto &item1: moves) {
         //auto *item = new QStandardItem(item1);
         //if (c % 2 == 0) {
         //     model->setItem(c / 2, 0, item);
         // }
         //if (c % 2 == 1)
-        //model->appendRow(item);
+        //table->addTopLevelItem(new QTreeWidgetItem(QStringList(item1)));
 
-        const auto fx = ((char) item1.at(0).toLatin1() - 'a');
-        const auto fy = static_cast<char>(9 - item1[1].digitValue());
-        const auto tx = ((char) item1.at(2).toLatin1() - 'a');
-        const auto ty = static_cast<char>(9 - item1[3].digitValue());
+        const int fx = ((char) item1.at(0).toLatin1() - 'a');
+        const int fy = static_cast<char>(9 - item1[1].digitValue());
+        const int tx = ((char) item1.at(2).toLatin1() - 'a');
+        const int ty = static_cast<char>(9 - item1[3].digitValue());
 
-        //AddMoveToHistory();
-        //AddMoveToList(std::make_pair(Point(9 - fy, 8 - fx), Point(9 - ty, 8 - tx)));
-        Board::movePiece(Point(9 - fy, 8 - fx), Point(9 - ty, 8 - tx), basemodel.position.board);
+        //game->AddMoveToHistory();
+        game->AddMoveToList(std::make_pair(Point(9 - fy, fx), Point(9 - ty, tx)));
+        Board::movePiece(Point(9 - fy, fx), Point(9 - ty, tx), basemodel.position.board);
 
-        c++;
+        //c++;
         basemodel.position.toggleColor();
     }
    // ResetToHistory();
     basemodel.currentMove++;
-    column = c;
+    //column = c;
     repaint();
 }
 
@@ -691,11 +693,11 @@ void MainWindow::OnDownloaded(const QString &filename) {
 void MainWindow::Newgame() {
     basemodel.position.setupInitialPositions();
     basemodel.moveHistory.clear();
-    basemodel.moves.clear();
+
     basemodel.currentMoves.clear();
     //model->clear();
     // row = 0,
-    column = 0;
+    //column = 0;
     basemodel.currentMove = 0;
     basemodel.fromHuman = {-1, -1};
     basemodel.toHuman = {-1, -1};
@@ -704,7 +706,7 @@ void MainWindow::Newgame() {
     basemodel.position.players_color = Color::Red;
     for (int i = static_cast<int>(basemodel.moves.size()); i >= 0; i--) {
         table->takeTopLevelItem(i);
-    }
+    }   
     basemodel.moves.clear();
     basemodel.moveHistory.append(basemodel.position);
     //basemodel.currentMove++;

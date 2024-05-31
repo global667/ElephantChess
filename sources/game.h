@@ -19,7 +19,9 @@ public:
     explicit Game(QTreeWidget *table,  MainWindow *parent = nullptr);
 
     void run() override;
-
+    void AddMoveToHistory();
+       void AddMoveToList(std::pair<Point, Point> move);
+    void ResetToHistory();
 private:
     bool isMouseClicked = false;
 
@@ -29,11 +31,9 @@ private:
 
     void YouWin();
 
-    void AddMoveToList(std::pair<Point, Point> move);
 
-    void AddMoveToHistory();
 
-    void ResetToHistory();
+
 
     QTreeWidget *table;
     MainWindow *parent;
