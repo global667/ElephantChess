@@ -74,7 +74,6 @@ void Game::run() {
         basemodel.fromHuman = {-1, -1};
         basemodel.toHuman = {-1, -1};
         // isMouseClicked = false;
-        basemodel.position.toggleColor();
         basemodel.mode = BaseModel::Mode::uci;
         // parent->repaint();
         parent->uci->engineGo(false);
@@ -99,14 +98,13 @@ void Game::run() {
         basemodel.fromUCI = {-1, -1};
         basemodel.toUCI = {-1, -1};
         // isMouseClicked = false;
-        basemodel.position.toggleColor();
         basemodel.mode = BaseModel::Mode::human;
         parent->update();
         // mutex.unlock();
     }
 
     /*     if (mode == BaseModel::Mode::engine) {
-             /*   timer = new QTimer(this);
+               timer = new QTimer(this);
                 timer2 = new QTimer(this);
                 connect(timer, &QTimer::timeout, engine.get(),
        &Engine::nodesPerSecond); connect(timer2, &QTimer::timeout, this,
@@ -156,6 +154,18 @@ void Game::AddMoveToHistory() {
 void Game::AddMoveToList(const std::pair<Point, Point> move) {
     if (move.first.x == -1 || basemodel.moveHistory.isEmpty())
         return;
+
+    int size = basemodel.moves.size()-1;
+    if ( basemodel.currentMove < basemodel.moves.size()-1) {
+        for (int i = size; i >= basemodel.currentMove; i--) {
+            table->takeTopLevelItem(i);
+            basemodel.moves.removeLast();
+            basemodel.moveHistory.removeLast();
+        }
+        if (basemodel.moveHistory.isEmpty())
+            basemodel.position = basemodel.moveHistory.last();
+    }
+
     const QString name =
         basemodel.moveHistory.last().board[move.first.x][move.first.y]->getName();
     const QString beaten = basemodel.moveHistory.last()
@@ -180,12 +190,29 @@ void Game::AddMoveToList(const std::pair<Point, Point> move) {
                ? QString("")
                : QString("+"));
 
+
+
+/*    for (int i = 0; i < basemodel.currentMove; i++)
+    {
+        auto *it = new QTreeWidgetItem(table);
+        it->setText(i,basemodel.moves[i]);
+        table->addTopLevelItem(it);
+    }
+*/
     auto *item = new QTreeWidgetItem(table);
     item->setText(0, QString::number(basemodel.currentMove + 1) + ". " +
                          mv.join(" "));
     table->addTopLevelItem(item);
 
     AddMoveToHistory();
+
+
+    if (basemodel.currentMove % 2 == 1)
+        basemodel.position.players_color = Color::Black;
+    else
+        basemodel.position.players_color = Color::Red;
+
+
     // auto *item = new QTreeWidgetItem(table);
     // const int ply = (basemodel.moves.size() - 1) % 2;
     // item->setText(0, QString::number(basemodel.currentMove) + ". " + mv.join("

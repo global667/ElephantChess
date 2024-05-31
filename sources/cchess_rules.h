@@ -8,6 +8,8 @@
 #include <vector>
 #include <memory>
 
+
+
 enum class PieceType {
     General, Advisor, Elephant, Horse, Chariot, Cannon, Soldier, Empty
 };
@@ -270,6 +272,12 @@ public:
                 to = to + move;
             }
         }
+ /*       for (auto m : validMoves) {
+            if(!Board::isCheck(m.first, m.second, board, board[m.first.x][m.first.y]->getColor())) {
+                validMoves.erase(m);
+            }
+        }
+ */
         return validMoves;
     }
 

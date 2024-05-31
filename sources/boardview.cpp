@@ -125,7 +125,8 @@ void BoardView::paintEvent(QPaintEvent *event) {
     }
     PaintSelectedPieces(&painter);
     if (basemodel.currentMoves.isEmpty() == false &&
-        basemodel.position.players_color == Color::Red)
+        basemodel.position.players_color == Color::Red &&
+        basemodel.currentMove == basemodel.currentMoves.size())
         DrawEngineMoves(&painter);
 }
 

@@ -152,6 +152,8 @@ void MainWindow::InitConnections() {
         [=]() {
             basemodel.currentMove = 0;
             ResetToHistory();
+            //basemodel.position.players_color = Color::Red;
+
         },
         Qt::AutoConnection);
     connect(
@@ -162,6 +164,8 @@ void MainWindow::InitConnections() {
                 basemodel.currentMove = 0;
             }
             ResetToHistory();
+            //basemodel.position.toggleColor();
+
         },
         Qt::AutoConnection);
     connect(
@@ -172,6 +176,8 @@ void MainWindow::InitConnections() {
                 basemodel.currentMove = basemodel.moveHistory.size() - 1;
             }
             ResetToHistory();
+            //basemodel.position.toggleColor();
+
         },
         Qt::AutoConnection);
     connect(
@@ -179,6 +185,8 @@ void MainWindow::InitConnections() {
         [=]() {
             basemodel.currentMove = static_cast<int>(basemodel.moveHistory.size()) - 1;
             ResetToHistory();
+            //basemodel.position.players_color = basemodel.moveHistory.back().players_color;
+
         },
         Qt::AutoConnection);
 }
@@ -204,8 +212,8 @@ void MainWindow::InitWidgets() {
     // headerview->setStretchLastSection(true);
     // headerview->setDefaultAlignment(Qt::AlignJustify | Qt::AlignVCenter);
     table = new QTreeWidget(navigationwidget);
-    table->setColumnCount(2);
-    table->setHeaderLabels(QStringList() << "Moves" << "Comments");
+    table->setColumnCount(1);
+    table->setHeaderLabels(QStringList() << "Moves");
 
     // tabwidget1 layout
     tab1layout = new QHBoxLayout(tabwidget1);
@@ -723,6 +731,11 @@ void MainWindow::ResetToHistory() {
     basemodel.toHuman = {-1, -1};
     basemodel.fromUCI = {-1, -1};
     basemodel.toUCI = {-1, -1};
+
+    if (basemodel.currentMove % 2 == 1)
+        basemodel.position.players_color = Color::Black;
+    else
+        basemodel.position.players_color = Color::Red;
 
     repaint();
 }

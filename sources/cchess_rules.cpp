@@ -18,7 +18,9 @@ auto Piece::generateValidMoves(const Point &position,
     for (int i = 0; i < 10; ++i) {
         for (int j = 0; j < 9; ++j) {
             if (Point move = {i, j}; move.x >= 0 && move.x < 10 && move.y >= 0 && move.y < 9) {
-                if (isValidMove(position, move, board)) {
+                if (isValidMove(position, move, board) &&
+                    !Board::isCheck(board[position.x][position.y]->getColor(),board) &&
+                    !Board::isEvilGlare(board[position.x][position.y]->getColor(),board)) {
                     moves.emplace_back(position, move);
                 }
             }
