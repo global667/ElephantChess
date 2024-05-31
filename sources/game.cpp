@@ -75,6 +75,7 @@ void Game::run() {
         basemodel.toHuman = {-1, -1};
         // isMouseClicked = false;
         basemodel.position.toggleColor();
+        basemodel.mode = BaseModel::Mode::uci;
         // parent->repaint();
         parent->uci->engineGo(false);
         parent->update();
@@ -99,6 +100,7 @@ void Game::run() {
         basemodel.toUCI = {-1, -1};
         // isMouseClicked = false;
         basemodel.position.toggleColor();
+        basemodel.mode = BaseModel::Mode::human;
         parent->update();
         // mutex.unlock();
     }

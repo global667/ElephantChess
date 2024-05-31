@@ -52,7 +52,7 @@ private:
     bool newGame;
     bool tipp = false;
 signals:
-    void updateView(Point from, Point to, BaseModel::Mode);
+    //void updateView(Point from, Point to, BaseModel::Mode);
 
     void boardChanged(int fromX, int fromY, int toX, int toY);
 

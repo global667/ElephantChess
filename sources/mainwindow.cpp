@@ -90,8 +90,8 @@ void MainWindow::InitEngine() {
                 " in extra thread";
         basemodel.mode = BaseModel::Mode::uci;
         uci.reset(new UCI());
-        connect(uci.get(), SIGNAL(updateView(Point,Point,BaseModel::Mode)),
-                SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
+        //connect(uci.get(), SIGNAL(updateView(Point,Point,BaseModel::Mode)),
+        //        SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
         UCI::start();
         uci->engine.waitForReadyRead();
     } else {
@@ -325,12 +325,12 @@ void MainWindow::InitWidgets() {
             ->setToolTip("Save a PGN-file");
     toolbar->addSeparator();
 
-    toolbar
+   /* toolbar
             ->addAction(QIcon(":res/play-now.png"), tr("Play now!"), this,
                         SLOT(PlayNow()))
             ->setToolTip(
                 "Let's the engine makes a move now (changes the color you play)");
-
+*/
     toolbar->addSeparator();
     toolbar
                   ->addAction(QIcon(":res/toggle-lang.jpg"),
@@ -582,28 +582,34 @@ void MainWindow::Help() const {
 }
 
 void MainWindow::PlayNow() {
-    if (basemodel.mode == BaseModel::Mode::engine) {
-        std::pair<Point, Point> move = engine->engineGo(); //= std::make_pair(QPoint(1,1), QPoint(1,1));//
+
+    /*std::pair<Point, Point> move = uci->engineGo(false); //= std::make_pair(QPoint(1,1), QPoint(1,1));//
+
+    if (basemodel.mode == BaseModel::Mode::engine || basemodel.mode == BaseModel::Mode::uci) {
+
 
         basemodel.fromUCI = move.first;
         basemodel.toUCI = move.second;
         //basemodel.fromHuman = from;
         //basemodel.toHuman = to;
 
-        if (move.first.x == -1) {
-            //YouWin();
-        }
-
-        Board::movePiece({move.first.x, move.first.y},
-                         {move.second.x, move.second.y}, basemodel.position.board);
-        //AddMoveToList(move);
-        //AddMoveToHistory();
-
-        basemodel.position.toggleColor();
     } else {
-        uci->engineGo(false);
+        basemodel.fromHuman = move.first;
+        basemodel.toHuman = move.second;
     }
-    repaint();
+
+    if (move.first.x == -1) {
+        QMessageBox::information(this, "Information", "Engine has no legal moves");
+        return;
+    }
+
+    Board::movePiece({move.first.x, move.first.y},
+                     {move.second.x, move.second.y}, basemodel.position.board);
+    //AddMoveToList(move);
+    //AddMoveToHistory();
+
+    basemodel.position.toggleColor();
+    repaint();*/
 }
 
 
@@ -685,6 +691,8 @@ void MainWindow::OnDownloaded(const QString &filename) {
 void MainWindow::Newgame() {
     basemodel.position.setupInitialPositions();
     basemodel.moveHistory.clear();
+    basemodel.moves.clear();
+    basemodel.currentMoves.clear();
     //model->clear();
     // row = 0,
     column = 0;
