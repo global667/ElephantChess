@@ -56,8 +56,7 @@ void Game::run() {
     } */
 
     //  Human moves
-    if (basemodel.position.players_color == Color::Red &&
-            basemodel.fromHuman.x != -1 && basemodel.fromHuman.y != -1 &&
+    if (basemodel.fromHuman.x != -1 && basemodel.fromHuman.y != -1 &&
             basemodel.toHuman.x != -1 && basemodel.toHuman.y != -1) {
 
         mutex.lock();
@@ -74,16 +73,26 @@ void Game::run() {
         basemodel.fromHuman = {-1, -1};
         basemodel.toHuman = {-1, -1};
         // isMouseClicked = false;
-        basemodel.mode = BaseModel::Mode::uci;
+
         // parent->repaint();
-        parent->uci->engineGo(false);
+        if (basemodel.mode == BaseModel::Mode::human)
+        {
+            basemodel.mode = BaseModel::Mode::uci;
+            parent->uci->engineGo(basemodel.mode);
+        } else if (basemodel.mode == BaseModel::Mode::movenow)
+        {
+            basemodel.mode = BaseModel::Mode::uci;
+        } else if (basemodel.mode == BaseModel::Mode::uci)
+        {
+            parent->uci->engineGo(basemodel.mode);
+        }
+
         parent->update();
         mutex.unlock();
     }
 
     // Engine moves
-    if (basemodel.position.players_color == Color::Black &&
-        basemodel.fromUCI.x != -1 && basemodel.fromUCI.y != -1 &&
+    if (basemodel.fromUCI.x != -1 && basemodel.fromUCI.y != -1 &&
         basemodel.toUCI.x != -1 && basemodel.toUCI.y != -1) {
         // mutex.lock();
         auto move = std::make_pair(basemodel.fromUCI, basemodel.toUCI);
@@ -209,11 +218,7 @@ void Game::AddMoveToList(const std::pair<Point, Point> move) {
 
     AddMoveToHistory();
 
-
-    if (basemodel.currentMove % 2 == 1)
-        basemodel.position.players_color = Color::Black;
-    else
-        basemodel.position.players_color = Color::Red;
+    basemodel.position.toggleColor();
 
 
     // auto *item = new QTreeWidgetItem(table);

@@ -86,7 +86,7 @@ void MainWindow::InitEngine() {
         basemodel.engineData.engineName = "pikafish.exe";
         qDebug() << "Starting uci engine (" + basemodel.engineData.engineName +
                 " in extra thread";
-        basemodel.mode = BaseModel::Mode::uci;
+        //basemodel.mode = BaseModel::Mode::uci;
         uci.reset(new UCI());
         //connect(uci.get(), SIGNAL(updateView(Point,Point,BaseModel::Mode)),
         //        SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
@@ -331,12 +331,12 @@ void MainWindow::InitWidgets() {
             ->setToolTip("Save a PGN-file");
     toolbar->addSeparator();
 
-   /* toolbar
+    toolbar
             ->addAction(QIcon(":res/play-now.png"), tr("Play now!"), this,
                         SLOT(PlayNow()))
             ->setToolTip(
                 "Let's the engine makes a move now (changes the color you play)");
-*/
+
     toolbar->addSeparator();
     toolbar
                   ->addAction(QIcon(":res/toggle-lang.jpg"),
@@ -571,7 +571,7 @@ void MainWindow::EngineTipp(Point from, Point to) {
 }
 
 void MainWindow::GiveTipp() const {
-    uci->engineGo(true);;
+    uci->engineGo(BaseModel::Mode::tipp);;
 }
 
 void MainWindow::About() {
@@ -589,9 +589,13 @@ void MainWindow::Help() const {
 
 void MainWindow::PlayNow() {
 
-    /*std::pair<Point, Point> move = uci->engineGo(false); //= std::make_pair(QPoint(1,1), QPoint(1,1));//
+    //std::pair<Point, Point> move =
 
-    if (basemodel.mode == BaseModel::Mode::engine || basemodel.mode == BaseModel::Mode::uci) {
+    basemodel.mode = BaseModel::Mode::movenow;
+    uci->engineGo(basemodel.mode); //= std::make_pair(QPoint(1,1), QPoint(1,1));//
+    repaint();
+
+   /* if (basemodel.mode == BaseModel::Mode::engine || basemodel.mode == BaseModel::Mode::uci) {
 
 
         basemodel.fromUCI = move.first;
@@ -709,6 +713,7 @@ void MainWindow::Newgame() {
     basemodel.fromUCI = {-1, -1};
     basemodel.toUCI = {-1, -1};
     basemodel.position.players_color = Color::Red;
+    basemodel.mode = BaseModel::Mode::human;
     for (int i = static_cast<int>(basemodel.moves.size()); i >= 0; i--) {
         table->takeTopLevelItem(i);
     }   

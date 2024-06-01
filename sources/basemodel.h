@@ -71,7 +71,7 @@ public:
     QList<Board> moveHistory{};
 
     //QString kind = "human";
-    enum class Mode { human, engine, uci };
+    enum class Mode { human, engine, uci, tipp, movenow };
 
     Mode mode = Mode::human;
 
