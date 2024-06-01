@@ -165,7 +165,7 @@ public:
 
     bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board) override {
         // Implementieren Sie die Bewegungslogik für den Elephant
-        if ((to.x >= 0 && to.x < 6 && to.y >= 0 && to.y < 5) || (to.x >= 0 && to.x < 6 && to.y >= 4 && to.y < 9)) {
+        if (((to.x >= 0 && to.x < 6 && to.y >= 0 && to.y < 5) || (to.x >= 0 && to.x < 6 && to.y >= 4 && to.y < 9)) && board[from.x][from.y]->getColor() == Color::Red) {
             if (std::abs(to.x - from.x) == 2 && std::abs(to.y - from.y) == 2) {
                 if (board[(to.x + from.x) / 2][(to.y + from.y) / 2]->getColor() == Color::None
                     && board[to.x][to.y]->getColor() != board[from.x][from.y]->getColor()){
@@ -173,6 +173,16 @@ public:
                 }
             }
         }
+
+        if (((to.x >= 5 && to.x < 10 && to.y >= 0 && to.y < 5) || (to.x >= 5 && to.x < 10 && to.y >= 4 && to.y < 9)) && board[from.x][from.y]->getColor() == Color::Black) {
+            if (std::abs(to.x - from.x) == 2 && std::abs(to.y - from.y) == 2) {
+                if (board[(to.x + from.x) / 2][(to.y + from.y) / 2]->getColor() == Color::None
+                    && board[to.x][to.y]->getColor() != board[from.x][from.y]->getColor()){
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 

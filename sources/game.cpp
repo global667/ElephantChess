@@ -156,14 +156,17 @@ void Game::AddMoveToList(const std::pair<Point, Point> move) {
         return;
 
     int size = basemodel.moves.size()-1;
+
     if ( basemodel.currentMove < basemodel.moves.size()-1) {
         for (int i = size; i >= basemodel.currentMove; i--) {
             table->takeTopLevelItem(i);
             basemodel.moves.removeLast();
             basemodel.moveHistory.removeLast();
+            basemodel.currentMoves.removeLast();
         }
         if (basemodel.moveHistory.isEmpty())
             basemodel.position = basemodel.moveHistory.last();
+
     }
 
     const QString name =

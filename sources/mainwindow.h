@@ -143,7 +143,7 @@ public slots:
 
     void Save();
 
-    void OpenSettings();
+    //void OpenSettings();
 
     void Newgame();
 
@@ -173,7 +173,7 @@ public slots:
     void ResetToHistory();
 
 private slots:
-    void OnDownloaded(const QString &filename = {});
+    //void OnDownloaded(const QString &filename = {});
 
     void Debug() const;
 

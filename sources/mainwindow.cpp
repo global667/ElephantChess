@@ -18,10 +18,7 @@
 
 #include "mainwindow.h"
 #include "sources/game.h"
-#undef THREE_D_VIEW
-#undef ENGINE
-// #ifdef TEST
-// #endif
+
 #include <QDesktopServices>
 
 //#include "game.h"
@@ -56,7 +53,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     statusBar()->showMessage(tr("Ready"));
 
-    loggingTextView->insertPlainText(QString("\nperft test\n") +
+    /*loggingTextView->insertPlainText(QString("\nperft test\n") +
                                      QString("rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1\n")
                                      +
                                      QString("depth       nodes    checks    captures\n") +
@@ -64,7 +61,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
                                      QString("2        1920         6          72\n") +
                                      QString("3       79666       384        3159\n") +
                                      QString("4     3290240     19380      115365\n"));
-    // 5   133312995    953251     4917734
+*/
+// 5   133312995    953251     4917734
     // 6  5392831844  39150745   200568035"
 
     //loggingTextView->insertPlainText(basemodel.position.perftTest(1));
@@ -573,8 +571,6 @@ void MainWindow::EngineTipp(Point from, Point to) {
 }
 
 void MainWindow::GiveTipp() const {
-    ///std::pair<Point, Point> move =
-    //engine->GetBestMove(basemodel.position.players_color);
     uci->engineGo(true);;
 }
 
@@ -622,6 +618,7 @@ void MainWindow::PlayNow() {
     repaint();*/
 }
 
+/*
 
 void MainWindow::OpenSettings() {
     // Bind new engine
@@ -629,12 +626,12 @@ void MainWindow::OpenSettings() {
     if (auto current = QDir::currentPath() + "/engines"; QDir(current).exists() == false) {
         dir.mkdir(QDir::currentPath() + "/engines");
     }
-    /*
+
         QString filename = QFileDialog::getOpenFileName(this,
                                                         "Choose engine",
                                                         QDir::currentPath() + "/engines",
                                                         nullptr);
-    */
+
     QMessageBox::information(this, "Information",
                              "Download the engine from the releases page on github and put it in the engines folder");
 
@@ -692,10 +689,10 @@ void MainWindow::OnDownloaded(const QString &filename) {
               if (!uci)
                   delete uci;
           }
-      } else {*/
+      } else {
 
     //}
-}
+} */
 
 // Startet ein neues Spiel
 void MainWindow::Newgame() {

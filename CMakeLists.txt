@@ -113,7 +113,11 @@ set_target_properties(ElephantChess PROPERTIES
     MACOSX_BUNDLE ON
 )
 
-#qt_finalize_executable(ElephantChess)
+#add_definitions( -DTHREE_D_VIEW )
+#add_definitions( -DDEBUG )
+#add_definitions( -DENGINE )
+
+qt_finalize_executable(ElephantChess)
 
 #enable_testing(true)
 #add_subdirectory(tests)
