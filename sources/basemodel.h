@@ -22,21 +22,15 @@
 #include <QDebug>
 #include <QObject>
 
-#include "cchess_rules.h"
+//#include "cchess_rules.h"
+//#include "board.h"
 //#include "game.h"
 
-enum class markerType { Kreuz, Kreis, Dreieck, Linie, Linienende, Viereck };
+#include "basetypes.h"
+#include "board.h"
+//#include "cchess_rules.h"
 
-static constexpr int ROWS = 10;
-static constexpr int COLS = 9;
 
-enum class completePieceType {
-    GeneralRot, AdvisorRot, ElephantRot,
-    HorseRot, ChariotRot, CannonRot,
-    SoldierRot, GeneralSchwarz, AdvisorSchwarz,
-    ElephantSchwarz, HorseSchwarz, ChariotSchwarz,
-    CannonSchwarz, SoldierSchwarz
-};
 
 // TODO: delete doublettes i.e. engineName and engineData.engineName
 struct BaseModel //: public QObject
@@ -47,6 +41,7 @@ public:
         : nodes(0), engineData({0, 0, 0, "", ""}) {
         //engineName
         //        = "ElephantChessEngine";
+
         position.setupInitialPositions();
         moveHistory.append(position);
         //currentMove++;

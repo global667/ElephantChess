@@ -84,8 +84,10 @@ set(PROJECT_CPP
         sources/settingsview.h sources/settingsview.cpp
         sources/contexmenu.h sources/contexmenu.cpp
         sources/aboutview.h sources/aboutview.cpp
-        sources/cchess_rules.h sources/cchess_rules.cpp
-        sources/game.cpp sources/game.h
+        sources/pieces.h sources/pieces.cpp
+        sources/game.cpp sources/game.h sources/board.h sources/board.cpp
+        sources/basetypes.h
+        sources/pieces_interface.h sources/pieces_interface.cpp
 )
 
 add_executable(ElephantChess WIN32 ${PROJECT_CPP} ${RESOURCES}

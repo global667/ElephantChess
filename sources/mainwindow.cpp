@@ -193,7 +193,7 @@ void MainWindow::InitWidgets() {
 
     tabview = new QTabWidget(this);
     tabwidget1 = new QWidget(tabview);
-    tabwidget2 = new QWidget(tabview);
+    //tabwidget2 = new QWidget(tabview);
     menubar = new QMenuBar(this);
     menu1 = new QMenu(menubar);
     // table = new QTableView(tabwidget1);
@@ -216,7 +216,7 @@ void MainWindow::InitWidgets() {
     tab1layout = new QHBoxLayout(tabwidget1);
     tab1layout->addWidget(table);
     tabwidget1->setLayout(tab1layout);
-
+/*
     tabwidget2layout = new QVBoxLayout(tabwidget2);
     // tabwidget2 layout
     loggingTextView = new QTextEdit(tabwidget2layout->widget());
@@ -230,10 +230,10 @@ void MainWindow::InitWidgets() {
     tabwidget2layout->addWidget(nps);
     tabwidget2layout->addWidget(loggingTextView);
     tabwidget2->setLayout(tabwidget2layout);
-
+*/
     // tabview
     tabview->addTab(tabwidget1, "Move list");
-    tabview->addTab(tabwidget2, "Info");
+    //tabview->addTab(tabwidget2, "Info");
 
     navibuttonslayout = new QHBoxLayout(navigationview);
 

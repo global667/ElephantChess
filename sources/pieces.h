@@ -1,5 +1,5 @@
-#ifndef CCHESS_RULES_H
-#define CCHESS_RULES_H
+#ifndef PIECES_H
+#define PIECES_H
 
 #include <QDebug>
 #include <QObject>
@@ -8,82 +8,11 @@
 #include <vector>
 #include <memory>
 
+//#include "basemodel.h"
 
-
-enum class PieceType {
-    General, Advisor, Elephant, Horse, Chariot, Cannon, Soldier, Empty
-};
-
-enum class Color {
-    Red, Black, None
-};
-
-struct Point {
-    int x, y;
-    Point(const int x = 0, const int y = 0) : x(x), y(y) {}
-    bool operator==(const Point& other) const {
-        return x == other.x && y == other.y;
-    }
-
-    bool operator!=(const Point& other) const {
-        return x != other.x || y != other.y;
-    }
-
-    bool operator<(const Point& other) const {
-        return x < other.x || (x == other.x && y < other.y);
-    }
-
-    bool operator>(const Point& other) const {
-        return x > other.x || (x == other.x && y > other.y);
-    }
-
-    bool operator<=(const Point& other) const {
-        return x <= other.x || (x == other.x && y <= other.y);
-    }
-
-    bool operator>=(const Point& other) const {
-        return x >= other.x || (x == other.x && y >= other.y);
-    }
-
-    Point operator+(const Point& other) const {
-        return {x + other.x, y + other.y};
-    }
-
-    Point operator-(const Point& other) const {
-        return {x - other.x, y - other.y};
-    }
-
-    bool operator*(const Point& other) const {
-        return x == other.x && y == other.y;
-    }
-
-    [[nodiscard]] bool isValid() const {
-        return x >= 0 && x < 9 && y >= 0 && y < 10;
-    }
-};
-
-class Piece {
-public:
-    Color color;
-    QString name;
-    QString euroName;
-    QString euroNameDesc;
-    int id{};
-public:
-    Piece(Color color, QString name);
-    virtual ~Piece();
-
-    virtual bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board);
-    virtual std::vector<std::pair<Point, Point>> generateValidMoves(const Point& position, const std::vector<std::vector<std::shared_ptr<Piece>>> &board);
-
-    [[nodiscard]] Color getColor() const;
-    [[nodiscard]] QString getName() const;
-    [[nodiscard]] QString getEuroName() const;
-    [[nodiscard]] QString getEuroNameDesc() const;
-    [[nodiscard]] int getId() const;
-
-    auto operator=(const Piece &other) -> Piece;
-};
+#include "basetypes.h"
+#include "board.h"
+#include "pieces_interface.h"
 
 class General final : public Piece {
 public:
@@ -547,43 +476,31 @@ public:
                 }
             }
         }
+
+
+        std::vector<std::vector<std::shared_ptr<Piece>>> local_board;
+        local_board.clear();
+        local_board = std::move(board);
+        std::vector<std::pair<Point, Point>> moves_valid = validMoves;
+        validMoves.clear();
+        color = local_board[position.x][position.y]->getColor();
+        for (auto &[position, move] : moves_valid)    {
+
+            std::shared_ptr<Piece> p = local_board[move.x][move.y];
+
+            Board::movePiece(position, move, local_board);
+
+            if (!Board::isCheck(Board::toggleColor(color),local_board) &&
+                !Board::isEvilGlare(color,local_board)) {
+
+                validMoves.emplace_back(position, move);
+            }
+            Board::undoMove(position,move,p ,local_board);
+        }
+
+
         return validMoves;
     }
 };
 
-class Board {
-public:
-    std::vector<std::vector<std::shared_ptr<Piece>>> board;
-    Color players_color;
-
-public:
-    Board();
-
-    [[nodiscard]] std::shared_ptr<Piece> getPieceAt(const Point& position) const;
-
-    static std::vector<std::pair<Point, Point>> getAllValidMoves(Color color, const std::vector<std::vector<std::shared_ptr<Piece>>>& board);
-
-    //std::vector<std::pair<Point, Point>> getValidMovesForPiece(const Point& position, const //std::vector<std::vector<std::shared_ptr<Piece>>>& board);
-
-    static bool movePiece(const Point& from, const Point& to, std::vector<std::vector<std::shared_ptr<Piece>>>& board);
-
-    // undo a move on specific board
-    static void undoMove(const Point& from, const Point& to, const std::shared_ptr<Piece> &piece, std::vector<std::vector<std::shared_ptr<Piece>>>& board);
-
-    void setupInitialPositions();
-
-    void toggleColor();
-
-    static Color toggleColor(Color color);
-
-    // isCheck checks if the player is in check
-    static bool isCheck(Color color, const std::vector<std::vector<std::shared_ptr<Piece>>>& board);
-
-    // look for evil glare booth generals and check if there is a piece in between
-    static bool isEvilGlare(Color color, const std::vector<std::vector<std::shared_ptr<Piece>>>& board);
-
-    static bool isCheckmate(Color color, const std::vector<std::vector<std::shared_ptr<Piece>>>& board);
-};
-
-
-#endif // CCHESS_RULES_H
+#endif // PIECES_H

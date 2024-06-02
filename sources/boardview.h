@@ -25,7 +25,7 @@
 #include <QWidget>
 #include <QToolTip>
 
-#include "contexmenu.h"
+//#include "contexmenu.h"
 
 #include "basemodel.h"
 
@@ -77,7 +77,7 @@ private:
     QString blackRiver = QString::fromUtf8("\u6f22\u754c");
     //"漢 界"; //  (Hàn jiè) - Dieser Schriftzug bedeutet "Grenze von Han".
     // Kontexmenue mit Figuren und Marker
-    ContexMenu *contextMenu;
+    //ContexMenu *contextMenu;
 signals:
     // signal to the controller Mainwindow
     void updateView(Point from, Point to, BaseModel::Mode mode);

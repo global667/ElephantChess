@@ -37,7 +37,7 @@ constexpr qreal PIECE_SCALE_FACTOR = 1.3; // Adjust based on your scaling needs
 BoardView::BoardView(QWidget *parent) : QWidget{parent} {
     // qDebug() << __PRETTY_FUNCTION__;
     setMouseTracking(false);
-    contextMenu = new ContexMenu(this);
+    //contextMenu = new ContexMenu(this);
 }
 
 void BoardView::PrepareEuroPiece(QPicture *pix, int row, int col, int h, int w) {
@@ -84,9 +84,9 @@ void BoardView::contextMenuEvent(QContextMenuEvent *event) {
     // qDebug() << __PRETTY_FUNCTION__;
     // Q_UNUSED(event);
     // qDebug() << "contextMenuEvent";
-    contextMenu->contextMenuX = event->pos().x();
-    contextMenu->contextMenuY = event->pos().y();
-    contextMenu->exec(QCursor::pos());
+    //contextMenu->contextMenuX = event->pos().x();
+    //contextMenu->contextMenuY = event->pos().y();
+    //contextMenu->exec(QCursor::pos());
 }
 
 
@@ -531,7 +531,7 @@ Point BoardView::CalcBoardCoords(Point r) const {
 
 void BoardView::PaintMarker(QPainter *p) const {
     // qDebug() << __PRETTY_FUNCTION__;
-    Q_ASSERT(p);
+/*    Q_ASSERT(p);
 
     auto w = this->width();
     auto h = this->height();
@@ -599,6 +599,7 @@ void BoardView::PaintMarker(QPainter *p) const {
                 break;
         }
     }
+*/
 }
 
 //  Sets the selected pieces on the (clean) board
