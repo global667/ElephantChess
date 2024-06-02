@@ -86,7 +86,6 @@ void MainWindow::InitEngine() {
         basemodel.engineData.engineName = "pikafish.exe";
         qDebug() << "Starting uci engine (" + basemodel.engineData.engineName +
                 " in extra thread";
-        //basemodel.mode = BaseModel::Mode::uci;
         uci.reset(new UCI());
         //connect(uci.get(), SIGNAL(updateView(Point,Point,BaseModel::Mode)),
         //        SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
@@ -412,6 +411,7 @@ void MainWindow::Open() {
     PutPGNOnBoard();
 }
 
+// TODO: Make a parser
 void MainWindow::ReadPGNData(QString data) const {
     data.shrink_to_fit();
     basemodel.moves.clear();
@@ -474,28 +474,17 @@ void MainWindow::PutPGNOnBoard() {
     auto moves = basemodel.moves;
     Newgame();
     for (auto &item1: moves) {
-        //auto *item = new QStandardItem(item1);
-        //if (c % 2 == 0) {
-        //     model->setItem(c / 2, 0, item);
-        // }
-        //if (c % 2 == 1)
-        //table->addTopLevelItem(new QTreeWidgetItem(QStringList(item1)));
-
         const int fx = ((char) item1.at(0).toLatin1() - 'a');
         const int fy = static_cast<char>(9 - item1[1].digitValue());
         const int tx = ((char) item1.at(2).toLatin1() - 'a');
         const int ty = static_cast<char>(9 - item1[3].digitValue());
 
-        //game->AddMoveToHistory();
         game->AddMoveToList(std::make_pair(Point(9 - fy, fx), Point(9 - ty, tx)));
         Board::movePiece(Point(9 - fy, fx), Point(9 - ty, tx), basemodel.position.board);
 
-        //c++;
         basemodel.position.toggleColor();
     }
-   // ResetToHistory();
     basemodel.currentMove++;
-    //column = c;
     repaint();
 }
 
@@ -579,47 +568,32 @@ void MainWindow::About() {
     about->show();
 }
 
-using q_url = QUrl;
-
 void MainWindow::Help() const {
     QDesktopServices::openUrl(
-        q_url("https://github.com/global667/ElephantChess/blob/main/README.md"));
+    QUrl("https://github.com/global667/ElephantChess/blob/main/README.md"));
     statusBar()->showMessage(tr("Have open URL in browser"));
 }
 
 void MainWindow::PlayNow() {
-
-    //std::pair<Point, Point> move =
-
     basemodel.mode = BaseModel::Mode::movenow;
-    uci->engineGo(basemodel.mode); //= std::make_pair(QPoint(1,1), QPoint(1,1));//
+
+    int size = basemodel.moves.size()-1;
+
+    // taken from AddMoveToList
+    if ( basemodel.currentMove < basemodel.moves.size()) {
+        for (int i = size; i >= basemodel.currentMove; i--) {
+            table->takeTopLevelItem(i);
+            basemodel.moves.removeLast();
+            basemodel.moveHistory.removeLast();
+            basemodel.currentMoves.removeLast();
+        }
+        if (basemodel.moveHistory.isEmpty())
+            basemodel.position = basemodel.moveHistory.last();
+
+    }
+
+    uci->engineGo(basemodel.mode);
     repaint();
-
-   /* if (basemodel.mode == BaseModel::Mode::engine || basemodel.mode == BaseModel::Mode::uci) {
-
-
-        basemodel.fromUCI = move.first;
-        basemodel.toUCI = move.second;
-        //basemodel.fromHuman = from;
-        //basemodel.toHuman = to;
-
-    } else {
-        basemodel.fromHuman = move.first;
-        basemodel.toHuman = move.second;
-    }
-
-    if (move.first.x == -1) {
-        QMessageBox::information(this, "Information", "Engine has no legal moves");
-        return;
-    }
-
-    Board::movePiece({move.first.x, move.first.y},
-                     {move.second.x, move.second.y}, basemodel.position.board);
-    //AddMoveToList(move);
-    //AddMoveToHistory();
-
-    basemodel.position.toggleColor();
-    repaint();*/
 }
 
 /*
@@ -734,11 +708,13 @@ void MainWindow::ResetToHistory() {
     basemodel.fromUCI = {-1, -1};
     basemodel.toUCI = {-1, -1};
 
+    basemodel.position.toggleColor();
+/*
     if (basemodel.currentMove % 2 == 1)
         basemodel.position.players_color = Color::Black;
     else
         basemodel.position.players_color = Color::Red;
-
+*/
     repaint();
 }
 

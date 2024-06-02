@@ -8,6 +8,8 @@ execute_process(
     OUTPUT_VARIABLE GIT_COMMIT_HASH
     OUTPUT_STRIP_TRAILING_WHITESPACE)
 
+#set(CMAKE_CXX_COMPILER "cl.exe")
+
 project(ElephantChess VERSION 0.5.0 DESCRIPTION "${COMMIT_ID}" LANGUAGES CXX HOMEPAGE_URL "https/www.elephant-chess.com")
 
 set(PROJECT_DESC "-alpha (commit ${GIT_COMMIT_HASH})")
@@ -28,7 +30,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 enable_language(C)
 enable_language(CXX)
 
-find_package(Qt6 REQUIRED COMPONENTS
+find_package(Qt6 6.7.0 REQUIRED COMPONENTS
     Core
     #Core5Compat
     Widgets    
@@ -45,7 +47,7 @@ find_package(Qt6 REQUIRED COMPONENTS
     #Quick3D
     #Test
     #LinguistTools
-   # HINTS "C:/Qt/6.7.0/msvc2019_64"
+    HINTS "C:/Qt/6.7.0/msvc2019_64"
 )
 
 #find_package(ZLIB REQUIRED

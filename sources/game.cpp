@@ -72,19 +72,23 @@ void Game::run() {
         // if (!isBackMove)
         basemodel.fromHuman = {-1, -1};
         basemodel.toHuman = {-1, -1};
+        basemodel.fromUCI = {-1, -1};
+        basemodel.toUCI = {-1, -1};
         // isMouseClicked = false;
 
-        // parent->repaint();
-        if (basemodel.mode == BaseModel::Mode::human)
-        {
+        switch (basemodel.mode) {
+        case BaseModel::Mode::human:
             basemodel.mode = BaseModel::Mode::uci;
             parent->uci->engineGo(basemodel.mode);
-        } else if (basemodel.mode == BaseModel::Mode::movenow)
-        {
+            break;
+        case BaseModel::Mode::movenow:
             basemodel.mode = BaseModel::Mode::uci;
-        } else if (basemodel.mode == BaseModel::Mode::uci)
-        {
+            break;
+        case BaseModel::Mode::uci:
             parent->uci->engineGo(basemodel.mode);
+            break;
+        default:
+            break;
         }
 
         parent->update();
@@ -104,6 +108,8 @@ void Game::run() {
         // AddMoveToHistory();
 
         // if (!isBackMove)
+        basemodel.fromHuman = {-1, -1};
+        basemodel.toHuman = {-1, -1};
         basemodel.fromUCI = {-1, -1};
         basemodel.toUCI = {-1, -1};
         // isMouseClicked = false;

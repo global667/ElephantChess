@@ -133,7 +133,7 @@ private:
     QHBoxLayout *tab1layout = nullptr, *navibuttonslayout = nullptr;
     QVBoxLayout *tabwidget2layout = nullptr, *naviwidlayout = nullptr;
     //int row = 0,
-    int column = 0;
+    //int column = 0;
     int isTableClicked = 0;
     bool tipp = false;
     Game *game;

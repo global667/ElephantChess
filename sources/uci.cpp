@@ -93,20 +93,24 @@ void UCI::readData() {
                 auto tx = (mv.at(2) - 'a');
                 auto ty = (mv.at(3) - '0');
 
-                if (mode == BaseModel::Mode::uci) {
+                switch (mode) {
+                case BaseModel::Mode::uci:
                     basemodel.fromUCI.x = fy;
                     basemodel.fromUCI.y = fx;
                     basemodel.toUCI.x = ty;
                     basemodel.toUCI.y = tx;
-                    // Ruft gameloop auf
-                    //emit updateView(Point(fy, fx), Point(ty, tx), BaseModel::Mode::human);
-                } else if (mode == BaseModel::Mode::tipp){
+                    break;
+                case BaseModel::Mode::tipp:
                     emit giveTipp(Point(fy, fx), Point(ty, tx));
-                } else if (mode == BaseModel::Mode::movenow) {
+                    break;
+                case BaseModel::Mode::movenow:
                     basemodel.fromHuman.x = fy;
                     basemodel.fromHuman.y = fx;
                     basemodel.toHuman.x = ty;
                     basemodel.toHuman.y = tx;
+                    break;
+                default:
+                    break;
                 }
             } else if (c.contains("info")) {
                 qDebug() << c;
@@ -141,5 +145,4 @@ UCI::~UCI() {
     writeDatas("quit");
     engine.waitForFinished();
     engine.close();
-//emit engine.finished(0);
 }
