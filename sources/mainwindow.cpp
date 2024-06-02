@@ -149,7 +149,7 @@ void MainWindow::InitConnections() {
         [=]() {
             basemodel.currentMove = 0;
             ResetToHistory();
-            //basemodel.position.players_color = Color::Red;
+            basemodel.position.players_color = Color::Red;
 
         },
         Qt::AutoConnection);

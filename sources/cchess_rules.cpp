@@ -18,15 +18,33 @@ auto Piece::generateValidMoves(const Point &position,
     for (int i = 0; i < 10; ++i) {
         for (int j = 0; j < 9; ++j) {
             if (Point move = {i, j}; move.x >= 0 && move.x < 10 && move.y >= 0 && move.y < 9) {
-                if (isValidMove(position, move, board) &&
-                    !Board::isCheck(board[position.x][position.y]->getColor(),board) &&
-                    !Board::isEvilGlare(board[position.x][position.y]->getColor(),board)
-                    ) {
+                if (isValidMove(position, move, board)) {
                     moves.emplace_back(position, move);
                 }
             }
         }
     }
+
+    std::vector<std::vector<std::shared_ptr<Piece>>> local_board;
+    local_board.clear();
+    local_board = std::move(board);
+    std::vector<std::pair<Point, Point>> moves_valid = moves;
+    moves.clear();
+    Color color = local_board[position.x][position.y]->getColor();
+    for (auto &[position, move] : moves_valid)    {
+
+        std::shared_ptr<Piece> p = local_board[move.x][move.y];
+
+                Board::movePiece(position, move, local_board);
+
+                if (!Board::isCheck(Board::toggleColor(color),local_board) &&
+                    !Board::isEvilGlare(color,local_board)) {
+
+                    moves.emplace_back(position, move);
+                }
+                Board::undoMove(position,move,p ,local_board);
+    }
+
     return moves;
 }
 
@@ -97,16 +115,16 @@ std::vector<std::pair<Point, Point> > Board::getAllValidMoves(Color color, const
 */
 
 bool Board::movePiece(const Point &from, const Point &to, std::vector<std::vector<std::shared_ptr<Piece> > > &board) {
-    if (from.x < 0 || from.x >= 10 || from.y < 0 || from.y >= 9 || to.x < 0 || to.x >= 10 || to.y < 0 || to.y >= 9) {
-        return false;
-    }
-    if (board[from.x][from.y] && board[from.x][from.y]->isValidMove(from, to, board)) {
+    //if (from.x < 0 || from.x >= 10 || from.y < 0 || from.y >= 9 || to.x < 0 || to.x >= 10 || to.y < 0 || to.y >= 9) {
+    //    return false;
+    //}
+    //if (board[from.x][from.y] && board[from.x][from.y]->isValidMove(from, to, board)) {
         // Bewegung ist gültig
         board[to.x][to.y] = std::move(board[from.x][from.y]);
         board[from.x][from.y] = std::make_shared<Piece>(Color::None, "");;
         return true;
-    }
-    return false;
+    //}
+   //return false;
 }
 
 void Board::undoMove(const Point &from, const Point &to, const std::shared_ptr<Piece> &piece, std::vector<std::vector<std::shared_ptr<Piece> > > &board) {

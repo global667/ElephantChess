@@ -172,7 +172,7 @@ void Game::AddMoveToList(const std::pair<Point, Point> move) {
 
     int size = basemodel.moves.size()-1;
 
-    if ( basemodel.currentMove < basemodel.moves.size()-1) {
+    if ( basemodel.currentMove < basemodel.moves.size()) {
         for (int i = size; i >= basemodel.currentMove; i--) {
             table->takeTopLevelItem(i);
             basemodel.moves.removeLast();
