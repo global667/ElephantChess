@@ -1,9 +1,11 @@
 <div align="center"> 
-<!-- {% comment %} -->
+
  
 <img src="sources/res/generalRed.png" width="50" height="50" alt="">
 <br>
 <br> 
+
+<!-- {% comment %} -->
 
 ### Elephant Chess - The new Chinese Chess Interface
 #### for Windows, OSX and Linux
@@ -11,6 +13,7 @@
 ![](https://img.shields.io/badge/BETA%20VERSION!-8A2BE2)
 
 <!-- {% endcomment %} -->
+
 
 ##### Use with caution, as the software is still in development.
 
