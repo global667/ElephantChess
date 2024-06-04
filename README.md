@@ -1,17 +1,20 @@
 <div align="center"> 
 <!-- {% comment %} -->
-  
-### Elephant Chess - The Chinese Chess Interface
+ 
+<img src="sources/res/generalRed.png" width="50" height="50" alt="">
+<br>
+<br> 
+
+### Elephant Chess - The new Chinese Chess Interface
+#### for Windows, OSX and Linux
 
 ![](https://img.shields.io/badge/BETA%20VERSION!-8A2BE2)
 
 <!-- {% endcomment %} -->
 
-Use with caution, as the software is still in development.
+##### Use with caution, as the software is still in development.
 
-<img src="sources/res/generalRed.png" width="50" height="50" alt="">
-<br>
-<br>
+
 <!-- {% comment %} -->  
 
 .::
@@ -25,22 +28,29 @@ Use with caution, as the software is still in development.
 <!-- {% endcomment %} -->
 
 </div>
-
+<!--
 ### Table of Contents
 - [Introduction](#introduction)
 - [Installation](#installation)
 - [Rules](#rules)
+-->
 
 ### Introduction
-ElephantChess is a Chinese Chess (XiangQi) GUI application designed to play and analyze games, similar to how "Arena" functions for European Chess. Inspired by the commercial "Fritz" software, it's currently in a pre-alpha stage and features a basic AI opponent (weakbot).
+ElephantChess is a Chinese Chess (XiangQi) GUI application designed to play and analyze games, similar to how "Arena" functions for European Chess. 
 
 - [Learn about XiangQi on Wikipedia](https://en.wikipedia.org/wiki/Xiangqi)
-- [Learn about European Chess on Wikipedia](https://en.wikipedia.org/wiki/Chess)
+- Download Elephant Chess: [Latest](https://github.com/global667/ElephantChess/releases/latest)
+
+#### Features
+- European and chinese Pieces
+- Load and save games
+- PikaFish integration
+- Navigate in the the game
 
 ### Installation
 Download the zip file, extract it, and follow the installation instructions. [Latest](https://github.com/global667/ElephantChess/releases/latest)
 
-After that download PikaFish - the engine -  and extract it to the same folder as ElephantChess. [PikaFish](https://github.com/global667/Pikafish/releases/tag/latest)
+<!-- After that download PikaFish - the engine -  and extract it to the same folder as ElephantChess. [PikaFish](https://github.com/global667/Pikafish/releases/tag/latest) -->
 
 #### Compatibility
 Should run on Windows directly and after building on macOS, Linux and WSL.
