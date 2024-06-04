@@ -3,7 +3,7 @@
   
 ### Elephant Chess 
 
-![](https://img.shields.io/badge/ALPHA%20VERSION!-8A2BE2)
+![](https://img.shields.io/badge/BETA%20VERSION!-8A2BE2)
 
 <!-- {% endcomment %} -->
 
