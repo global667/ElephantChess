@@ -11,20 +11,25 @@ std::shared_ptr<Piece> Board::getPieceAt(const Point &position) const {
     return board[position.x][position.y];
 }
 
-std::vector<std::pair<Point, Point> > Board::getAllValidMoves(Color color, const std::vector<std::vector<std::shared_ptr<Piece> > > &board) {
+std::vector<std::pair<Point, Point>> Board::getAllValidMoves(
+    Color color,
+    const std::vector<std::vector<std::shared_ptr<Piece>>> &board) {
     std::vector<std::pair<Point, Point>> moves;
     for (int i = 0; i < 10; ++i) {
         for (int j = 0; j < 9; ++j) {
             if (board[i][j] && board[i][j]->getColor() == color) {
-                auto validMoves = board[i][j]->generateValidMoves(Point(i, j), board);//getValidMovesForPiece({i, j}, board);
-                //moves.insert(moves.end(), validMoves.begin(), validMoves.end());
-                for (const auto& move : validMoves) {
+                auto validMoves = board[i][j]->generateValidMoves(
+                    Point(i, j), board); // getValidMovesForPiece({i, j}, board);
+                // moves.insert(moves.end(), validMoves.begin(), validMoves.end());
+                for (const auto &move : validMoves) {
                     // check if board is in check or evil glare after move
                     std::vector<std::vector<std::shared_ptr<Piece>>> new_board = board;
                     movePiece(move.first, move.second, new_board);
-                    if (!isCheck(toggleColor(color), new_board) && !isEvilGlare(color, new_board))
+                    if (!isCheck(toggleColor(color), new_board) &&
+                        !isEvilGlare(color, new_board))
                         moves.push_back(move);
-                    undoMove(move.first, move.second, board[move.second.x][move.second.y], new_board);
+                    undoMove(move.first, move.second, board[move.second.x][move.second.y],
+                             new_board);
                 }
             }
         }
@@ -32,18 +37,21 @@ std::vector<std::pair<Point, Point> > Board::getAllValidMoves(Color color, const
     return moves;
 }
 
-/* std::vector<std::pair<Point, Point> > Board::getValidMovesForPiece(const Point& position, const std::vector<std::vector<std::shared_ptr<Piece> > >& board) {
-    if (board[position.x][position.y]) {
-        auto moves = board[position.x][position.y]->generateValidMoves(position, board);
+/* std::vector<std::pair<Point, Point> > Board::getValidMovesForPiece(const
+Point& position, const std::vector<std::vector<std::shared_ptr<Piece> > >&
+board) { if (board[position.x][position.y]) { auto moves =
+board[position.x][position.y]->generateValidMoves(position, board);
 
         // check if moves is in check or evil glare
         for (const auto& move : moves) {
             std::vector<std::vector<std::shared_ptr<Piece>>> new_board = board;
             movePiece(move.first, move.second, new_board);
-            if (isCheck(toggleColor(board[position.x][position.y]->getColor()), new_board) || isEvilGlare(board[position.x][position.y]->getColor(), new_board)) {
-                moves.erase(std::remove(moves.begin(), moves.end(), move), moves.end());
+            if (isCheck(toggleColor(board[position.x][position.y]->getColor()),
+new_board) || isEvilGlare(board[position.x][position.y]->getColor(), new_board))
+{ moves.erase(std::remove(moves.begin(), moves.end(), move), moves.end());
             }
-            undoMove(move.first, move.second, board[move.second.x][move.second.y], new_board);
+            undoMove(move.first, move.second,
+board[move.second.x][move.second.y], new_board);
         }
         return moves;
     }
@@ -51,20 +59,26 @@ std::vector<std::pair<Point, Point> > Board::getAllValidMoves(Color color, const
 }
 */
 
-bool Board::movePiece(const Point &from, const Point &to, std::vector<std::vector<std::shared_ptr<Piece> > > &board) {
-    //if (from.x < 0 || from.x >= 10 || from.y < 0 || from.y >= 9 || to.x < 0 || to.x >= 10 || to.y < 0 || to.y >= 9) {
-    //    return false;
-    //}
-    //if (board[from.x][from.y] && board[from.x][from.y]->isValidMove(from, to, board)) {
-    // Bewegung ist gültig
+bool Board::movePiece(const Point &from, const Point &to,
+                      std::vector<std::vector<std::shared_ptr<Piece>>> &board) {
+    // if (from.x < 0 || from.x >= 10 || from.y < 0 || from.y >= 9 || to.x < 0 ||
+    // to.x >= 10 || to.y < 0 || to.y >= 9) {
+    //     return false;
+    // }
+    // if (board[from.x][from.y] && board[from.x][from.y]->isValidMove(from, to,
+    // board)) {
+    //  Bewegung ist gültig
     board[to.x][to.y] = std::move(board[from.x][from.y]);
-    board[from.x][from.y] = std::make_shared<Piece>(Color::None, "");;
+    board[from.x][from.y] = std::make_shared<Piece>(Color::None, "");
+    ;
     return true;
     //}
-    //return false;
+    // return false;
 }
 
-void Board::undoMove(const Point &from, const Point &to, const std::shared_ptr<Piece> &piece, std::vector<std::vector<std::shared_ptr<Piece> > > &board) {
+void Board::undoMove(const Point &from, const Point &to,
+                     const std::shared_ptr<Piece> &piece,
+                     std::vector<std::vector<std::shared_ptr<Piece>>> &board) {
     board[from.x][from.y] = std::move(board[to.x][to.y]);
     board[to.x][to.y] = piece;
 }
@@ -78,7 +92,7 @@ void Board::setupInitialPositions() {
     }
 
     // Hier Figuren auf dem Brett platzieren
-    board[0][0] = std::make_shared<Chariot>(Color::Red,"\u8ECA" );
+    board[0][0] = std::make_shared<Chariot>(Color::Red, "\u8ECA");
     board[0][1] = std::make_shared<Horse>(Color::Red, "\u99AC");
     board[0][2] = std::make_shared<Elephant>(Color::Red, "\u76f8");
     board[0][3] = std::make_shared<Advisor>(Color::Red, "\u4ed5");
@@ -86,18 +100,18 @@ void Board::setupInitialPositions() {
     board[0][5] = std::make_shared<Advisor>(Color::Red, "\u4ed5");
     board[0][6] = std::make_shared<Elephant>(Color::Red, "\u76f8");
     board[0][7] = std::make_shared<Horse>(Color::Red, "\u99AC");
-    board[0][8] = std::make_shared<Chariot>(Color::Red,"\u8ECA");
+    board[0][8] = std::make_shared<Chariot>(Color::Red, "\u8ECA");
 
     board[2][1] = std::make_shared<Cannon>(Color::Red, "\u70ae");
     board[2][7] = std::make_shared<Cannon>(Color::Red, "\u70ae");
 
-    board[3][0] = std::make_shared<Soldier>(Color::Red,"\u5175");
-    board[3][2] = std::make_shared<Soldier>(Color::Red,"\u5175");
-    board[3][4] = std::make_shared<Soldier>(Color::Red,"\u5175");
-    board[3][6] = std::make_shared<Soldier>(Color::Red,"\u5175");
-    board[3][8] = std::make_shared<Soldier>(Color::Red,"\u5175");
+    board[3][0] = std::make_shared<Soldier>(Color::Red, "\u5175");
+    board[3][2] = std::make_shared<Soldier>(Color::Red, "\u5175");
+    board[3][4] = std::make_shared<Soldier>(Color::Red, "\u5175");
+    board[3][6] = std::make_shared<Soldier>(Color::Red, "\u5175");
+    board[3][8] = std::make_shared<Soldier>(Color::Red, "\u5175");
 
-    board[9][0] = std::make_shared<Chariot>(Color::Black,"\u8ECA");
+    board[9][0] = std::make_shared<Chariot>(Color::Black, "\u8ECA");
     board[9][1] = std::make_shared<Horse>(Color::Black, "\u99AC");
     board[9][2] = std::make_shared<Elephant>(Color::Black, "\u8c61");
     board[9][3] = std::make_shared<Advisor>(Color::Black, "\u58eb");
@@ -105,16 +119,16 @@ void Board::setupInitialPositions() {
     board[9][5] = std::make_shared<Advisor>(Color::Black, "\u58eb");
     board[9][6] = std::make_shared<Elephant>(Color::Black, "\u8c61");
     board[9][7] = std::make_shared<Horse>(Color::Black, "\u99AC");
-    board[9][8] = std::make_shared<Chariot>(Color::Black,"\u8ECA");
+    board[9][8] = std::make_shared<Chariot>(Color::Black, "\u8ECA");
 
     board[7][1] = std::make_shared<Cannon>(Color::Black, "\u7832");
     board[7][7] = std::make_shared<Cannon>(Color::Black, "\u7832");
 
-    board[6][0] = std::make_shared<Soldier>(Color::Black,	"\u5352");
-    board[6][2] = std::make_shared<Soldier>(Color::Black,	"\u5352");
-    board[6][4] = std::make_shared<Soldier>(Color::Black,	"\u5352");
-    board[6][6] = std::make_shared<Soldier>(Color::Black,	"\u5352");
-    board[6][8] = std::make_shared<Soldier>(Color::Black,	"\u5352");
+    board[6][0] = std::make_shared<Soldier>(Color::Black, "\u5352");
+    board[6][2] = std::make_shared<Soldier>(Color::Black, "\u5352");
+    board[6][4] = std::make_shared<Soldier>(Color::Black, "\u5352");
+    board[6][6] = std::make_shared<Soldier>(Color::Black, "\u5352");
+    board[6][8] = std::make_shared<Soldier>(Color::Black, "\u5352");
 }
 
 void Board::toggleColor() {
@@ -125,12 +139,15 @@ Color Board::toggleColor(const Color color) {
     return (color == Color::Red) ? Color::Black : Color::Red;
 }
 
-bool Board::isCheck(const Color color, const std::vector<std::vector<std::shared_ptr<Piece> > > &board) {
+bool Board::isCheck(
+    const Color color,
+    const std::vector<std::vector<std::shared_ptr<Piece>>> &board) {
     Point generalPosition;
     if (color == Color::Black) {
         for (int i = 0; i < 10; ++i) {
             for (int j = 0; j < 9; ++j) {
-                if (board[i][j]->getName() == "\u5e25" && board[i][j]->getColor() != color) {
+                if (board[i][j]->getName() == "\u5e25" &&
+                    board[i][j]->getColor() != color) {
                     generalPosition = {i, j};
                 }
             }
@@ -138,7 +155,8 @@ bool Board::isCheck(const Color color, const std::vector<std::vector<std::shared
     } else {
         for (int i = 0; i < 10; ++i) {
             for (int j = 0; j < 9; ++j) {
-                if (board[i][j]->getName() == "\u5c07" && board[i][j]->getColor() != color) {
+                if (board[i][j]->getName() == "\u5c07" &&
+                    board[i][j]->getColor() != color) {
                     generalPosition = {i, j};
                 }
             }
@@ -154,26 +172,27 @@ bool Board::isCheck(const Color color, const std::vector<std::vector<std::shared
         }
     }
     /*       for (int i = 0; i < 10; ++i) {
-            for (int j = 0; j < 9; ++j) {
-                if (board[i][j]->getName() == "\u5c07" && board[i][j]->getColor() != color) {
-                    generalPosition = {i, j};
-                }
-            }
-        }
-        for (int i = 0; i < 10; ++i) {
-            for (int j = 0; j < 9; ++j) {
-                if (board[i][j]->getColor() == color) {
-                    if (board[i][j]->isValidMove({i, j}, generalPosition, board)) {
-                        return true;
-                    }
-                }
-            }
-        }*/
+          for (int j = 0; j < 9; ++j) {
+              if (board[i][j]->getName() == "\u5c07" && board[i][j]->getColor()
+     != color) { generalPosition = {i, j};
+              }
+          }
+      }
+      for (int i = 0; i < 10; ++i) {
+          for (int j = 0; j < 9; ++j) {
+              if (board[i][j]->getColor() == color) {
+                  if (board[i][j]->isValidMove({i, j}, generalPosition, board))
+     { return true;
+                  }
+              }
+          }
+      }*/
     return false;
 }
 
-bool Board::isEvilGlare(Color color, const std::vector<std::vector<std::shared_ptr<Piece> > > &board)
-{
+bool Board::isEvilGlare(
+    Color color,
+    const std::vector<std::vector<std::shared_ptr<Piece>>> &board) {
     Point generalPosition;
     Point generalPosition2;
     for (int i = 0; i < 10; ++i) {
@@ -187,13 +206,10 @@ bool Board::isEvilGlare(Color color, const std::vector<std::vector<std::shared_p
         }
     }
     bool isEvil = false;
-    if (generalPosition.y == generalPosition2.y)
-    {
+    if (generalPosition.y == generalPosition2.y) {
         isEvil = true;
-        for (int i = generalPosition2.x + 1; i < generalPosition.x; i++)
-        {
-            if (!board[i][generalPosition.y]->getName().isEmpty())
-            {
+        for (int i = generalPosition2.x + 1; i < generalPosition.x; i++) {
+            if (!board[i][generalPosition.y]->getName().isEmpty()) {
                 isEvil = false;
             }
         }
@@ -201,12 +217,15 @@ bool Board::isEvilGlare(Color color, const std::vector<std::vector<std::shared_p
     return isEvil;
 }
 
-bool Board::isCheckmate(const Color color, const std::vector<std::vector<std::shared_ptr<Piece> > > &board) {
+bool Board::isCheckmate(
+    const Color color,
+    const std::vector<std::vector<std::shared_ptr<Piece>>> &board) {
     if (isCheck(color, board)) {
         for (int i = 0; i < 10; ++i) {
             for (int j = 0; j < 9; ++j) {
                 if (board[i][j]->getColor() == color) {
-                    if (auto moves = board[i][j]->generateValidMoves(Point(i, j), board); !moves.empty()) {
+                    if (auto moves = board[i][j]->generateValidMoves(Point(i, j), board);
+                        !moves.empty()) {
                         return false;
                     }
                 }

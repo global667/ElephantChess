@@ -19,6 +19,10 @@
 #include "mainwindow.h"
 #include "sources/game.h"
 
+#ifdef ENGINE
+    #include "engine.h"
+#endif
+
 #include <QDesktopServices>
 
 //#include "game.h"
@@ -75,13 +79,17 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 }
 
 void MainWindow::InitEngine() {
-    if (QFile::exists(QDir::currentPath() + "/pikafish.exe")) {
-        /*    qDebug() << "Starting built-in engine";
-                engine = new Engine();
+
+#ifdef ENGINE
+        qDebug() << "Starting built-in engine";
+                engine.reset(new Engine());
                 basemodel.mode = BaseModel::Mode::engine;
-                connect(engine, SIGNAL(updateView(Point,Point,BaseModel::Mode)),
-                        SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
-            } else { */
+                //connect(engine, SIGNAL(updateView(Point,Point,BaseModel::Mode)),
+                //        SLOT(PlayNextTwoMoves(Point,Point,BaseModel::Mode)));
+
+#else
+    if (QFile::exists(QDir::currentPath() + "/pikafish.exe")) {
+
 
         basemodel.engineData.engineName = "pikafish.exe";
         qDebug() << "Starting uci engine (" + basemodel.engineData.engineName +
@@ -124,6 +132,7 @@ void MainWindow::InitEngine() {
             delete powershell;
         }
     }
+#endif
 }
 
 void MainWindow::InitConnections() {
@@ -560,7 +569,11 @@ void MainWindow::EngineTipp(Point from, Point to) {
 }
 
 void MainWindow::GiveTipp() const {
+#ifdef ENGINE
+    engine->engineGo();
+#else
     uci->engineGo(BaseModel::Mode::tipp);;
+#endif
 }
 
 void MainWindow::About() {
@@ -591,8 +604,11 @@ void MainWindow::PlayNow() {
             basemodel.position = basemodel.moveHistory.last();
 
     }
-
+#ifdef ENGINE
+    engine->engineGo();
+#else
     uci->engineGo(basemodel.mode);
+#endif
     repaint();
 }
 

@@ -22,15 +22,15 @@
 #include <QMenu>
 #include <QMouseEvent>
 #include <QPainter>
-#include <QWidget>
 #include <QToolTip>
+#include <QWidget>
 
-//#include "contexmenu.h"
+// #include "contexmenu.h"
 
 #include "basemodel.h"
 
-// This class is the 2D-view of the board. It is a QWidget and draws the board and the pieces.
-// Handles the mouse input and the context menu.
+// This class is the 2D-view of the board. It is a QWidget and draws the board
+// and the pieces. Handles the mouse input and the context menu.
 class BoardView final : public QWidget {
     Q_OBJECT
 
@@ -38,7 +38,8 @@ public:
     explicit BoardView(QWidget *parent = nullptr);
 
 protected:
-    void PrepareEuroPiece(QPicture * picture, int i, int i1, int height, int width);
+    void PrepareEuroPiece(QPicture *picture, int i, int i1, int height,
+                          int width);
 
     void paintEvent(QPaintEvent *event) override;
 
@@ -68,16 +69,18 @@ private:
     bool secondclick = false;
     bool smoothChange = false;
     // Cutting points of the board
-    const int cutpWidth = BaseModel::BoardColPoints; //8;
-    const int cutpHeight = BaseModel::BoardRowPoints; //9;
-    //Es befindet sich auf der Seite des Brettes, die dem Spieler mit den roten Figuren gehört.
+    const int cutpWidth = BaseModel::BoardColPoints;  // 8;
+    const int cutpHeight = BaseModel::BoardRowPoints; // 9;
+    // Es befindet sich auf der Seite des Brettes, die dem Spieler mit den roten
+    // Figuren gehört.
     QString redRiver = QString::fromUtf8("\u695a\u6cb3");
     //"楚 河"; // (Chǔ hé) - Dieser Schriftzug bedeutet "Fluss von Chu".
-    //Es befindet sich auf der Seite des Brettes, die dem Spieler mit den schwarzen Figuren gehört.
+    // Es befindet sich auf der Seite des Brettes, die dem Spieler mit den
+    // schwarzen Figuren gehört.
     QString blackRiver = QString::fromUtf8("\u6f22\u754c");
     //"漢 界"; //  (Hàn jiè) - Dieser Schriftzug bedeutet "Grenze von Han".
     // Kontexmenue mit Figuren und Marker
-    //ContexMenu *contextMenu;
+    // ContexMenu *contextMenu;
 signals:
     // signal to the controller Mainwindow
     void updateView(Point from, Point to, BaseModel::Mode mode);

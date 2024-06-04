@@ -1,8 +1,8 @@
 #ifndef PIECE_H
 #define PIECE_H
 
-#include <QObject>
 #include "basetypes.h"
+#include <QObject>
 
 class Piece {
 public:
@@ -11,12 +11,17 @@ public:
     QString euroName;
     QString euroNameDesc;
     int id{};
+
 public:
     Piece(Color color, QString name);
     virtual ~Piece();
 
-    virtual bool isValidMove(const Point& from, const Point& to, const std::vector<std::vector<std::shared_ptr<Piece>>>& board);
-    virtual std::vector<std::pair<Point, Point>> generateValidMoves(const Point& position, const std::vector<std::vector<std::shared_ptr<Piece>>> &board);
+    virtual bool
+    isValidMove(const Point &from, const Point &to,
+                const std::vector<std::vector<std::shared_ptr<Piece>>> &board);
+    virtual std::vector<std::pair<Point, Point>> generateValidMoves(
+        const Point &position,
+        const std::vector<std::vector<std::shared_ptr<Piece>>> &board);
 
     [[nodiscard]] Color getColor() const;
     [[nodiscard]] QString getName() const;
@@ -26,6 +31,5 @@ public:
 
     auto operator=(const Piece &other) -> Piece;
 };
-
 
 #endif // PIECE_H

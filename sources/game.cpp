@@ -26,73 +26,75 @@ void Game::run() {
     // basemodel.currentMoves.push_back({from, to});
     do {
         /*    Point from; Point to; const BaseModel::Mode mode = basemodel.mode;
-    std::pair<Point, Point> move = std::make_pair(from, to);
+std::pair<Point, Point> move = std::make_pair(from, to);
 
-    if (from.x == -1 && from.y == -1 && to.x == -1 && to.y == -1) {
-        YouLose();
-        return;
+if (from.x == -1 && from.y == -1 && to.x == -1 && to.y == -1) {
+    YouLose();
+    return;
+}
+if (!basemodel.position.board[from.x][from.y]) {
+    qDebug() << "Error in ToMove" << from.x << " " << from.y;
+    return;
+}
+
+//TODO: Fix PlayNow bug
+
+int j=basemodel.currentMove;
+int l = basemodel.moveHistory.size();
+bool isBackMove = (j < l-1);
+if (isBackMove) {
+    table->clear();
+    basemodel.moves.clear();
+
+    for (int i = j; i < l-1 ; i++) {
+        //table->takeTopLevelItem(i);
+        basemodel.moveHistory.removeLast();
     }
-    if (!basemodel.position.board[from.x][from.y]) {
-        qDebug() << "Error in ToMove" << from.x << " " << from.y;
-        return;
-    }
-
-    //TODO: Fix PlayNow bug
-
-    int j=basemodel.currentMove;
-    int l = basemodel.moveHistory.size();
-    bool isBackMove = (j < l-1);
-    if (isBackMove) {
-        table->clear();
-        basemodel.moves.clear();
-
-        for (int i = j; i < l-1 ; i++) {
-            //table->takeTopLevelItem(i);
-            basemodel.moveHistory.removeLast();
-        }
-        //basemodel.currentMove = j;
-        basemodel.position = basemodel.moveHistory.last();
-        parent->update();
-    } */
+    //basemodel.currentMove = j;
+    basemodel.position = basemodel.moveHistory.last();
+    parent->update();
+} */
 
     //  Human moves
     if (basemodel.fromHuman.x != -1 && basemodel.fromHuman.y != -1 &&
             basemodel.toHuman.x != -1 && basemodel.toHuman.y != -1) {
 
-        mutex.lock();
+            mutex.lock();
 
-        auto move = std::make_pair(basemodel.fromHuman, basemodel.toHuman);
+            auto move = std::make_pair(basemodel.fromHuman, basemodel.toHuman);
             Board::movePiece({move.first.x, move.first.y},
-                         {move.second.x, move.second.y},
-                         basemodel.position.board);
-        basemodel.currentMoves.push_back(move);
-        AddMoveToList(move);
+                             {move.second.x, move.second.y},
+                             basemodel.position.board);
+            basemodel.currentMoves.push_back(move);
+            AddMoveToList(move);
             // AddMoveToHistory();
 
-        // if (!isBackMove)
-        basemodel.fromHuman = {-1, -1};
-        basemodel.toHuman = {-1, -1};
-        basemodel.fromUCI = {-1, -1};
-        basemodel.toUCI = {-1, -1};
-        // isMouseClicked = false;
+            // if (!isBackMove)
+            basemodel.fromHuman = {-1, -1};
+            basemodel.toHuman = {-1, -1};
+            basemodel.fromUCI = {-1, -1};
+            basemodel.toUCI = {-1, -1};
+            // isMouseClicked = false;
 
-        switch (basemodel.mode) {
-        case BaseModel::Mode::human:
-            basemodel.mode = BaseModel::Mode::uci;
-            parent->uci->engineGo(basemodel.mode);
-            break;
-        case BaseModel::Mode::movenow:
-            basemodel.mode = BaseModel::Mode::uci;
-            break;
-        case BaseModel::Mode::uci:
-            parent->uci->engineGo(basemodel.mode);
-            break;
-        default:
-            break;
-        }
+            switch (basemodel.mode) {
+            case BaseModel::Mode::human:
+                basemodel.mode = BaseModel::Mode::uci;
+                parent->uci->engineGo(basemodel.mode);
+                break;
+            case BaseModel::Mode::movenow:
+                basemodel.mode = BaseModel::Mode::uci;
+                break;
+            case BaseModel::Mode::uci:
+                parent->uci->engineGo(basemodel.mode);
+                break;
+            case BaseModel::Mode::engine:
+                break;
+            default:
+                break;
+            }
 
-        parent->update();
-        mutex.unlock();
+            parent->update();
+            mutex.unlock();
     }
 
     // Engine moves
@@ -170,9 +172,9 @@ void Game::AddMoveToList(const std::pair<Point, Point> move) {
     if (move.first.x == -1 || basemodel.moveHistory.isEmpty())
         return;
 
-    int size = basemodel.moves.size()-1;
+    int size = basemodel.moves.size() - 1;
 
-    if ( basemodel.currentMove < basemodel.moves.size()) {
+    if (basemodel.currentMove < basemodel.moves.size()) {
         for (int i = size; i >= basemodel.currentMove; i--) {
             table->takeTopLevelItem(i);
             basemodel.moves.removeLast();
@@ -181,7 +183,6 @@ void Game::AddMoveToList(const std::pair<Point, Point> move) {
         }
         if (basemodel.moveHistory.isEmpty())
             basemodel.position = basemodel.moveHistory.last();
-
     }
 
     const QString name =
@@ -208,15 +209,13 @@ void Game::AddMoveToList(const std::pair<Point, Point> move) {
                ? QString("")
                : QString("+"));
 
-
-
-/*    for (int i = 0; i < basemodel.currentMove; i++)
-    {
-        auto *it = new QTreeWidgetItem(table);
-        it->setText(i,basemodel.moves[i]);
-        table->addTopLevelItem(it);
-    }
-*/
+    /*    for (int i = 0; i < basemodel.currentMove; i++)
+      {
+          auto *it = new QTreeWidgetItem(table);
+          it->setText(i,basemodel.moves[i]);
+          table->addTopLevelItem(it);
+      }
+  */
     auto *item = new QTreeWidgetItem(table);
     item->setText(0, QString::number(basemodel.currentMove + 1) + ". " +
                          mv.join(" "));
@@ -226,20 +225,19 @@ void Game::AddMoveToList(const std::pair<Point, Point> move) {
 
     basemodel.position.toggleColor();
 
-
     // auto *item = new QTreeWidgetItem(table);
     // const int ply = (basemodel.moves.size() - 1) % 2;
     // item->setText(0, QString::number(basemodel.currentMove) + ". " + mv.join("
     // "));
 
     /* if (isTableClicked) {
-     if (0 == ply) {
-         table->addTopLevelItem(item);
-     } else {
-         table->setCurrentItem(item);
-         //table->addTopLevelItem(item); // Insert the item at the top
-     }
- } else { */
+   if (0 == ply) {
+       table->addTopLevelItem(item);
+   } else {
+       table->setCurrentItem(item);
+       //table->addTopLevelItem(item); // Insert the item at the top
+   }
+} else { */
     // table->addTopLevelItem(item);
     // }
 }

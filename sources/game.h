@@ -15,13 +15,15 @@ struct Point;
 class Game final : public QThread {
 
     Q_OBJECT;
+
 public:
-    explicit Game(QTreeWidget *table,  MainWindow *parent = nullptr);
+    explicit Game(QTreeWidget *table, MainWindow *parent = nullptr);
 
     void run() override;
     void AddMoveToHistory();
-       void AddMoveToList(std::pair<Point, Point> move);
+    void AddMoveToList(std::pair<Point, Point> move);
     void ResetToHistory();
+
 private:
     bool isMouseClicked = false;
 
@@ -31,16 +33,10 @@ private:
 
     void YouWin();
 
-
-
-
-
     QTreeWidget *table;
     MainWindow *parent;
 
     QTimer *timer{}, *timer2{};
 };
 
-
-
-#endif //GAME_H
+#endif // GAME_H

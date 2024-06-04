@@ -22,16 +22,13 @@
 
 extern BaseModel basemodel;
 
-UCI::UCI()
-    : waitForReadyOK(true)
-      , newGame(true) {
+UCI::UCI() : waitForReadyOK(true), newGame(true) {
     connect(&engine, SIGNAL(readyRead()), SLOT(readData()));
-    connect(&engine,
-            SIGNAL(errorOccurred(QProcess::ProcessError)),
+    connect(&engine, SIGNAL(errorOccurred(QProcess::ProcessError)),
             SLOT(anError(QProcess::ProcessError)));
 
     QStringList list = basemodel.engineData.engineName.split('/');
-    //QString path = list.mid(0, list.size() - 1).join('/');
+    // QString path = list.mid(0, list.size() - 1).join('/');
     const QString engineName = list.last();
 
     basemodel.engineData.engineName = engineName;
@@ -40,7 +37,8 @@ UCI::UCI()
     qDebug() << QDir::currentPath() + "/" + engineName;
     engine.setProgram(QDir::currentPath() + "/" + engineName);
     //"F:/source/XiangQi/Pikafish/pikafish.exe");//"pikafish.exe");//
-    engine.setWorkingDirectory(QDir::currentPath()); //"F:/source/XiangQi/Pikafish/");
+    engine.setWorkingDirectory(
+        QDir::currentPath()); //"F:/source/XiangQi/Pikafish/");
     qDebug() << "Starting uci engine:" << basemodel.engineData.engineName;
     engine.setReadChannel(QProcess::StandardOutput);
 
@@ -61,33 +59,35 @@ void UCI::readData() {
     while (engine.canReadLine()) {
         data = engine.readAll();
         qDebug() << "Data read: " << data;
-        for (const auto &c: data.split('\n')) {
+        for (const auto &c : data.split('\n')) {
             /*if (c.contains("readyok") && waitForReadyOK) {
-                if (newGame) {
-                    // Start a new game
-                    writeDatas("ucinewgame");
-                    writeDatas("position startpos");
-                    newGame = false;
-                } else {
-                    // Stop the engine
-                    //writeDatas("stop");
-                    waitForReadyOK = false;
-                }
-            } */
+          if (newGame) {
+              // Start a new game
+              writeDatas("ucinewgame");
+              writeDatas("position startpos");
+              newGame = false;
+          } else {
+              // Stop the engine
+              //writeDatas("stop");
+              waitForReadyOK = false;
+          }
+      } */
             // add name of engine to basemodel
             if (c.contains("id name")) {
-                basemodel.engineData.engineName = c.split(' ').at(2) + " " + c.split(' ').at(3);
+                basemodel.engineData.engineName =
+                    c.split(' ').at(2) + " " + c.split(' ').at(3);
                 qDebug() << "Engine name: " << basemodel.engineData.engineName;
             } else if (c.contains("uciok")) {
                 // The engine is ready
-                //writeDatas("isready");
-                //waitForReadyOK = true;
+                // writeDatas("isready");
+                // waitForReadyOK = true;
 
                 writeDatas("ucinewgame");
                 writeDatas("position startpos");
             } else if (c.contains("bestmove")) {
                 // Received a move from the engine
-                QByteArray mv = c.split(' ').at(1);;
+                QByteArray mv = c.split(' ').at(1);
+                ;
                 auto fx = (mv.at(0) - 'a');
                 auto fy = (mv.at(1) - '0');
                 auto tx = (mv.at(2) - 'a');
@@ -117,7 +117,7 @@ void UCI::readData() {
             } else {
                 // Handle other cases (if necessary)
                 qDebug() << "readData: " << c;
-                //Q_ASSERT(1);
+                // Q_ASSERT(1);
             }
         }
     }
