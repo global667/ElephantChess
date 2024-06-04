@@ -1,5 +1,4 @@
 <div align="center"> 
-
  
 <img src="sources/res/generalRed.png" width="50" height="50" alt="">
 <br>
@@ -12,13 +11,7 @@
 
 ![](https://img.shields.io/badge/BETA%20VERSION!-8A2BE2)
 
-<!-- {% endcomment %} -->
-
-
 ##### Use with caution, as the software is still in development.
-
-
-<!-- {% comment %} -->  
 
 .::
 [![Build ElephantChess](https://github.com/global667/ElephantChess/actions/workflows/build.yml/badge.svg)](https://github.com/global667/ElephantChess/actions/workflows/build.yml)
