@@ -1,7 +1,7 @@
 <div align="center"> 
 <!-- {% comment %} -->
   
-### Elephant Chess 
+### Elephant Chess - The Chinese Chess Interface
 
 ![](https://img.shields.io/badge/BETA%20VERSION!-8A2BE2)
 
