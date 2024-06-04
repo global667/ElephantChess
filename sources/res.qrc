@@ -22,5 +22,6 @@
         <file>res/Soldier_b_z.png</file>
         <file>res/Soldier_r_z.png</file>
         <file>res/toggle-lang.jpg</file>
+        <file>res/icon.ico</file>
     </qresource>
 </RCC>

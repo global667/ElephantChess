@@ -49,25 +49,28 @@
 #include <QTreeWidget>
 #include <QVBoxLayout>
 #include <QWidget>
-//#include <QtQuick/QQuickView>
-//#include <QtQuick3D/qquick3d.h>
-//#include <QQmlApplicationEngine>
-#include <QtConcurrent>
-#include <QFuture>
-#include <QtConcurrent/QtConcurrent>
+// #include <QtQuick/QQuickView>
+// #include <QtQuick3D/qquick3d.h>
+// #include <QQmlApplicationEngine>
 #include <QCoreApplication>
+#include <QDir>
+#include <QFile>
+#include <QFuture>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
-#include <QFile>
-#include <QDir>
+#include <QtConcurrent/QtConcurrent>
+#include <QtConcurrent>
 
 #include "aboutview.h"
 #include "basemodel.h"
 #include "boardview.h"
 #include "engine.h"
-//#include "renderview.h"
-//#include "settingsview.h"
+// #include "renderview.h"
+// #include "settingsview.h"
+
 #include "uci.h"
+
+class Game;
 
 class MainWindow final : public QMainWindow {
     Q_OBJECT
@@ -76,9 +79,6 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
 
     ~MainWindow() override = default;
-
-
-
 
     void InitWidgets();
 
@@ -93,53 +93,58 @@ public:
     void ReadPGNData(QString data) const;
 
     QScopedPointer<UCI> uci;
+#ifdef ENGINE
     QScopedPointer<Engine> engine;
+#endif
 private:
     BoardView *boardview = nullptr;
-    //QQuickView *viewQml = nullptr;
+    // QQuickView *viewQml = nullptr;
     QWidget *view = nullptr;
-    //Qt3DExtras::Qt3DWindow *renderView = nullptr;
+    // Qt3DExtras::Qt3DWindow *renderView = nullptr;
     QTabWidget *tabview = nullptr;
     QWidget *tabwidget1 = nullptr;
     QWidget *tabwidget2 = nullptr;
     QWidget *menu = nullptr;
-    //QTableView *table;
+    // QTableView *table;
     QTreeWidget *table = nullptr;
     QToolBar *toolbar = nullptr;
-    QAction *openbutton = nullptr, *savebutton = nullptr, *settingsbutton = nullptr, *enginestartsbutton = nullptr, *
-                    exitbutton = nullptr,
-            *newgamebutton = nullptr;
+    QAction *openbutton = nullptr, *savebutton = nullptr,
+                                       *settingsbutton = nullptr, *enginestartsbutton = nullptr,
+                                           *exitbutton = nullptr, *newgamebutton = nullptr;
     QMenuBar *menubar = nullptr;
     QMenu *menu1 = nullptr;
     QDockWidget *dockWidget = nullptr;
-    //QStandardItemModel *model = nullptr;
+    // QStandardItemModel *model = nullptr;
     QHeaderView *headerview = nullptr;
     QWidget *navigationwidget = nullptr;
     QWidget *navigationview = nullptr;
-    QPushButton *lleft = nullptr, *left = nullptr, *right = nullptr, *rright = nullptr;
+    QPushButton *lleft = nullptr, *left = nullptr, *right = nullptr,
+                                                       *rright = nullptr;
     QWidget *gameinfoswidget = nullptr;
     QVBoxLayout *gameinfosh = nullptr;
     QHBoxLayout *opponents = nullptr;
-    QLineEdit *opp1 = nullptr, *opp2 = nullptr, *loca = nullptr, *round = nullptr, *date = nullptr;
+    QLineEdit *opp1 = nullptr, *opp2 = nullptr, *loca = nullptr, *round = nullptr,
+                                                                     *date = nullptr;
     QHBoxLayout *location = nullptr;
-    //SettingsView *settings = nullptr;
+    // SettingsView *settings = nullptr;
     AboutView *about = nullptr;
     QPushButton button;
     QTextEdit *loggingTextView = nullptr;
     QLineEdit *nps = nullptr, *eval = nullptr;
     QHBoxLayout *tab1layout = nullptr, *navibuttonslayout = nullptr;
     QVBoxLayout *tabwidget2layout = nullptr, *naviwidlayout = nullptr;
-    //int row = 0,
-    int column = 0;
+    // int row = 0,
+    // int column = 0;
     int isTableClicked = 0;
     bool tipp = false;
+    Game *game;
 
 public slots:
     void Open();
 
     void Save();
 
-    void OpenSettings();
+    // void OpenSettings();
 
     void Newgame();
 
@@ -159,15 +164,16 @@ public slots:
 
     void NodesPerSecond() const;
 
-
     void PaintFromThreadSlot();
 
     void UpdateFromThreadSlot() const;
 
     void togglePiecesView();
 
+    void ResetToHistory();
+
 private slots:
-    void OnDownloaded(const QString &filename = {});
+    // void OnDownloaded(const QString &filename = {});
 
     void Debug() const;
 

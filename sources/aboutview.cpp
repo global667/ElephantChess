@@ -8,12 +8,10 @@
 #include <QTextStream>
 #include <QVBoxLayout>
 
-AboutView::AboutView(QWidget *parent)
-    : QTabWidget{parent}
-{
+AboutView::AboutView(QWidget *parent) : QTabWidget{parent} {
     setGeometry(100, 100, 400, 400);
 
-    //tabview = new QTabWidget;
+    // tabview = new QTabWidget;
     tabwidget1 = new QWidget();
     auto *tab1layout = new QVBoxLayout();
 
@@ -52,9 +50,8 @@ AboutView::AboutView(QWidget *parent)
     auto *tab3layout = new QVBoxLayout();
 
     auto *qtButton = new QPushButton("About Qt");
-    QObject::connect(qtButton, &QPushButton::pressed, [=]() {
-        QMessageBox::aboutQt(nullptr, "Information");
-    });
+    QObject::connect(qtButton, &QPushButton::pressed,
+                     [=]() { QMessageBox::aboutQt(nullptr, "Information"); });
 
     tab3layout->addWidget(qtButton);
     tabwidget3->setLayout(tab3layout);

@@ -22,33 +22,22 @@
 #include <QDebug>
 #include <QObject>
 
-#include "cchess_rules.h"
-
-enum class markerType { Kreuz, Kreis, Dreieck, Linie, Linienende, Viereck };
-
-static constexpr int ROWS = 10;
-static constexpr int COLS = 9;
-
-enum class completePieceType {
-    GeneralRot, AdvisorRot, ElephantRot,
-    HorseRot, ChariotRot, CannonRot,
-    SoldierRot, GeneralSchwarz, AdvisorSchwarz,
-    ElephantSchwarz, HorseSchwarz, ChariotSchwarz,
-    CannonSchwarz, SoldierSchwarz
-};
+#include "basetypes.h"
+#include "board.h"
 
 // TODO: delete doublettes i.e. engineName and engineData.engineName
 struct BaseModel //: public QObject
 {
-    //Q_OBJECT
+    // Q_OBJECT
 public:
-    BaseModel() //QObject *parent = nullptr)
+    BaseModel() // QObject *parent = nullptr)
         : nodes(0), engineData({0, 0, 0, "", ""}) {
-        //engineName
-        //        = "ElephantChessEngine";
+        // engineName
+        //         = "ElephantChessEngine";
+
         position.setupInitialPositions();
         moveHistory.append(position);
-        //currentMove++;
+        // currentMove++;
     }
 
     static constexpr short BoardRows = ROWS;
@@ -56,7 +45,7 @@ public:
     static constexpr short BoardRowPoints = BoardRows - 1;
     static constexpr short BoardColPoints = BoardCols - 1;
 
-    //Position position;
+    // Position position;
     Board position;
 
     enum class viewStyleMode { traditional_native, traditional_png, western_png };
@@ -66,15 +55,15 @@ public:
 
     int currentMove = 0;
     QStringList moves;
-    //QString engineName = "built-in";
+    // QString engineName = "built-in";
     QList<Board> moveHistory{};
 
-    //QString kind = "human";
-    enum class Mode { human, engine, uci };
+    // QString kind = "human";
+    enum class Mode { human, engine, uci, tipp, movenow };
 
     Mode mode = Mode::human;
 
-    QList<QPair<Point, Point> > currentMoves;
+    QList<QPair<Point, Point>> currentMoves;
     Point fromHuman = {-1, -1};
     Point toHuman = {-1, -1};
     Point fromUCI = {-1, -1};
@@ -84,7 +73,8 @@ public:
     // die genannte ist unten
     Color gameView = Color::Red;
 
-    static QByteArray posToken(const int fromX, const int fromY, const int toX, const int toY) {
+    static QByteArray posToken(const int fromX, const int fromY, const int toX,
+                               const int toY) {
         char c[4];
         c[0] = static_cast<char>(fromY + 'a');
         c[1] = static_cast<char>(fromX + '0');

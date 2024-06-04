@@ -8,9 +8,12 @@
 #include <QStringList>
 #include <QTreeWidgetItem>
 
+#include "basemodel.h"
+#include "engine.h"
 #include "game.h"
+#include "uci.h"
 
-#include <QMainWindow>
+#include "mainwindow.h"
 
 extern BaseModel basemodel;
 
@@ -23,62 +26,83 @@ void Game::run() {
     // basemodel.currentMoves.push_back({from, to});
     do {
         /*    Point from; Point to; const BaseModel::Mode mode = basemodel.mode;
-        std::pair<Point, Point> move = std::make_pair(from, to);
+std::pair<Point, Point> move = std::make_pair(from, to);
 
-        if (from.x == -1 && from.y == -1 && to.x == -1 && to.y == -1) {
-            YouLose();
-            return;
-        }
-        if (!basemodel.position.board[from.x][from.y]) {
-            qDebug() << "Error in ToMove" << from.x << " " << from.y;
-            return;
-        }
+if (from.x == -1 && from.y == -1 && to.x == -1 && to.y == -1) {
+    YouLose();
+    return;
+}
+if (!basemodel.position.board[from.x][from.y]) {
+    qDebug() << "Error in ToMove" << from.x << " " << from.y;
+    return;
+}
 
-        //TODO: Fix PlayNow bug
+//TODO: Fix PlayNow bug
 
-        int j=basemodel.currentMove;
-        int l = basemodel.moveHistory.size();
-        bool isBackMove = (j < l-1);
-        if (isBackMove) {
-            table->clear();
-            basemodel.moves.clear();
+int j=basemodel.currentMove;
+int l = basemodel.moveHistory.size();
+bool isBackMove = (j < l-1);
+if (isBackMove) {
+    table->clear();
+    basemodel.moves.clear();
 
-            for (int i = j; i < l-1 ; i++) {
-                //table->takeTopLevelItem(i);
-                basemodel.moveHistory.removeLast();
-            }
-            //basemodel.currentMove = j;
-            basemodel.position = basemodel.moveHistory.last();
-            parent->update();
-        } */
+    for (int i = j; i < l-1 ; i++) {
+        //table->takeTopLevelItem(i);
+        basemodel.moveHistory.removeLast();
+    }
+    //basemodel.currentMove = j;
+    basemodel.position = basemodel.moveHistory.last();
+    parent->update();
+} */
 
-    if (basemodel.position.players_color == Color::Red &&
-            basemodel.fromHuman.x != -1 && basemodel.fromHuman.y != -1 &&
+    //  Human moves
+    if (basemodel.fromHuman.x != -1 && basemodel.fromHuman.y != -1 &&
             basemodel.toHuman.x != -1 && basemodel.toHuman.y != -1) {
+
             mutex.lock();
-        auto move = std::make_pair(basemodel.fromHuman, basemodel.toHuman);
+
+            auto move = std::make_pair(basemodel.fromHuman, basemodel.toHuman);
             Board::movePiece({move.first.x, move.first.y},
-                         {move.second.x, move.second.y},
-                         basemodel.position.board);
-        AddMoveToList(move);
+                             {move.second.x, move.second.y},
+                             basemodel.position.board);
+            basemodel.currentMoves.push_back(move);
+            AddMoveToList(move);
             // AddMoveToHistory();
 
-        // if (!isBackMove)
-        basemodel.fromHuman = {-1, -1};
-        basemodel.toHuman = {-1, -1};
-        // isMouseClicked = false;
-        basemodel.position.toggleColor();
-        // parent->repaint();
-        parent->uci->engineGo(false);
-        parent->update();
-        mutex.unlock();
+            // if (!isBackMove)
+            basemodel.fromHuman = {-1, -1};
+            basemodel.toHuman = {-1, -1};
+            basemodel.fromUCI = {-1, -1};
+            basemodel.toUCI = {-1, -1};
+            // isMouseClicked = false;
+
+            switch (basemodel.mode) {
+            case BaseModel::Mode::human:
+                basemodel.mode = BaseModel::Mode::uci;
+                parent->uci->engineGo(basemodel.mode);
+                break;
+            case BaseModel::Mode::movenow:
+                basemodel.mode = BaseModel::Mode::uci;
+                break;
+            case BaseModel::Mode::uci:
+                parent->uci->engineGo(basemodel.mode);
+                break;
+            case BaseModel::Mode::engine:
+                break;
+            default:
+                break;
+            }
+
+            parent->update();
+            mutex.unlock();
     }
 
-    if (basemodel.position.players_color == Color::Black &&
-        basemodel.fromUCI.x != -1 && basemodel.fromUCI.y != -1 &&
+    // Engine moves
+    if (basemodel.fromUCI.x != -1 && basemodel.fromUCI.y != -1 &&
         basemodel.toUCI.x != -1 && basemodel.toUCI.y != -1) {
-        //mutex.lock();
+        // mutex.lock();
         auto move = std::make_pair(basemodel.fromUCI, basemodel.toUCI);
+        basemodel.currentMoves.push_back(move);
         Board::movePiece({move.first.x, move.first.y},
                          {move.second.x, move.second.y},
                          basemodel.position.board);
@@ -86,16 +110,18 @@ void Game::run() {
         // AddMoveToHistory();
 
         // if (!isBackMove)
+        basemodel.fromHuman = {-1, -1};
+        basemodel.toHuman = {-1, -1};
         basemodel.fromUCI = {-1, -1};
         basemodel.toUCI = {-1, -1};
         // isMouseClicked = false;
-        basemodel.position.toggleColor();
+        basemodel.mode = BaseModel::Mode::human;
         parent->update();
-        //mutex.unlock();
+        // mutex.unlock();
     }
 
     /*     if (mode == BaseModel::Mode::engine) {
-             /*   timer = new QTimer(this);
+               timer = new QTimer(this);
                 timer2 = new QTimer(this);
                 connect(timer, &QTimer::timeout, engine.get(),
        &Engine::nodesPerSecond); connect(timer2, &QTimer::timeout, this,
@@ -145,57 +171,76 @@ void Game::AddMoveToHistory() {
 void Game::AddMoveToList(const std::pair<Point, Point> move) {
     if (move.first.x == -1 || basemodel.moveHistory.isEmpty())
         return;
-      const QString name =
-            basemodel.moveHistory.last().board[move.first.x][move.first.y]->getName();
-    const QString beaten =
-    basemodel.moveHistory.last().board[move.second.x][move.second.y]->getName().isEmpty()
+
+    int size = basemodel.moves.size() - 1;
+
+    if (basemodel.currentMove < basemodel.moves.size()) {
+        for (int i = size; i >= basemodel.currentMove; i--) {
+            table->takeTopLevelItem(i);
+            basemodel.moves.removeLast();
+            basemodel.moveHistory.removeLast();
+            basemodel.currentMoves.removeLast();
+        }
+        if (basemodel.moveHistory.isEmpty())
+            basemodel.position = basemodel.moveHistory.last();
+    }
+
+    const QString name =
+        basemodel.moveHistory.last().board[move.first.x][move.first.y]->getName();
+    const QString beaten = basemodel.moveHistory.last()
+                                   .board[move.second.x][move.second.y]
+                                   ->getName()
+                                   .isEmpty()
                                ? "-"
-                               : "x"; // If there is no piece on the target field, then it is not a beaten move
+                               : "x"; // If there is no piece on the target field,
+        // then it is not a beaten move
 
     const QByteArray moveAsString = BaseModel::posToken(
         move.first.x, move.first.y, move.second.x, move.second.y);
     basemodel.moves.append(moveAsString);
 
-      QStringList mv;
+    QStringList mv;
     mv << name << QString(basemodel.moves.last().at(0))
-            << QString(basemodel.moves.last().at(1)) << beaten
-            << QString(basemodel.moves.last().at(2))
-            << QString(basemodel.moves.last().at(3))
-            << (!Board::isCheck(basemodel.position.players_color,
-    basemodel.position.board) ? QString("") : QString("+"));
+       << QString(basemodel.moves.last().at(1)) << beaten
+       << QString(basemodel.moves.last().at(2))
+       << QString(basemodel.moves.last().at(3))
+       << (!Board::isCheck(basemodel.position.players_color,
+                           basemodel.position.board)
+               ? QString("")
+               : QString("+"));
 
+    /*    for (int i = 0; i < basemodel.currentMove; i++)
+      {
+          auto *it = new QTreeWidgetItem(table);
+          it->setText(i,basemodel.moves[i]);
+          table->addTopLevelItem(it);
+      }
+  */
     auto *item = new QTreeWidgetItem(table);
-    item->setText(0, QString::number(basemodel.currentMove+1) + ". " + mv.join(" "));
+    item->setText(0, QString::number(basemodel.currentMove + 1) + ". " +
+                         mv.join(" "));
     table->addTopLevelItem(item);
 
     AddMoveToHistory();
+
+    basemodel.position.toggleColor();
+
     // auto *item = new QTreeWidgetItem(table);
     // const int ply = (basemodel.moves.size() - 1) % 2;
     // item->setText(0, QString::number(basemodel.currentMove) + ". " + mv.join("
     // "));
 
     /* if (isTableClicked) {
-       if (0 == ply) {
-           table->addTopLevelItem(item);
-       } else {
-           table->setCurrentItem(item);
-           //table->addTopLevelItem(item); // Insert the item at the top
-       }
-   } else { */
+   if (0 == ply) {
+       table->addTopLevelItem(item);
+   } else {
+       table->setCurrentItem(item);
+       //table->addTopLevelItem(item); // Insert the item at the top
+   }
+} else { */
     // table->addTopLevelItem(item);
     // }
 }
-void Game::ResetToHistory() {
-
-    basemodel.position = basemodel.moveHistory[basemodel.currentMove];
-    basemodel.fromHuman = {-1, -1};
-    basemodel.toHuman = {-1, -1};
-    basemodel.fromUCI = {-1, -1};
-    basemodel.toUCI = {-1, -1};
-
-    parent->repaint();
-}
-
 // You win message
 void Game::YouWin() {
     QMessageBox msgBox;

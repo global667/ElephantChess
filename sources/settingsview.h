@@ -29,12 +29,12 @@
 
 #include "basemodel.h"
 
-class SettingsView : public QFrame
-{
+class SettingsView : public QFrame {
     Q_OBJECT
 public:
     explicit SettingsView(QWidget *parent = nullptr);
     ~SettingsView();
+
 private:
     QComboBox *enginesComboBox;
     QPushButton *engineButton;
@@ -48,7 +48,7 @@ private:
     QPushButton *saveButton;
     void save();
 public slots:
-    //void comboBoxSetEngineName();
+              // void comboBoxSetEngineName();
 
 signals:
     void boardStyleChanged();

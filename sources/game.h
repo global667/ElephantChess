@@ -5,35 +5,33 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <QMutex>
 #include <QThread>
 #include <QTreeWidget>
 
-#include "basemodel.h"
-#include "mainwindow.h"
-#include "engine.h"
-#include "uci.h"
+class MainWindow;
+struct Point;
 
 class Game final : public QThread {
 
     Q_OBJECT;
+
 public:
-    explicit Game(QTreeWidget *table,  MainWindow *parent = nullptr);
+    explicit Game(QTreeWidget *table, MainWindow *parent = nullptr);
 
     void run() override;
+    void AddMoveToHistory();
+    void AddMoveToList(std::pair<Point, Point> move);
+    void ResetToHistory();
 
 private:
     bool isMouseClicked = false;
+
     QMutex mutex;
 
     void YouLose();
 
     void YouWin();
-
-    void AddMoveToList(std::pair<Point, Point> move);
-
-    void AddMoveToHistory();
-
-    void ResetToHistory();
 
     QTreeWidget *table;
     MainWindow *parent;
@@ -41,6 +39,4 @@ private:
     QTimer *timer{}, *timer2{};
 };
 
-
-
-#endif //GAME_H
+#endif // GAME_H

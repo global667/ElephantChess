@@ -8,7 +8,9 @@ execute_process(
     OUTPUT_VARIABLE GIT_COMMIT_HASH
     OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-project(ElephantChess VERSION 0.4.7 DESCRIPTION "${COMMIT_ID}" LANGUAGES CXX HOMEPAGE_URL "https/www.elephant-chess.com")
+#set(CMAKE_CXX_COMPILER "cl.exe")
+
+project(ElephantChess VERSION 0.5.0 DESCRIPTION "${COMMIT_ID}" LANGUAGES CXX HOMEPAGE_URL "https/www.elephant-chess.com")
 
 set(PROJECT_DESC "-alpha (commit ${GIT_COMMIT_HASH})")
 
@@ -28,7 +30,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 enable_language(C)
 enable_language(CXX)
 
-find_package(Qt6 REQUIRED COMPONENTS
+find_package(Qt6 6.7.0 REQUIRED COMPONENTS
     Core
     #Core5Compat
     Widgets    
@@ -45,7 +47,7 @@ find_package(Qt6 REQUIRED COMPONENTS
     #Quick3D
     #Test
     #LinguistTools
-   # HINTS "C:/Qt/6.7.0/msvc2019_64"
+    HINTS "C:/Qt/6.7.0/msvc2019_64"
 )
 
 #find_package(ZLIB REQUIRED
@@ -82,8 +84,10 @@ set(PROJECT_CPP
         sources/settingsview.h sources/settingsview.cpp
         sources/contexmenu.h sources/contexmenu.cpp
         sources/aboutview.h sources/aboutview.cpp
-        sources/cchess_rules.h sources/cchess_rules.cpp
-        sources/game.cpp sources/game.h
+        sources/pieces.h sources/pieces.cpp
+        sources/game.cpp sources/game.h sources/board.h sources/board.cpp
+        sources/basetypes.h
+        sources/pieces_interface.h sources/pieces_interface.cpp
 )
 
 add_executable(ElephantChess WIN32 ${PROJECT_CPP} ${RESOURCES}
@@ -113,7 +117,11 @@ set_target_properties(ElephantChess PROPERTIES
     MACOSX_BUNDLE ON
 )
 
-#qt_finalize_executable(ElephantChess)
+#add_definitions( -DTHREE_D_VIEW )
+#add_definitions( -DDEBUG )
+#add_definitions( -DENGINE )
+
+qt_finalize_executable(ElephantChess)
 
 #enable_testing(true)
 #add_subdirectory(tests)
